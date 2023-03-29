@@ -33,7 +33,7 @@ struct BibliographicGuideApp: App {
                             Image(systemName: "list.bullet.clipboard")
                             Text("Report")
                     }
-                    ContentView()
+                    SettingsView()
                         .tabItem {
                             Image(systemName: "gear")
                             Text("Settings")
