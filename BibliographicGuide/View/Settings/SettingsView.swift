@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct SettingsView: View {
+    
+    @ObservedObject var settingsViewModel = SettingsViewModel()
+    
     var body: some View {
 
         VStack(alignment: .center, spacing: 10) {
@@ -17,7 +20,7 @@ struct SettingsView: View {
                     .scaledToFit()
                     .frame(width: 200, height: 100, alignment: .center)
                     .shadow(color: Color("ColorBlackTransparentLight"), radius: 8, x: 0, y: 4)
-                Text("No")
+                Text(settingsViewModel.test1)
                     .font(.system(.title, design: .rounded))
                     .fontWeight(.bold)
             }
