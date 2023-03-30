@@ -9,7 +9,20 @@ import SwiftUI
 
 struct SettingsView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+
+        VStack(alignment: .center, spacing: 10) {
+            VStack(alignment: .center, spacing: 5) {
+                Image("logo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200, height: 100, alignment: .center)
+                    .shadow(color: Color("ColorBlackTransparentLight"), radius: 8, x: 0, y: 4)
+                Text("No")
+                    .font(.system(.title, design: .rounded))
+                    .fontWeight(.bold)
+            }
+            .padding()
+        }
     }
 }
 
