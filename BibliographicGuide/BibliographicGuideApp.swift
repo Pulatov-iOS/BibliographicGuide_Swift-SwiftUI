@@ -6,9 +6,23 @@
 //
 
 import SwiftUI
+import FirebaseCore
+
+// Подключение БД
+class AppDelegate: NSObject, UIApplicationDelegate {
+  func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    FirebaseApp.configure()
+    return true
+  }
+}
 
 @main
 struct BibliographicGuideApp: App {
+    
+    // Регистрация делегата приложения для настройки Firebase
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+
     var body: some Scene {
         WindowGroup {
             VStack{
