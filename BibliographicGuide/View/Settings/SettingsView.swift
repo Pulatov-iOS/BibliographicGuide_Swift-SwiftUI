@@ -20,9 +20,16 @@ struct SettingsView: View {
                     .scaledToFit()
                     .frame(width: 200, height: 100, alignment: .center)
                     .shadow(color: Color("ColorBlackTransparentLight"), radius: 8, x: 0, y: 4)
-                Text(settingsViewModel.userRights.nickname)
+                Text("1")
                     .font(.system(.title, design: .rounded))
                     .fontWeight(.bold)
+                Button{
+                    settingsViewModel.createUser()
+                } label:{
+                    Image(systemName: "square.and.arrow.down.on.square")
+                        .foregroundColor(.black)
+                        .padding(2)
+                }
             }
             .padding()
         }
