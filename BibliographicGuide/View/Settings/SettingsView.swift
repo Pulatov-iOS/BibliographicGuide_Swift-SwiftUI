@@ -20,7 +20,7 @@ struct SettingsView: View {
                     .scaledToFit()
                     .frame(width: 200, height: 100, alignment: .center)
                     .shadow(color: Color("ColorBlackTransparentLight"), radius: 8, x: 0, y: 4)
-                Text(settingsViewModel.test1)
+                Text(settingsViewModel.userRights.nickname)
                     .font(.system(.title, design: .rounded))
                     .fontWeight(.bold)
             }

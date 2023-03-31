@@ -9,10 +9,12 @@ import Foundation
 
 class SettingsViewModel: ObservableObject {
     
-    @Published var test1: Int
+
+    @Published var userRights = UsersRights()
     
     init(){
-        test1 = 1
+        userRights.id = "1"
+        userRights.nickname = "ddd"
     }
     
 }
