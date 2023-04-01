@@ -27,7 +27,7 @@ struct BibliographicGuideApp: App {
         WindowGroup {
             VStack{
                 TabView {
-                    ContentView()
+                    HomeView(recordListViewModel: RecordListViewModel())
                         .tabItem {
                             Image(systemName: "house")
                             Text("Home")

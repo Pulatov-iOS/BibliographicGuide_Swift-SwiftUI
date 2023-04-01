@@ -17,8 +17,11 @@
 		1132A04029D3219E0007B181 /* BibliographicGuideUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A03F29D3219E0007B181 /* BibliographicGuideUITestsLaunchTests.swift */; };
 		1132A04F29D445DB0007B181 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A04E29D445DB0007B181 /* SettingsView.swift */; };
 		1132A05529D7294E0007B181 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A05329D610B10007B181 /* SettingsViewModel.swift */; };
-		1132A05729D72E100007B181 /* UsersRights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A05629D72E100007B181 /* UsersRights.swift */; };
 		1132A05929D7392F0007B181 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1132A05829D7392F0007B181 /* GoogleService-Info.plist */; };
+		1132A05C29D849140007B181 /* RecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A05B29D849140007B181 /* RecordRepository.swift */; };
+		1132A05E29D891A80007B181 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A05D29D891A80007B181 /* Record.swift */; };
+		1132A06029D899DD0007B181 /* RecordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A05F29D899DD0007B181 /* RecordListViewModel.swift */; };
+		1132A06229D89B210007B181 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A06129D89B210007B181 /* HomeView.swift */; };
 		8E2EDA666BF49964DFE1B02E /* Pods_BibliographicGuide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A17856A9ED342D36391D4E7 /* Pods_BibliographicGuide.framework */; };
 		C79F79CD4CD1D2DE9CB5E0AB /* Pods_BibliographicGuideTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E5B84D1332C25EDC27E7512 /* Pods_BibliographicGuideTests.framework */; };
 /* End PBXBuildFile section */
@@ -54,8 +57,11 @@
 		1132A03F29D3219E0007B181 /* BibliographicGuideUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibliographicGuideUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		1132A04E29D445DB0007B181 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		1132A05329D610B10007B181 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
-		1132A05629D72E100007B181 /* UsersRights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersRights.swift; sourceTree = "<group>"; };
 		1132A05829D7392F0007B181 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1132A05B29D849140007B181 /* RecordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRepository.swift; sourceTree = "<group>"; };
+		1132A05D29D891A80007B181 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
+		1132A05F29D899DD0007B181 /* RecordListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListViewModel.swift; sourceTree = "<group>"; };
+		1132A06129D89B210007B181 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		241C83635DC8BC995E701B01 /* Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide-BibliographicGuideUITests/Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3BF3DF8CD7A06B44BA0C0176 /* Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide-BibliographicGuideUITests/Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig"; sourceTree = "<group>"; };
 		57888CDBC96114F9CA898EC2 /* Pods-BibliographicGuide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide.debug.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide/Pods-BibliographicGuide.debug.xcconfig"; sourceTree = "<group>"; };
@@ -119,10 +125,11 @@
 		1132A02129D3219C0007B181 /* BibliographicGuide */ = {
 			isa = PBXGroup;
 			children = (
-				1132A05029D610080007B181 /* Model */,
-				1132A04C29D445B80007B181 /* View */,
-				1132A05129D610180007B181 /* ViewModel */,
 				1132A02229D3219C0007B181 /* BibliographicGuideApp.swift */,
+				1132A05A29D841780007B181 /* Repository */,
+				1132A05029D610080007B181 /* Models */,
+				1132A04C29D445B80007B181 /* Views */,
+				1132A05129D610180007B181 /* ViewModels */,
 				1132A02629D3219D0007B181 /* Assets.xcassets */,
 				1132A05829D7392F0007B181 /* GoogleService-Info.plist */,
 				1132A02829D3219D0007B181 /* Preview Content */,
@@ -155,14 +162,15 @@
 			path = BibliographicGuideUITests;
 			sourceTree = "<group>";
 		};
-		1132A04C29D445B80007B181 /* View */ = {
+		1132A04C29D445B80007B181 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				1132A05229D610640007B181 /* Authorization */,
 				1132A02429D3219C0007B181 /* ContentView.swift */,
 				1132A04D29D445C80007B181 /* Settings */,
+				1132A06129D89B210007B181 /* HomeView.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		1132A04D29D445C80007B181 /* Settings */ = {
@@ -173,20 +181,21 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		1132A05029D610080007B181 /* Model */ = {
+		1132A05029D610080007B181 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				1132A05629D72E100007B181 /* UsersRights.swift */,
+				1132A05D29D891A80007B181 /* Record.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		1132A05129D610180007B181 /* ViewModel */ = {
+		1132A05129D610180007B181 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				1132A05329D610B10007B181 /* SettingsViewModel.swift */,
+				1132A05F29D899DD0007B181 /* RecordListViewModel.swift */,
 			);
-			path = ViewModel;
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		1132A05229D610640007B181 /* Authorization */ = {
@@ -194,6 +203,14 @@
 			children = (
 			);
 			path = Authorization;
+			sourceTree = "<group>";
+		};
+		1132A05A29D841780007B181 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				1132A05B29D849140007B181 /* RecordRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		A7A0C87989601ECE0D6915F5 /* Frameworks */ = {
@@ -458,11 +475,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1132A05729D72E100007B181 /* UsersRights.swift in Sources */,
 				1132A04F29D445DB0007B181 /* SettingsView.swift in Sources */,
+				1132A05C29D849140007B181 /* RecordRepository.swift in Sources */,
 				1132A02529D3219C0007B181 /* ContentView.swift in Sources */,
+				1132A05E29D891A80007B181 /* Record.swift in Sources */,
 				1132A02329D3219C0007B181 /* BibliographicGuideApp.swift in Sources */,
+				1132A06229D89B210007B181 /* HomeView.swift in Sources */,
 				1132A05529D7294E0007B181 /* SettingsViewModel.swift in Sources */,
+				1132A06029D899DD0007B181 /* RecordListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

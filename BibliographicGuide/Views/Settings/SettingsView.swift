@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @ObservedObject var settingsViewModel = SettingsViewModel()
+   // @ObservedObject var settingsViewModel = SettingsViewModel()
     
     var body: some View {
 
@@ -24,7 +24,7 @@ struct SettingsView: View {
                     .font(.system(.title, design: .rounded))
                     .fontWeight(.bold)
                 Button{
-                    settingsViewModel.createUser()
+                 //   settingsViewModel.createUser()
                 } label:{
                     Image(systemName: "square.and.arrow.down.on.square")
                         .foregroundColor(.black)
