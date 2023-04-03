@@ -165,10 +165,10 @@
 		1132A04C29D445B80007B181 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1132A06329DAF11B0007B181 /* Home */,
 				1132A05229D610640007B181 /* Authorization */,
 				1132A02429D3219C0007B181 /* ContentView.swift */,
 				1132A04D29D445C80007B181 /* Settings */,
-				1132A06129D89B210007B181 /* HomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -211,6 +211,14 @@
 				1132A05B29D849140007B181 /* RecordRepository.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		1132A06329DAF11B0007B181 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				1132A06129D89B210007B181 /* HomeView.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		A7A0C87989601ECE0D6915F5 /* Frameworks */ = {

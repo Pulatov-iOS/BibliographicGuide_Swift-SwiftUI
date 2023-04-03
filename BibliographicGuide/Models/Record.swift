@@ -10,12 +10,12 @@ import FirebaseFirestoreSwift
 struct Record: Identifiable, Codable {
     
     @DocumentID var id: String?
-    var idUsers: String //[String]
-    var datesChange: String //[String] or [date]
+    var idUsers: [String] //[String]
+    var datesChange: Date //[String] or [date]
     var title: String
     var year: Int
     var keywords: String // [String]
-    var authors: String
+    var authors: String // [String]
     var linkDoi: String
     var linkWebsite: String
     var journalName: String

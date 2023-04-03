@@ -14,11 +14,11 @@ struct HomeView: View {
     var body: some View {
         VStack{
             List(recordListViewModel.records){ record in
-                Text(record.title)
+                Text("\(record.datesChange)")
             }
             Button("New"){
-                let rec = Record(idUsers: "dsedse", datesChange: "2023", title: "title", year: 2020, keywords: "Math", authors: "Pulatov", linkDoi: "http", linkWebsite: "http", journalName: "BSTU", journalNumber: "34", pageNumbers: "100", description: "none", idPhotoTitle: "dc", idPhotoRecord: "sx", idPdfRecord: "cc")
-                recordListViewModel.addRecord(rec)
+                let rec = Record(idUsers: ["dsedse", "dsedse"], datesChange: Date(), title: "title", year: 2020, keywords: "Math", authors: "Pulatov", linkDoi: "http", linkWebsite: "http", journalName: "BSTU", journalNumber: "34", pageNumbers: "100", description: "none", idPhotoTitle: "dc", idPhotoRecord: "sx", idPdfRecord: "cc")
+               
             }
         }
     }

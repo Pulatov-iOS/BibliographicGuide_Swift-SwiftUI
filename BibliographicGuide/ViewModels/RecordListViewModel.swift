@@ -20,7 +20,7 @@ final class RecordListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func addRecord(_ record: Record) {
-        recordRepository.addRecord(record)
-    }
+//    func addRecord(_ record: Record) {
+//        recordRepository.addRecord(record)
+//    }
 }
