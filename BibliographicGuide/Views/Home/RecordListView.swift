@@ -15,12 +15,19 @@ struct RecordListView: View {
         NavigationView{
             VStack{
                 List{
-                    ForEach(recordListViewModel.recordViewModels){ records in
+                    ForEach(recordListViewModel.recordViewModels) { records in
                         RecordView(recordViewModel: records)
-                    }
+                    }.onDelete(perform: delete)
                 }
+                .listStyle(InsetListStyle())
+                .navigationTitle("Записи")
             }
         }
+    }
+    
+    private func delete(at offsets: IndexSet) {
+        offsets.map { recordListViewModel.recordViewModels[$0].record
+        }.forEach(recordListViewModel.removeRecord)
     }
 }
 

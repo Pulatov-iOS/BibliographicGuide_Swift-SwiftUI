@@ -27,6 +27,7 @@
 		1132A07029DAFF870007B181 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A06F29DAFF870007B181 /* RegistrationView.swift */; };
 		1132A07329DB003C0007B181 /* AuthorizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A07229DB003C0007B181 /* AuthorizationViewModel.swift */; };
 		1132A07529DB00CD0007B181 /* AuthorizationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A07429DB00CD0007B181 /* AuthorizationRepository.swift */; };
+		1132A07929DB3E610007B181 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A07829DB3E610007B181 /* SettingsViewModel.swift */; };
 		8E2EDA666BF49964DFE1B02E /* Pods_BibliographicGuide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A17856A9ED342D36391D4E7 /* Pods_BibliographicGuide.framework */; };
 		C79F79CD4CD1D2DE9CB5E0AB /* Pods_BibliographicGuideTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E5B84D1332C25EDC27E7512 /* Pods_BibliographicGuideTests.framework */; };
 /* End PBXBuildFile section */
@@ -64,7 +65,7 @@
 		1132A05B29D849140007B181 /* RecordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordRepository.swift; sourceTree = "<group>"; };
 		1132A05D29D891A80007B181 /* Record.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Record.swift; sourceTree = "<group>"; };
 		1132A05F29D899DD0007B181 /* RecordListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListViewModel.swift; sourceTree = "<group>"; };
-		1132A06129D89B210007B181 /* RecordListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListView.swift; sourceTree = "<group>"; };
+		1132A06129D89B210007B181 /* RecordListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListView.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		1132A06429DAF1B70007B181 /* RecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordView.swift; sourceTree = "<group>"; };
 		1132A06829DAF2610007B181 /* RecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewModel.swift; sourceTree = "<group>"; };
 		1132A06A29DAF5FF0007B181 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -72,6 +73,7 @@
 		1132A06F29DAFF870007B181 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		1132A07229DB003C0007B181 /* AuthorizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewModel.swift; sourceTree = "<group>"; };
 		1132A07429DB00CD0007B181 /* AuthorizationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationRepository.swift; sourceTree = "<group>"; };
+		1132A07829DB3E610007B181 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		241C83635DC8BC995E701B01 /* Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide-BibliographicGuideUITests/Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3BF3DF8CD7A06B44BA0C0176 /* Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide-BibliographicGuideUITests/Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig"; sourceTree = "<group>"; };
 		57888CDBC96114F9CA898EC2 /* Pods-BibliographicGuide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide.debug.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide/Pods-BibliographicGuide.debug.xcconfig"; sourceTree = "<group>"; };
@@ -140,7 +142,6 @@
 				1132A05029D610080007B181 /* Models */,
 				1132A04C29D445B80007B181 /* Views */,
 				1132A05129D610180007B181 /* ViewModels */,
-				1132A06C29DAFDFC0007B181 /* Settings */,
 				1132A02629D3219D0007B181 /* Assets.xcassets */,
 				1132A05829D7392F0007B181 /* GoogleService-Info.plist */,
 				1132A02829D3219D0007B181 /* Preview Content */,
@@ -204,6 +205,7 @@
 			children = (
 				1132A07129DB00200007B181 /* Authorization */,
 				1132A06629DAF2420007B181 /* Home */,
+				1132A06C29DAFDFC0007B181 /* Settings */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -248,6 +250,7 @@
 		1132A06C29DAFDFC0007B181 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				1132A07829DB3E610007B181 /* SettingsViewModel.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -535,6 +538,7 @@
 				1132A06229D89B210007B181 /* RecordListView.swift in Sources */,
 				1132A06029D899DD0007B181 /* RecordListViewModel.swift in Sources */,
 				1132A06E29DAFED20007B181 /* AuthorizationView.swift in Sources */,
+				1132A07929DB3E610007B181 /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

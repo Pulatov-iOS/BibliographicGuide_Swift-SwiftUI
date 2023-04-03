@@ -38,4 +38,23 @@ final class RecordRepository: ObservableObject {
             fatalError("Adding a record failed")
         }
     }
+    
+    func updateRecord(_ record: Record){
+        guard let documentId = record.id else { return }
+        do {
+            try db.collection(path).document(documentId).setData(from: record)
+        } catch {
+            fatalError("Ошибка при обновлении")
+        }
+    }
+    
+    func removeRecord(_ record: Record){
+        guard let documentId = record.id else { return }
+        db.collection(path).document(documentId).delete { error in
+            if let error = error {
+                print("Нe удалось удалить запись: \(error.localizedDescription)")
+            }
+        }
+    }
+    
 }

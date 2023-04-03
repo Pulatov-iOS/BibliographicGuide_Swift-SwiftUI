@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-   // @ObservedObject var settingsViewModel = SettingsViewModel()
+    @ObservedObject var settingsViewModel = SettingsViewModel()
     
     var body: some View {
 
@@ -23,12 +23,8 @@ struct SettingsView: View {
                 Text("1")
                     .font(.system(.title, design: .rounded))
                     .fontWeight(.bold)
-                Button{
-                 //   settingsViewModel.createUser()
-                } label:{
-                    Image(systemName: "square.and.arrow.down.on.square")
-                        .foregroundColor(.black)
-                        .padding(2)
+                Button("Выйти"){
+                    settingsViewModel.exitOfAccount()
                 }
             }
             .padding()

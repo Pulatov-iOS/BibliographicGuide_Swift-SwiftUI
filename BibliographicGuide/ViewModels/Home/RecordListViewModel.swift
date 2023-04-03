@@ -26,4 +26,11 @@ final class RecordListViewModel: ObservableObject {
     func addRecord(_ record: Record) {
         recordRepository.addRecord(record)
     }
+    
+//    func updateRecord(_ record: Record) {
+//    }
+    
+    func removeRecord(_ record: Record) {
+        recordRepository.removeRecord(record)
+    }
 }
