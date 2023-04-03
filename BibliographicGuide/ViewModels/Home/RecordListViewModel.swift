@@ -10,17 +10,20 @@ import Combine
 final class RecordListViewModel: ObservableObject {
     
     @Published var recordRepository = RecordRepository()
-    @Published var records: [Record] = []
+    @Published var recordViewModels: [RecordViewModel] = []
     
     private var cancellables: Set<AnyCancellable> = []
     
     init(){
         recordRepository.$records
-            .assign(to: \.records, on: self)
+            .map { records in
+                records.map(RecordViewModel.init)
+            }
+            .assign(to: \.recordViewModels, on: self)
             .store(in: &cancellables)
     }
     
-//    func addRecord(_ record: Record) {
-//        recordRepository.addRecord(record)
-//    }
+    func addRecord(_ record: Record) {
+        recordRepository.addRecord(record)
+    }
 }
