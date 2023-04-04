@@ -36,7 +36,7 @@ struct AppView: App {
                                 Image(systemName: "house")
                                 Text("Home")
                             }
-                        SettingsView()
+                        ChatView()
                             .tabItem {
                                 Image(systemName: "message.badge")
                                 Text("Chat")

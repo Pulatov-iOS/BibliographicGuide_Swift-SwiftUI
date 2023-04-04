@@ -21,12 +21,12 @@ struct RecordDescriptionView: View {
                 })
                 HStack(alignment: .center, spacing: 2, content: {
                     Image(systemName: "pencil.line")
-                    Text("Редакт: \(recordDescriptionViewModel.checkingEditingTime(record.datesChange))")
+                    Text("Редакт: \(recordDescriptionViewModel.checkingEditingTime(record.datesChange[0]))")
                 })
             }
             HStack(alignment: .center, spacing: 2, content: {
                 Image(systemName: "clock")
-                Text("Дата создания: \(recordDescriptionViewModel.checkingCreatingTime(record.datesChange))")
+                Text("Дата создания: \(recordDescriptionViewModel.checkingCreatingTime(record.dateCreation))")
             })
         }.padding(.leading, 7)
         .font(.footnote)
@@ -36,6 +36,6 @@ struct RecordDescriptionView: View {
 
 struct RecordDescriptionView_Previews: PreviewProvider {
     static var previews: some View {
-        RecordDescriptionView(recordDescriptionViewModel: RecordDescriptionViewModel(), record: Record(idUsers: [""], datesChange: Date(), title: "", year: 1, keywords: "", authors: "", linkDoi: "", linkWebsite: "", journalName: "", journalNumber: "", pageNumbers: "", description: "", idPhotoTitle: "", idPhotoRecord: "", idPdfRecord: ""))
+        RecordDescriptionView(recordDescriptionViewModel: RecordDescriptionViewModel(), record: Record(idUsers: [""], dateCreation: Date(),datesChange: [Date()], title: "", year: 1, keywords: "", authors: "", linkDoi: "", linkWebsite: "", journalName: "", journalNumber: "", pageNumbers: "", description: "", idPhotoTitle: "", idPhotoRecord: "", idPdfRecord: ""))
     }
 }

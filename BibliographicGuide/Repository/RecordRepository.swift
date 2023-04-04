@@ -44,7 +44,7 @@ final class RecordRepository: ObservableObject {
         do {
             try db.collection(path).document(documentId).setData(from: record)
         } catch {
-            fatalError("Ошибка при обновлении")
+            fatalError("Ошибка при обновлении записи")
         }
     }
     

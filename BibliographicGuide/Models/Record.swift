@@ -11,7 +11,8 @@ struct Record: Identifiable, Codable {
     
     @DocumentID var id: String?
     var idUsers: [String] //[String]
-    var datesChange: Date //[String] or [date]
+    var dateCreation: Date
+    var datesChange: [Date]
     var title: String
     var year: Int
     var keywords: String // [String]
