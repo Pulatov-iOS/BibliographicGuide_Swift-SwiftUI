@@ -12,6 +12,7 @@ struct MessageListView: View {
     @ObservedObject var messageListViewModel: MessageListViewModel
     
     @State private var textNewMessage = ""
+    @State private var replyIdMessage = ""
     @State private var editingWindowShow = false
     @State private var editingMessage = false
     @State private var ChangeableMessage: Message?
@@ -25,9 +26,6 @@ struct MessageListView: View {
                         .onLongPressGesture(minimumDuration: 0.5){
                             ChangeableMessage = messages.message
                             editingWindowShow.toggle()
-                            ////                         обновление сообщения
-                            //                        messages.message.text = textNewMessage
-                            //                        messageListViewModel.updateMessage(messages.message)
                         }
                 }
                 
@@ -36,9 +34,10 @@ struct MessageListView: View {
                     Spacer()
                     if(editingMessage != true){
                         Button("Send"){
-                            var mes = Message(idUser: "fsef", typeMessage: "text", date: Date(), text: textNewMessage, idFiles: [""], editing: false)
+                            var mes = Message(idUser: "fsef", typeMessage: "text", date: Date(), text: textNewMessage, idFiles: [""], replyIdMessage: replyIdMessage, editing: false)
                             messageListViewModel.addMessage(mes)
                             textNewMessage = ""
+                            replyIdMessage = ""
                         }
                     }
                     else{
@@ -51,7 +50,7 @@ struct MessageListView: View {
                             if(ChangeableMessage?.text != textNewMessage){
                                 ChangeableMessage?.editing = true
                                 ChangeableMessage?.text = textNewMessage
-                                messageListViewModel.updateMessage(ChangeableMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], editing: false))
+                                messageListViewModel.updateMessage(ChangeableMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false))
                             }
                             textNewMessage = ""
                         }
@@ -77,6 +76,7 @@ struct MessageListView: View {
                     HStack{
                         Button("Ответить"){
                             editingWindowShow.toggle()
+                            replyIdMessage = ChangeableMessage?.id ?? "" // сохраняем id сообщения к которому прикрепляется сообщение
                         }
                         .foregroundColor(.black)
                         Button("Редактировать"){
@@ -86,7 +86,7 @@ struct MessageListView: View {
                         }
                         .foregroundColor(.black)
                         Button("Удалить"){
-                            messageListViewModel.removeMessage(ChangeableMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], editing: false))
+                            messageListViewModel.removeMessage(ChangeableMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false))
                             editingWindowShow.toggle()
                         }
                         .foregroundColor(.red)
@@ -96,8 +96,9 @@ struct MessageListView: View {
                 .padding()
                 .background(Color.white)
                 .cornerRadius(25)
-                
-                
+                .onDisappear(){ // убрать окно редактирования сообщения, если оно открыто и мы перешли в другое окно
+                    editingWindowShow = false
+                }
             }
         }
     }

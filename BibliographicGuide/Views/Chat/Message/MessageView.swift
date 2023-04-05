@@ -13,7 +13,12 @@ struct MessageView: View {
     
     var body: some View {
         VStack{
-            Text(messageViewModel.message.text)
+            VStack{
+                if(messageViewModel.message.replyIdMessage != ""){ // отображаем текст ответа на сообщение
+                    Text(messageViewModel.message.replyIdMessage)
+                }
+                Text(messageViewModel.message.text)
+            }
             HStack{
                 if(messageViewModel.message.editing == true){
                     Text("Ред.")
@@ -26,6 +31,6 @@ struct MessageView: View {
 
 struct MessageView_Previews: PreviewProvider {
     static var previews: some View {
-        MessageView(messageViewModel: MessageViewModel(message: Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], editing: false)))
+        MessageView(messageViewModel: MessageViewModel(message: Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false)))
     }
 }

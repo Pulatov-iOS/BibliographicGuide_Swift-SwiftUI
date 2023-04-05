@@ -15,6 +15,7 @@ struct Message: Identifiable, Codable {
     var date: Date
     var text: String
     var idFiles: [String]
+    var replyIdMessage: String
     var editing: Bool
     
 }
