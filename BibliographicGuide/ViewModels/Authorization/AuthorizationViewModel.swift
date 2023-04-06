@@ -24,16 +24,4 @@ final class AuthorizationViewModel: ObservableObject {
         }
     }
     
-    func registrationWithEmail(email: String, password: String, completion: @escaping
-                                (Bool, String)->Void) {
-        authorizationRepository.registrationWithEmail(email: email, password: password){
-            (verified, status) in
-            if !verified {
-                completion(false, status)
-            }
-            else{
-                completion(true, status)
-            }
-        }
-    }
 }

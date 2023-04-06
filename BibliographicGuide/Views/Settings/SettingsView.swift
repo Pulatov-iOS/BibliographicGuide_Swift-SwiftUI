@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @ObservedObject var settingsViewModel = SettingsViewModel()
+    @ObservedObject var userInformationListViewModel = UserInformationListViewModel()
     
     var body: some View {
 
@@ -20,11 +20,8 @@ struct SettingsView: View {
                     .scaledToFit()
                     .frame(width: 200, height: 100, alignment: .center)
                     .shadow(color: Color("ColorBlackTransparentLight"), radius: 8, x: 0, y: 4)
-                Text("1")
-                    .font(.system(.title, design: .rounded))
-                    .fontWeight(.bold)
                 Button("Выйти"){
-                    settingsViewModel.exitOfAccount()
+                    userInformationListViewModel.exitOfAccount()
                 }
             }
             .padding()

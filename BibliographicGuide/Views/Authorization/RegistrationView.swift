@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RegistrationView: View {
     
-    var authorizationViewModel: AuthorizationViewModel
+    @ObservedObject var registrationViewModel: RegistrationViewModel
     
     @State var user = ""
     @State var pass = ""
@@ -58,8 +58,7 @@ struct RegistrationView: View {
                     
                     Button(action: {
                         
-                        authorizationViewModel.registrationWithEmail(email: self.user, password: self.pass){ (verified, status) in
-                            
+                        registrationViewModel.registrationWithEmail(email: self.user, password: self.pass){ (verified, status) in
                             if !verified {
                                 self.message=status
                                 self.alert.toggle()

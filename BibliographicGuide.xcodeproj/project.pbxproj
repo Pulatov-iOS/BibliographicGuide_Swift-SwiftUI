@@ -27,7 +27,7 @@
 		1132A07029DAFF870007B181 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A06F29DAFF870007B181 /* RegistrationView.swift */; };
 		1132A07329DB003C0007B181 /* AuthorizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A07229DB003C0007B181 /* AuthorizationViewModel.swift */; };
 		1132A07529DB00CD0007B181 /* AuthorizationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A07429DB00CD0007B181 /* AuthorizationRepository.swift */; };
-		1132A07929DB3E610007B181 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A07829DB3E610007B181 /* SettingsViewModel.swift */; };
+		1132A07929DB3E610007B181 /* UserInformationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A07829DB3E610007B181 /* UserInformationListViewModel.swift */; };
 		1132A07C29DB506C0007B181 /* RecordDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A07B29DB506C0007B181 /* RecordDescriptionView.swift */; };
 		1132A07F29DB524A0007B181 /* RecordDescriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A07E29DB524A0007B181 /* RecordDescriptionViewModel.swift */; };
 		1132A08129DC4C1B0007B181 /* MessageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A08029DC4C1B0007B181 /* MessageRepository.swift */; };
@@ -37,6 +37,10 @@
 		1132A08E29DC52270007B181 /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A08D29DC52270007B181 /* MessageListViewModel.swift */; };
 		1132A09029DC565A0007B181 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A08F29DC565A0007B181 /* MessageViewModel.swift */; };
 		1132A09229DC58370007B181 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A09129DC58370007B181 /* MessageView.swift */; };
+		1132A09429DD96CA0007B181 /* UserInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A09329DD96CA0007B181 /* UserInformation.swift */; };
+		1132A09629DD9A7F0007B181 /* UserInformationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A09529DD9A7F0007B181 /* UserInformationRepository.swift */; };
+		1132A09829DDA2430007B181 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A09729DDA2430007B181 /* RegistrationViewModel.swift */; };
+		1132A09A29DDBF980007B181 /* UserInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A09929DDBF980007B181 /* UserInformationViewModel.swift */; };
 		8E2EDA666BF49964DFE1B02E /* Pods_BibliographicGuide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A17856A9ED342D36391D4E7 /* Pods_BibliographicGuide.framework */; };
 		C79F79CD4CD1D2DE9CB5E0AB /* Pods_BibliographicGuideTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E5B84D1332C25EDC27E7512 /* Pods_BibliographicGuideTests.framework */; };
 /* End PBXBuildFile section */
@@ -82,7 +86,7 @@
 		1132A06F29DAFF870007B181 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		1132A07229DB003C0007B181 /* AuthorizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewModel.swift; sourceTree = "<group>"; };
 		1132A07429DB00CD0007B181 /* AuthorizationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationRepository.swift; sourceTree = "<group>"; };
-		1132A07829DB3E610007B181 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		1132A07829DB3E610007B181 /* UserInformationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformationListViewModel.swift; sourceTree = "<group>"; };
 		1132A07B29DB506C0007B181 /* RecordDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDescriptionView.swift; sourceTree = "<group>"; };
 		1132A07E29DB524A0007B181 /* RecordDescriptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDescriptionViewModel.swift; sourceTree = "<group>"; };
 		1132A08029DC4C1B0007B181 /* MessageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRepository.swift; sourceTree = "<group>"; };
@@ -92,6 +96,10 @@
 		1132A08D29DC52270007B181 /* MessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewModel.swift; sourceTree = "<group>"; };
 		1132A08F29DC565A0007B181 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
 		1132A09129DC58370007B181 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		1132A09329DD96CA0007B181 /* UserInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformation.swift; sourceTree = "<group>"; };
+		1132A09529DD9A7F0007B181 /* UserInformationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformationRepository.swift; sourceTree = "<group>"; };
+		1132A09729DDA2430007B181 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		1132A09929DDBF980007B181 /* UserInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformationViewModel.swift; sourceTree = "<group>"; };
 		241C83635DC8BC995E701B01 /* Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide-BibliographicGuideUITests/Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3BF3DF8CD7A06B44BA0C0176 /* Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide-BibliographicGuideUITests/Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig"; sourceTree = "<group>"; };
 		57888CDBC96114F9CA898EC2 /* Pods-BibliographicGuide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide.debug.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide/Pods-BibliographicGuide.debug.xcconfig"; sourceTree = "<group>"; };
@@ -216,6 +224,7 @@
 			children = (
 				1132A05D29D891A80007B181 /* Record.swift */,
 				1132A08229DC4CC40007B181 /* Message.swift */,
+				1132A09329DD96CA0007B181 /* UserInformation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -243,9 +252,10 @@
 		1132A05A29D841780007B181 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				1132A05B29D849140007B181 /* RecordRepository.swift */,
 				1132A07429DB00CD0007B181 /* AuthorizationRepository.swift */,
+				1132A05B29D849140007B181 /* RecordRepository.swift */,
 				1132A08029DC4C1B0007B181 /* MessageRepository.swift */,
+				1132A09529DD9A7F0007B181 /* UserInformationRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -270,7 +280,8 @@
 		1132A06C29DAFDFC0007B181 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				1132A07829DB3E610007B181 /* SettingsViewModel.swift */,
+				1132A07829DB3E610007B181 /* UserInformationListViewModel.swift */,
+				1132A09929DDBF980007B181 /* UserInformationViewModel.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -279,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				1132A07229DB003C0007B181 /* AuthorizationViewModel.swift */,
+				1132A09729DDA2430007B181 /* RegistrationViewModel.swift */,
 			);
 			path = Authorization;
 			sourceTree = "<group>";
@@ -600,6 +612,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1132A09629DD9A7F0007B181 /* UserInformationRepository.swift in Sources */,
 				1132A09029DC565A0007B181 /* MessageViewModel.swift in Sources */,
 				1132A08629DC4F410007B181 /* ChatView.swift in Sources */,
 				1132A08129DC4C1B0007B181 /* MessageRepository.swift in Sources */,
@@ -608,11 +621,14 @@
 				1132A08B29DC4FFC0007B181 /* MessageListView.swift in Sources */,
 				1132A08329DC4CC40007B181 /* Message.swift in Sources */,
 				1132A06529DAF1B70007B181 /* RecordView.swift in Sources */,
+				1132A09A29DDBF980007B181 /* UserInformationViewModel.swift in Sources */,
+				1132A09829DDA2430007B181 /* RegistrationViewModel.swift in Sources */,
 				1132A05C29D849140007B181 /* RecordRepository.swift in Sources */,
 				1132A08E29DC52270007B181 /* MessageListViewModel.swift in Sources */,
 				1132A07F29DB524A0007B181 /* RecordDescriptionViewModel.swift in Sources */,
 				1132A07029DAFF870007B181 /* RegistrationView.swift in Sources */,
 				1132A06929DAF2610007B181 /* RecordViewModel.swift in Sources */,
+				1132A09429DD96CA0007B181 /* UserInformation.swift in Sources */,
 				1132A07C29DB506C0007B181 /* RecordDescriptionView.swift in Sources */,
 				1132A06B29DAF5FF0007B181 /* HomeView.swift in Sources */,
 				1132A05E29D891A80007B181 /* Record.swift in Sources */,
@@ -622,7 +638,7 @@
 				1132A06029D899DD0007B181 /* RecordListViewModel.swift in Sources */,
 				1132A09229DC58370007B181 /* MessageView.swift in Sources */,
 				1132A06E29DAFED20007B181 /* AuthorizationView.swift in Sources */,
-				1132A07929DB3E610007B181 /* SettingsViewModel.swift in Sources */,
+				1132A07929DB3E610007B181 /* UserInformationListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

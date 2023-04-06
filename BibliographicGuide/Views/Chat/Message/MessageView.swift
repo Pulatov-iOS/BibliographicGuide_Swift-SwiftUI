@@ -10,10 +10,17 @@ import SwiftUI
 struct MessageView: View {
     
     var messageViewModel: MessageViewModel
+    var hh: [UserInformation]
     
     var body: some View {
         VStack{
             VStack{
+                ForEach(hh) { information in
+                    if(messageViewModel.message.idUser == information.id){
+                        Text(information.userName)
+                    }
+                }
+                
                 if(messageViewModel.message.replyIdMessage != ""){ // отображаем текст ответа на сообщение
                     Text(messageViewModel.message.replyIdMessage)
                 }
@@ -29,8 +36,8 @@ struct MessageView: View {
     }
 }
 
-struct MessageView_Previews: PreviewProvider {
-    static var previews: some View {
-        MessageView(messageViewModel: MessageViewModel(message: Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false)))
-    }
-}
+//struct MessageView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MessageView(messageViewModel: MessageViewModel(message: Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false)))
+//    }
+//}

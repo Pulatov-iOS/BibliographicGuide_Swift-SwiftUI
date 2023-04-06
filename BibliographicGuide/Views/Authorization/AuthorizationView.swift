@@ -105,7 +105,7 @@ struct AuthorizationView: View {
                         
                     }.padding(.top, 25)
                 }.sheet(isPresented: $show){
-                    RegistrationView(authorizationViewModel: authorizationViewModel, show: self.$show)
+                    RegistrationView(registrationViewModel: RegistrationViewModel(), show: self.$show)
                 }
             }
         }

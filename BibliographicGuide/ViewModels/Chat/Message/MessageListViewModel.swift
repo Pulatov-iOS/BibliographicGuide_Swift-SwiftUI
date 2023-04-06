@@ -14,6 +14,11 @@ final class MessageListViewModel: ObservableObject {
     
     private var cancellables: Set<AnyCancellable> = []
     
+    @Published var userInformationRepository = UserInformationRepository()
+    @Published var usersInformation: [UserInformation] = []
+    
+    private var cancellables2: Set<AnyCancellable> = []
+    
     init(){
         messageRepository.$messages
             .map { message in
@@ -21,6 +26,10 @@ final class MessageListViewModel: ObservableObject {
             }
             .assign(to: \.messageViewModels, on: self)
             .store(in: &cancellables)
+        
+        userInformationRepository.$usersInformation
+            .assign(to: \.usersInformation, on: self)
+            .store(in: &cancellables2)
     }
     
     func addMessage(_ message: Message) {
@@ -33,5 +42,13 @@ final class MessageListViewModel: ObservableObject {
     
     func removeMessage(_ message: Message) {
         messageRepository.removeMessage(message)
+    }
+    func getUserName(_ message: Message) -> String{
+        print(usersInformation.count)
+        print(usersInformation.last?.userName)
+        let newUsers = usersInformation.filter { (item) -> Bool in
+            item.id! == message.idUser
+        }
+        return newUsers.first?.userName ?? "User"
     }
 }

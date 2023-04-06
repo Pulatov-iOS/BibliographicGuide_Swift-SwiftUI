@@ -23,8 +23,7 @@ final class AuthorizationRepository: ObservableObject {
         }
     }
 
-    func registrationWithEmail(email: String, password: String, completion: @escaping
-    (Bool, String)->Void){
+    func registrationWithEmail(email: String, password: String, completion: @escaping (Bool, String)->Void){
         
         Auth.auth().createUser(withEmail: email, password: password){
             (res, err) in
@@ -32,10 +31,7 @@ final class AuthorizationRepository: ObservableObject {
                 completion(false, (err?.localizedDescription)!)
                 return
             }
-            completion(true,(res?.user.email)!)
-            
-            let randomInt = Int.random(in: 10000000..<99999999)
-//            dataManager.addUserRights(userId: res?.user.uid ?? ""+String(randomInt), email: res?.user.email ?? "")
+            completion(true,(res?.user.uid)!)
             
             UserDefaults.standard.set(res?.user.uid, forKey: "userId") // Сохраним ID пользователя
         }

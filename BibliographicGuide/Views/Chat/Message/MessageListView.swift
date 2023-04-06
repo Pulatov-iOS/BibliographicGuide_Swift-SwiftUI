@@ -20,9 +20,11 @@ struct MessageListView: View {
     var body: some View {
         ZStack{
             VStack{
-                
+                ForEach(messageListViewModel.usersInformation) { messages in
+                    Text(messages.userName)
+                }
                 ForEach(messageListViewModel.messageViewModels) { messages in
-                    MessageView(messageViewModel: messages)
+                    MessageView(messageViewModel: messages, hh: messageListViewModel.usersInformation)
                         .onLongPressGesture(minimumDuration: 0.5){
                             ChangeableMessage = messages.message
                             editingWindowShow.toggle()
@@ -34,7 +36,7 @@ struct MessageListView: View {
                     Spacer()
                     if(editingMessage != true){
                         Button("Send"){
-                            var mes = Message(idUser: "fsef", typeMessage: "text", date: Date(), text: textNewMessage, idFiles: [""], replyIdMessage: replyIdMessage, editing: false)
+                            var mes = Message(idUser: "pQSIzTiRzIe2djMB5VHBPES9Nk72", typeMessage: "text", date: Date(), text: textNewMessage, idFiles: [""], replyIdMessage: replyIdMessage, editing: false)
                             messageListViewModel.addMessage(mes)
                             textNewMessage = ""
                             replyIdMessage = ""
