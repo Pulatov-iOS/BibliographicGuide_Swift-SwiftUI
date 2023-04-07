@@ -10,16 +10,17 @@ import SwiftUI
 struct MessageView: View {
     
     var messageViewModel: MessageViewModel
-    var hh: [UserInformation]
+    var userName: String
     
     var body: some View {
         VStack{
             VStack{
-                ForEach(hh) { information in
-                    if(messageViewModel.message.idUser == information.id){
-                        Text(information.userName)
-                    }
-                }
+//                ForEach(hh) { information in
+//                    if(messageViewModel.message.idUser == information.id){
+//                        Text(information.userName)
+//                    }
+//                }
+                Text(userName)
                 
                 if(messageViewModel.message.replyIdMessage != ""){ // отображаем текст ответа на сообщение
                     Text(messageViewModel.message.replyIdMessage)

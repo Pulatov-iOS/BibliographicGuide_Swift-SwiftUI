@@ -32,13 +32,5 @@ final class MessageViewModel: ObservableObject, Identifiable {
         let newTime = dateFormatter.string(from: date)
         return newTime
     }
-    
-//    func getUserName(_ message: Message) -> String{
-//        print()
-//        let newUsers = UserInformationRepository().usersInformation.filter { (item) -> Bool in
-//            item.id! == message.idUser
-//        }
-//        return newUsers.first?.userName ?? "User"
-//    }
 }
 
