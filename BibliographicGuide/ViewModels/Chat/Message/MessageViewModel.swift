@@ -10,7 +10,7 @@ import Foundation
 
 final class MessageViewModel: ObservableObject, Identifiable {
     
-    private let messageRepository = MessageRepository()
+    //private let messageRepository = MessageRepository()
     @Published var message: Message
     
     var id = ""

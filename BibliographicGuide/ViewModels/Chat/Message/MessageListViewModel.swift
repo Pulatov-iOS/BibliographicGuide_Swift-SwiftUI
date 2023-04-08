@@ -6,8 +6,11 @@
 //
 
 import Combine
+import Foundation
 
 final class MessageListViewModel: ObservableObject {
+    
+    let userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
     
     @Published var messageRepository = MessageRepository()
     @Published var messageViewModels: [MessageViewModel] = []
@@ -47,5 +50,14 @@ final class MessageListViewModel: ObservableObject {
             item.id! == message.idUser
         }
         return newUsers.first?.userName ?? "User"
+    }
+    
+    func OutgoingOrIncomingMessage(_ message: Message) -> Bool{
+        if(message.idUser == userId){
+            return true
+        }
+        else{
+            return false
+        }
     }
 }

@@ -21,23 +21,40 @@ struct MessageListView: View {
         ZStack{
             VStack{
                 ForEach(messageListViewModel.messageViewModels) { messages in
-                    MessageView(messageViewModel: messages, userName: messageListViewModel.getUserName(messages.message))
+                    MessageView(messageViewModel: messages, userName: messageListViewModel.getUserName(messages.message), OutgoingOrIncomingMessage: messageListViewModel.OutgoingOrIncomingMessage(messages.message))
                         .onLongPressGesture(minimumDuration: 0.5){
                             ChangeableMessage = messages.message
                             editingWindowShow.toggle()
                         }
                 }
-                
-                HStack{
-                    TextField(textNewMessage, text: $textNewMessage)
-                    Spacer()
+                HStack(spacing: 4){
+                    Button{
+                        
+                    } label: {
+                        Image(systemName: "paperclip.circle.fill")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .foregroundColor(.gray)
+                    }
+                    .padding(8)
+                    TextField("Write your message", text: $textNewMessage)
+                        .foregroundColor(.black)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                     if(editingMessage != true){
-                        Button("Send"){
-                            var mes = Message(idUser: "pQSIzTiRzIe2djMB5VHBPES9Nk72", typeMessage: "text", date: Date(), text: textNewMessage, idFiles: [""], replyIdMessage: replyIdMessage, editing: false)
-                            messageListViewModel.addMessage(mes)
+                        Button{
+                            if(textNewMessage != ""){ // если текст есть, то отправляем сообщение
+                                var mes = Message(idUser: "0y1kzDU4QxMqjxDSeTupTOmWbDl2", typeMessage: "text", date: Date(), text: textNewMessage, idFiles: [""], replyIdMessage: replyIdMessage, editing: false)
+                                messageListViewModel.addMessage(mes)
+                            }
                             textNewMessage = ""
                             replyIdMessage = ""
+                        } label: {
+                            Image(systemName: "arrow.right.circle.fill")
+                                .resizable()
+                                .frame(width: 32, height: 32)
+                                .foregroundColor(Color.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                         }
+                        .padding(8)
                     }
                     else{
                         Button("Cancel"){
@@ -55,7 +72,10 @@ struct MessageListView: View {
                         }
                     }
                 }
+                .padding(4)
+                .background(Color(white: 0.97))
             }
+            .padding(0)
             if(editingWindowShow == true){
                 
                 VStack{}
