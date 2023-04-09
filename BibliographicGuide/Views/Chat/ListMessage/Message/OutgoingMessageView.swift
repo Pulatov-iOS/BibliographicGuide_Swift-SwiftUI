@@ -18,7 +18,7 @@ struct OutgoingMessageView: View {
             VStack(alignment: .leading) {
                 HStack(alignment: .top) {
                     VStack{
-                        WebImage(url: URL(string: "https://sun2.beltelecom-by-minsk.userapi.com/impg/goqey4KZJjETzwF_L4fqfH11HlzyWDtU5aNJ-Q/AaKtrJQFqkw.jpg?size=924x1080&quality=96&sign=0169ab31bf9813322547f88a64db2d02&type=album"))
+                        WebImage(url: URL(string: "https://sun2.beltelecom-by-minsk.userapi.com/impg/pZPc4CkVZuBFxq5o8sLnqql1E5QAGv-duK110g/k65Itu6amGE.jpg?size=1179x2096&quality=95&sign=96d2dda406362770478262d698ed1490&type=album"))
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 36, height: 36)
@@ -90,7 +90,7 @@ struct OutgoingMessageView: View {
                 .background(Color(white: 0.9))
                 .cornerRadius(8)
             }
-            .frame(maxWidth: (labelSizeText(userName: userName, text: messageViewModel.message.text, time: messageViewModel.timeMessage(messageViewModel.message.date), editing: messageViewModel.message.editing))+24, alignment: .leading) // было 16
+            .frame(maxWidth: (labelSizeText(userName: userName, text: messageViewModel.message.text, time: messageViewModel.timeMessage(messageViewModel.message.date), editing: messageViewModel.message.editing))+18, alignment: .leading) // было 16
             //.background(Color(.blue))
             Spacer()
         }
