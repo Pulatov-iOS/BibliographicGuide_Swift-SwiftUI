@@ -20,12 +20,14 @@ struct MessageListView: View {
     var body: some View {
         ZStack{
             VStack{
-                ForEach(messageListViewModel.messageViewModels) { messages in
-                    MessageView(messageViewModel: messages, userName: messageListViewModel.getUserName(messages.message), OutgoingOrIncomingMessage: messageListViewModel.OutgoingOrIncomingMessage(messages.message))
-                        .onLongPressGesture(minimumDuration: 0.5){
-                            ChangeableMessage = messages.message
-                            editingWindowShow.toggle()
-                        }
+                ScrollView{
+                    ForEach(messageListViewModel.messageViewModels) { messages in
+                        MessageView(messageViewModel: messages, userName: messageListViewModel.getUserName(messages.message), OutgoingOrIncomingMessage: messageListViewModel.OutgoingOrIncomingMessage(messages.message))
+                            .onLongPressGesture(minimumDuration: 0.5){
+                                ChangeableMessage = messages.message
+                                editingWindowShow.toggle()
+                            }
+                    }
                 }
                 HStack(spacing: 4){
                     Button{

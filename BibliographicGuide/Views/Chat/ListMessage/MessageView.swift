@@ -16,7 +16,7 @@ struct MessageView: View {
     var body: some View {
         VStack{
             if(OutgoingOrIncomingMessage == true){
-                OutgoingMessageView(messageViewModel: messageViewModel, userName: userName)
+                Test(messageViewModel: messageViewModel, userName: userName)
             }
             else{
                 IncomingMessageView(messageViewModel: messageViewModel, userName: userName)

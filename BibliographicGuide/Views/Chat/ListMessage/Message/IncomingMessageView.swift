@@ -15,75 +15,90 @@ struct IncomingMessageView: View {
     
     var body: some View {
         HStack(alignment: .top) {
-            Spacer()
-            VStack(alignment: .trailing) {
-                VStack(alignment: .trailing) {
+            VStack(alignment: .leading) {
+                HStack(alignment: .top) {
+                    VStack{
+                        WebImage(url: URL(string: "https://sun2.beltelecom-by-minsk.userapi.com/impg/pZPc4CkVZuBFxq5o8sLnqql1E5QAGv-duK110g/k65Itu6amGE.jpg?size=1179x2096&quality=95&sign=96d2dda406362770478262d698ed1490&type=album"))
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 36, height: 36)
+                            .clipShape(Circle())
+                    }
+                    .scaledToFit()
+                    .padding(.leading, 6)
+                }
+            }
+            VStack(alignment: .leading) {
+                VStack(alignment: .leading) {
+                    Text(userName)
+                        .foregroundColor(.blue)
+                        .font(.system(size: 14))
+                        .fontWeight(.bold)
+                        .padding([.top, .leading, .trailing], 8)
+                        .clipped()
                     if(messageViewModel.message.replyIdMessage != ""){ // отображаем текст ответа на сообщение
                         Text(messageViewModel.message.replyIdMessage)
                     }
                     
                     // Если текст сообщения короткий, то время ставится сразу после него
-                    if((messageViewModel.message.editing == true && labelSizeTimeOutgoing(textWithTime: ("\(messageViewModel.message.text)ред.\(messageViewModel.timeMessage(messageViewModel.message.date))")) < UIScreen.screenWidth * 0.65) || (messageViewModel.message.editing == false && labelSizeTimeOutgoing(textWithTime: ("\(messageViewModel.message.text)\(messageViewModel.timeMessage(messageViewModel.message.date))")) < UIScreen.screenWidth * 0.65)){
+                    if((messageViewModel.message.editing == true && labelSizeTimeIncoming(textWithTime: ("\(messageViewModel.message.text)ред.\(messageViewModel.timeMessage(messageViewModel.message.date))")) < UIScreen.screenWidth * 0.65) || (messageViewModel.message.editing == false && labelSizeTimeIncoming(textWithTime: ("\(messageViewModel.message.text)\(messageViewModel.timeMessage(messageViewModel.message.date))")) < UIScreen.screenWidth * 0.65)){
                         HStack{
                             Text(messageViewModel.message.text)
-                                .foregroundColor(.white)
+                                .foregroundColor(.black)
                                 .font(.system(size: 16))
-                                .padding([.top, .leading, .trailing], 8)
+                                .padding([.leading, .trailing], 8)
                                 .padding(.bottom, 6)
                                 .clipped()
                             HStack{
                                 if(messageViewModel.message.editing == true){
                                     Text("ред.")
                                         .font(.caption)
-                                        .foregroundColor(Color(.white))
+                                        .foregroundColor(Color(.black))
                                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
                                 }
                                 Text(messageViewModel.timeMessage(messageViewModel.message.date))
                                     .font(.caption)
-                                    .foregroundColor(Color(white: 0.9))
+                                    .foregroundColor(Color(white: 0.6))
                                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 8))
                             }
                             .frame(alignment: .trailing)
                         }
                     }
                     else{
-                        HStack{
-                            Text(messageViewModel.message.text)
-                                .multilineTextAlignment(.leading)
-                                .foregroundColor(.white)
-                                .font(.system(size: 16))
-                                .padding([.top, .leading, .trailing], 8)
-                                .padding(.bottom, 1)
-                                .clipped()
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        Text(messageViewModel.message.text)
+                            .foregroundColor(.black)
+                            .font(.system(size: 16))
+                            .padding([.leading, .trailing], 8)
+                            .padding(.bottom, 1)
+                            .clipped()
                         HStack{
                             if(messageViewModel.message.editing == true){
                                 Text("ред.")
+                                    
                                     .font(.caption)
-                                    .foregroundColor(Color(.white))
+                                    .foregroundColor(Color(.black))
                                     .padding(EdgeInsets(top: 0, leading: 8, bottom: 8, trailing: 0))
                             }
                             Text(messageViewModel.timeMessage(messageViewModel.message.date))
                                 .font(.caption)
-                                .foregroundColor(Color(white: 0.9))
+                                .foregroundColor(Color(white: 0.6))
                                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 8))
                         }
                         .frame(maxWidth: .infinity, alignment: .trailing)
                     }
                 }
-                .background(Color(#colorLiteral(red: 0.4711452723, green: 0.4828599095, blue: 0.9940789342, alpha: 1)))
+                .background(Color(white: 0.9))
                 .cornerRadius(8)
             }
-            .frame(maxWidth: (labelSizeTextOutgoing(userName: userName, text: messageViewModel.message.text, time: messageViewModel.timeMessage(messageViewModel.message.date), editing: messageViewModel.message.editing))+24, alignment: .trailing) // было 16
+            .frame(maxWidth: (labelSizeTextIncoming(userName: userName, text: messageViewModel.message.text, time: messageViewModel.timeMessage(messageViewModel.message.date), editing: messageViewModel.message.editing))+24, alignment: .leading) // было 16
             //.background(Color(.blue))
-            .padding(.trailing, 8)
+            Spacer()
         }
     }
 }
 
 // узнать ширину и высоту (имени и текста)
-func labelSizeTextOutgoing(userName: String, text: String, time: String, editing: Bool) -> CGFloat { // CGSize
+func labelSizeTextIncoming(userName: String, text: String, time: String, editing: Bool) -> CGFloat { // CGSize
     let strArray = [userName, text, time, "ред." + time]
     var rect = [CGRect]()
     for index in 0...3 {
@@ -119,8 +134,6 @@ func labelSizeTextOutgoing(userName: String, text: String, time: String, editing
             // ограничение ширины сообщения в 0.8 от ширины экрана пользователя
             if(rect[1].size.width > UIScreen.screenWidth * 0.65){
                 widthText = UIScreen.screenWidth * 0.65
-                print(text)
-                print(rect[1].size.width)
             }
             else{
                 widthText = rect[1].size.width
@@ -131,7 +144,7 @@ func labelSizeTextOutgoing(userName: String, text: String, time: String, editing
 }
 
 // узнать ширину и высоту (текста и времени в одну строку)
-func labelSizeTimeOutgoing(textWithTime: String) -> CGFloat { // CGSize
+func labelSizeTimeIncoming(textWithTime: String) -> CGFloat { // CGSize
     let attributes: [NSAttributedString.Key: Any] = [
         .font: UIFont.systemFont(ofSize: 16)
     ]
@@ -141,8 +154,12 @@ func labelSizeTimeOutgoing(textWithTime: String) -> CGFloat { // CGSize
     return rect.size.width
 }
 
-
-
+// размеры экрана пользователя
+extension UIScreen{
+   static let screenWidth = UIScreen.main.bounds.size.width
+   static let screenHeight = UIScreen.main.bounds.size.height
+   static let screenSize = UIScreen.main.bounds.size
+}
 
 //struct IncomingMessageView_Previews: PreviewProvider {
 //    static var previews: some View {
