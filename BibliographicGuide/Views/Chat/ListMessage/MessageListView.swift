@@ -20,14 +20,26 @@ struct MessageListView: View {
     var body: some View {
         ZStack{
             VStack{
-                ScrollView{
-                    ForEach(messageListViewModel.messageViewModels) { messages in
-                        MessageView(messageViewModel: messages, userName: messageListViewModel.getUserName(messages.message), OutgoingOrIncomingMessage: messageListViewModel.OutgoingOrIncomingMessage(messages.message))
-                            .onLongPressGesture(minimumDuration: 0.5){
-                                ChangeableMessage = messages.message
-                                editingWindowShow.toggle()
+                VStack {
+                            ScrollView(.vertical, showsIndicators: false) {
+                                ScrollViewReader{ value in
+                                    VStack {
+                                        ForEach(messageListViewModel.messageViewModels) { messages in
+                                            MessageView(messageViewModel: messages, userName: messageListViewModel.getUserName(messages.message), OutgoingOrIncomingMessage: messageListViewModel.OutgoingOrIncomingMessage(messages.message))
+                                                .id(messages.id)
+                                                .onLongPressGesture(minimumDuration: 0.5){
+                                                    ChangeableMessage = messages.message
+                                                    editingWindowShow.toggle()
+                                                }
+                                        }
+                                    }.onChange(of: messageListViewModel.messageViewModels.count) { count in
+                                        withAnimation {
+                                            value.scrollTo(messageListViewModel.messageViewModels.last?.id)
+                                        }
+                                    }
+                                    .padding(.bottom, 5)
+                                }
                             }
-                    }
                 }
                 HStack(spacing: 4){
                     Button{
