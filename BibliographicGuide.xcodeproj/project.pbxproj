@@ -43,6 +43,8 @@
 		1132A09A29DDBF980007B181 /* UserInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A09929DDBF980007B181 /* UserInformationViewModel.swift */; };
 		1132A09D29E01C6C0007B181 /* IncomingMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A09C29E01C6C0007B181 /* IncomingMessageView.swift */; };
 		1132A09F29E01C9F0007B181 /* OutgoingMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A09E29E01C9F0007B181 /* OutgoingMessageView.swift */; };
+		1148681329E7075F00C698D6 /* IncomingMessageEditingWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148681229E7075F00C698D6 /* IncomingMessageEditingWindow.swift */; };
+		1148681529E7077200C698D6 /* OutgoingMessageEditingWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148681429E7077200C698D6 /* OutgoingMessageEditingWindow.swift */; };
 		8E2EDA666BF49964DFE1B02E /* Pods_BibliographicGuide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A17856A9ED342D36391D4E7 /* Pods_BibliographicGuide.framework */; };
 		C79F79CD4CD1D2DE9CB5E0AB /* Pods_BibliographicGuideTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E5B84D1332C25EDC27E7512 /* Pods_BibliographicGuideTests.framework */; };
 /* End PBXBuildFile section */
@@ -104,6 +106,8 @@
 		1132A09929DDBF980007B181 /* UserInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformationViewModel.swift; sourceTree = "<group>"; };
 		1132A09C29E01C6C0007B181 /* IncomingMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingMessageView.swift; sourceTree = "<group>"; };
 		1132A09E29E01C9F0007B181 /* OutgoingMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessageView.swift; sourceTree = "<group>"; };
+		1148681229E7075F00C698D6 /* IncomingMessageEditingWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingMessageEditingWindow.swift; sourceTree = "<group>"; };
+		1148681429E7077200C698D6 /* OutgoingMessageEditingWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessageEditingWindow.swift; sourceTree = "<group>"; };
 		241C83635DC8BC995E701B01 /* Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide-BibliographicGuideUITests/Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3BF3DF8CD7A06B44BA0C0176 /* Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide-BibliographicGuideUITests/Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig"; sourceTree = "<group>"; };
 		57888CDBC96114F9CA898EC2 /* Pods-BibliographicGuide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide.debug.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide/Pods-BibliographicGuide.debug.xcconfig"; sourceTree = "<group>"; };
@@ -324,6 +328,7 @@
 			children = (
 				1132A08529DC4F410007B181 /* ChatView.swift */,
 				1132A08929DC4FE50007B181 /* ListMessage */,
+				1148681129E706AD00C698D6 /* MessageEditingWindow */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -358,10 +363,19 @@
 		1132A09B29E01C2B0007B181 /* Message */ = {
 			isa = PBXGroup;
 			children = (
-				1132A09C29E01C6C0007B181 /* IncomingMessageView.swift */,
 				1132A09E29E01C9F0007B181 /* OutgoingMessageView.swift */,
+				1132A09C29E01C6C0007B181 /* IncomingMessageView.swift */,
 			);
 			path = Message;
+			sourceTree = "<group>";
+		};
+		1148681129E706AD00C698D6 /* MessageEditingWindow */ = {
+			isa = PBXGroup;
+			children = (
+				1148681429E7077200C698D6 /* OutgoingMessageEditingWindow.swift */,
+				1148681229E7075F00C698D6 /* IncomingMessageEditingWindow.swift */,
+			);
+			path = MessageEditingWindow;
 			sourceTree = "<group>";
 		};
 		A7A0C87989601ECE0D6915F5 /* Frameworks */ = {
@@ -627,6 +641,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1132A09D29E01C6C0007B181 /* IncomingMessageView.swift in Sources */,
+				1148681529E7077200C698D6 /* OutgoingMessageEditingWindow.swift in Sources */,
 				1132A09629DD9A7F0007B181 /* UserInformationRepository.swift in Sources */,
 				1132A09029DC565A0007B181 /* MessageViewModel.swift in Sources */,
 				1132A08629DC4F410007B181 /* ChatView.swift in Sources */,
@@ -638,6 +653,7 @@
 				1132A06529DAF1B70007B181 /* RecordView.swift in Sources */,
 				1132A09A29DDBF980007B181 /* UserInformationViewModel.swift in Sources */,
 				1132A09829DDA2430007B181 /* RegistrationViewModel.swift in Sources */,
+				1148681329E7075F00C698D6 /* IncomingMessageEditingWindow.swift in Sources */,
 				1132A05C29D849140007B181 /* RecordRepository.swift in Sources */,
 				1132A08E29DC52270007B181 /* MessageListViewModel.swift in Sources */,
 				1132A07F29DB524A0007B181 /* RecordDescriptionViewModel.swift in Sources */,

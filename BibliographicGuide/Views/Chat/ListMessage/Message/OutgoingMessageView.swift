@@ -68,7 +68,7 @@ struct OutgoingMessageView: View {
                                     .foregroundColor(Color(white: 0.9))
                                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 8))
                             }
-                            .frame(maxHeight: .infinity, alignment: .bottom)
+                            .frame(maxHeight: 40, alignment: .bottom)
                         }
                     }
                     else{
@@ -100,8 +100,7 @@ struct OutgoingMessageView: View {
                 .background(Color(#colorLiteral(red: 0.4711452723, green: 0.4828599095, blue: 0.9940789342, alpha: 1)))
                 .cornerRadius(8)
             }
-            .frame(maxWidth: (labelSizeTextOutgoing(userName: userName, text: messageViewModel.message.text, time: messageViewModel.timeMessage(messageViewModel.message.date), editing: messageViewModel.message.editing)) + 16, alignment: .trailing) // было 16
-            //.background(Color(.blue))
+            .frame(maxWidth: (labelSizeTextOutgoing(userName: userName, text: messageViewModel.message.text, time: messageViewModel.timeMessage(messageViewModel.message.date), editing: messageViewModel.message.editing)) + 18, alignment: .trailing) // было 16
             .padding(.trailing, 8)
         }
     }

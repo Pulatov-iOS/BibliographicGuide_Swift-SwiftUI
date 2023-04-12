@@ -74,4 +74,11 @@ final class MessageListViewModel: ObservableObject {
             return false
         }
     }
+    
+    func MessageToMessageViewModel(_ idMessage: String) -> MessageViewModel{
+        let newMessage = messageViewModels.filter { (item) -> Bool in
+            item.id == idMessage
+        }
+        return newMessage.first ?? MessageViewModel(message: Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false))
+    }
 }

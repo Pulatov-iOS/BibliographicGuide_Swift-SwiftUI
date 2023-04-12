@@ -83,7 +83,7 @@ struct IncomingMessageView: View {
                                     .foregroundColor(Color(white: 0.6))
                                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 8))
                             }
-                            .frame(maxHeight: .infinity, alignment: .bottom)
+                            .frame(maxHeight: 40, alignment: .bottom)
                         }
                     }
                     else{

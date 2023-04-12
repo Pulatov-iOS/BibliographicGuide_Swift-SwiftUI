@@ -18,28 +18,28 @@ struct MessageListView: View {
     @State private var ChangeableMessage: Message?
     
     var body: some View {
-        ZStack{
+        ZStack(alignment: .trailing){
             VStack{
                 VStack {
-                            ScrollView(.vertical, showsIndicators: false) {
-                                ScrollViewReader{ value in
-                                    VStack {
-                                        ForEach(messageListViewModel.messageViewModels) { messages in
-                                            MessageView(messageViewModel: messages, userName: messageListViewModel.getUserName(messages.message), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(messages.message.replyIdMessage), textResponseMessage: messageListViewModel.getTextResponseMessage(messages.message.replyIdMessage), outgoingOrIncomingMessage: messageListViewModel.OutgoingOrIncomingMessage(messages.message))
-                                                .id(messages.id)
-                                                .onLongPressGesture(minimumDuration: 0.5){
-                                                    ChangeableMessage = messages.message
-                                                    editingWindowShow.toggle()
-                                                }
+                    ScrollView(.vertical, showsIndicators: false) {
+                        ScrollViewReader{ value in
+                            VStack {
+                                ForEach(messageListViewModel.messageViewModels) { messages in
+                                    MessageView(messageViewModel: messages, userName: messageListViewModel.getUserName(messages.message), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(messages.message.replyIdMessage), textResponseMessage: messageListViewModel.getTextResponseMessage(messages.message.replyIdMessage), outgoingOrIncomingMessage: messageListViewModel.OutgoingOrIncomingMessage(messages.message))
+                                        .id(messages.id)
+                                        .onLongPressGesture(minimumDuration: 0.5){
+                                            ChangeableMessage = messages.message
+                                            editingWindowShow.toggle()
                                         }
-                                    }.onChange(of: messageListViewModel.messageViewModels.count) { count in
-                                        withAnimation {
-                                            value.scrollTo(messageListViewModel.messageViewModels.last?.id)
-                                        }
-                                    }
-                                    .padding(.bottom, 5)
+                                }
+                            }.onChange(of: messageListViewModel.messageViewModels.count) { count in
+                                withAnimation {
+                                    value.scrollTo(messageListViewModel.messageViewModels.last?.id)
                                 }
                             }
+                            .padding(.bottom, 5)
+                        }
+                    }
                 }
                 HStack(spacing: 4){
                     Button{
@@ -100,37 +100,25 @@ struct MessageListView: View {
                     maxHeight: .infinity,
                     alignment: .topLeading
                   )
-                .background(Color.gray.blur(radius: 200))
+                .background(.ultraThinMaterial)
                 .onTapGesture {
                     editingWindowShow = false
                 }
                 
-                VStack{
-                    HStack{
-                        Button("Ответить"){
-                            editingWindowShow.toggle()
-                            replyIdMessage = ChangeableMessage?.id ?? "" // сохраняем id сообщения к которому прикрепляется сообщение
-                        }
-                        .foregroundColor(.black)
-                        Button("Редактировать"){
-                            editingMessage = true
-                            editingWindowShow.toggle()
-                            textNewMessage = ChangeableMessage?.text ?? ""
-                        }
-                        .foregroundColor(.black)
-                        Button("Удалить"){
-                            messageListViewModel.removeMessage(ChangeableMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false))
-                            editingWindowShow.toggle()
-                        }
-                        .foregroundColor(.red)
-                    }
+                
+                if(messageListViewModel.OutgoingOrIncomingMessage(ChangeableMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false))){
+                    OutgoingMessageEditingWindow(messageListViewModel: messageListViewModel, userName: messageListViewModel.getUserName(ChangeableMessage ??  Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false)), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(ChangeableMessage?.replyIdMessage ?? ""), textResponseMessage: messageListViewModel.getTextResponseMessage(ChangeableMessage?.replyIdMessage ?? ""), replyIdMessage: $replyIdMessage, editingMessage: $editingMessage, ChangeableMessage: $ChangeableMessage, textNewMessage: $textNewMessage, editingWindowShow: $editingWindowShow)
                 }
-                .frame(width:150, height: 100)
-                .padding()
-                .background(Color.white)
-                .cornerRadius(25)
-                .onDisappear(){ // убрать окно редактирования сообщения, если оно открыто и мы перешли в другое окно
-                    editingWindowShow = false
+                else{
+                    IncomingMessageEditingWindow(messageListViewModel: messageListViewModel, userName: messageListViewModel.getUserName(ChangeableMessage ??  Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false)), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(ChangeableMessage?.replyIdMessage ?? ""), textResponseMessage: messageListViewModel.getTextResponseMessage(ChangeableMessage?.replyIdMessage ?? ""), replyIdMessage: $replyIdMessage, editingMessage: $editingMessage, ChangeableMessage: $ChangeableMessage, textNewMessage: $textNewMessage, editingWindowShow: $editingWindowShow)
+                }
+            }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                HStack {
+                    Text("Общий чат").font(.headline)
                 }
             }
         }
