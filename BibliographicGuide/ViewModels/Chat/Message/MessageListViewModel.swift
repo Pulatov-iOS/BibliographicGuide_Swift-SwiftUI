@@ -52,6 +52,20 @@ final class MessageListViewModel: ObservableObject {
         return newUsers.first?.userName ?? "User"
     }
     
+    func getUserNameResponseMessage(_ replyIdMessage: String) -> String{
+        let newMessage = messageViewModels.filter { (item) -> Bool in
+            item.id == replyIdMessage
+        }
+        return getUserName(newMessage.first?.message ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false))
+    }
+    
+    func getTextResponseMessage(_ replyIdMessage: String) -> String{
+        let newMessage = messageViewModels.filter { (item) -> Bool in
+            item.id == replyIdMessage
+        }
+        return newMessage.first?.message.text ?? ""
+    }
+    
     func OutgoingOrIncomingMessage(_ message: Message) -> Bool{
         if(message.idUser == userId){
             return true

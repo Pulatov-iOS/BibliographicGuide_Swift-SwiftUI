@@ -12,25 +12,51 @@ struct OutgoingMessageView: View {
     
     var messageViewModel: MessageViewModel
     var userName: String
+    var userNameResponseMessage: String
+    var textResponseMessage: String
     
     var body: some View {
         HStack(alignment: .top) {
             Spacer()
             VStack(alignment: .trailing) {
-                VStack(alignment: .trailing) {
+                VStack(alignment: .trailing, spacing: 0) {
                     if(messageViewModel.message.replyIdMessage != ""){ // отображаем текст ответа на сообщение
-                        Text(messageViewModel.message.replyIdMessage)
+                        HStack(){
+                            RoundedRectangle(cornerRadius: 1)
+                                .fill(.green)
+                                .frame(width: 3, height: 33)
+                                .padding(EdgeInsets(top: 4, leading: 10, bottom: 0, trailing: 0))
+                            VStack{
+                                Text(userNameResponseMessage)
+                                    .font(.system(size: 15))
+                                    .foregroundColor(.green)
+                                    .fontWeight(.bold)
+                                    .padding(EdgeInsets(top: 3, leading: 0, bottom: 0, trailing: 4))
+                                    .lineLimit(1)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                Text(textResponseMessage)
+                                    .font(.system(size: 15))
+                                    .foregroundColor(.white)
+                                    .padding(.trailing, 4)
+                                    .lineLimit(1)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
                     }
                     
                     // Если текст сообщения короткий, то время ставится сразу после него
                     if((messageViewModel.message.editing == true && labelSizeTimeOutgoing(textWithTime: ("\(messageViewModel.message.text)ред.\(messageViewModel.timeMessage(messageViewModel.message.date))")) < UIScreen.screenWidth * 0.65) || (messageViewModel.message.editing == false && labelSizeTimeOutgoing(textWithTime: ("\(messageViewModel.message.text)\(messageViewModel.timeMessage(messageViewModel.message.date))")) < UIScreen.screenWidth * 0.65)){
                         HStack{
-                            Text(messageViewModel.message.text)
-                                .foregroundColor(.white)
-                                .font(.system(size: 16))
-                                .padding([.top, .leading, .trailing], 8)
-                                .padding(.bottom, 6)
-                                .clipped()
+                            HStack{
+                                Text(messageViewModel.message.text)
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 16))
+                                    .padding([.top, .leading, .trailing], 8)
+                                    .padding(.bottom, 6)
+                                    .lineLimit(nil)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            
                             HStack{
                                 if(messageViewModel.message.editing == true){
                                     Text("ред.")
@@ -43,7 +69,7 @@ struct OutgoingMessageView: View {
                                     .foregroundColor(Color(white: 0.9))
                                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 8))
                             }
-                            .frame(alignment: .trailing)
+                            .frame(maxHeight: .infinity, alignment: .bottom)
                         }
                     }
                     else{
@@ -54,7 +80,7 @@ struct OutgoingMessageView: View {
                                 .font(.system(size: 16))
                                 .padding([.top, .leading, .trailing], 8)
                                 .padding(.bottom, 1)
-                                .clipped()
+                                .lineLimit(nil)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         HStack{

@@ -25,7 +25,7 @@ struct MessageListView: View {
                                 ScrollViewReader{ value in
                                     VStack {
                                         ForEach(messageListViewModel.messageViewModels) { messages in
-                                            MessageView(messageViewModel: messages, userName: messageListViewModel.getUserName(messages.message), OutgoingOrIncomingMessage: messageListViewModel.OutgoingOrIncomingMessage(messages.message))
+                                            MessageView(messageViewModel: messages, userName: messageListViewModel.getUserName(messages.message), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(messages.message.replyIdMessage), textResponseMessage: messageListViewModel.getTextResponseMessage(messages.message.replyIdMessage), outgoingOrIncomingMessage: messageListViewModel.OutgoingOrIncomingMessage(messages.message))
                                                 .id(messages.id)
                                                 .onLongPressGesture(minimumDuration: 0.5){
                                                     ChangeableMessage = messages.message

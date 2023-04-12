@@ -11,15 +11,17 @@ struct MessageView: View {
     
     var messageViewModel: MessageViewModel
     var userName: String
-    var OutgoingOrIncomingMessage: Bool
+    var userNameResponseMessage: String
+    var textResponseMessage: String
+    var outgoingOrIncomingMessage: Bool
     
     var body: some View {
         VStack{
-            if(OutgoingOrIncomingMessage == true){
-                OutgoingMessageView(messageViewModel: messageViewModel, userName: userName)
+            if(outgoingOrIncomingMessage == true){
+                OutgoingMessageView(messageViewModel: messageViewModel, userName: userName, userNameResponseMessage: userNameResponseMessage, textResponseMessage: textResponseMessage)
             }
             else{
-                IncomingMessageView(messageViewModel: messageViewModel, userName: userName)
+                IncomingMessageView(messageViewModel: messageViewModel, userName: userName, userNameResponseMessage: userNameResponseMessage, textResponseMessage: textResponseMessage)
             }
         }
     }

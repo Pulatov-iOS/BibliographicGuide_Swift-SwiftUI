@@ -12,6 +12,8 @@ struct IncomingMessageView: View {
     
     var messageViewModel: MessageViewModel
     var userName: String
+    var userNameResponseMessage: String
+    var textResponseMessage: String
     
     var body: some View {
         HStack(alignment: .top) {
@@ -29,7 +31,7 @@ struct IncomingMessageView: View {
                 }
             }
             VStack(alignment: .leading) {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 0) {
                     Text(userName)
                         .foregroundColor(.blue)
                         .font(.system(size: 14))
@@ -37,7 +39,27 @@ struct IncomingMessageView: View {
                         .padding([.top, .leading, .trailing], 8)
                         .clipped()
                     if(messageViewModel.message.replyIdMessage != ""){ // отображаем текст ответа на сообщение
-                        Text(messageViewModel.message.replyIdMessage)
+                        HStack(){
+                            RoundedRectangle(cornerRadius: 1)
+                                .fill(.green)
+                                .frame(width: 3, height: 33)
+                                .padding(EdgeInsets(top: 4, leading: 10, bottom: 0, trailing: 0))
+                            VStack{
+                                Text(userNameResponseMessage)
+                                    .font(.system(size: 15))
+                                    .foregroundColor(.green)
+                                    .fontWeight(.bold)
+                                    .padding(EdgeInsets(top: 3, leading: 0, bottom: 0, trailing: 4))
+                                    .lineLimit(1)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                Text(textResponseMessage)
+                                    .font(.system(size: 15))
+                                    .foregroundColor(.white)
+                                    .padding(.trailing, 4)
+                                    .lineLimit(1)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
                     }
                     
                     // Если текст сообщения короткий, то время ставится сразу после него
@@ -48,7 +70,7 @@ struct IncomingMessageView: View {
                                 .font(.system(size: 16))
                                 .padding([.leading, .trailing], 8)
                                 .padding(.bottom, 6)
-                                .clipped()
+                                .lineLimit(nil)
                             HStack{
                                 if(messageViewModel.message.editing == true){
                                     Text("ред.")
@@ -61,7 +83,7 @@ struct IncomingMessageView: View {
                                     .foregroundColor(Color(white: 0.6))
                                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 8))
                             }
-                            .frame(alignment: .trailing)
+                            .frame(maxHeight: .infinity, alignment: .bottom)
                         }
                     }
                     else{
@@ -70,7 +92,7 @@ struct IncomingMessageView: View {
                             .font(.system(size: 16))
                             .padding([.leading, .trailing], 8)
                             .padding(.bottom, 1)
-                            .clipped()
+                            .lineLimit(nil)
                         HStack{
                             if(messageViewModel.message.editing == true){
                                 Text("ред.")
