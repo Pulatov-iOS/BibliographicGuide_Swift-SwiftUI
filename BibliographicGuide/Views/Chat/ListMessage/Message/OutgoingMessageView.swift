@@ -55,8 +55,7 @@ struct OutgoingMessageView: View {
                                     .padding(.bottom, 6)
                                     .lineLimit(nil)
                             }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            
+                            //.frame(maxWidth: .infinity, alignment: .leading)
                             HStack{
                                 if(messageViewModel.message.editing == true){
                                     Text("ред.")
@@ -101,7 +100,7 @@ struct OutgoingMessageView: View {
                 .background(Color(#colorLiteral(red: 0.4711452723, green: 0.4828599095, blue: 0.9940789342, alpha: 1)))
                 .cornerRadius(8)
             }
-            .frame(maxWidth: (labelSizeTextOutgoing(userName: userName, text: messageViewModel.message.text, time: messageViewModel.timeMessage(messageViewModel.message.date), editing: messageViewModel.message.editing))+24, alignment: .trailing) // было 16
+            .frame(maxWidth: (labelSizeTextOutgoing(userName: userName, text: messageViewModel.message.text, time: messageViewModel.timeMessage(messageViewModel.message.date), editing: messageViewModel.message.editing)) + 16, alignment: .trailing) // было 16
             //.background(Color(.blue))
             .padding(.trailing, 8)
         }
@@ -125,32 +124,20 @@ func labelSizeTextOutgoing(userName: String, text: String, time: String, editing
     // ширина сообщения, если оно в одну строку
     if((editing == true && (rect[1].size.width + rect[3].size.width) < UIScreen.screenWidth * 0.65) || (editing == false && (rect[1].size.width + rect[2].size.width) < UIScreen.screenWidth * 0.65)){
         
-        if((editing == true && rect[0].size.width > (rect[1].size.width + rect[3].size.width)) || (editing == false && rect[0].size.width > (rect[1].size.width + rect[2].size.width))){ // если имя пользователя больше длины сообщения
-            widthText = rect[0].size.width
+        if(editing == true){
+            widthText = rect[1].size.width + rect[3].size.width + 10
         }
         else{
-            if(editing == true){
-                widthText = rect[1].size.width + rect[3].size.width + 10
-            }
-            else{
-                widthText = rect[1].size.width + rect[2].size.width + 10
-            }
+            widthText = rect[1].size.width + rect[2].size.width + 10
         }
     }
     else{
-        if(rect[0].size.width > rect[1].size.width){ // если имя пользователя больше длины сообщения
-            widthText = rect[0].size.width
+        // ограничение ширины сообщения в 0.8 от ширины экрана пользователя
+        if(rect[1].size.width > UIScreen.screenWidth * 0.65){
+            widthText = UIScreen.screenWidth * 0.65
         }
         else{
-            // ограничение ширины сообщения в 0.8 от ширины экрана пользователя
-            if(rect[1].size.width > UIScreen.screenWidth * 0.65){
-                widthText = UIScreen.screenWidth * 0.65
-                print(text)
-                print(rect[1].size.width)
-            }
-            else{
-                widthText = rect[1].size.width
-            }
+            widthText = rect[1].size.width
         }
     }
     return widthText // rect.size
