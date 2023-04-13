@@ -25,6 +25,14 @@ final class MessageViewModel: ObservableObject, Identifiable {
             .store(in: &cancellables)
     }
     
+    func dateMessage(_ date: Date) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        // Convert Date to String
+        let newDate = dateFormatter.string(from: date)
+        return newDate
+    }
+    
     func timeMessage(_ date: Date) -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "hh:mm"

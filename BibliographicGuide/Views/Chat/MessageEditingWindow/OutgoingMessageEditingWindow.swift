@@ -18,6 +18,7 @@ struct OutgoingMessageEditingWindow: View {
     @Binding var ChangeableMessage: Message?
     @Binding var textNewMessage: String
     @Binding var editingWindowShow: Bool
+    @Binding var replyWindowShow: Bool
     
     var body: some View {
         VStack(alignment: .trailing){
@@ -35,6 +36,7 @@ struct OutgoingMessageEditingWindow: View {
                 .background(Color.white)
                 .onTapGesture {
                     editingWindowShow.toggle()
+                    replyWindowShow = true
                     replyIdMessage = ChangeableMessage?.id ?? "" // сохраняем id сообщения к которому прикрепляется сообщение
                 }
                 HStack{

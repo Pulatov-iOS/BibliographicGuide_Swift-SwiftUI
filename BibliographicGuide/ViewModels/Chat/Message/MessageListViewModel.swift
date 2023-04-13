@@ -14,6 +14,7 @@ final class MessageListViewModel: ObservableObject {
     
     @Published var messageRepository = MessageRepository()
     @Published var messageViewModels: [MessageViewModel] = []
+    var сurrentDateMessage = ""
     
     @Published var userInformationRepository = UserInformationRepository()
     @Published var usersInformation: [UserInformation] = []
@@ -80,5 +81,26 @@ final class MessageListViewModel: ObservableObject {
             item.id == idMessage
         }
         return newMessage.first ?? MessageViewModel(message: Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false))
+    }
+    
+    func showDateMessage(_ message: Message) -> Bool{
+        let newDateMessage = dateMessage(message.date)
+        if(newDateMessage == сurrentDateMessage){
+            print("\(newDateMessage), \(сurrentDateMessage)")
+            return false
+        }
+        else{
+            print("dv\(newDateMessage), \(сurrentDateMessage)")
+            сurrentDateMessage = newDateMessage
+            return true
+        }
+    }
+    
+    func dateMessage(_ date: Date) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        // Convert Date to String
+        let newDate = dateFormatter.string(from: date)
+        return newDate
     }
 }

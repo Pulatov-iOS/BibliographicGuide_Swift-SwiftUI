@@ -20,7 +20,7 @@ struct IncomingMessageView: View {
             VStack(alignment: .leading) {
                 HStack(alignment: .top) {
                     VStack{
-                        WebImage(url: URL(string: "https://sun2.beltelecom-by-minsk.userapi.com/impg/pZPc4CkVZuBFxq5o8sLnqql1E5QAGv-duK110g/k65Itu6amGE.jpg?size=1179x2096&quality=95&sign=96d2dda406362770478262d698ed1490&type=album"))
+                        WebImage(url: URL(string: "https://sun2.beltelecom-by-minsk.userapi.com/impg/goqey4KZJjETzwF_L4fqfH11HlzyWDtU5aNJ-Q/AaKtrJQFqkw.jpg?size=924x1080&quality=96&sign=0169ab31bf9813322547f88a64db2d02&type=album"))
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 36, height: 36)
@@ -75,7 +75,7 @@ struct IncomingMessageView: View {
                                 if(messageViewModel.message.editing == true){
                                     Text("ред.")
                                         .font(.caption)
-                                        .foregroundColor(Color(.black))
+                                        .foregroundColor(Color(white: 0.6))
                                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
                                 }
                                 Text(messageViewModel.timeMessage(messageViewModel.message.date))

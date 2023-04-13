@@ -14,18 +14,19 @@ struct MessageListView: View {
     @State private var textNewMessage = ""
     @State private var replyIdMessage = ""
     @State private var editingWindowShow = false
+    @State private var replyWindowShow = false
     @State private var editingMessage = false
     @State private var ChangeableMessage: Message?
     
     var body: some View {
         ZStack(alignment: .trailing){
-            VStack{
-                VStack {
+            VStack(spacing: 0){
+                VStack{
                     ScrollView(.vertical, showsIndicators: false) {
                         ScrollViewReader{ value in
                             VStack {
                                 ForEach(messageListViewModel.messageViewModels) { messages in
-                                    MessageView(messageViewModel: messages, userName: messageListViewModel.getUserName(messages.message), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(messages.message.replyIdMessage), textResponseMessage: messageListViewModel.getTextResponseMessage(messages.message.replyIdMessage), outgoingOrIncomingMessage: messageListViewModel.OutgoingOrIncomingMessage(messages.message))
+                                    MessageView(messageViewModel: messages, userName: messageListViewModel.getUserName(messages.message), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(messages.message.replyIdMessage), textResponseMessage: messageListViewModel.getTextResponseMessage(messages.message.replyIdMessage), outgoingOrIncomingMessage: messageListViewModel.OutgoingOrIncomingMessage(messages.message), messageListViewModel: messageListViewModel)
                                         .id(messages.id)
                                         .onLongPressGesture(minimumDuration: 0.5){
                                             ChangeableMessage = messages.message
@@ -41,29 +42,67 @@ struct MessageListView: View {
                         }
                     }
                 }
+                
+                if(replyWindowShow == true){
+                    VStack{
+                        HStack{
+                            Image(systemName: "arrowshape.turn.up.left")
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(Color.blue)
+                                .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 10))
+                            RoundedRectangle(cornerRadius: 1)
+                                .fill(.blue)
+                                .frame(width: 3, height: 33)
+                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+                            VStack(alignment: .leading){
+                                Text(messageListViewModel.getUserName(ChangeableMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false)))
+                                    .lineLimit(1)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color.blue)
+                                Text(ChangeableMessage?.text ?? "")
+                                    .lineLimit(1)
+                            }
+                            Spacer()
+                            Image(systemName: "multiply")
+                                .resizable()
+                                .frame(width: 15, height: 15)
+                                .foregroundColor(Color.blue)
+                                .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 16))
+                                .onTapGesture {
+                                    replyWindowShow = false
+                                }
+                        }
+                        .padding(EdgeInsets(top: 8, leading: 0, bottom: 0, trailing: 0))
+                    }.background(Color(white: 0.97))
+                }
+                
                 HStack(spacing: 4){
                     Button{
                         
                     } label: {
-                        Image(systemName: "paperclip.circle.fill")
+                        Image(systemName: "paperclip")
                             .resizable()
-                            .frame(width: 30, height: 30)
-                            .foregroundColor(.gray)
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(Color.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
                     }
                     .padding(8)
-                    TextField("Write your message", text: $textNewMessage)
+                    TextField("Comment", text: $textNewMessage, prompt: Text("Сообщение"), axis: .vertical)
                         .foregroundColor(.black)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .lineLimit(1...5)
+                        
                     if(editingMessage != true){
                         Button{
                             if(textNewMessage != ""){ // если текст есть, то отправляем сообщение
                                 var mes = Message(idUser: "0y1kzDU4QxMqjxDSeTupTOmWbDl2", typeMessage: "text", date: Date(), text: textNewMessage, idFiles: [""], replyIdMessage: replyIdMessage, editing: false)
                                 messageListViewModel.addMessage(mes)
+                                replyWindowShow = false
                             }
                             textNewMessage = ""
                             replyIdMessage = ""
                         } label: {
-                            Image(systemName: "arrow.right.circle.fill")
+                            Image(systemName: "arrow.up.circle.fill")
                                 .resizable()
                                 .frame(width: 32, height: 32)
                                 .foregroundColor(Color.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
@@ -105,12 +144,11 @@ struct MessageListView: View {
                     editingWindowShow = false
                 }
                 
-                
                 if(messageListViewModel.OutgoingOrIncomingMessage(ChangeableMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false))){
-                    OutgoingMessageEditingWindow(messageListViewModel: messageListViewModel, userName: messageListViewModel.getUserName(ChangeableMessage ??  Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false)), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(ChangeableMessage?.replyIdMessage ?? ""), textResponseMessage: messageListViewModel.getTextResponseMessage(ChangeableMessage?.replyIdMessage ?? ""), replyIdMessage: $replyIdMessage, editingMessage: $editingMessage, ChangeableMessage: $ChangeableMessage, textNewMessage: $textNewMessage, editingWindowShow: $editingWindowShow)
+                    OutgoingMessageEditingWindow(messageListViewModel: messageListViewModel, userName: messageListViewModel.getUserName(ChangeableMessage ??  Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false)), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(ChangeableMessage?.replyIdMessage ?? ""), textResponseMessage: messageListViewModel.getTextResponseMessage(ChangeableMessage?.replyIdMessage ?? ""), replyIdMessage: $replyIdMessage, editingMessage: $editingMessage, ChangeableMessage: $ChangeableMessage, textNewMessage: $textNewMessage, editingWindowShow: $editingWindowShow, replyWindowShow: $replyWindowShow)
                 }
                 else{
-                    IncomingMessageEditingWindow(messageListViewModel: messageListViewModel, userName: messageListViewModel.getUserName(ChangeableMessage ??  Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false)), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(ChangeableMessage?.replyIdMessage ?? ""), textResponseMessage: messageListViewModel.getTextResponseMessage(ChangeableMessage?.replyIdMessage ?? ""), replyIdMessage: $replyIdMessage, editingMessage: $editingMessage, ChangeableMessage: $ChangeableMessage, textNewMessage: $textNewMessage, editingWindowShow: $editingWindowShow)
+                    IncomingMessageEditingWindow(messageListViewModel: messageListViewModel, userName: messageListViewModel.getUserName(ChangeableMessage ??  Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false)), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(ChangeableMessage?.replyIdMessage ?? ""), textResponseMessage: messageListViewModel.getTextResponseMessage(ChangeableMessage?.replyIdMessage ?? ""), replyIdMessage: $replyIdMessage, editingMessage: $editingMessage, ChangeableMessage: $ChangeableMessage, textNewMessage: $textNewMessage, editingWindowShow: $editingWindowShow, replyWindowShow: $replyWindowShow)
                 }
             }
         }
