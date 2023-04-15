@@ -12,6 +12,7 @@ import FirebaseFirestoreSwift
 final class UserInformationRepository: ObservableObject {
     
     private let path = "UsersInformation"
+    private let userName = "userName"
     private let db = Firestore.firestore()
     @Published var usersInformation: [UserInformation] = []
     
@@ -43,5 +44,17 @@ final class UserInformationRepository: ObservableObject {
             }
         }
         completion(true, "Ok")
+    }
+    
+    func updateUserInformation(userId: String, newUserName: String, completion: @escaping (Bool, String)->Void){
+        db.collection(path).document(userId).updateData([
+            userName: newUserName
+        ]) { err in
+            if let err = err {
+                completion(false, "error")
+            } else {
+                completion(true, "success")
+            }
+        }
     }
 }
