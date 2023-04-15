@@ -37,23 +37,25 @@ final class UserInformationListViewModel: ObservableObject {
         if(newUserName == ""){
             completion(false, "Введите новое имя пользователя.")
         }
-        // проверка нет ли такого имени пользователя
-        let userName = usersInformationViewModel.filter { (item) -> Bool in
-            item.userInformation.userName.lowercased() == newUserName.lowercased()
-        }
-        if(userName.first?.userInformation.id == nil){
-            userInformationRepository.updateUserInformation(userId: userId, newUserName: newUserName){
-                (verified, status) in
-                if !verified {
-                    completion(false, "Ошибка при запросе обновления имени пользователя.")
-                }
-                else{
-                    completion(true, "Имя пользователя обновлено успешно.")
+        else{
+            // проверка нет ли такого имени пользователя
+            let userName = usersInformationViewModel.filter { (item) -> Bool in
+                item.userInformation.userName.lowercased() == newUserName.lowercased()
+            }
+            if(userName.first?.userInformation.id == nil){
+                userInformationRepository.updateUserInformation(userId: userId, newUserName: newUserName){
+                    (verified, status) in
+                    if !verified {
+                        completion(false, "Ошибка при запросе обновления имени пользователя.")
+                    }
+                    else{
+                        completion(true, "Имя пользователя обновлено успешно.")
+                    }
                 }
             }
-        }
-        else{
-            completion(false, "Данное имя пользователя уже занято.")
+            else{
+                completion(false, "Данное имя пользователя уже занято.")
+            }
         }
     }
     

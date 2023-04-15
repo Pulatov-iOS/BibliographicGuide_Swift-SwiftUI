@@ -54,7 +54,6 @@ struct SettingsView: View {
                         Spacer()
                         TextField(userInformationListViewModel.getUserName(), text: $newNickname).multilineTextAlignment(TextAlignment.trailing)
                     }
-                   
                 }
             }.padding(.top, -12)
             
