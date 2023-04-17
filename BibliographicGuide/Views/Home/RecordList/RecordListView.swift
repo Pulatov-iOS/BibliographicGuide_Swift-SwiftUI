@@ -11,6 +11,8 @@ struct RecordListView: View {
     
     @ObservedObject var recordListViewModel: RecordListViewModel
     
+    @State private var showRecordPage: Bool = false
+    
     var body: some View {
 
         Text("Все записи")
@@ -24,6 +26,12 @@ struct RecordListView: View {
                 
                 ForEach(recordListViewModel.recordViewModels) { records in
                     RecordView(recordViewModel: records)
+                        .onTapGesture {
+                            self.showRecordPage = true
+                        }
+                        .sheet(isPresented: self.$showRecordPage) {
+                           RecordPageView()
+                        }
                 }
                 
             }

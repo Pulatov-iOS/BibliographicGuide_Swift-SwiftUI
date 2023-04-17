@@ -18,6 +18,7 @@ struct SettingsView: View {
     @State private var alertTitle: String = "Успешно"
     @State private var alertMessage: String = "Настройки успешно изменены."
     @State private var showAlertCreate: Bool = false
+    @State private var showUserEditingWindow: Bool = false
     
     var body: some View {
 
@@ -52,21 +53,22 @@ struct SettingsView: View {
                         Text("Имя пользователя:")
                             .foregroundColor(Color.gray)
                         Spacer()
-                        TextField(userInformationListViewModel.getUserName(), text: $newNickname).multilineTextAlignment(TextAlignment.trailing)
+                        TextField(userInformationListViewModel.getСurrentUserInformation().userName, text: $newNickname).multilineTextAlignment(TextAlignment.trailing)
                     }
                 }
             }.padding(.top, -12)
             
             VStack{
-//                if(viewModelSettings.userRights.first?.administrator == true){
-//                    Button{
-//                        self.showModal = true
-//                    } label: {
-//                        Text("Изменение пользователей").foregroundColor(.black).frame(width: UIScreen.main.bounds.width - 160).padding()
-//                    }.background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
-//                        .clipShape(Capsule())
-//                        .padding(.bottom, 25)
-//                }
+                if(userInformationListViewModel.getСurrentUserInformation().role == "administrator"){
+                    Button{
+                        self.showUserEditingWindow = true
+                    } label: {
+                        Text("Изменение пользователей").foregroundColor(.black).frame(width: UIScreen.main.bounds.width - 160).padding()
+                    }
+                    .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
+                    .clipShape(Capsule())
+                    .padding(.bottom, 25)
+                }
                 
                 Button("Сохранить"){
                     userInformationListViewModel.updateUserInformation(newNickname){
@@ -106,6 +108,9 @@ struct SettingsView: View {
             }
         }
         .background(Color(red: 0.949, green: 0.949, blue: 0.971))
+        .sheet(isPresented: self.$showUserEditingWindow) {
+            // изменение пользователей
+        }
     }
 }
 

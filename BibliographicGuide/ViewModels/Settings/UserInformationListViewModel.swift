@@ -26,11 +26,11 @@ final class UserInformationListViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
-    func getUserName() -> String{
+    func getСurrentUserInformation() -> UserInformation{
         let userName = usersInformationViewModel.filter { (item) -> Bool in
             item.id == userId
         }
-        return userName.first?.userInformation.userName ?? "userName"
+        return userName.first?.userInformation ?? UserInformation(role: "", userName: "", blockingChat: true, dateUnblockingChat: Date(), blockingAccount: true)
     }
     
     func updateUserInformation(_ newUserName: String, completion: @escaping (Bool, String)->Void){
