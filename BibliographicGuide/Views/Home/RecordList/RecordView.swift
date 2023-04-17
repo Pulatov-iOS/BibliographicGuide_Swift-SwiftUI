@@ -10,9 +10,12 @@ import SwiftUI
 struct RecordView: View {
     
     var recordViewModel: RecordViewModel
+    var recordListViewModel: RecordListViewModel
     
     @State private var inclusionReportButton = false
     @State private var inclusionReportAlert = false
+    @State private var showRecordPage = false
+    var userNameRecord: String
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -56,7 +59,7 @@ struct RecordView: View {
             VStack(alignment: .leading, spacing: 12) {
                 Text(recordViewModel.record.title)
                     .font(.system(.headline, design: .default))
-                RecordDescriptionView(recordDescriptionViewModel: RecordDescriptionViewModel(), record: recordViewModel.record)
+                RecordDescriptionView(recordDescriptionViewModel: RecordDescriptionViewModel(), recordListViewModel: recordListViewModel, recordViewModel: recordViewModel, userNameRecord: userNameRecord)
             }
             .padding()
             .padding(.bottom, 12)
@@ -65,11 +68,18 @@ struct RecordView: View {
         .background(Color("ColorBackgroundAdaptive"))
         .cornerRadius(12)
         .shadow(color: Color("ColorBlackTransparentLight"), radius: 8, x: 0, y: 0)
+        
+        .onTapGesture {
+            self.showRecordPage = true
+        }
+        .sheet(isPresented: self.$showRecordPage) {
+            RecordPageView(recordListViewModel: recordListViewModel, recordViewModel: recordViewModel, userNameRecord: userNameRecord)
+        }
     }
 }
 
-struct RecordView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecordView(recordViewModel: RecordViewModel(record: Record(idUsers: [""], dateCreation: Date(),datesChange: [Date()], title: "", year: 1, keywords: "", authors: "", linkDoi: "", linkWebsite: "", journalName: "", journalNumber: "", pageNumbers: "", description: "", idPhotoTitle: "", idPhotoRecord: "", idPdfRecord: "")))
-    }
-}
+//struct RecordView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecordView(recordViewModel: RecordViewModel(record: Record(idUsers: [""], dateCreation: Date(),datesChange: [Date()], title: "", year: 1, keywords: "", authors: "", linkDoi: "", linkWebsite: "", journalName: "", journalNumber: "", pageNumbers: "", description: "", idPhotoTitle: "", idPhotoRecord: "", idPdfRecord: "")))
+//    }
+//}

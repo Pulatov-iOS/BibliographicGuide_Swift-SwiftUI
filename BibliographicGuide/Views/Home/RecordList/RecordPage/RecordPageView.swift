@@ -10,8 +10,18 @@ import SDWebImageSwiftUI
 
 struct RecordPageView: View {
     
+    var recordListViewModel: RecordListViewModel
+    var recordViewModel: RecordViewModel
+    var userNameRecord: String
+
+    @Environment(\.presentationMode) var presentationMode // Для закрытия sheet
     @State private var inclusionReportButton = false
     @State private var inclusionReportAlert = false
+    
+    @State private var showAlertDelete: Bool = false
+    @State private var showAlertDeleteTitle: String = "Удаление записи"
+    @State private var showAlertDeleteMessage: String = "Вы действительно хотите удалить данную запись?"
+    @State private var showAlertDeleteButton: String = "Да"
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -51,13 +61,86 @@ struct RecordPageView: View {
                         LinearGradient(gradient: Gradient(colors: [Color.clear, Color.black]), startPoint: .top, endPoint: .bottom)
                     )
                 }
+                
+                Group {
+                    Text(recordViewModel.record.title.uppercased()) // title
+                        .font(.custom("FONT_NAME", size: 18))
+                    // .font(.system(.headline, design: .default))
+                        .fontWeight(.heavy)
+                        .multilineTextAlignment(.center)
+                        .padding(.top, 10)
+                    
+                    RecordDescriptionView(recordDescriptionViewModel: RecordDescriptionViewModel(), recordListViewModel: recordListViewModel, recordViewModel: recordViewModel, userNameRecord: userNameRecord)
+
+                    HStack {
+                        Button(action: {
+                            let role = recordListViewModel.getСurrentUserInformation().role
+                            if(role == "admin" || role == "editor"){
+                                showAlertDeleteTitle = "Удаление записи"
+                                showAlertDeleteMessage = "Вы действительно хотите удалить данную запись?"
+                                showAlertDeleteButton = "Да"
+                                showAlertDelete.toggle()
+                            }
+                            else{
+                                showAlertDeleteTitle = "Отказано!"
+                                showAlertDeleteMessage = "У вас отсутствуют права для удаления записей"
+                                showAlertDeleteButton = "Ок"
+                                showAlertDelete.toggle()
+                            }
+                        }) {
+                            HStack {
+                                Image(systemName: "xmark.bin")
+                                Text("Удалить")
+                            }
+                            .padding()
+                            .foregroundColor(.white)
+                            .background(Color.red)
+                            .cornerRadius(40)
+                            .shadow(color: Color("ColorBlackTransparentLight"), radius: 5, x: 1, y: 2)
+                        }
+                        .alert(isPresented: $showAlertDelete){
+                            Alert(title: Text(showAlertDeleteTitle), message: Text(showAlertDeleteMessage), primaryButton: .default(Text("Отмена"), action: {
+                                // Ничего не делаем
+                            }), secondaryButton: .default(Text(showAlertDeleteButton), action: {
+                                let role = recordListViewModel.getСurrentUserInformation().role
+                                if(role == "admin" || role == "editor"){
+                                    recordListViewModel.removeRecord(recordViewModel.record)
+                                    presentationMode.wrappedValue.dismiss() // Закрываем окно sheet
+                                }
+                            }))
+                        }}
+//
+//                        Button(action: {
+//                            self.showModal = true
+//                        }) {
+//                            HStack {
+//                                Image(systemName: "pencil.line")
+//                                Text("Изменить")
+//                            }
+//                            .padding()
+//                            .foregroundColor(.white)
+//                            .background(Color.green)
+//                            .cornerRadius(40)
+//                            .shadow(color: Color("ColorBlackTransparentLight"), radius: 5, x: 1, y: 2)
+//                        }
+//                        .sheet(isPresented: self.$showModal) {
+//                            EditRecordView(bibliographicRecord: bibliographicRecord)
+//                        }
+//                    }
+
+                   
+                }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 12)
+                
+                DescriptionRecordPageView(recordViewModel: recordViewModel)
             }
         }
     }
 }
 
-struct RecordPageView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecordPageView()
-    }
-}
+//struct RecordPageView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecordPageView()
+//    }
+//}

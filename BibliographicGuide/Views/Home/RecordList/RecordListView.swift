@@ -11,8 +11,6 @@ struct RecordListView: View {
     
     @ObservedObject var recordListViewModel: RecordListViewModel
     
-    @State private var showRecordPage: Bool = false
-    
     var body: some View {
 
         Text("Все записи")
@@ -25,13 +23,7 @@ struct RecordListView: View {
             VStack(alignment: .center, spacing: 20) {
                 
                 ForEach(recordListViewModel.recordViewModels) { records in
-                    RecordView(recordViewModel: records)
-                        .onTapGesture {
-                            self.showRecordPage = true
-                        }
-                        .sheet(isPresented: self.$showRecordPage) {
-                           RecordPageView()
-                        }
+                    RecordView(recordViewModel: records, recordListViewModel: recordListViewModel, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
                 }
                 
             }
@@ -51,8 +43,8 @@ struct RecordListView: View {
 //    }
 }
 
-struct RecordListView_Previews: PreviewProvider {
-    static var previews: some View {
-        RecordListView(recordListViewModel: RecordListViewModel())
-    }
-}
+//struct RecordListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RecordListView(recordListViewModel: RecordListViewModel())
+//    }
+//}
