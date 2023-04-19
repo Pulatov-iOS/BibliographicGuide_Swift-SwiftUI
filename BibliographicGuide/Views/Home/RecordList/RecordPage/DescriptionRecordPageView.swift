@@ -23,7 +23,7 @@ struct DescriptionRecordPageView: View {
                 
                 VStack (alignment: .leading, spacing: 5) {
                     VStack (alignment: .leading, spacing: 5) {
-                        Text("Ключевые слова: " + recordViewModel.record.keywords)
+                        Text("Ключевые слова:" + recordViewModel.record.keywords.last!) // не все
                             .font(.footnote)
                             .multilineTextAlignment(TextAlignment.leading)
                             .fixedSize(horizontal: false, vertical: true)

@@ -22,24 +22,34 @@ struct CreateRecordView: View {
     @State  var newDescription = ""
     @State  var newKeywords = ""
     
-    @State  var showAlertLinkDoi: Bool = false
+    @State var showAlertLinkDoi: Bool = false
     @State var alertTextLinkDoiTitle: String = "Неверная ссылка DOI"
     @State var alertTextLinkDoiMessage: String = "Проверьте правильность введенной ссылки DOI. Пример: 10.36773/1818-1112-2022-127-1-32-36"
     
-    @State  var showAlertCreate: Bool = false
+    @State var showAlertCreate: Bool = false
     @State var alertTextCreateTitle: String = "Отказано"
     @State var alertTextCreateMessage: String = "Отсутствуют права для создания записи."
     
-     var imageDefault = UIImage(named: "default")
-    @State  var image = UIImage()
-    @State  var showSheet = false
-    @State  var defaultImg = false
+    var defaultImageTitle = UIImage(named: "default")
+    @State var imageTitle = UIImage()
+    @State var showImagePicker = false
+    @State var statusDefaultImageTitle = false
     
     var body: some View {
         NavigationView{
             VStack{
                 Button("sf"){
-                    createViewModel.addRecord(Record(idUsers: ["0y1kzDU4QxMqjxDSeTupTOmWbDl2"], dateCreation: Date(), datesChange: [Date()], title: "Hello", year: 2023, keywords: "key", authors: "Pul", linkDoi: "Doi", linkWebsite: "http", journalName: "jor", journalNumber: "45", pageNumbers: "33", description: "Нет", idPhotoTitle: "", idPhotoRecord: "", idPdfRecord: ""))
+                    let imageData = imageTitle.jpegData(compressionQuality: 0.1)
+                    let imageDataDefault = defaultImageTitle?.jpegData(compressionQuality: 0.1)
+                    let newRecord = Record(idUsers: [""], dateCreation: Date(), datesChange: [], title: "newTitle", year: 2001, keywords: ["id key"], authors: "newAuthors", linkDoi: "newLinkDoi", linkWebsite: "newLinkWebsite", journalName: "newJournalName", journalNumber: "newJournalNumber", pageNumbers: "newPageNumbers", description: "newDescription", idImageTitle: "1", idImagesRecord: ["2"], idPdfRecord: "3") // изменить данные
+                    createViewModel.addRecord(newRecord, ImageTitle: (imageData ?? imageDataDefault)!){ (verified, status) in
+                        if !verified {
+                           
+                        }
+                        else{
+                           
+                        }
+                    }
                 }
                 
                 VStack{
@@ -158,8 +168,8 @@ struct CreateRecordView: View {
                                 Spacer()
                                 HStack {
                                     HStack {
-                                        if(defaultImg == true){ // При первой загрузки
-                                            Image(uiImage: self.image)
+                                        if(statusDefaultImageTitle == true){ // При первой загрузки
+                                            Image(uiImage: self.imageTitle)
                                                 .resizable()
                                                 .cornerRadius(50)
                                                 .frame(width: 80, height: 80)
@@ -167,25 +177,25 @@ struct CreateRecordView: View {
                                                 .aspectRatio(contentMode: .fill)
                                                 .clipShape(Circle())
                                                 .onTapGesture {
-                                                    showSheet = true
-                                                    defaultImg = true
+                                                    showImagePicker = true
+                                                    statusDefaultImageTitle = true
                                                 }
                                         }
                                         else{
-                                            //                                    Image(uiImage: self.imageDefault!)
-                                            //                                        .resizable()
-                                            //                                        .cornerRadius(50)
-                                            //                                        .frame(width: 80, height: 80)
-                                            //                                        .background(Color.black.opacity(0.2))
-                                            //                                        .aspectRatio(contentMode: .fill)
-                                            //                                        .clipShape(Circle())
-                                            //                                        .onTapGesture {
-                                            //                                            showSheet = true
-                                            //                                            defaultImg = true
-                                            //                                        }
+                                            Image(uiImage: self.defaultImageTitle!)
+                                                .resizable()
+                                                .cornerRadius(50)
+                                                .frame(width: 80, height: 80)
+                                                .background(Color.black.opacity(0.2))
+                                                .aspectRatio(contentMode: .fill)
+                                                .clipShape(Circle())
+                                                .onTapGesture {
+                                                    showImagePicker = true
+                                                    statusDefaultImageTitle = true
+                                                }
                                         }
                                     }
-                                    .sheet(isPresented: $showSheet) {
+                                    .sheet(isPresented: $showImagePicker) {
                                         // Pick an image from the photo library:
                                         //   ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image)
                                     }
@@ -206,34 +216,30 @@ struct CreateRecordView: View {
                                 .clipShape(Capsule())
                             
                             Button(action: {
-                                //                        if(newDescription == ""){
-                                //                            newDescription = "Отсутствует"
-                                //                        }
-                                //                        let imageData = image.jpegData(compressionQuality: 0.1)
-                                //                        let imageDataDefault = imageDefault?.jpegData(compressionQuality: 0.1)
-                                //
-                                //
-                                //                        if(viewModelCreate.userRights.first?.rightCreation == true){
-                                //                            viewModelCreate.addBibliographicRecord(idUserCreation: viewModelCreate.userRights.first?.id ?? "", nickname: viewModelCreate.userRights.first?.nickname ?? "",title: newTitle, author: newAuthor, year: newYear, journalName: newJournalName, journalNumber: newJournalNumber, pageNumber: newPageNumber, linkDoi: newLinkDoi, link: newLink, description: newDescription, image: (imageData ?? imageDataDefault)!){ result in
-                                //                                switch result{
-                                //                                case .success(let id):
-                                //                                    print("Save record ok")
-                                //                                    idNewRecord = id
-                                //
-                                //                                case .failure(let error):
-                                //                                    print(error.localizedDescription)
-                                //                                }
-                                //                            }
-                                //                            textCreateTitle = "Успешно"
-                                //                            textCreateMessage = "Запись успешно создана."
-                                //                            clean()
-                                //                        }
-                                //                        else{
-                                //                            textCreateTitle = "Отказано"
-                                //                            textCreateMessage = "Отсутствуют права для создания записи."
-                                //                        }
-                                //                        self.showAlertCreate.toggle()
+                               
+                                let imageData = imageTitle.jpegData(compressionQuality: 0.1)
+                                let imageDataDefault = defaultImageTitle?.jpegData(compressionQuality: 0.1)
                                 
+                                let role = createViewModel.getСurrentUserInformation().role
+                                if(role == "admin" || role == "editor"){
+                                    let newRecord = Record(idUsers: [""], dateCreation: Date(), datesChange: [], title: newTitle, year: Int(newYear) ?? 2000, keywords: ["id key"], authors: newAuthors, linkDoi: newLinkDoi, linkWebsite: newLinkWebsite, journalName: newJournalName, journalNumber: newJournalNumber, pageNumbers: newPageNumbers, description: newDescription, idImageTitle: "", idImagesRecord: [], idPdfRecord: "") // изменить данные
+                                    createViewModel.addRecord(newRecord, ImageTitle: (imageData ?? imageDataDefault)!){ (verified, status) in
+                                        if !verified {
+                                            alertTextCreateTitle = "Ошибка"
+                                            alertTextCreateMessage = status
+                                        }
+                                        else{
+                                            alertTextCreateTitle = "Успешно"
+                                            alertTextCreateMessage = status
+                                            clean()
+                                        }
+                                    }
+                                }
+                                else{
+                                    alertTextCreateTitle = "Отказано"
+                                    alertTextCreateMessage = "Отсутствуют права для создания записи."
+                                }
+                                self.showAlertCreate.toggle()
                             }) {
                                 HStack {
                                     Text("Сохранить").foregroundColor(.black).padding().frame(width: UIScreen.main.bounds.width - 230)
@@ -267,7 +273,7 @@ struct CreateRecordView: View {
         newLinkWebsite = ""
         newDescription = ""
         newAuthors = ""
-        image = imageDefault!
+        imageTitle = defaultImageTitle!
     }
 }
 

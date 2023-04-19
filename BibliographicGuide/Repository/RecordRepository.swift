@@ -31,21 +31,25 @@ final class RecordRepository: ObservableObject {
         }
     }
     
-    func addRecord(_ record: Record){
+    func addRecord(_ record: Record, completion: @escaping (Bool, String)->Void){
         do {
             _ = try db.collection(path).addDocument(from: record)
         } catch {
+            completion(false, "Ошибка при добавлении записи")
             fatalError("Adding a record failed")
         }
+        completion(true, "Запись успешно добавлена")
     }
     
-    func updateRecord(_ record: Record){
+    func updateRecord(_ record: Record, completion: @escaping (Bool, String)->Void){
         guard let documentId = record.id else { return }
         do {
             try db.collection(path).document(documentId).setData(from: record)
         } catch {
+            completion(false, "Ошибка при обновлении записи")
             fatalError("Ошибка при обновлении записи")
         }
+        completion(true, "Запись успешно обновлена")
     }
     
     func removeRecord(_ record: Record){

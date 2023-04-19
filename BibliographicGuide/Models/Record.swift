@@ -10,12 +10,12 @@ import FirebaseFirestoreSwift
 struct Record: Identifiable, Codable, Equatable {
     
     @DocumentID var id: String?
-    var idUsers: [String] //[String]
+    var idUsers: [String]
     var dateCreation: Date
     var datesChange: [Date]
     var title: String
     var year: Int
-    var keywords: String // [String]
+    var keywords: [String]
     var authors: String // [String]
     var linkDoi: String
     var linkWebsite: String
@@ -23,8 +23,8 @@ struct Record: Identifiable, Codable, Equatable {
     var journalNumber: String
     var pageNumbers: String
     var description: String
-    var idPhotoTitle: String
-    var idPhotoRecord: String //[String]
+    var idImageTitle: String
+    var idImagesRecord: [String]
     var idPdfRecord: String
     
 }
