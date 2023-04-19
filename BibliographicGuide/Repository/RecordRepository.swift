@@ -51,15 +51,21 @@ final class RecordRepository: ObservableObject {
         }
     }
     
-    func updateRecord(_ record: Record, completion: @escaping (Bool, String)->Void){
+    func updateRecord(record: Record, imageTitle: Data, completion: @escaping (Bool, String)->Void){
         guard let documentId = record.id else { return }
         do {
             try db.collection(pathRecords).document(documentId).setData(from: record)
+            addImageTitle(idImageTitle: record.id ?? "", imageTitle: imageTitle){ (verified, status) in
+                    if !verified {
+                        completion(false, "Ошибка при редактировании записи.")
+                    }
+                    else{
+                        completion(true, "Запись успешно отредактирована.")
+                    }
+            }
         } catch {
-            completion(false, "Ошибка при обновлении записи")
-            fatalError("Ошибка при обновлении записи")
+            completion(false, "Ошибка при редактировании записи")
         }
-        completion(true, "Запись успешно обновлена")
     }
     
     func removeRecord(_ record: Record){

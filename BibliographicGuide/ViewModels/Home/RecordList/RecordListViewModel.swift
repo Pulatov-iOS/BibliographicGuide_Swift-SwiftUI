@@ -102,9 +102,23 @@ final class RecordListViewModel: ObservableObject {
         }
         return topFiveRecord
     }
-
-//    func updateRecord(_ record: Record) {
-//    }
+    
+    func updateRecord(record: Record, ImageTitle: Data, completion: @escaping (Bool, String)->Void){
+        var newRecord = record
+        if(record.description == ""){
+            newRecord.description = "Отсутствует"
+        }
+        newRecord.idUsers.append(userId)
+        newRecord.datesChange.append(Date())
+        recordRepository.updateRecord(record: newRecord, imageTitle: ImageTitle){ (verified, status) in
+            if !verified {
+                completion(false, "Ошибка при запросе редактирования записи.")
+            }
+            else{
+                completion(true, "Запись успешно отредактирована.")
+            }
+        }
+    }
     
     func removeRecord(_ record: Record) {
         recordRepository.removeRecord(record)

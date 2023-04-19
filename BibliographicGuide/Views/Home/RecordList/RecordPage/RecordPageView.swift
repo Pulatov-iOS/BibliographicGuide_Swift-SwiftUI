@@ -15,6 +15,7 @@ struct RecordPageView: View {
     var userNameRecord: String
     @State private var imageUrl = URL(string: "")
 
+    @State private var showEditingRecord: Bool = false
     @Environment(\.presentationMode) var presentationMode // Для закрытия sheet
     @State private var inclusionReportButton = false
     @State private var inclusionReportAlert = false
@@ -23,6 +24,10 @@ struct RecordPageView: View {
     @State private var showAlertDeleteTitle: String = "Удаление записи"
     @State private var showAlertDeleteMessage: String = "Вы действительно хотите удалить данную запись?"
     @State private var showAlertDeleteButton: String = "Да"
+    
+    @State private var showAlertEditing: Bool = false
+    @State private var showAlertEditingTitle: String = "Отказано!"
+    @State private var showAlertEditingMessage: String = "У вас отсутствуют права для редактирования записей"
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
@@ -120,27 +125,37 @@ struct RecordPageView: View {
                                     presentationMode.wrappedValue.dismiss() // Закрываем окно sheet
                                 }
                             }))
-                        }}
-//
-//                        Button(action: {
-//                            self.showModal = true
-//                        }) {
-//                            HStack {
-//                                Image(systemName: "pencil.line")
-//                                Text("Изменить")
-//                            }
-//                            .padding()
-//                            .foregroundColor(.white)
-//                            .background(Color.green)
-//                            .cornerRadius(40)
-//                            .shadow(color: Color("ColorBlackTransparentLight"), radius: 5, x: 1, y: 2)
-//                        }
-//                        .sheet(isPresented: self.$showModal) {
-//                            EditRecordView(bibliographicRecord: bibliographicRecord)
-//                        }
-//                    }
-
-                   
+                        }
+                        Button(action: {
+                            let role = recordListViewModel.getСurrentUserInformation().role
+                            if(role == "admin" || role == "editor"){
+                                self.showEditingRecord = true
+                            }
+                            else{
+                                showAlertEditing.toggle()
+                            }
+                        }) {
+                            HStack {
+                                Image(systemName: "pencil.line")
+                                Text("Изменить")
+                            }
+                            .padding()
+                            .foregroundColor(.white)
+                            .background(Color.green)
+                            .cornerRadius(40)
+                            .shadow(color: Color("ColorBlackTransparentLight"), radius: 5, x: 1, y: 2)
+                        }
+                        .sheet(isPresented: self.$showEditingRecord) {
+                            EditingRecordView(recordListViewModel: recordListViewModel, recordViewModel: recordViewModel)
+                        }
+                        .alert(isPresented: $showAlertEditing) {
+                            Alert(
+                                title: Text(showAlertEditingTitle),
+                                message: Text(showAlertEditingMessage),
+                                dismissButton: .default(Text("Ок"))
+                            )
+                        }
+                    }
                 }
                     .padding(.horizontal, 12)
                     .padding(.vertical, 12)
