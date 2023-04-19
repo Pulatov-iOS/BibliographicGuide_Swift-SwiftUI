@@ -23,8 +23,8 @@ struct Record: Identifiable, Codable, Equatable {
     var journalNumber: String
     var pageNumbers: String
     var description: String
-    var idImageTitle: String
-    var idImagesRecord: [String]
-    var idPdfRecord: String
+    var pdfRecord: Bool
+    var idUsersReporting: [String]
+    var universityRecord: Bool
     
 }

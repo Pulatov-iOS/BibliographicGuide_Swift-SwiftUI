@@ -10,6 +10,7 @@ import SwiftUI
 struct CreateRecordView: View {
     
     @ObservedObject var createViewModel: CreateViewModel
+    var informationDOIApi = InformationDOI()
     
     @State  var newTitle = ""
     @State  var newAuthors = ""
@@ -38,19 +39,19 @@ struct CreateRecordView: View {
     var body: some View {
         NavigationView{
             VStack{
-                Button("sf"){
-                    let imageData = imageTitle.jpegData(compressionQuality: 0.1)
-                    let imageDataDefault = defaultImageTitle?.jpegData(compressionQuality: 0.1)
-                    let newRecord = Record(idUsers: [""], dateCreation: Date(), datesChange: [], title: "newTitle", year: 2001, keywords: ["id key"], authors: "newAuthors", linkDoi: "newLinkDoi", linkWebsite: "newLinkWebsite", journalName: "newJournalName", journalNumber: "newJournalNumber", pageNumbers: "newPageNumbers", description: "newDescription", idImageTitle: "1", idImagesRecord: ["2"], idPdfRecord: "3") // изменить данные
-                    createViewModel.addRecord(newRecord, ImageTitle: (imageData ?? imageDataDefault)!){ (verified, status) in
-                        if !verified {
-                           
-                        }
-                        else{
-                           
-                        }
-                    }
-                }
+//                Button("sf"){
+//                    let imageData = imageTitle.jpegData(compressionQuality: 0.1)
+//                    let imageDataDefault = defaultImageTitle?.jpegData(compressionQuality: 0.1)
+//                    let newRecord = Record(idUsers: [""], dateCreation: Date(), datesChange: [], title: "newTitle", year: 2001, keywords: ["id key"], authors: "newAuthors", linkDoi: "newLinkDoi", linkWebsite: "newLinkWebsite", journalName: "newJournalName", journalNumber: "newJournalNumber", pageNumbers: "newPageNumbers", description: "newDescription", pdfRecord: false, idUsersReporting: [], universityRecord: false) // изменить данные
+//                    createViewModel.addRecord(newRecord, ImageTitle: (imageData ?? imageDataDefault)!){ (verified, status) in
+//                        if !verified {
+//
+//                        }
+//                        else{
+//
+//                        }
+//                    }
+//                }
                 
                 VStack{
                     Text("Добавить запись".uppercased())
@@ -58,7 +59,7 @@ struct CreateRecordView: View {
                         .fontWeight(.bold)
                         .frame(minWidth: 200)
                         .padding(.top, 26)
-                    
+                        .padding(.bottom, 15)
                     Form {
                         Section() {
                             HStack {
@@ -73,34 +74,33 @@ struct CreateRecordView: View {
                                 Spacer()
                                 TextField(newLinkDoi, text: $newLinkDoi)
                                 Button{
-                                    //                            if(newLinkDoi != ""){
-                                    //                                doiApi.getObject(doi: newLinkDoi){ result in
-                                    //                                    switch result{
-                                    //                                    case .success(let res):
-                                    //                                        print(res)
-                                    //                                        if(res == "ok"){
-                                    //                                            newTitle = doiApi.title
-                                    //                                            newAuthor = doiApi.author
-                                    //                                            newYear = doiApi.year
-                                    //                                            newJournalName = doiApi.journalName
-                                    //                                            newJournalNumber = doiApi.jornalNumber
-                                    //                                            newPageNumber = doiApi.pageNumber
-                                    //                                            newLinkDoi = doiApi.linkDoi
-                                    //                                            newLink = doiApi.link
-                                    //                                            textLinkDoiTitle = "Успешно!"
-                                    //                                            textLinkDoiMessage = "Данные записи успешно обновлены"
-                                    //                                            showAlertLinkDoi.toggle()
-                                    //                                        }
-                                    //                                        else{
-                                    //                                            textLinkDoiTitle = "Неверная ссылка DOI!"
-                                    //                                            textLinkDoiMessage = "Проверьте правильность введенной ссылки DOI. Пример: 10.36773/1818-1112-2022-127-1-32-36"
-                                    //                                            showAlertLinkDoi.toggle()
-                                    //                                        }
-                                    //                                    case .failure(_):
-                                    //                                        break
-                                    //                                    }
-                                    //                                }
-                                    //                            }
+                                    if(newLinkDoi != ""){
+                                        informationDOIApi.getObject(doi: newLinkDoi){ (verified, status) in
+                                            if !verified {
+                                                alertTextLinkDoiTitle = "Неверная ссылка DOI!"
+                                                alertTextLinkDoiMessage = "Проверьте правильность введенной ссылки DOI. Пример: 10.36773/1818-1112-2022-127-1-32-36"
+                                                showAlertLinkDoi.toggle()
+                                            }
+                                            else{
+                                                newTitle = informationDOIApi.title
+                                                newAuthors = informationDOIApi.authors
+                                                newYear = informationDOIApi.year
+                                                newJournalName = informationDOIApi.journalName
+                                                newJournalNumber = informationDOIApi.jornalNumber
+                                                newPageNumbers = informationDOIApi.pageNumbers
+                                                newLinkDoi = informationDOIApi.linkDoi
+                                                newLinkWebsite = informationDOIApi.linkWebsite
+                                                alertTextLinkDoiTitle = "Успешно!"
+                                                alertTextLinkDoiMessage = "Данные записи успешно обновлены"
+                                                showAlertLinkDoi.toggle()
+                                            }
+                                        }
+                                    }
+                                    else{
+                                        alertTextLinkDoiTitle = "Введите ссылку DOI!"
+                                        alertTextLinkDoiMessage = "Пример ссылки: 10.36773/1818-1112-2022-127-1-32-3"
+                                        showAlertLinkDoi.toggle()
+                                    }
                                 } label:{
                                     Image(systemName: "square.and.arrow.down.on.square")
                                         .foregroundColor(.black)
@@ -220,7 +220,7 @@ struct CreateRecordView: View {
                                 
                                 let role = createViewModel.getСurrentUserInformation().role
                                 if(role == "admin" || role == "editor"){
-                                    let newRecord = Record(idUsers: [""], dateCreation: Date(), datesChange: [], title: newTitle, year: Int(newYear) ?? 2000, keywords: ["id key"], authors: newAuthors, linkDoi: newLinkDoi, linkWebsite: newLinkWebsite, journalName: newJournalName, journalNumber: newJournalNumber, pageNumbers: newPageNumbers, description: newDescription, idImageTitle: "", idImagesRecord: [], idPdfRecord: "") // изменить данные
+                                    let newRecord = Record(idUsers: [""], dateCreation: Date(), datesChange: [], title: newTitle, year: Int(newYear) ?? 2000, keywords: ["id key"], authors: newAuthors, linkDoi: newLinkDoi, linkWebsite: newLinkWebsite, journalName: newJournalName, journalNumber: newJournalNumber, pageNumbers: newPageNumbers, description: newDescription, pdfRecord: false, idUsersReporting: [], universityRecord: false) // изменить данные
                                     createViewModel.addRecord(newRecord, ImageTitle: (imageData ?? imageDataDefault)!){ (verified, status) in
                                         if !verified {
                                             alertTextCreateTitle = "Ошибка"

@@ -109,4 +109,15 @@ final class RecordListViewModel: ObservableObject {
     func removeRecord(_ record: Record) {
         recordRepository.removeRecord(record)
     }
+    
+    func getImageUrl(pathImage: String, idImage: String, completion: @escaping (Bool, URL)->Void){
+        recordRepository.getImageUrl(pathImage: pathImage, idImage: idImage){ (verified, status) in
+            if !verified  {
+                completion(false, URL(string: "https://turbok.by/public/img/no-photo--lg.png")!)
+            }
+            else{
+                completion(true, status)
+            }
+        }
+    }
 }

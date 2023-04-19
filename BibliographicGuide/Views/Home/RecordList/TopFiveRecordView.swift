@@ -14,16 +14,28 @@ struct TopFiveRecordView: View {
     var recordViewModel: RecordViewModel
     var userNameRecord: String
     @State private var showRecordPage: Bool = false
+    @State private var imageUrl = URL(string: "")
     
     var body: some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .bottom) {
                 VStack{
-                    WebImage(url: URL(string: "https://www.interfax.ru/ftproot/photos/photostory/2022/04/29/week/week7_1100.jpg"))
+                    WebImage(url: imageUrl)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                 }
                 .scaledToFit()
+                .onAppear{
+                    recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
+                        if !verified  {
+                            imageUrl = status
+                        }
+                        else{
+                            print(status)
+                            imageUrl = status
+                        }
+                    }
+                }
                     
                 HStack {
                     Image(systemName: "person.2")

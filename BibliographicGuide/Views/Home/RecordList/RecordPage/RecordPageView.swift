@@ -13,6 +13,7 @@ struct RecordPageView: View {
     var recordListViewModel: RecordListViewModel
     var recordViewModel: RecordViewModel
     var userNameRecord: String
+    @State private var imageUrl = URL(string: "")
 
     @Environment(\.presentationMode) var presentationMode // Для закрытия sheet
     @State private var inclusionReportButton = false
@@ -29,11 +30,22 @@ struct RecordPageView: View {
                 
                 ZStack(alignment: .bottom) {
                     VStack{
-                        WebImage(url: URL(string: "https://www.interfax.ru/ftproot/photos/photostory/2022/04/29/week/week7_1100.jpg"))
+                        WebImage(url: imageUrl)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                     }
                     .scaledToFit()
+                    .onAppear{
+                        recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
+                            if !verified  {
+                                imageUrl = status
+                            }
+                            else{
+                                print(status)
+                                imageUrl = status
+                            }
+                        }
+                    }
     
                     HStack {
                         Spacer()

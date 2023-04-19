@@ -87,4 +87,16 @@ final class RecordRepository: ObservableObject {
             completion(true, "Успешно")
         }
     }
+    
+    func getImageUrl(pathImage: String, idImage: String, completion: @escaping (Bool, URL)->Void){
+        var imageUrl = URL(string: "")
+        let storage = storage.reference(withPath: pathImage + "/" + idImage)
+           storage.downloadURL { (url, error) in
+               if error != nil {
+                   return
+               }
+               imageUrl = url!
+               completion(true, (imageUrl ?? (URL(string: "https://turbok.by/public/img/no-photo--lg.png")))!)
+           }
+    }
 }

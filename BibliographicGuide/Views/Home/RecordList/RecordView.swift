@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct RecordView: View {
     
@@ -16,17 +17,30 @@ struct RecordView: View {
     @State private var inclusionReportAlert = false
     @State private var showRecordPage = false
     var userNameRecord: String
+    @State private var imageUrl = URL(string: "")
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             
             ZStack(alignment: .bottom) {
-//                VStack{
-//                    WebImage(url: imageURL)
-//                        .resizable()
-//                        .aspectRatio(contentMode: .fit)
-//                }.onAppear(perform: loadImageFromFirebase)
-//                    .scaledToFit()
+                VStack{
+                    WebImage(url: imageUrl)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }
+                .scaledToFit()
+                .onAppear{
+                    recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
+                        if !verified  {
+                            imageUrl = status
+                        }
+                        else{
+                            print(status)
+                            imageUrl = status
+                        }
+                    }
+                }
+                
                 HStack {
                     Spacer()
                     Button(action: {
