@@ -50,6 +50,7 @@
 		1148682029EE03B300C698D6 /* CreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148681F29EE03B300C698D6 /* CreateViewModel.swift */; };
 		1148682229EEAF1300C698D6 /* TopFiveRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148682129EEAF1300C698D6 /* TopFiveRecordView.swift */; };
 		1148682429EEB3CF00C698D6 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148682329EEB3CF00C698D6 /* SearchBarView.swift */; };
+		1148682629F0036D00C698D6 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148682529F0036D00C698D6 /* ImagePicker.swift */; };
 		8E2EDA666BF49964DFE1B02E /* Pods_BibliographicGuide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A17856A9ED342D36391D4E7 /* Pods_BibliographicGuide.framework */; };
 		C79F79CD4CD1D2DE9CB5E0AB /* Pods_BibliographicGuideTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E5B84D1332C25EDC27E7512 /* Pods_BibliographicGuideTests.framework */; };
 /* End PBXBuildFile section */
@@ -118,6 +119,7 @@
 		1148681F29EE03B300C698D6 /* CreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewModel.swift; sourceTree = "<group>"; };
 		1148682129EEAF1300C698D6 /* TopFiveRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopFiveRecordView.swift; sourceTree = "<group>"; };
 		1148682329EEB3CF00C698D6 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		1148682529F0036D00C698D6 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		241C83635DC8BC995E701B01 /* Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide-BibliographicGuideUITests/Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3BF3DF8CD7A06B44BA0C0176 /* Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide-BibliographicGuideUITests/Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig"; sourceTree = "<group>"; };
 		57888CDBC96114F9CA898EC2 /* Pods-BibliographicGuide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide.debug.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide/Pods-BibliographicGuide.debug.xcconfig"; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				1132A02229D3219C0007B181 /* AppView.swift */,
+				1148682729F00D2A00C698D6 /* Utils */,
 				1132A05A29D841780007B181 /* Repository */,
 				1132A05029D610080007B181 /* Models */,
 				1132A04C29D445B80007B181 /* Views */,
@@ -415,6 +418,22 @@
 				1148681F29EE03B300C698D6 /* CreateViewModel.swift */,
 			);
 			path = Create;
+			sourceTree = "<group>";
+		};
+		1148682729F00D2A00C698D6 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1148682829F00D7300C698D6 /* ImagePicker */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		1148682829F00D7300C698D6 /* ImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				1148682529F0036D00C698D6 /* ImagePicker.swift */,
+			);
+			path = ImagePicker;
 			sourceTree = "<group>";
 		};
 		A7A0C87989601ECE0D6915F5 /* Frameworks */ = {
@@ -687,6 +706,7 @@
 				1132A08129DC4C1B0007B181 /* MessageRepository.swift in Sources */,
 				1148681729ED5A7F00C698D6 /* RecordPageView.swift in Sources */,
 				1132A04F29D445DB0007B181 /* SettingsView.swift in Sources */,
+				1148682629F0036D00C698D6 /* ImagePicker.swift in Sources */,
 				1132A07329DB003C0007B181 /* AuthorizationViewModel.swift in Sources */,
 				1148682229EEAF1300C698D6 /* TopFiveRecordView.swift in Sources */,
 				1132A08B29DC4FFC0007B181 /* MessageListView.swift in Sources */,

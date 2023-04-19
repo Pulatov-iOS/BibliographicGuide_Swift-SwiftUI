@@ -39,7 +39,7 @@ final class CreateViewModel: ObservableObject {
         }
         newRecord.idUsers.removeAll()
         newRecord.idUsers.append(userId)
-        recordRepository.addRecord(newRecord){ (verified, status) in
+        recordRepository.addRecord(record: newRecord, imageTitle: ImageTitle){ (verified, status) in
             if !verified {
                 completion(false, "Ошибка при запросе создания записи.")
             }

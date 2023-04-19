@@ -196,12 +196,10 @@ struct CreateRecordView: View {
                                         }
                                     }
                                     .sheet(isPresented: $showImagePicker) {
-                                        // Pick an image from the photo library:
-                                        //   ImagePicker(sourceType: .photoLibrary, selectedImage: self.$image)
+                                        ImagePicker(sourceType: .photoLibrary, selectedImage: self.$imageTitle)
                                     }
                                 }
                             }
-                            
                         }
                     }.padding(.top, -20)
                     
@@ -227,19 +225,21 @@ struct CreateRecordView: View {
                                         if !verified {
                                             alertTextCreateTitle = "Ошибка"
                                             alertTextCreateMessage = status
+                                            self.showAlertCreate.toggle()
                                         }
                                         else{
                                             alertTextCreateTitle = "Успешно"
                                             alertTextCreateMessage = status
                                             clean()
+                                            self.showAlertCreate.toggle()
                                         }
                                     }
                                 }
                                 else{
                                     alertTextCreateTitle = "Отказано"
                                     alertTextCreateMessage = "Отсутствуют права для создания записи."
+                                    self.showAlertCreate.toggle()
                                 }
-                                self.showAlertCreate.toggle()
                             }) {
                                 HStack {
                                     Text("Сохранить").foregroundColor(.black).padding().frame(width: UIScreen.main.bounds.width - 230)
