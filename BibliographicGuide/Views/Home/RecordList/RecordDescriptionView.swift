@@ -23,7 +23,8 @@ struct RecordDescriptionView: View {
                 })
                 HStack(alignment: .center, spacing: 2, content: {
                     Image(systemName: "pencil.line")
-                    Text("Редакт: \(recordDescriptionViewModel.checkingEditingTime(recordViewModel.record.datesChange[0]))")
+                    Text("Редакт: \(recordDescriptionViewModel.checkingEditingTime(recordViewModel.record.datesChange.last ?? Date()))") // esfsefhsleffsef
+                        //fesfsefsefse!!!!!
                 })
             }
             HStack(alignment: .center, spacing: 2, content: {

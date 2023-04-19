@@ -7,7 +7,11 @@
 
 import Combine
 
-final class RecordViewModel: ObservableObject, Identifiable {
+final class RecordViewModel: ObservableObject, Identifiable, Equatable {
+    
+    static func == (lhs: RecordViewModel, rhs: RecordViewModel) -> Bool {
+        lhs.record.datesChange.hashValue == rhs.record.datesChange.hashValue
+    }
     
     private let recordRepository = RecordRepository()
     @Published var record: Record

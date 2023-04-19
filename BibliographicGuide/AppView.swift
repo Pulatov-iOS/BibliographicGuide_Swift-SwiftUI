@@ -31,7 +31,7 @@ struct AppView: App {
             VStack{
                 if status{
                     TabView {
-                        HomeView()
+                        RecordListView(recordListViewModel: RecordListViewModel())
                             .tabItem {
                                 Image(systemName: "house")
                                 Text("Home")
@@ -41,7 +41,7 @@ struct AppView: App {
                                 Image(systemName: "message.badge")
                                 Text("Chat")
                             }
-                        SettingsView()
+                        CreateRecordView(createViewModel: CreateViewModel())
                             .tabItem {
                                 Image(systemName: "square.and.pencil")
                                 Text("Add Record")

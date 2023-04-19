@@ -47,11 +47,62 @@ final class RecordListViewModel: ObservableObject {
         return userName.first ?? UserInformation(role: "", userName: "", blockingChat: true, dateUnblockingChat: Date(), blockingAccount: true)
     }
     
-    
-    func addRecord(_ record: Record) {
-        recordRepository.addRecord(record)
+    func checkingEditingTime(_ time: Date) -> String {
+        var timeEditing: String
+        
+//        if(time == nil){   //// если редакт нет!!!!!
+//            timeEditing = "отсутствует"
+//        }
+        
+        
+        var time = time.millisecondsSince1970
+        let nowTime = Date().millisecondsSince1970
+        time = nowTime - time
+        if(time < 60){
+                let seconds = time
+                timeEditing = String(seconds) + " сек."
+            }
+        else{
+            if(time > 59 && time < 3600){
+                let minutes = (time / 60) % 60
+                timeEditing = String(minutes) + " мин."
+            }
+            else{
+                if(time > 3599 && time < 86400){
+                    let hours = (time / 3600) % 60
+                    timeEditing = String(hours) + " ч."
+                }
+                else{
+                    let day = (time / 86400) % 30
+                    timeEditing = String(day) + " дн."
+                }
+            }
+
+        }
+        return timeEditing
     }
     
+    func getTopFiveRecord() -> [RecordViewModel] {
+        let sortRecord = recordViewModels.sorted(by: {
+            var dateFirst: Date
+            var dateSecond: Date
+            if($0.record.datesChange.last == nil){
+                dateFirst = (Date.now.addingTimeInterval(-500000))
+            }
+            else {dateFirst = $0.record.datesChange.last!}
+            if($1.record.datesChange.last == nil){
+                dateSecond = (Date.now.addingTimeInterval(-500000))
+            }
+            else {dateSecond = $1.record.datesChange.last!}
+            return dateFirst > dateSecond
+        })
+        var topFiveRecord = [RecordViewModel]()
+        for item in sortRecord.prefix(5) {
+            topFiveRecord.append(item)
+        }
+        return topFiveRecord
+    }
+
 //    func updateRecord(_ record: Record) {
 //    }
     

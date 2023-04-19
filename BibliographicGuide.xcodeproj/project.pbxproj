@@ -22,7 +22,6 @@
 		1132A06229D89B210007B181 /* RecordListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A06129D89B210007B181 /* RecordListView.swift */; };
 		1132A06529DAF1B70007B181 /* RecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A06429DAF1B70007B181 /* RecordView.swift */; };
 		1132A06929DAF2610007B181 /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A06829DAF2610007B181 /* RecordViewModel.swift */; };
-		1132A06B29DAF5FF0007B181 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A06A29DAF5FF0007B181 /* HomeView.swift */; };
 		1132A06E29DAFED20007B181 /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A06D29DAFED20007B181 /* AuthorizationView.swift */; };
 		1132A07029DAFF870007B181 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A06F29DAFF870007B181 /* RegistrationView.swift */; };
 		1132A07329DB003C0007B181 /* AuthorizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A07229DB003C0007B181 /* AuthorizationViewModel.swift */; };
@@ -47,6 +46,10 @@
 		1148681529E7077200C698D6 /* OutgoingMessageEditingWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148681429E7077200C698D6 /* OutgoingMessageEditingWindow.swift */; };
 		1148681729ED5A7F00C698D6 /* RecordPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148681629ED5A7E00C698D6 /* RecordPageView.swift */; };
 		1148681A29EDE16400C698D6 /* DescriptionRecordPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148681929EDE16400C698D6 /* DescriptionRecordPageView.swift */; };
+		1148681D29EE034B00C698D6 /* CreateRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148681C29EE034B00C698D6 /* CreateRecordView.swift */; };
+		1148682029EE03B300C698D6 /* CreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148681F29EE03B300C698D6 /* CreateViewModel.swift */; };
+		1148682229EEAF1300C698D6 /* TopFiveRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148682129EEAF1300C698D6 /* TopFiveRecordView.swift */; };
+		1148682429EEB3CF00C698D6 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148682329EEB3CF00C698D6 /* SearchBarView.swift */; };
 		8E2EDA666BF49964DFE1B02E /* Pods_BibliographicGuide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A17856A9ED342D36391D4E7 /* Pods_BibliographicGuide.framework */; };
 		C79F79CD4CD1D2DE9CB5E0AB /* Pods_BibliographicGuideTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E5B84D1332C25EDC27E7512 /* Pods_BibliographicGuideTests.framework */; };
 /* End PBXBuildFile section */
@@ -87,7 +90,6 @@
 		1132A06129D89B210007B181 /* RecordListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListView.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		1132A06429DAF1B70007B181 /* RecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordView.swift; sourceTree = "<group>"; };
 		1132A06829DAF2610007B181 /* RecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewModel.swift; sourceTree = "<group>"; };
-		1132A06A29DAF5FF0007B181 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		1132A06D29DAFED20007B181 /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
 		1132A06F29DAFF870007B181 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		1132A07229DB003C0007B181 /* AuthorizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewModel.swift; sourceTree = "<group>"; };
@@ -112,6 +114,10 @@
 		1148681429E7077200C698D6 /* OutgoingMessageEditingWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessageEditingWindow.swift; sourceTree = "<group>"; };
 		1148681629ED5A7E00C698D6 /* RecordPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordPageView.swift; sourceTree = "<group>"; };
 		1148681929EDE16400C698D6 /* DescriptionRecordPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionRecordPageView.swift; sourceTree = "<group>"; };
+		1148681C29EE034B00C698D6 /* CreateRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecordView.swift; sourceTree = "<group>"; };
+		1148681F29EE03B300C698D6 /* CreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewModel.swift; sourceTree = "<group>"; };
+		1148682129EEAF1300C698D6 /* TopFiveRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopFiveRecordView.swift; sourceTree = "<group>"; };
+		1148682329EEB3CF00C698D6 /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		241C83635DC8BC995E701B01 /* Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide-BibliographicGuideUITests/Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3BF3DF8CD7A06B44BA0C0176 /* Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide-BibliographicGuideUITests/Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig"; sourceTree = "<group>"; };
 		57888CDBC96114F9CA898EC2 /* Pods-BibliographicGuide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide.debug.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide/Pods-BibliographicGuide.debug.xcconfig"; sourceTree = "<group>"; };
@@ -218,6 +224,7 @@
 				1132A05229D610640007B181 /* Authorization */,
 				1132A06329DAF11B0007B181 /* Home */,
 				1132A08429DC4F2B0007B181 /* Chat */,
+				1148681B29EE030A00C698D6 /* Create */,
 				1132A04D29D445C80007B181 /* Settings */,
 			);
 			path = Views;
@@ -247,6 +254,7 @@
 				1132A07129DB00200007B181 /* Authorization */,
 				1132A06629DAF2420007B181 /* Home */,
 				1132A08729DC4F6C0007B181 /* Chat */,
+				1148681E29EE03A100C698D6 /* Create */,
 				1132A06C29DAFDFC0007B181 /* Settings */,
 			);
 			path = ViewModels;
@@ -275,7 +283,6 @@
 		1132A06329DAF11B0007B181 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				1132A06A29DAF5FF0007B181 /* HomeView.swift */,
 				1132A07A29DB50240007B181 /* RecordList */,
 			);
 			path = Home;
@@ -313,6 +320,8 @@
 				1132A06129D89B210007B181 /* RecordListView.swift */,
 				1132A06429DAF1B70007B181 /* RecordView.swift */,
 				1132A07B29DB506C0007B181 /* RecordDescriptionView.swift */,
+				1148682129EEAF1300C698D6 /* TopFiveRecordView.swift */,
+				1148682329EEB3CF00C698D6 /* SearchBarView.swift */,
 				1148681829ED5A8D00C698D6 /* RecordPage */,
 			);
 			path = RecordList;
@@ -390,6 +399,22 @@
 				1148681929EDE16400C698D6 /* DescriptionRecordPageView.swift */,
 			);
 			path = RecordPage;
+			sourceTree = "<group>";
+		};
+		1148681B29EE030A00C698D6 /* Create */ = {
+			isa = PBXGroup;
+			children = (
+				1148681C29EE034B00C698D6 /* CreateRecordView.swift */,
+			);
+			path = Create;
+			sourceTree = "<group>";
+		};
+		1148681E29EE03A100C698D6 /* Create */ = {
+			isa = PBXGroup;
+			children = (
+				1148681F29EE03B300C698D6 /* CreateViewModel.swift */,
+			);
+			path = Create;
 			sourceTree = "<group>";
 		};
 		A7A0C87989601ECE0D6915F5 /* Frameworks */ = {
@@ -663,6 +688,7 @@
 				1148681729ED5A7F00C698D6 /* RecordPageView.swift in Sources */,
 				1132A04F29D445DB0007B181 /* SettingsView.swift in Sources */,
 				1132A07329DB003C0007B181 /* AuthorizationViewModel.swift in Sources */,
+				1148682229EEAF1300C698D6 /* TopFiveRecordView.swift in Sources */,
 				1132A08B29DC4FFC0007B181 /* MessageListView.swift in Sources */,
 				1132A08329DC4CC40007B181 /* Message.swift in Sources */,
 				1132A06529DAF1B70007B181 /* RecordView.swift in Sources */,
@@ -675,14 +701,16 @@
 				1132A07F29DB524A0007B181 /* RecordDescriptionViewModel.swift in Sources */,
 				1132A07029DAFF870007B181 /* RegistrationView.swift in Sources */,
 				1132A06929DAF2610007B181 /* RecordViewModel.swift in Sources */,
+				1148682029EE03B300C698D6 /* CreateViewModel.swift in Sources */,
+				1148681D29EE034B00C698D6 /* CreateRecordView.swift in Sources */,
 				1132A09429DD96CA0007B181 /* UserInformation.swift in Sources */,
 				1132A07C29DB506C0007B181 /* RecordDescriptionView.swift in Sources */,
-				1132A06B29DAF5FF0007B181 /* HomeView.swift in Sources */,
 				1132A05E29D891A80007B181 /* Record.swift in Sources */,
 				1132A07529DB00CD0007B181 /* AuthorizationRepository.swift in Sources */,
 				1132A02329D3219C0007B181 /* AppView.swift in Sources */,
 				1132A09F29E01C9F0007B181 /* OutgoingMessageView.swift in Sources */,
 				1132A06229D89B210007B181 /* RecordListView.swift in Sources */,
+				1148682429EEB3CF00C698D6 /* SearchBarView.swift in Sources */,
 				1132A06029D899DD0007B181 /* RecordListViewModel.swift in Sources */,
 				1132A09229DC58370007B181 /* MessageView.swift in Sources */,
 				1132A06E29DAFED20007B181 /* AuthorizationView.swift in Sources */,

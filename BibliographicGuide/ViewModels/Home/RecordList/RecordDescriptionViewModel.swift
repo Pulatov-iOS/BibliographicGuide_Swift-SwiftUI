@@ -11,17 +11,14 @@ final class RecordDescriptionViewModel: ObservableObject {
     
     
     func checkingCreatingTime(_ date: Date) -> String {
-
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/YY"
         // Convert Date to String
         let newDate = dateFormatter.string(from: date)
         return newDate
-        
     }
 
     func checkingEditingTime(_ time: Date) -> String {
-
         var timeEditing: String
         
 //        if(time == nil){   //// если редакт нет!!!!!
@@ -55,10 +52,9 @@ final class RecordDescriptionViewModel: ObservableObject {
         }
         return timeEditing
     }
-    
 }
 
-extension Date {
+extension Date{
     var millisecondsSince1970: Int64 {
         Int64((self.timeIntervalSince1970).rounded())
     }

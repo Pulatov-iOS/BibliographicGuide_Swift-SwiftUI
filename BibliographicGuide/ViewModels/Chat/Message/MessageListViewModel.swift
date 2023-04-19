@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class MessageListViewModel: ObservableObject {
+final class MessageListViewModel: ObservableObject, Equatable {
     
     let userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
     
@@ -102,5 +102,9 @@ final class MessageListViewModel: ObservableObject {
         // Convert Date to String
         let newDate = dateFormatter.string(from: date)
         return newDate
+    }
+    
+    static func == (lhs: MessageListViewModel, rhs: MessageListViewModel) -> Bool {
+        lhs.messageViewModels.count > rhs.messageViewModels.count
     }
 }
