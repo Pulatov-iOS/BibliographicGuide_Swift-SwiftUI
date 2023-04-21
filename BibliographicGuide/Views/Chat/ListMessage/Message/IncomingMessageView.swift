@@ -20,7 +20,7 @@ struct IncomingMessageView: View {
             VStack(alignment: .leading) {
                 HStack(alignment: .top) {
                     VStack{
-                        WebImage(url: URL(string: "https://sun2.beltelecom-by-minsk.userapi.com/impg/goqey4KZJjETzwF_L4fqfH11HlzyWDtU5aNJ-Q/AaKtrJQFqkw.jpg?size=924x1080&quality=96&sign=0169ab31bf9813322547f88a64db2d02&type=album"))
+                        WebImage(url: URL(string: "https://sun9-47.userapi.com/impg/pZPc4CkVZuBFxq5o8sLnqql1E5QAGv-duK110g/k65Itu6amGE.jpg?size=607x1080&quality=95&sign=98e693801965832b0f3daf57957f51bd&type=album"))
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 36, height: 36)

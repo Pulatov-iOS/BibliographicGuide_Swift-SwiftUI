@@ -11,6 +11,7 @@ struct RecordListView: View {
     
     @ObservedObject var recordListViewModel: RecordListViewModel
     @State var topFiveRecord = [RecordViewModel]()
+    
     var body: some View {
         NavigationView{
             VStack{
@@ -45,6 +46,9 @@ struct RecordListView: View {
                         
                         ForEach(recordListViewModel.recordViewModels) { records in
                             RecordView(recordViewModel: records, recordListViewModel: recordListViewModel, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
+                                .onChange(of: recordListViewModel.recordViewModels) { newValue in
+                                    topFiveRecord = recordListViewModel.getTopFiveRecord()
+                                }
                         }
                         .onChange(of: recordListViewModel.recordViewModels) { newValue in
                             topFiveRecord = recordListViewModel.getTopFiveRecord()

@@ -77,6 +77,18 @@ final class RecordRepository: ObservableObject {
         }
     }
     
+    func updateInclusionReport(idRecord: String, idUsersReporting: [String], completion: @escaping (Bool, String)->Void){
+        db.collection(pathRecords).document(idRecord).updateData([
+            "idUsersReporting": idUsersReporting
+        ]) { err in
+            if err != nil {
+                completion(false, "Ошибка при обновлении")
+            } else {
+                completion(true, "Обновлено успешно")
+            }
+        }
+    }
+    
     func addImageTitle(idImageTitle: String, imageTitle: Data, completion: @escaping (Bool, String)->Void){
         let referenceSorage = storage.reference() // Создаем ссылку на хранилище
         let pathRef = referenceSorage.child(pathImageTitle) // Создаем дочернюю ссылку

@@ -98,7 +98,7 @@ struct CreateRecordView: View {
                                     }
                                     else{
                                         alertTextLinkDoiTitle = "Введите ссылку DOI!"
-                                        alertTextLinkDoiMessage = "Пример ссылки: 10.36773/1818-1112-2022-127-1-32-3"
+                                        alertTextLinkDoiMessage = "Пример ссылки: 10.36773/1818-1112-2022-127-1-32-3" //6
                                         showAlertLinkDoi.toggle()
                                     }
                                 } label:{

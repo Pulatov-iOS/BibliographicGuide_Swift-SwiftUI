@@ -10,7 +10,7 @@ import Combine
 final class RecordViewModel: ObservableObject, Identifiable, Equatable {
     
     static func == (lhs: RecordViewModel, rhs: RecordViewModel) -> Bool {
-        lhs.record.datesChange.hashValue == rhs.record.datesChange.hashValue
+        ("\(lhs.record.datesChange)" + lhs.record.title).hashValue == ("\(rhs.record.datesChange)" + rhs.record.title).hashValue
     }
     
     private let recordRepository = RecordRepository()

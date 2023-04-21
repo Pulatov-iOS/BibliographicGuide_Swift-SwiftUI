@@ -46,7 +46,7 @@ struct AppView: App {
                                 Image(systemName: "square.and.pencil")
                                 Text("Add Record")
                             }
-                        SettingsView()
+                        ReportView(reportViewModel: ReportViewModel())
                             .tabItem {
                                 Image(systemName: "list.bullet.clipboard")
                                 Text("Report")

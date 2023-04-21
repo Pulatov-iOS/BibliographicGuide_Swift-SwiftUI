@@ -23,6 +23,7 @@ struct TopFiveRecordView: View {
                     WebImage(url: imageUrl)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
+                        .frame(width: 180, height:  150)
                 }
                 .scaledToFit()
                 .onAppear{
@@ -64,12 +65,13 @@ struct TopFiveRecordView: View {
             Text(recordViewModel.record.title)
                 .foregroundColor(.primary)
                 .font(.caption)
+                .lineLimit(1)
         }
         .padding(.leading, 15)
         .onTapGesture {
             self.showRecordPage = true
         }
-        .frame(minHeight:  200, maxHeight: .infinity)
+        .frame(width: 200, height:  185)
         .sheet(isPresented: self.$showRecordPage) {
             RecordPageView(recordListViewModel: recordListViewModel, recordViewModel: recordViewModel, userNameRecord: userNameRecord)
         }

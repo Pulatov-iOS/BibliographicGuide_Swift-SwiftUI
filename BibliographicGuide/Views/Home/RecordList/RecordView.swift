@@ -14,7 +14,10 @@ struct RecordView: View {
     var recordListViewModel: RecordListViewModel
     
     @State private var inclusionReportButton = false
-    @State private var inclusionReportAlert = false
+    @State private var showAlertInclusionReport = false
+    @State private var alertTextEditingTitle: String = "Успешно"
+    @State private var alertTextEditingMessage: String = "Запись успешно добавлена в список отчета."
+    
     @State private var showRecordPage = false
     var userNameRecord: String
     @State private var imageUrl = URL(string: "")
@@ -44,11 +47,20 @@ struct RecordView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-//                        inclusionReportButton.toggle()
-//                        viewModelRecordCard.updateInclusionReport(id: bibliographicRecord.id, inclusionReportButton: inclusionReportButton)
-//                        if(inclusionReportButton == true){
-//                            inclusionReportAlert.toggle()
-//                        }
+                        recordListViewModel.updateInclusionReport(record: recordViewModel.record, inclusionReport: !inclusionReportButton){ (verified, status) in
+                            if !verified  {
+                                alertTextEditingTitle = "Ошибка"
+                                alertTextEditingMessage = "Запись не была добавлена в список отчета."
+                            }
+                            else{
+                                alertTextEditingTitle = "Успешно"
+                                alertTextEditingMessage = "Запись успешно добавлена в список отчета."
+                                if(inclusionReportButton != true){
+                                    showAlertInclusionReport.toggle()
+                                }
+                                inclusionReportButton.toggle()
+                            }
+                        }
                     }) {
                         Image(systemName: inclusionReportButton ? "list.clipboard.fill" : "list.clipboard")
                             .font(.system(size:30, weight: .light))
@@ -56,11 +68,14 @@ struct RecordView: View {
                             .shadow(color: Color.gray, radius: 2, x: 0, y: 0)
                             .padding(20)
                     }
-                    .alert(isPresented: $inclusionReportAlert) {
+                    .alert(isPresented: $showAlertInclusionReport) {
                         Alert(
-                            title: Text("Успешно!"),
-                            message: Text("Запись успешно добавлена в список отчета"),
+                            title: Text(alertTextEditingTitle),
+                            message: Text(alertTextEditingMessage),
                             dismissButton: .default(Text("Ок")))
+                    }
+                    .onAppear(){
+                        inclusionReportButton = recordListViewModel.checkInclusionReport(recordViewModel.record)
                     }
                 }
                 .background(

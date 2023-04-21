@@ -17,8 +17,11 @@ struct RecordPageView: View {
 
     @State private var showEditingRecord: Bool = false
     @Environment(\.presentationMode) var presentationMode // Для закрытия sheet
+    
     @State private var inclusionReportButton = false
-    @State private var inclusionReportAlert = false
+    @State private var showAlertInclusionReport = false
+    @State private var alertTextEditingTitle: String = "Успешно"
+    @State private var alertTextEditingMessage: String = "Запись успешно добавлена в список отчета."
     
     @State private var showAlertDelete: Bool = false
     @State private var showAlertDeleteTitle: String = "Удаление записи"
@@ -55,10 +58,19 @@ struct RecordPageView: View {
                     HStack {
                         Spacer()
                         Button(action: {
-                            inclusionReportButton.toggle()
-//                            viewModelDetail.updateInclusionReport(id: bibliographicRecord.id, inclusionReportButton: inclusionReportButton)
-                            if(inclusionReportButton == true){
-                                inclusionReportAlert.toggle()
+                            recordListViewModel.updateInclusionReport(record: recordViewModel.record, inclusionReport: !inclusionReportButton){ (verified, status) in
+                                if !verified  {
+                                    alertTextEditingTitle = "Ошибка"
+                                    alertTextEditingMessage = "Запись не была добавлена в список отчета."
+                                }
+                                else{
+                                    alertTextEditingTitle = "Успешно"
+                                    alertTextEditingMessage = "Запись успешно добавлена в список отчета."
+                                    if(inclusionReportButton != true){
+                                        showAlertInclusionReport.toggle()
+                                    }
+                                    inclusionReportButton.toggle()
+                                }
                             }
                         }) {
                             Image(systemName: inclusionReportButton ? "list.clipboard.fill" : "list.clipboard")
@@ -67,11 +79,14 @@ struct RecordPageView: View {
                                 .shadow(color: Color.gray, radius: 2, x: 0, y: 0)
                                 .padding(20)
                         }
-                        .alert(isPresented: $inclusionReportAlert) {
+                        .alert(isPresented: $showAlertInclusionReport) {
                             Alert(
                                 title: Text("Успешно!"),
                                 message: Text("Запись успешно добавлена в список отчета"),
                                 dismissButton: .default(Text("Ок")))
+                        }
+                        .onAppear(){
+                            inclusionReportButton = recordListViewModel.checkInclusionReport(recordViewModel.record)
                         }
                     }
                     .background(
@@ -82,7 +97,6 @@ struct RecordPageView: View {
                 Group {
                     Text(recordViewModel.record.title.uppercased()) // title
                         .font(.custom("FONT_NAME", size: 18))
-                    // .font(.system(.headline, design: .default))
                         .fontWeight(.heavy)
                         .multilineTextAlignment(.center)
                         .padding(.top, 10)

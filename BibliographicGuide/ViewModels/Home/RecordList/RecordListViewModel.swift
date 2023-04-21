@@ -124,6 +124,41 @@ final class RecordListViewModel: ObservableObject {
         recordRepository.removeRecord(record)
     }
     
+    func checkInclusionReport(_ record: Record) -> Bool{
+        let newRecord = record.idUsersReporting.filter { (item) -> Bool in
+            item == userId
+        }
+        if(newRecord.count > 0){
+            return true
+        }
+        else{
+            return false
+        }
+    }
+    
+    func updateInclusionReport(record: Record, inclusionReport: Bool, completion: @escaping (Bool, String)->Void){
+        var newRecord = record
+        if(inclusionReport == true){
+            if !newRecord.idUsersReporting.contains(userId){
+                newRecord.idUsersReporting.append(userId)
+            }
+        }
+        else{
+            if newRecord.idUsersReporting.contains(userId){
+                let removed = newRecord.idUsersReporting.remove(at: newRecord.idUsersReporting.firstIndex(of: userId)!)
+            }
+        }
+        
+        recordRepository.updateInclusionReport(idRecord: record.id ?? "", idUsersReporting: newRecord.idUsersReporting){ (verified, status) in
+            if !verified  {
+                completion(false, "Ошибка при обновлении")
+            }
+            else{
+                completion(true, "Обновлено успешно")
+            }
+        }
+    }
+    
     func getImageUrl(pathImage: String, idImage: String, completion: @escaping (Bool, URL)->Void){
         recordRepository.getImageUrl(pathImage: pathImage, idImage: idImage){ (verified, status) in
             if !verified  {
