@@ -135,7 +135,7 @@ func addText(_ text : String, context : UIGraphicsPDFRendererContext) -> CGFloat
             
             addTitle(title: "Составитель: " + self.creatorReport, xx: 70, yy: 400)
             
-            addTitle(title: "Минск 2022", xx: 265, yy: 710)
+            addTitle(title: "Минск 2023", xx: 265, yy: 710)
         
             pag = 1
         }
