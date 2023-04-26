@@ -11,6 +11,7 @@ struct RecordListView: View {
     
     @ObservedObject var recordListViewModel: RecordListViewModel
     @State var topFiveRecord = [RecordViewModel]()
+    @State var showTopFiveRecord = true
     
     var body: some View {
         NavigationView{
@@ -20,27 +21,61 @@ struct RecordListView: View {
                     .padding(.vertical, 10)
                
                 ScrollView(.vertical, showsIndicators: false) {
-                    VStack(alignment: .leading) {
-                        Text("🔥 Топ - по дате редактирования:")
-                            .font(.headline)
-                            .padding(.leading, 15)
-                            .padding(.top, 5)
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(alignment: .top, spacing: 0) {
-                                ForEach(topFiveRecord) { records in
-                                    TopFiveRecordView(recordListViewModel: recordListViewModel, recordViewModel: records, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
+                    if(showTopFiveRecord == true){
+                        VStack(alignment: .leading) {
+                            HStack{
+                                Text("По дате редактирования:")
+                                    .font(.headline)
+                                    .padding(.leading, 15)
+                                    .padding(.top, 5)
+                                Spacer()
+                                Button("скрыть"){
+                                    showTopFiveRecord.toggle()
+                                }
+                                .padding(.trailing, 15)
+                            }
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(alignment: .top, spacing: 0) {
+                                    ForEach(topFiveRecord) { records in
+                                        TopFiveRecordView(recordListViewModel: recordListViewModel, recordViewModel: records, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
+                                    }
                                 }
                             }
+                            .frame(height: 185)
                         }
-                        .frame(height: 185)
                     }
-                    
 
-                    Text("Все записи")
-                        .fontWeight(.bold)
-                        .font(.system(.title, design: .default))
-                        .foregroundColor(Color.gray)
-                        .padding(8)
+                    if(showTopFiveRecord == true){
+                        ZStack{
+                            HStack{
+                                Text("Все записи")
+                                    .fontWeight(.bold)
+                                    .font(.system(.title, design: .default))
+                                    .foregroundColor(Color.gray)
+                                    .padding(8)
+                            }
+                            HStack{
+                                Spacer()
+                                Button("Сортировка"){
+                                   
+                                }
+                                .padding(.trailing, 15)
+                            }
+                        }
+                    }
+                    else{
+                        HStack{
+                            Button("Топ 5"){
+                                showTopFiveRecord.toggle()
+                            }
+                            .padding(.leading, 15)
+                            Spacer()
+                            Button("Сортировка"){
+                                showTopFiveRecord.toggle()
+                            }
+                            .padding(.trailing, 15)
+                        }
+                    }
                     
                     VStack(alignment: .center, spacing: 20) {
                         
