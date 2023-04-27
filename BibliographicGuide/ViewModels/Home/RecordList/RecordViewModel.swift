@@ -13,7 +13,6 @@ final class RecordViewModel: ObservableObject, Identifiable, Equatable {
         ("\(lhs.record.datesChange)" + lhs.record.title).hashValue == ("\(rhs.record.datesChange)" + rhs.record.title).hashValue
     }
     
-    private let recordRepository = RecordRepository()
     @Published var record: Record
     
     var id = ""

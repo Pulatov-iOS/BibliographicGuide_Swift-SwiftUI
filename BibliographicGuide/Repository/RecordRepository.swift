@@ -17,9 +17,11 @@ final class RecordRepository: ObservableObject {
     private let db = Firestore.firestore()
     private let storage = Storage.storage() // Получаем ссылку на службу хранения, используя приложение Firebase по умолчанию
     @Published var records: [Record] = []
+    @Published var topFiveRecords: [Record] = []
     
     init(){
         fetchRecords()
+        fetchTopFiveRecords()
     }
     
     func fetchRecords(){
@@ -29,6 +31,18 @@ final class RecordRepository: ObservableObject {
                 return
             }
             self.records = snapshot?.documents.compactMap {
+                try? $0.data(as: Record.self)
+            } ?? []
+        }
+    }
+    
+    func fetchTopFiveRecords(){
+        db.collection(pathRecords).order(by: "datesChange",descending: true).limit(to: 5).addSnapshotListener { (snapshot, error) in
+            if let error = error {
+                print(error)
+                return
+            }
+            self.topFiveRecords = snapshot?.documents.compactMap {
                 try? $0.data(as: Record.self)
             } ?? []
         }

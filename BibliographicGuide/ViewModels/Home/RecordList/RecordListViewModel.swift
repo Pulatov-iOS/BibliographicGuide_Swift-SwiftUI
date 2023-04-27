@@ -14,6 +14,7 @@ final class RecordListViewModel: ObservableObject {
     
     @Published var recordRepository = RecordRepository()
     @Published var recordViewModels: [RecordViewModel] = []
+    @Published var topFiveRecords: [RecordViewModel] = []
     
     @Published var userInformationRepository = UserInformationRepository()
     @Published var usersInformation: [UserInformation] = []
@@ -26,6 +27,13 @@ final class RecordListViewModel: ObservableObject {
                 records.map(RecordViewModel.init)
             }
             .assign(to: \.recordViewModels, on: self)
+            .store(in: &cancellables)
+        
+        recordRepository.$topFiveRecords
+            .map { topFiveRecords in
+                topFiveRecords.map(RecordViewModel.init)
+            }
+            .assign(to: \.topFiveRecords, on: self)
             .store(in: &cancellables)
         
         userInformationRepository.$usersInformation
@@ -82,7 +90,7 @@ final class RecordListViewModel: ObservableObject {
         return timeEditing
     }
     
-    func getTopFiveRecord() -> [RecordViewModel] {
+    func getTopFiveRecords() -> [RecordViewModel] {
         let sortRecord = recordViewModels.sorted(by: {
             var dateFirst: Date
             var dateSecond: Date

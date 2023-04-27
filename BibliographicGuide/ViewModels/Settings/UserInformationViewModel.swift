@@ -9,7 +9,6 @@ import Combine
 
 final class UserInformationViewModel: ObservableObject, Identifiable {
     
-    private let userInformationRepository = UserInformationRepository()
     @Published var userInformation: UserInformation
     
     var id = ""

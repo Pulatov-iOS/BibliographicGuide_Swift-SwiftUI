@@ -10,8 +10,7 @@ import SwiftUI
 struct RecordListView: View {
     
     @ObservedObject var recordListViewModel: RecordListViewModel
-    @State var topFiveRecord = [RecordViewModel]()
-    @State var showTopFiveRecord = true
+    @State var showTopFiveRecords = true
     
     var body: some View {
         NavigationView{
@@ -21,7 +20,7 @@ struct RecordListView: View {
                     .padding(.vertical, 10)
                
                 ScrollView(.vertical, showsIndicators: false) {
-                    if(showTopFiveRecord == true){
+                    if(showTopFiveRecords == true){
                         VStack(alignment: .leading) {
                             HStack{
                                 Text("По дате редактирования:")
@@ -30,14 +29,14 @@ struct RecordListView: View {
                                     .padding(.top, 5)
                                 Spacer()
                                 Button("скрыть"){
-                                    showTopFiveRecord.toggle()
+                                    showTopFiveRecords.toggle()
                                 }
                                 .padding(.trailing, 15)
                             }
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(alignment: .top, spacing: 0) {
-                                    ForEach(topFiveRecord) { records in
-                                        TopFiveRecordView(recordListViewModel: recordListViewModel, recordViewModel: records, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
+                                    ForEach(recordListViewModel.topFiveRecords) { records in
+                                        TopFiveRecordsView(recordListViewModel: recordListViewModel, recordViewModel: records, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
                                     }
                                 }
                             }
@@ -45,7 +44,7 @@ struct RecordListView: View {
                         }
                     }
 
-                    if(showTopFiveRecord == true){
+                    if(showTopFiveRecords == true){
                         ZStack{
                             HStack{
                                 Text("Все записи")
@@ -66,12 +65,12 @@ struct RecordListView: View {
                     else{
                         HStack{
                             Button("Топ 5"){
-                                showTopFiveRecord.toggle()
+                                showTopFiveRecords.toggle()
                             }
                             .padding(.leading, 15)
                             Spacer()
                             Button("Сортировка"){
-                                showTopFiveRecord.toggle()
+                                showTopFiveRecords.toggle()
                             }
                             .padding(.trailing, 15)
                         }
@@ -81,12 +80,6 @@ struct RecordListView: View {
                         
                         ForEach(recordListViewModel.recordViewModels) { records in
                             RecordView(recordViewModel: records, recordListViewModel: recordListViewModel, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
-                                .onChange(of: recordListViewModel.recordViewModels) { newValue in
-                                    topFiveRecord = recordListViewModel.getTopFiveRecord()
-                                }
-                        }
-                        .onChange(of: recordListViewModel.recordViewModels) { newValue in
-                            topFiveRecord = recordListViewModel.getTopFiveRecord()
                         }
                     }
                     .frame(maxWidth: 640)

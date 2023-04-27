@@ -8,7 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct TopFiveRecordView: View {
+struct TopFiveRecordsView: View {
     
     var recordListViewModel: RecordListViewModel
     var recordViewModel: RecordViewModel
