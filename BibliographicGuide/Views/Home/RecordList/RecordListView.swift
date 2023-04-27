@@ -9,7 +9,8 @@ import SwiftUI
 
 struct RecordListView: View {
     
-    @ObservedObject var recordListViewModel: RecordListViewModel
+    @EnvironmentObject var recordListViewModel: RecordListViewModel
+    
     @State var showTopFiveRecords = true
     
     var body: some View {

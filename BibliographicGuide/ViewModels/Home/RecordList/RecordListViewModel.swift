@@ -90,27 +90,6 @@ final class RecordListViewModel: ObservableObject {
         return timeEditing
     }
     
-    func getTopFiveRecords() -> [RecordViewModel] {
-        let sortRecord = recordViewModels.sorted(by: {
-            var dateFirst: Date
-            var dateSecond: Date
-            if($0.record.datesChange.last == nil){
-                dateFirst = (Date.now.addingTimeInterval(-500000))
-            }
-            else {dateFirst = $0.record.datesChange.last!}
-            if($1.record.datesChange.last == nil){
-                dateSecond = (Date.now.addingTimeInterval(-500000))
-            }
-            else {dateSecond = $1.record.datesChange.last!}
-            return dateFirst > dateSecond
-        })
-        var topFiveRecord = [RecordViewModel]()
-        for item in sortRecord.prefix(5) {
-            topFiveRecord.append(item)
-        }
-        return topFiveRecord
-    }
-    
     func updateRecord(record: Record, ImageTitle: Data, completion: @escaping (Bool, String)->Void){
         var newRecord = record
         if(record.description == ""){

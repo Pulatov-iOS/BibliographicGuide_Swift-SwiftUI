@@ -25,17 +25,20 @@ struct AppView: App {
     
     @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
     @State var userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
+    
+    @StateObject var recordListViewModel: RecordListViewModel = RecordListViewModel()
 
     var body: some Scene {
         WindowGroup {
             VStack{
                 if status{
                     TabView {
-                        RecordListView(recordListViewModel: RecordListViewModel())
+                        RecordListView()
                             .tabItem {
                                 Image(systemName: "house")
                                 Text("Home")
                             }
+                            .environmentObject(recordListViewModel)
                         ChatView()
                             .tabItem {
                                 Image(systemName: "message.badge")

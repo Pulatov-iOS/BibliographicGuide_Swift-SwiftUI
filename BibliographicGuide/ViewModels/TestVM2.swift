@@ -1,13 +1,14 @@
 //
-//  RecordViewModel.swift
+//  TestVM2.swift
 //  BibliographicGuide
 //
-//  Created by Alexander on 3.04.23.
+//  Created by Alexander on 27.04.23.
 //
 
+import Foundation
 import Combine
 
-final class RecordViewModel: ObservableObject, Identifiable {
+final class TestVM2: ObservableObject, Identifiable {
     
     @Published var record: Record
     
