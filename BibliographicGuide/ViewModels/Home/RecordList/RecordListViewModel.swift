@@ -43,10 +43,17 @@ final class RecordListViewModel: ObservableObject {
     }
     
     func fetchRecordsSearch(SearchString: String){
-        searchRecordViewModels = recordViewModels.filter{ $0.record.title.lowercased().contains(SearchString.lowercased())
+        searchRecordViewModels = recordViewModels.filter{ $0.record.title.lowercased().contains(SearchString.lowercased()) ||
+            $0.record.authors.lowercased().contains(SearchString.lowercased()) ||
+            $0.record.journalName.lowercased().contains(SearchString.lowercased()) ||
+            $0.record.journalNumber.lowercased().contains(SearchString.lowercased()) ||
+            String($0.record.year).lowercased().contains(SearchString.lowercased())
         }
     }
-    
+    func sortingRecords(sortingRecords: String){
+        globalRecordRepository.setSortingRecords(sortingRecordsString: sortingRecords)
+    }
+
     func getUserNameRecord(_ record: Record) -> String{
         let newUsers = usersInformation.filter { (item) -> Bool in
             item.id! == record.idUsers[0]

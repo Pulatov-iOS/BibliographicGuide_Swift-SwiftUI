@@ -20,6 +20,7 @@ final class RecordRepository: ObservableObject {
     private let storage = Storage.storage() // Получаем ссылку на службу хранения, используя приложение Firebase по умолчанию
     @Published var records: [Record] = []
     @Published var topFiveRecords: [Record] = []
+    private var selectedSortingRecords = "title"
     
     init(){
         fetchRecords()
@@ -35,6 +36,7 @@ final class RecordRepository: ObservableObject {
             self.records = snapshot?.documents.compactMap {
                 try? $0.data(as: Record.self)
             } ?? []
+            self.sortingRecords(sortingRecords: self.selectedSortingRecords)
         }
     }
     
@@ -132,5 +134,27 @@ final class RecordRepository: ObservableObject {
                imageUrl = url!
                completion(true, (imageUrl ?? (URL(string: "https://turbok.by/public/img/no-photo--lg.png")))!)
            }
+    }
+    
+    func setSortingRecords(sortingRecordsString: String){
+        self.selectedSortingRecords = sortingRecordsString
+        sortingRecords(sortingRecords: sortingRecordsString)
+    }
+    
+    func sortingRecords(sortingRecords: String){
+        switch sortingRecords {
+        case "title":
+            self.records.sort(by: { $0.title > $1.title })
+        case "year":
+            self.records.sort(by: { $0.year > $1.year })
+        case "authors":
+            self.records.sort(by: { $0.authors > $1.authors })
+        case "dateCreation":
+            self.records.sort(by: { $0.dateCreation > $1.dateCreation })
+        case "journalName":
+            self.records.sort(by: { $0.journalName > $1.journalName })
+        default:
+            self.records.sort(by: { $0.title > $1.title })
+        }
     }
 }

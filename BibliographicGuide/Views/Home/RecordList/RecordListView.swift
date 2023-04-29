@@ -7,12 +7,40 @@
 
 import SwiftUI
 
+enum SortingRecord: String, CaseIterable, Identifiable {
+    case title
+    case year
+    case authors
+    case dateCreation
+    case journalName
+    
+    var id: Self {
+        self
+    }
+    
+    var title: String {
+        switch self {
+        case .title:
+            return "Названию"
+        case .year:
+            return "Году"
+        case .authors:
+            return "Автору"
+        case .dateCreation:
+            return "Дате создания"
+        case .journalName:
+            return "Журналу"
+        }
+    }
+}
+
 struct RecordListView: View {
     
     @EnvironmentObject var recordListViewModel: RecordListViewModel
     
     @State var showTopFiveRecords = true
     @State var isSearching = false
+    @State private var sortingSelectedItem: SortingRecord = .title
     
     var body: some View {
         NavigationView{
@@ -57,8 +85,16 @@ struct RecordListView: View {
                             }
                             HStack{
                                 Spacer()
-                                Button("Сортировка"){
-                                   
+                                VStack{
+                                    Picker("Sorting", selection: $sortingSelectedItem){
+                                        ForEach(SortingRecord.allCases){ sortingRecord in
+                                            Text(sortingRecord.title).tag(sortingRecord)
+                                        }
+                                    }
+                                    .tint(.black)
+                                    .onChange(of: sortingSelectedItem){ value in
+                                        recordListViewModel.sortingRecords(sortingRecords: sortingSelectedItem.rawValue)
+                                    }
                                 }
                                 .padding(.trailing, 15)
                             }
