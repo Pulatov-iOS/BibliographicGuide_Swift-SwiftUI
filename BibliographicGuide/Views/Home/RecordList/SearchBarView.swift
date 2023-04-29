@@ -9,10 +9,10 @@ import SwiftUI
 
 struct SearchBarView: View {
     
-//    @Binding var textSearch: String
-//    @Binding var isEditing: Bool
-    @State  var textSearch: String
-    @State  var isEditing: Bool
+    @EnvironmentObject var recordListViewModel: RecordListViewModel
+
+    @State var textSearch: String
+    @Binding var isSearching: Bool
     
     var body: some View {
         
@@ -29,7 +29,7 @@ struct SearchBarView: View {
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 8)
                  
-                        if isEditing {
+                        if isSearching {
                             Button(action: {
                                 self.textSearch = ""
                             }) {
@@ -42,14 +42,14 @@ struct SearchBarView: View {
                 )
                 .padding(.horizontal, 10)
                 .onTapGesture {
-                    self.isEditing = true
+                    self.isSearching = true
                 }
 
-            if isEditing {
+            if isSearching {
                 Button(action: {
-                    self.isEditing = false
+                    self.isSearching = false
                     self.textSearch = ""
-
+             
                     // Dismiss the keyboard
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }) {
@@ -59,6 +59,8 @@ struct SearchBarView: View {
                 .transition(.move(edge: .trailing))
                 .animation(.default)
             }
+        }.onChange(of: textSearch){ newValue in
+            recordListViewModel.fetchRecordsSearch(SearchString: textSearch)
         }
     }
 }

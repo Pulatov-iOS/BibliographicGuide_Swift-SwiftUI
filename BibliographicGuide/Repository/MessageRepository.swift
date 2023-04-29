@@ -9,6 +9,8 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+let globalMessageRepository = MessageRepository()
+
 final class MessageRepository: ObservableObject {
     
     private let path = "Messages"

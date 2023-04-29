@@ -10,6 +10,8 @@ import FirebaseFirestoreSwift
 import FirebaseStorage
 import Combine
 
+let globalRecordRepository = RecordRepository()
+
 final class RecordRepository: ObservableObject {
     
     private let pathRecords = "Records"

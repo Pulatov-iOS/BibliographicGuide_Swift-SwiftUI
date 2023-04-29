@@ -9,6 +9,8 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+let globalUserInformationRepository = UserInformationRepository()
+
 final class UserInformationRepository: ObservableObject {
     
     private let path = "UsersInformation"

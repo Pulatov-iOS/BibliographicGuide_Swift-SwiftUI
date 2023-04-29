@@ -12,7 +12,7 @@ final class UserInformationListViewModel: ObservableObject {
     
     let userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
     
-    @Published var userInformationRepository = UserInformationRepository()
+    @Published var userInformationRepository = globalUserInformationRepository
     @Published var usersInformationViewModel: [UserInformationViewModel] = []
     
     private var cancellables: Set<AnyCancellable> = []

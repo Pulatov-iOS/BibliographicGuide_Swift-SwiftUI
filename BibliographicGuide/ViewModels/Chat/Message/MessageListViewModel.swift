@@ -12,11 +12,11 @@ final class MessageListViewModel: ObservableObject, Equatable {
     
     let userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
     
-    @Published var messageRepository = MessageRepository()
+    @Published var messageRepository = globalMessageRepository
     @Published var messageViewModels: [MessageViewModel] = []
     var сurrentDateMessage = ""
     
-    @Published var userInformationRepository = UserInformationRepository()
+    @Published var userInformationRepository = globalUserInformationRepository
     @Published var usersInformation: [UserInformation] = []
     
     private var cancellables: Set<AnyCancellable> = []

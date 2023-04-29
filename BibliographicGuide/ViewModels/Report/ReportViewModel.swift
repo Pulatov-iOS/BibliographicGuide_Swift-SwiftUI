@@ -12,7 +12,7 @@ final class ReportViewModel: ObservableObject {
     
     let userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
     
-    @Published var recordRepository = RecordRepository()
+    @Published var recordRepository = globalRecordRepository
     @Published var recordViewModels: [Record] = []
     
     private var cancellables: Set<AnyCancellable> = []

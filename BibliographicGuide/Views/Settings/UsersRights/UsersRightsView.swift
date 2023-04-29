@@ -12,6 +12,7 @@ struct UsersRightsView: View {
     @State var userInformationListViewModel: UserInformationListViewModel
     @State private var showUserRightsWindow: Bool = false
     @State var userInformationViewModel = UserInformationViewModel(userInformation: UserInformation(role: "", userName: "", blockingChat: true, dateUnblockingChat: Date(), blockingAccount: true))
+    @State var isSearching = false
     
     var body: some View {
         NavigationView{
@@ -23,7 +24,7 @@ struct UsersRightsView: View {
                     .padding(.top, 26)
                    
                 
-                SearchBarView(textSearch: "", isEditing: false)
+                SearchBarView(textSearch: "", isSearching: $isSearching)
                 
                 VStack{
                     ForEach(userInformationListViewModel.usersInformationViewModel) { users in

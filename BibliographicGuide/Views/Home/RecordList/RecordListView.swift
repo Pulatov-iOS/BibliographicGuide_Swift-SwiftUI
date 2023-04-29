@@ -12,12 +12,13 @@ struct RecordListView: View {
     @EnvironmentObject var recordListViewModel: RecordListViewModel
     
     @State var showTopFiveRecords = true
+    @State var isSearching = false
     
     var body: some View {
         NavigationView{
             VStack{
                 
-                SearchBarView(textSearch: "", isEditing: false)
+                SearchBarView(textSearch: "", isSearching: $isSearching)
                     .padding(.vertical, 10)
                
                 ScrollView(.vertical, showsIndicators: false) {
@@ -78,9 +79,15 @@ struct RecordListView: View {
                     }
                     
                     VStack(alignment: .center, spacing: 20) {
-                        
-                        ForEach(recordListViewModel.recordViewModels) { records in
-                            RecordView(recordViewModel: records, recordListViewModel: recordListViewModel, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
+                        if(isSearching == false){
+                            ForEach(recordListViewModel.recordViewModels) { records in
+                                RecordView(recordViewModel: records, recordListViewModel: recordListViewModel, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
+                            }
+                        }
+                        else{
+                            ForEach(recordListViewModel.searchRecordViewModels) { records in
+                                RecordView(recordViewModel: records, recordListViewModel: recordListViewModel, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
+                            }
                         }
                     }
                     .frame(maxWidth: 640)

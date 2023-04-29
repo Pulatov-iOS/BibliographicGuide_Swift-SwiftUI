@@ -13,6 +13,7 @@ struct KeywordsView: View {
     @State var idSelectedKeyword = ""
     @State var addKeyword = false
     @State var newKeywordName = ""
+    @State var isSearching = false
 
     var body: some View {
         NavigationView{
@@ -40,7 +41,7 @@ struct KeywordsView: View {
                     }
                 }
                 
-                SearchBarView(textSearch: "", isEditing: false)
+                SearchBarView(textSearch: "", isSearching: $isSearching)
                 
                 if(addKeyword == true){
                     HStack{
@@ -55,50 +56,50 @@ struct KeywordsView: View {
                     }
                     .padding(10)
                 }
-                
-                ForEach((0...3), id: \.self) {i in
-                    HStack{
-                        VStack{
-                            VStack{
-                                HStack{
-                                    Text(" \(i+1). ")
-                                    Text(key[i])
-                                    Spacer()
-                                }
-                                
-                                .padding(5)
-                            }
-                            .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
-                            .onTapGesture {
-                                if(idSelectedKeyword == ""){
-                                    idSelectedKeyword = String(i)
-                                }
-                                else{
-                                    idSelectedKeyword = ""
-                                }
-                            }
-                            if(String(i) == idSelectedKeyword){
-                                HStack{
-                                    TextField("Кл. слово", text: $newKeywordName)
-                                        .background(Color.white)
-                                        .border(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
-                                    Spacer()
-                                    Button("Delete"){
-                                        
-                                    }
-                                    Button("Save"){
-                                        
-                                    }
-                                }
-                            }
-                        }
-                        
-                    }
-                    .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765)
-                    )
-                
-                    .padding([.leading, .trailing], 10)
-                }
+//
+//                ForEach((0...3), id: \.self) {i in
+//                    HStack{
+//                        VStack{
+//                            VStack{
+//                                HStack{
+//                                    Text(" \(i+1). ")
+//                                    Text(key[i])
+//                                    Spacer()
+//                                }
+//
+//                                .padding(5)
+//                            }
+//                            .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
+//                            .onTapGesture {
+//                                if(idSelectedKeyword == ""){
+//                                    idSelectedKeyword = String(i)
+//                                }
+//                                else{
+//                                    idSelectedKeyword = ""
+//                                }
+//                            }
+//                            if(String(i) == idSelectedKeyword){
+//                                HStack{
+//                                    TextField("Кл. слово", text: $newKeywordName)
+//                                        .background(Color.white)
+//                                        .border(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
+//                                    Spacer()
+//                                    Button("Delete"){
+//
+//                                    }
+//                                    Button("Save"){
+//
+//                                    }
+//                                }
+//                            }
+//                        }
+//
+//                    }
+//                    .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765)
+//                    )
+//
+//                    .padding([.leading, .trailing], 10)
+//                }
                 
 
                 Spacer()

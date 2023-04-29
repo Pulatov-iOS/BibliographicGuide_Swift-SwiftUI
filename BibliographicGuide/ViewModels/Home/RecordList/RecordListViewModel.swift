@@ -12,11 +12,12 @@ final class RecordListViewModel: ObservableObject {
     
     let userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
     
-    @Published var recordRepository = RecordRepository()
+    @Published var recordRepository = globalRecordRepository
     @Published var recordViewModels: [RecordViewModel] = []
+    @Published var searchRecordViewModels: [RecordViewModel] = []
     @Published var topFiveRecords: [RecordViewModel] = []
     
-    @Published var userInformationRepository = UserInformationRepository()
+    @Published var userInformationRepository = globalUserInformationRepository
     @Published var usersInformation: [UserInformation] = []
     
     private var cancellables: Set<AnyCancellable> = []
@@ -39,6 +40,11 @@ final class RecordListViewModel: ObservableObject {
         userInformationRepository.$usersInformation
             .assign(to: \.usersInformation, on: self)
             .store(in: &cancellables)
+    }
+    
+    func fetchRecordsSearch(SearchString: String){
+        searchRecordViewModels = recordViewModels.filter{ $0.record.title.lowercased().contains(SearchString.lowercased())
+        }
     }
     
     func getUserNameRecord(_ record: Record) -> String{
