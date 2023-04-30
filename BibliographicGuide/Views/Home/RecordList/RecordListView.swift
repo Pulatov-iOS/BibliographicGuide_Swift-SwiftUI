@@ -50,38 +50,37 @@ struct RecordListView: View {
                     .padding(.vertical, 10)
                
                 ScrollView(.vertical, showsIndicators: false) {
-                    if(showTopFiveRecords == true){
-                        VStack(alignment: .leading) {
-                            HStack{
-                                Text("По дате редактирования:")
-                                    .font(.headline)
-                                    .padding(.leading, 15)
-                                    .padding(.top, 5)
-                                Spacer()
-                                Button("скрыть"){
-                                    showTopFiveRecords.toggle()
+                    if(isSearching == false){
+                        if(showTopFiveRecords == true){
+                            VStack(alignment: .leading) {
+                                HStack{
+                                    Text("По дате редактирования:")
+                                        .font(.headline)
+                                        .padding(.leading, 15)
+                                        .padding(.top, 5)
+                                    Spacer()
+                                    Button("скрыть"){
+                                        showTopFiveRecords.toggle()
+                                    }
+                                    .padding(.trailing, 15)
                                 }
-                                .padding(.trailing, 15)
-                            }
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack(alignment: .top, spacing: 0) {
-                                    ForEach(recordListViewModel.topFiveRecords) { records in
-                                        TopFiveRecordsView(recordListViewModel: recordListViewModel, recordViewModel: records, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    HStack(alignment: .top, spacing: 0) {
+                                        ForEach(recordListViewModel.topFiveRecords) { records in
+                                            TopFiveRecordsView(recordListViewModel: recordListViewModel, recordViewModel: records, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
+                                        }
                                     }
                                 }
+                                .frame(height: 185)
                             }
-                            .frame(height: 185)
                         }
-                    }
-
-                    if(showTopFiveRecords == true){
-                        ZStack{
+                        if(showTopFiveRecords == true){
                             HStack{
                                 Text("Все записи")
                                     .fontWeight(.bold)
                                     .font(.system(.title, design: .default))
                                     .foregroundColor(Color.gray)
-                                    .padding(8)
+                                    .padding(0)
                             }
                             HStack{
                                 Spacer()
@@ -91,6 +90,7 @@ struct RecordListView: View {
                                             Text(sortingRecord.title).tag(sortingRecord)
                                         }
                                     }
+                                    .pickerStyle(.segmented)
                                     .tint(.black)
                                     .onChange(of: sortingSelectedItem){ value in
                                         recordListViewModel.sortingRecords(sortingRecords: sortingSelectedItem.rawValue)
@@ -98,19 +98,29 @@ struct RecordListView: View {
                                 }
                                 .padding(.trailing, 15)
                             }
+                            .padding(.bottom, 10)
+                        }
+                        else{
+                            HStack{
+                                Button("Топ 5"){
+                                    showTopFiveRecords.toggle()
+                                }
+                                .padding(.leading, 15)
+                                Spacer()
+                                Button("Сортировка"){
+                                    showTopFiveRecords.toggle()
+                                }
+                                .padding(.trailing, 15)
+                            }
                         }
                     }
                     else{
-                        HStack{
-                            Button("Топ 5"){
-                                showTopFiveRecords.toggle()
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(alignment: .top, spacing: 0) {
+                                ForEach(recordListViewModel.topFiveRecords) { keywords in
+                                    Text("2")
+                                }
                             }
-                            .padding(.leading, 15)
-                            Spacer()
-                            Button("Сортировка"){
-                                showTopFiveRecords.toggle()
-                            }
-                            .padding(.trailing, 15)
                         }
                     }
                     
