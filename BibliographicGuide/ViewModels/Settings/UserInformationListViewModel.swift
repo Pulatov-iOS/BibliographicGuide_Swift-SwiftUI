@@ -15,6 +15,9 @@ final class UserInformationListViewModel: ObservableObject {
     @Published var userInformationRepository = globalUserInformationRepository
     @Published var usersInformationViewModel: [UserInformationViewModel] = []
     
+    @Published var keywordRepository = globalKeywordRepository
+    @Published var keywords: [Keyword] = []
+    
     private var cancellables: Set<AnyCancellable> = []
     
     init(){
@@ -23,6 +26,10 @@ final class UserInformationListViewModel: ObservableObject {
                 userInformation.map(UserInformationViewModel.init)
             }
             .assign(to: \.usersInformationViewModel, on: self)
+            .store(in: &cancellables)
+        
+        keywordRepository.$keywords
+            .assign(to: \.keywords, on: self)
             .store(in: &cancellables)
     }
     
@@ -57,6 +64,18 @@ final class UserInformationListViewModel: ObservableObject {
                 completion(false, "Данное имя пользователя уже занято.")
             }
         }
+    }
+    
+    func addKeyword(_ keyword: Keyword){
+        keywordRepository.addKeyword(keyword)
+    }
+    
+    func updateKeyword(_ keyword: Keyword){
+        keywordRepository.updateKeyword(keyword)
+    }
+    
+    func removeKeyword(_ keyword: Keyword){
+        keywordRepository.removeKeyword(keyword)
     }
     
     func exitOfAccount(){

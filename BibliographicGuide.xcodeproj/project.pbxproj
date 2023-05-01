@@ -63,6 +63,10 @@
 		1148683C29F0AAC700C698D6 /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148683B29F0AAC700C698D6 /* ShareView.swift */; };
 		1148683E29F0AF9700C698D6 /* PdfCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148683D29F0AF9700C698D6 /* PdfCreator.swift */; };
 		116A631729F868400024C357 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116A631629F868400024C357 /* Report.swift */; };
+		116A631D29FE8A380024C357 /* KeywordSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116A631C29FE8A380024C357 /* KeywordSearchBarView.swift */; };
+		116A631F29FE8A880024C357 /* Keyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116A631E29FE8A880024C357 /* Keyword.swift */; };
+		116A632129FE8AFD0024C357 /* KeywordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116A632029FE8AFD0024C357 /* KeywordRepository.swift */; };
+		116A632329FFED450024C357 /* KeywordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116A632229FFED450024C357 /* KeywordView.swift */; };
 		8E2EDA666BF49964DFE1B02E /* Pods_BibliographicGuide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A17856A9ED342D36391D4E7 /* Pods_BibliographicGuide.framework */; };
 		C79F79CD4CD1D2DE9CB5E0AB /* Pods_BibliographicGuideTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E5B84D1332C25EDC27E7512 /* Pods_BibliographicGuideTests.framework */; };
 /* End PBXBuildFile section */
@@ -144,6 +148,10 @@
 		1148683B29F0AAC700C698D6 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		1148683D29F0AF9700C698D6 /* PdfCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdfCreator.swift; sourceTree = "<group>"; };
 		116A631629F868400024C357 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
+		116A631C29FE8A380024C357 /* KeywordSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordSearchBarView.swift; sourceTree = "<group>"; };
+		116A631E29FE8A880024C357 /* Keyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyword.swift; sourceTree = "<group>"; };
+		116A632029FE8AFD0024C357 /* KeywordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordRepository.swift; sourceTree = "<group>"; };
+		116A632229FFED450024C357 /* KeywordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordView.swift; sourceTree = "<group>"; };
 		241C83635DC8BC995E701B01 /* Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide-BibliographicGuideUITests/Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3BF3DF8CD7A06B44BA0C0176 /* Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide-BibliographicGuideUITests/Pods-BibliographicGuide-BibliographicGuideUITests.release.xcconfig"; sourceTree = "<group>"; };
 		57888CDBC96114F9CA898EC2 /* Pods-BibliographicGuide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide.debug.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide/Pods-BibliographicGuide.debug.xcconfig"; sourceTree = "<group>"; };
@@ -186,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				1126AD9E29F132BB00A210BF /* KeywordsView.swift */,
+				116A632229FFED450024C357 /* KeywordView.swift */,
 			);
 			path = Keywords;
 			sourceTree = "<group>";
@@ -293,6 +302,7 @@
 				1132A08229DC4CC40007B181 /* Message.swift */,
 				1132A09329DD96CA0007B181 /* UserInformation.swift */,
 				116A631629F868400024C357 /* Report.swift */,
+				116A631E29FE8A880024C357 /* Keyword.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -326,6 +336,7 @@
 				1132A05B29D849140007B181 /* RecordRepository.swift */,
 				1132A08029DC4C1B0007B181 /* MessageRepository.swift */,
 				1132A09529DD9A7F0007B181 /* UserInformationRepository.swift */,
+				116A632029FE8AFD0024C357 /* KeywordRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -372,6 +383,7 @@
 				1132A07B29DB506C0007B181 /* RecordDescriptionView.swift */,
 				1148682129EEAF1300C698D6 /* TopFiveRecordsView.swift */,
 				1148682329EEB3CF00C698D6 /* SearchBarView.swift */,
+				116A631C29FE8A380024C357 /* KeywordSearchBarView.swift */,
 				1148681829ED5A8D00C698D6 /* RecordPage */,
 			);
 			path = RecordList;
@@ -808,10 +820,13 @@
 				1132A04F29D445DB0007B181 /* SettingsView.swift in Sources */,
 				1148682629F0036D00C698D6 /* ImagePicker.swift in Sources */,
 				1148682D29F0889100C698D6 /* EditingRecordView.swift in Sources */,
+				116A632329FFED450024C357 /* KeywordView.swift in Sources */,
+				116A631D29FE8A380024C357 /* KeywordSearchBarView.swift in Sources */,
 				1126ADA429F1393100A210BF /* UserRightsView.swift in Sources */,
 				1126ADA229F1353100A210BF /* UsersRightsView.swift in Sources */,
 				1126AD9F29F132BB00A210BF /* KeywordsView.swift in Sources */,
 				1132A07329DB003C0007B181 /* AuthorizationViewModel.swift in Sources */,
+				116A632129FE8AFD0024C357 /* KeywordRepository.swift in Sources */,
 				1148683429F0A7A400C698D6 /* ReportViewModel.swift in Sources */,
 				1148682229EEAF1300C698D6 /* TopFiveRecordsView.swift in Sources */,
 				1132A08B29DC4FFC0007B181 /* MessageListView.swift in Sources */,
@@ -834,6 +849,7 @@
 				1132A06929DAF2610007B181 /* RecordViewModel.swift in Sources */,
 				1148682029EE03B300C698D6 /* CreateViewModel.swift in Sources */,
 				1148681D29EE034B00C698D6 /* CreateRecordView.swift in Sources */,
+				116A631F29FE8A880024C357 /* Keyword.swift in Sources */,
 				1132A09429DD96CA0007B181 /* UserInformation.swift in Sources */,
 				1132A07C29DB506C0007B181 /* RecordDescriptionView.swift in Sources */,
 				1132A05E29D891A80007B181 /* Record.swift in Sources */,

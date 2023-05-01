@@ -27,7 +27,7 @@ enum SortingRecord: String, CaseIterable, Identifiable {
         case .authors:
             return "Автору"
         case .dateCreation:
-            return "Дате создания"
+            return "Созданию"
         case .journalName:
             return "Журналу"
         }
@@ -118,7 +118,7 @@ struct RecordListView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(alignment: .top, spacing: 0) {
                                 ForEach(recordListViewModel.topFiveRecords) { keywords in
-                                    Text("2")
+                                    KeywordSearchBarView()
                                 }
                             }
                         }

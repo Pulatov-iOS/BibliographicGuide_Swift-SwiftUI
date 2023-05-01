@@ -12,7 +12,7 @@ struct SettingsView: View {
     let appName: String = Bundle.main.infoDictionary?["CFBundleName"] as! String
     let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
     
-    @ObservedObject var userInformationListViewModel = UserInformationListViewModel()
+    @EnvironmentObject var userInformationListViewModel: UserInformationListViewModel
     
     @State private var newNickname = ""
     @State private var alertTitle: String = "Успешно"

@@ -27,6 +27,7 @@ struct AppView: App {
     @State var userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
     
     @StateObject var recordListViewModel: RecordListViewModel = RecordListViewModel()
+    @StateObject var userInformationListViewModel: UserInformationListViewModel = UserInformationListViewModel()
 
     var body: some Scene {
         WindowGroup {
@@ -59,6 +60,7 @@ struct AppView: App {
                                 Image(systemName: "gear")
                                 Text("Settings")
                             }
+                            .environmentObject(userInformationListViewModel)
                     }
                 }
                 else{
