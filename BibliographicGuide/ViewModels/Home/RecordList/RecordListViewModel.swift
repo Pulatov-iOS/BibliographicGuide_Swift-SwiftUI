@@ -20,6 +20,10 @@ final class RecordListViewModel: ObservableObject {
     @Published var userInformationRepository = globalUserInformationRepository
     @Published var usersInformation: [UserInformation] = []
     
+    @Published var keywordRepository = globalKeywordRepository
+    @Published var keywords: [Keyword] = []
+    @Published var selectedKeywordsSearch = [""]
+    
     private var cancellables: Set<AnyCancellable> = []
     
     init(){
@@ -35,6 +39,10 @@ final class RecordListViewModel: ObservableObject {
                 topFiveRecords.map(RecordViewModel.init)
             }
             .assign(to: \.topFiveRecords, on: self)
+            .store(in: &cancellables)
+        
+        keywordRepository.$keywords
+            .assign(to: \.keywords, on: self)
             .store(in: &cancellables)
         
         userInformationRepository.$usersInformation
@@ -157,6 +165,17 @@ final class RecordListViewModel: ObservableObject {
                 completion(true, "Обновлено успешно")
             }
         }
+    }
+    
+    func sortingKeyword(_ keyword: Keyword){
+        if(selectedKeywordsSearch.contains(keyword.id ?? "")){
+            selectedKeywordsSearch.remove(at: selectedKeywordsSearch.firstIndex(of: keyword.id ?? "") ?? 999999)
+        }
+        else{
+            selectedKeywordsSearch.append(keyword.id ?? "")
+        }
+        globalKeywordRepository.selectedKeywordsSearch = selectedKeywordsSearch
+        globalKeywordRepository.sortingKeywords()
     }
     
     func getImageUrl(pathImage: String, idImage: String, completion: @escaping (Bool, URL)->Void){

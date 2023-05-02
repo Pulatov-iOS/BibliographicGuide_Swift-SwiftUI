@@ -7,7 +7,7 @@
 
 import FirebaseFirestoreSwift
 
-struct Keyword: Identifiable, Codable {
+struct Keyword: Identifiable, Codable, Equatable {
     
     @DocumentID var id: String?
     var name: String

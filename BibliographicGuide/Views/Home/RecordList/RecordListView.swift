@@ -117,8 +117,8 @@ struct RecordListView: View {
                     else{
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(alignment: .top, spacing: 0) {
-                                ForEach(recordListViewModel.topFiveRecords) { keywords in
-                                    KeywordSearchBarView()
+                                ForEach(recordListViewModel.keywords) { keyword in
+                                    KeywordSearchBarView(keyword: keyword)
                                 }
                             }
                         }

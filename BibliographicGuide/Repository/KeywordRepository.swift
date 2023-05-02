@@ -16,6 +16,7 @@ final class KeywordRepository: ObservableObject {
     private let pathKeywords = "Keywords"
     private let db = Firestore.firestore()
     @Published var keywords: [Keyword] = []
+    var selectedKeywordsSearch = [""]
     
     init(){
         fetchKeywords()
@@ -31,6 +32,7 @@ final class KeywordRepository: ObservableObject {
                 try? $0.data(as: Keyword.self)
             } ?? []
         }
+        sortingKeywords()
     }
     
     func addKeyword(_ keyword: Keyword){
@@ -57,5 +59,11 @@ final class KeywordRepository: ObservableObject {
                 print("Нe удалось удалить ключевое слово: \(error.localizedDescription)")
             }
         }
+    }
+    
+    func sortingKeywords(){
+        self.keywords.sort(by: {
+            selectedKeywordsSearch.contains($0.id ?? "") && !selectedKeywordsSearch.contains($1.id ?? "")
+        })
     }
 }
