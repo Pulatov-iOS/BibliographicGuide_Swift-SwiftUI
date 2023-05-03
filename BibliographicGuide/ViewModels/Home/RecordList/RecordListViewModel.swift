@@ -22,7 +22,7 @@ final class RecordListViewModel: ObservableObject {
     
     @Published var keywordRepository = globalKeywordRepository
     @Published var keywords: [Keyword] = []
-    @Published var selectedKeywordsSearch = [""]
+    @Published var selectedKeywordsSearch = [String]()
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -51,11 +51,26 @@ final class RecordListViewModel: ObservableObject {
     }
     
     func fetchRecordsSearch(SearchString: String){
-        searchRecordViewModels = recordViewModels.filter{ $0.record.title.lowercased().contains(SearchString.lowercased()) ||
-            $0.record.authors.lowercased().contains(SearchString.lowercased()) ||
-            $0.record.journalName.lowercased().contains(SearchString.lowercased()) ||
-            $0.record.journalNumber.lowercased().contains(SearchString.lowercased()) ||
-            String($0.record.year).lowercased().contains(SearchString.lowercased())
+        if(SearchString != ""){
+            searchRecordViewModels = recordViewModels.filter{ $0.record.title.lowercased().contains(SearchString.lowercased()) ||
+                $0.record.authors.lowercased().contains(SearchString.lowercased()) ||
+                $0.record.journalName.lowercased().contains(SearchString.lowercased()) ||
+                $0.record.journalNumber.lowercased().contains(SearchString.lowercased()) ||
+                String($0.record.year).lowercased().contains(SearchString.lowercased())
+            }
+        }
+        else{
+            if(selectedKeywordsSearch.count > 0){
+                searchRecordViewModels = recordViewModels
+            }
+            else{
+                searchRecordViewModels = [RecordViewModel]() // Очищаем список записей при отмене выбора кл. слов
+            }
+        }
+        for idKeyword in selectedKeywordsSearch{ // Поиск записей по кл. словам
+            searchRecordViewModels = searchRecordViewModels.filter{
+                $0.record.keywords.contains(idKeyword)
+            }
         }
     }
     func sortingRecords(sortingRecords: String){
@@ -67,6 +82,20 @@ final class RecordListViewModel: ObservableObject {
             item.id! == record.idUsers[0]
         }
         return newUsers.first?.userName ?? "User"
+    }
+    
+    func getKeywordNameRecord(_ record: Record) -> String{
+        var keywordsArray = ""
+        for keyword in record.keywords{
+            if(keywordsArray != ""){
+                keywordsArray = keywordsArray + ", "
+            }
+            let newKeyword = keywords.filter { (item) -> Bool in
+                item.id! == keyword
+            }
+            keywordsArray = keywordsArray + (newKeyword.first?.name ?? "")
+        }
+        return keywordsArray
     }
     
     func getСurrentUserInformation() -> UserInformation{

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DescriptionRecordPageView: View {
     
+    @EnvironmentObject var recordListViewModel: RecordListViewModel
     var recordViewModel: RecordViewModel
     
     var body: some View {
@@ -23,7 +24,7 @@ struct DescriptionRecordPageView: View {
                 
                 VStack (alignment: .leading, spacing: 5) {
                     VStack (alignment: .leading, spacing: 5) {
-                        Text("Ключевые слова:" + recordViewModel.record.keywords.last!) // не все
+                        Text("Ключевые слова: " + recordListViewModel.getKeywordNameRecord(recordViewModel.record)) // не все
                             .font(.footnote)
                             .multilineTextAlignment(TextAlignment.leading)
                             .fixedSize(horizontal: false, vertical: true)

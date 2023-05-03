@@ -42,7 +42,7 @@ struct KeywordsView: View {
                     }
                 }
                 
-                SearchBarView(textSearch: "", isSearching: $isSearching)
+              //  SearchBarView(textSearch: "", isSearching: $isSearching)
                 
                 if(addKeyword == true){
                     HStack{

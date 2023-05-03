@@ -24,7 +24,6 @@ struct RecordView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            
             ZStack(alignment: .bottom) {
                 VStack{
                     WebImage(url: imageUrl)
@@ -88,6 +87,7 @@ struct RecordView: View {
             VStack(alignment: .leading, spacing: 12) {
                 Text(recordViewModel.record.title)
                     .font(.system(.headline, design: .default))
+                    .lineLimit(3)
                 RecordDescriptionView(recordDescriptionViewModel: RecordDescriptionViewModel(), recordListViewModel: recordListViewModel, recordViewModel: recordViewModel, userNameRecord: userNameRecord)
             }
             .padding()

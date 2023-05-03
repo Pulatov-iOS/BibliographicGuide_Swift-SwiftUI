@@ -18,46 +18,28 @@ struct RegistrationView: View {
     @Binding var show: Bool
     
     var body: some View{
-     
             VStack {
                 Text("Регистрация").fontWeight(.heavy).font(.largeTitle).padding([.top,.bottom], 20)
                 VStack{
-                    
                     VStack(alignment: .leading){
-                        
                         VStack(alignment: .leading){
-                            
-                            Text("Email").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
-                            
+                            Text("Email:").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
                             HStack{
-                                
                                 TextField("Введите ваш Email", text: $user)
-                                
                                 if user != ""{
-                                    
                                     Image("check").foregroundColor(Color.init(.label))
                                 }
-                                
                             }
-                            
                             Divider()
-                            
                         }.padding(.bottom, 15)
-                        
                         VStack(alignment: .leading){
-                            
-                            Text("Пароль").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
-                            
+                            Text("Пароль:").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
                             SecureField("Введите ваш пароль", text: $pass)
-                            
                             Divider()
                         }
-                        
                     }.padding(.horizontal, 6)
                     
-                    
                     Button(action: {
-                        
                         registrationViewModel.registrationWithEmail(email: self.user, password: self.pass){ (verified, status) in
                             if !verified {
                                 self.message=status
@@ -71,18 +53,15 @@ struct RegistrationView: View {
                             }
                         }
                     }) {
-                        
-                        Text("Зарегистрироваться").foregroundColor(.black).frame(width: UIScreen.main.bounds.width - 120).padding()
-                        
-                        
-                    }.background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
-                        .clipShape(Capsule())
-                        .padding(.top, 45)
-                    
-                }.padding()
-                
+                        Text("Регистрация").foregroundColor(.black).frame(width: UIScreen.main.bounds.width - 120).padding()
+                    }
+                    .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
+                    .clipShape(Capsule())
+                    .padding(.top, 45)
+                }
+                .padding()
                         .alert(isPresented: $alert){ // Ошибка входа
-                            Alert(title: Text("Error"), message: Text(self.message), dismissButton: .default(Text("Ok")))
+                            Alert(title: Text("Ошибка"), message: Text(self.message), dismissButton: .default(Text("Ок")))
                         }
             }
         }

@@ -23,7 +23,7 @@ final class KeywordRepository: ObservableObject {
     }
     
     func fetchKeywords(){
-        db.collection(pathKeywords).addSnapshotListener { (snapshot, error) in
+        db.collection(pathKeywords).order(by: "name").addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print(error)
                 return

@@ -67,11 +67,15 @@ final class UserInformationListViewModel: ObservableObject {
     }
     
     func addKeyword(_ keyword: Keyword){
-        keywordRepository.addKeyword(keyword)
+        var newKeyword = keyword
+        newKeyword.name = newKeyword.name.lowercased()
+        keywordRepository.addKeyword(newKeyword)
     }
     
     func updateKeyword(_ keyword: Keyword){
-        keywordRepository.updateKeyword(keyword)
+        var newKeyword = keyword
+        newKeyword.name = newKeyword.name.lowercased()
+        keywordRepository.updateKeyword(newKeyword)
     }
     
     func removeKeyword(_ keyword: Keyword){

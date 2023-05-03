@@ -31,7 +31,8 @@ struct RecordDescriptionView: View {
                 Image(systemName: "clock")
                 Text("Дата создания: \(recordDescriptionViewModel.checkingCreatingTime(recordViewModel.record.dateCreation))")
             })
-        }.padding(.leading, 7)
+        }
+        .padding(.leading, 7)
         .font(.footnote)
         .foregroundColor(Color.gray)
     }

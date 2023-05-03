@@ -10,6 +10,7 @@ import SwiftUI
 struct KeywordSearchBarView: View {
     
     @EnvironmentObject var recordListViewModel: RecordListViewModel
+    @Binding var keywordsSearch: Int
     var keyword: Keyword
     
     var body: some View {
@@ -20,9 +21,10 @@ struct KeywordSearchBarView: View {
                 }
                 .padding([.leading, .trailing], 10)
                 .padding([.top, .bottom], 5)
-                .background(Color.yellow)
+                .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
                 .cornerRadius(10)
                 .onTapGesture {
+                    keywordsSearch -= 1
                     recordListViewModel.sortingKeyword(keyword)
                 }
             }
@@ -34,11 +36,17 @@ struct KeywordSearchBarView: View {
                 .padding([.top, .bottom], 5)
                 .background(Color.white)
                 .cornerRadius(10)
+                .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(.gray, lineWidth: 1)
+                    )
                 .onTapGesture {
+                    keywordsSearch += 1
                     recordListViewModel.sortingKeyword(keyword)
                 }
             }
         }
+        .padding(.top, 1)
         .padding(.leading, 10)
     }
 }

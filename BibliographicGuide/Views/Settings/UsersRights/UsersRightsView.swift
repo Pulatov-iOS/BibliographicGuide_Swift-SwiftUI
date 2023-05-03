@@ -24,7 +24,7 @@ struct UsersRightsView: View {
                     .padding(.top, 26)
                    
                 
-                SearchBarView(textSearch: "", isSearching: $isSearching)
+              //  SearchBarView(textSearch: "", isSearching: $isSearching)
                 
                 VStack{
                     ForEach(userInformationListViewModel.usersInformationViewModel) { users in

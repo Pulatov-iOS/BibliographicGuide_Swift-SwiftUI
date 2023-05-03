@@ -11,7 +11,7 @@ struct SearchBarView: View {
     
     @EnvironmentObject var recordListViewModel: RecordListViewModel
 
-    @State var textSearch: String
+    @Binding var textSearch: String
     @Binding var isSearching: Bool
     
     var body: some View {
@@ -59,7 +59,8 @@ struct SearchBarView: View {
                 .transition(.move(edge: .trailing))
                 .animation(.default)
             }
-        }.onChange(of: textSearch){ newValue in
+        }
+        .onChange(of: textSearch){ newValue in
             recordListViewModel.fetchRecordsSearch(SearchString: textSearch)
         }
     }
