@@ -11,11 +11,14 @@ struct RegistrationView: View {
     
     @ObservedObject var registrationViewModel: RegistrationViewModel
     
-    @State var user = ""
-    @State var pass = ""
-    @State var message = ""
-    @State var alert = false
-    @Binding var show: Bool
+    @State var email = ""
+    @State var password = ""
+    
+    @State var titleAlert = ""
+    @State var messageAlert = ""
+    @State var showAlert = false
+    
+    @Binding var showRegistrationWindow: Bool
     
     var body: some View{
             VStack {
@@ -25,43 +28,40 @@ struct RegistrationView: View {
                         VStack(alignment: .leading){
                             Text("Email:").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
                             HStack{
-                                TextField("Введите ваш Email", text: $user)
-                                if user != ""{
-                                    Image("check").foregroundColor(Color.init(.label))
-                                }
+                                TextField("Введите ваш Email", text: $email)
                             }
                             Divider()
                         }.padding(.bottom, 15)
                         VStack(alignment: .leading){
                             Text("Пароль:").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
-                            SecureField("Введите ваш пароль", text: $pass)
+                            SecureField("Введите ваш пароль", text: $password)
                             Divider()
                         }
                     }.padding(.horizontal, 6)
                     
                     Button(action: {
-                        registrationViewModel.registrationWithEmail(email: self.user, password: self.pass){ (verified, status) in
+                        registrationViewModel.registrationWithEmail(email: self.email, password: self.password){ (verified, status) in
                             if !verified {
-                                self.message=status
-                                self.alert.toggle()
+                                self.messageAlert = status
+                                self.showAlert.toggle()
                             }
                             else{
                                 UserDefaults.standard.set(true, forKey: "status")
                                 // Ключ статус который определяет находимся мы на домашней странице или на странице входа
-                                self.show.toggle()
+                                self.showAlert.toggle()
                                 NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
                             }
                         }
                     }) {
-                        Text("Регистрация").foregroundColor(.black).frame(width: UIScreen.main.bounds.width - 120).padding()
+                        Text("Регистрация").foregroundColor(.black).frame(width: UIScreen.main.bounds.width - 200).padding()
                     }
                     .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
                     .clipShape(Capsule())
                     .padding(.top, 45)
                 }
                 .padding()
-                        .alert(isPresented: $alert){ // Ошибка входа
-                            Alert(title: Text("Ошибка"), message: Text(self.message), dismissButton: .default(Text("Ок")))
+                        .alert(isPresented: $showAlert){ // Ошибка входа
+                            Alert(title: Text("Ошибка"), message: Text(self.messageAlert), dismissButton: .default(Text("Ок")))
                         }
             }
         }
