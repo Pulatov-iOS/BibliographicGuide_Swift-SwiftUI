@@ -31,24 +31,92 @@ struct RegistrationView: View {
                                 TextField("Введите ваш Email", text: $email)
                             }
                             Divider()
-                        }.padding(.bottom, 15)
+                        }
+                        .padding(.bottom, 0)
+                        .onChange(of: email){ newValue in
+                            registrationViewModel.statusCheckEmail = true
+                        }
+                        
+                        VStack{
+                            if(registrationViewModel.statusCheckEmail == false){
+                                Text("Некорректный email")
+                                    .font(.headline)
+                                    .fontWeight(.light)
+                                    .foregroundColor(Color(UIColor(hex: "c42316") ?? .red))
+                                    .opacity(0.75)
+                            }
+                        }.padding(.bottom, 10)
+                        
                         VStack(alignment: .leading){
                             Text("Пароль:").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
                             SecureField("Введите ваш пароль", text: $password)
                             Divider()
                         }
+                        .onChange(of: password){ newValue in
+                            registrationViewModel.checkPassword(password: self.password)
+                        }
+                        
+                        VStack(alignment: .leading){
+                            Text("Требования к паролю:")
+                                .font(.headline)
+                                .fontWeight(.light)
+                                .foregroundColor(Color.black)
+                                .opacity(0.75)
+                            if(registrationViewModel.statusCheckPassword[0] == false){
+                                Text("- 6 и более символов")
+                                    .font(.headline)
+                                    .fontWeight(.light)
+                                    .foregroundColor(Color(UIColor(hex: "c42316") ?? .red))
+                                    .opacity(0.75)
+                            }
+                            else{
+                                Text("- 6 и более символов")
+                                    .font(.headline)
+                                    .fontWeight(.light)
+                                    .foregroundColor(Color.green)
+                                    .opacity(0.75)
+                            }
+                            if(registrationViewModel.statusCheckPassword[1] == false){
+                                Text("- строчные латинские буквы")
+                                    .font(.headline)
+                                    .fontWeight(.light)
+                                    .foregroundColor(Color(UIColor(hex: "c42316") ?? .red))
+                                    .opacity(0.75)
+                            }
+                            else{
+                                Text("- строчные латинские буквы")
+                                    .font(.headline)
+                                    .fontWeight(.light)
+                                    .foregroundColor(Color.green)
+                                    .opacity(0.75)
+                            }
+                            if(registrationViewModel.statusCheckPassword[2] == false){
+                                Text("- прописные латинские буквы")
+                                    .font(.headline)
+                                    .fontWeight(.light)
+                                    .foregroundColor(Color(UIColor(hex: "c42316") ?? .red))
+                                    .opacity(0.75)
+                            }
+                            else{
+                                Text("- прописные латинские буквы")
+                                    .font(.headline)
+                                    .fontWeight(.light)
+                                    .foregroundColor(Color.green)
+                                    .opacity(0.75)
+                            }
+                        }.padding(.top, 20)
                     }.padding(.horizontal, 6)
                     
                     Button(action: {
                         registrationViewModel.registrationWithEmail(email: self.email, password: self.password){ (verified, status) in
                             if !verified {
-                                self.messageAlert = status
-                                self.showAlert.toggle()
+                                titleAlert = status[0]
+                                messageAlert = status[1]
+                                showAlert.toggle()
                             }
                             else{
                                 UserDefaults.standard.set(true, forKey: "status")
                                 // Ключ статус который определяет находимся мы на домашней странице или на странице входа
-                                self.showAlert.toggle()
                                 NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
                             }
                         }
@@ -61,7 +129,7 @@ struct RegistrationView: View {
                 }
                 .padding()
                         .alert(isPresented: $showAlert){ // Ошибка входа
-                            Alert(title: Text("Ошибка"), message: Text(self.messageAlert), dismissButton: .default(Text("Ок")))
+                            Alert(title: Text(titleAlert), message: Text(messageAlert), dismissButton: .default(Text("Ок")))
                         }
             }
         }

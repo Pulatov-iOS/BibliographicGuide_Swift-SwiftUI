@@ -17,14 +17,16 @@ struct AuthorizationView: View {
     @State var titleAlert = ""
     @State var messageAlert = ""
     @State var showAlert = false
-    @State var showRegistrationWindow = false
     
-    @State var showAuthorizationError = false
-    @State var textAuthorizationError = ""
+    @State var showRegistrationWindow = false
     
     var body : some View{
             VStack {
-                Text("Вход").fontWeight(.heavy).font(.largeTitle).padding([.top,.bottom], 20)
+                Text("Вход")
+                    .fontWeight(.heavy)
+                    .font(.largeTitle)
+                    .padding(.top, 20)
+                    .padding(.bottom, 20)
                 VStack{
                     VStack(alignment: .leading){
                         VStack(alignment: .leading){
@@ -33,32 +35,41 @@ struct AuthorizationView: View {
                                 TextField("Введите ваш Email", text: $email)
                             }
                             Divider()
-                        }.padding(.bottom, 15)
+                        }
+                        
+                        if(authorizationViewModel.statusCheckEmail == true){
+                            VStack(alignment: .leading){
+                                Text(authorizationViewModel.textAuthorizationError)
+                                    .font(.headline)
+                                    .fontWeight(.light)
+                                    .foregroundColor(Color(UIColor(hex: "c42316") ?? .red))
+                                    .opacity(0.75)
+                            }.padding(.bottom, 15)
+                        }
+                        
                         VStack(alignment: .leading){
                             Text("Пароль:").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
                             SecureField("Введите ваш пароль", text: $password)
                             Divider()
                         }
+                        
+                        if(authorizationViewModel.statusCheckEmailPassword == true){
+                            VStack(alignment: .leading){
+                                Text(authorizationViewModel.textAuthorizationError)
+                                    .font(.headline)
+                                    .fontWeight(.light)
+                                    .foregroundColor(Color(UIColor(hex: "c42316") ?? .red))
+                                    .opacity(0.75)
+                            }
+                        }
+                        else{
+                            VStack{
+                                Text("Введите Email и пароль")
+                                    .foregroundColor(Color.white)
+                            }
+                        }
                     }.padding(.horizontal, 6)
                 }.padding()
-                
-                if(showAuthorizationError == true){
-                    VStack(alignment: .leading){
-                        Text(textAuthorizationError)
-                            .font(.headline)
-                            .fontWeight(.light)
-                            .foregroundColor(Color(UIColor(hex: "c42316") ?? .black))
-                            .opacity(0.75)
-                    }
-                    .padding()
-                }
-                else{
-                    VStack{
-                        Text("Введите Email и пароль")
-                            .foregroundColor(Color.white)
-                    }
-                    .padding()
-                }
                 
                 VStack{
                     Button(action: {
@@ -66,10 +77,6 @@ struct AuthorizationView: View {
                             if !verified {
                                 titleAlert = status[0]
                                 messageAlert = status[1]
-                                if(status[2] != ""){
-                                    textAuthorizationError = status[2]
-                                    showAuthorizationError = true
-                                }
                                 showAlert.toggle()
                             }
                             else{
@@ -82,8 +89,7 @@ struct AuthorizationView: View {
                         Text("Войти").foregroundColor(.black).frame(width: UIScreen.main.bounds.width - 200).padding()
                     }
                     .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
-                        .clipShape(Capsule())
-                        .padding(.top, 45)
+                    .clipShape(Capsule())
                 }
                 .padding()
                         .alert(isPresented: $showAlert){ // Ошибка входа
@@ -106,10 +112,11 @@ struct AuthorizationView: View {
                 }
             }
             .onChange(of: email){ value in
-                showAuthorizationError = false
+                authorizationViewModel.statusCheckEmail = false
+                authorizationViewModel.statusCheckEmailPassword = false
             }
             .onChange(of: password){ value in
-                showAuthorizationError = false
+                authorizationViewModel.statusCheckEmailPassword = false
             }
         }
     }
