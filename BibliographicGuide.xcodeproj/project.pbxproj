@@ -34,7 +34,6 @@
 		1132A07F29DB524A0007B181 /* RecordDescriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A07E29DB524A0007B181 /* RecordDescriptionViewModel.swift */; };
 		1132A08129DC4C1B0007B181 /* MessageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A08029DC4C1B0007B181 /* MessageRepository.swift */; };
 		1132A08329DC4CC40007B181 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A08229DC4CC40007B181 /* Message.swift */; };
-		1132A08629DC4F410007B181 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A08529DC4F410007B181 /* ChatView.swift */; };
 		1132A08B29DC4FFC0007B181 /* MessageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A08A29DC4FFC0007B181 /* MessageListView.swift */; };
 		1132A08E29DC52270007B181 /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A08D29DC52270007B181 /* MessageListViewModel.swift */; };
 		1132A09029DC565A0007B181 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A08F29DC565A0007B181 /* MessageViewModel.swift */; };
@@ -120,7 +119,6 @@
 		1132A07E29DB524A0007B181 /* RecordDescriptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordDescriptionViewModel.swift; sourceTree = "<group>"; };
 		1132A08029DC4C1B0007B181 /* MessageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRepository.swift; sourceTree = "<group>"; };
 		1132A08229DC4CC40007B181 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		1132A08529DC4F410007B181 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		1132A08A29DC4FFC0007B181 /* MessageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListView.swift; sourceTree = "<group>"; };
 		1132A08D29DC52270007B181 /* MessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewModel.swift; sourceTree = "<group>"; };
 		1132A08F29DC565A0007B181 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
@@ -404,7 +402,6 @@
 		1132A08429DC4F2B0007B181 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				1132A08529DC4F410007B181 /* ChatView.swift */,
 				1132A08929DC4FE50007B181 /* ListMessage */,
 				1148681129E706AD00C698D6 /* MessageEditingWindow */,
 			);
@@ -825,7 +822,6 @@
 				1148681529E7077200C698D6 /* OutgoingMessageEditingWindow.swift in Sources */,
 				1132A09629DD9A7F0007B181 /* UserInformationRepository.swift in Sources */,
 				1132A09029DC565A0007B181 /* MessageViewModel.swift in Sources */,
-				1132A08629DC4F410007B181 /* ChatView.swift in Sources */,
 				1132A08129DC4C1B0007B181 /* MessageRepository.swift in Sources */,
 				1148681729ED5A7F00C698D6 /* RecordPageView.swift in Sources */,
 				1132A04F29D445DB0007B181 /* SettingsView.swift in Sources */,

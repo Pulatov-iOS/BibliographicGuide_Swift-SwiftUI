@@ -40,7 +40,7 @@ struct AppView: App {
                                 Text("Home")
                             }
                             .environmentObject(recordListViewModel)
-                        ChatView()
+                        MessageListView(messageListViewModel: MessageListViewModel())
                             .tabItem {
                                 Image(systemName: "message.badge")
                                 Text("Chat")

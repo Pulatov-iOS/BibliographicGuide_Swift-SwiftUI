@@ -22,25 +22,18 @@ struct MessageListView: View {
         ZStack(alignment: .trailing){
             VStack(spacing: 0){
                 VStack{
-                    ScrollView(.vertical, showsIndicators: false) {
-                        ScrollViewReader{ value in
-                            VStack {
-                                ForEach(messageListViewModel.messageViewModels) { messages in
-                                    MessageView(messageViewModel: messages, userName: messageListViewModel.getUserName(messages.message), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(messages.message.replyIdMessage), textResponseMessage: messageListViewModel.getTextResponseMessage(messages.message.replyIdMessage), outgoingOrIncomingMessage: messageListViewModel.OutgoingOrIncomingMessage(messages.message), messageListViewModel: messageListViewModel)
-                                        .id(messages.id)
-                                        .onLongPressGesture(minimumDuration: 0.5){
-                                            ChangeableMessage = messages.message
-                                            editingWindowShow.toggle()
-                                        }
-                                }
-                            }.onChange(of: messageListViewModel.messageViewModels.count) { count in
-                                withAnimation {
-                                    value.scrollTo(messageListViewModel.messageViewModels.last?.id)
-                                }
+                    ScrollView(.vertical, showsIndicators: true, content: {
+                        VStack {
+                            ForEach(messageListViewModel.messageViewModels) { messages in
+                                MessageView(messageViewModel: messages, userName: messageListViewModel.getUserName(messages.message), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(messages.message.replyIdMessage), textResponseMessage: messageListViewModel.getTextResponseMessage(messages.message.replyIdMessage), outgoingOrIncomingMessage: messageListViewModel.OutgoingOrIncomingMessage(messages.message), messageListViewModel: messageListViewModel)
+                                    .onLongPressGesture(minimumDuration: 0.5){
+                                        ChangeableMessage = messages.message
+                                        editingWindowShow.toggle()
+                                    }
                             }
-                            .padding(.bottom, 5)
-                        }
-                    }
+                        }.rotationEffect(Angle(degrees: 180)).scaleEffect(x: -1.0, y: 1.0, anchor: .center)
+                            .padding(.top, 15)
+                                }).rotationEffect(Angle(degrees: 180)).scaleEffect(x: -1.0, y: 1.0, anchor: .center)
                 }
                 
                 if(replyWindowShow == true){
@@ -152,14 +145,14 @@ struct MessageListView: View {
                 }
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .principal) {
-                HStack {
-                    Text("Общий чат").font(.headline)
-                }
-            }
-        }
+//        .navigationBarTitleDisplayMode(.inline)
+//        .toolbar {
+//            ToolbarItem(placement: .principal) {
+//                HStack {
+//                    Text("Общий чат").font(.headline)
+//                }
+//            }
+//        }
     }
 }
 
