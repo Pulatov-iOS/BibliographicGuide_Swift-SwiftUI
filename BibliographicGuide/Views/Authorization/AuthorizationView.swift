@@ -19,6 +19,7 @@ struct AuthorizationView: View {
     @State var showAlert = false
     
     @State var showRegistrationWindow = false
+    @State var screenWidth = CGFloat(393)
     
     var body : some View{
             VStack {
@@ -26,7 +27,7 @@ struct AuthorizationView: View {
                     .fontWeight(.heavy)
                     .font(.largeTitle)
                     .padding(.top, 20)
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 30)
                 VStack{
                     VStack(alignment: .leading){
                         VStack(alignment: .leading){
@@ -37,15 +38,16 @@ struct AuthorizationView: View {
                             Divider()
                         }
                         
-                        if(authorizationViewModel.statusCheckEmail == true){
-                            VStack(alignment: .leading){
+                        VStack{
+                            if(authorizationViewModel.statusCheckEmail == true){
                                 Text(authorizationViewModel.textAuthorizationError)
                                     .font(.headline)
                                     .fontWeight(.light)
                                     .foregroundColor(Color(UIColor(hex: "c42316") ?? .red))
                                     .opacity(0.75)
-                            }.padding(.bottom, 15)
+                            }
                         }
+                        .padding(.bottom, 10)
                         
                         VStack(alignment: .leading){
                             Text("Пароль:").font(.headline).fontWeight(.light).foregroundColor(Color.init(.label).opacity(0.75))
@@ -61,6 +63,7 @@ struct AuthorizationView: View {
                                     .foregroundColor(Color(UIColor(hex: "c42316") ?? .red))
                                     .opacity(0.75)
                             }
+                            .padding(.bottom, 15)
                         }
                         else{
                             VStack{
@@ -69,7 +72,7 @@ struct AuthorizationView: View {
                             }
                         }
                     }.padding(.horizontal, 6)
-                }.padding()
+                }.padding([.leading, .trailing], 30)
                 
                 VStack{
                     Button(action: {
@@ -86,17 +89,19 @@ struct AuthorizationView: View {
                             }
                         }
                     }) {
-                        Text("Войти").foregroundColor(.black).frame(width: UIScreen.main.bounds.width - 200).padding()
+                        Text("Войти")
+                            .foregroundColor(.black)
+                            .frame(width: 180)
+                            .padding()
                     }
                     .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
                     .clipShape(Capsule())
                 }
-                .padding()
-                        .alert(isPresented: $showAlert){ // Ошибка входа
-                            Alert(title: Text(self.titleAlert), message: Text(self.messageAlert), dismissButton: .default(Text("Ок")))
-                        }
+                .alert(isPresented: $showAlert){ // Ошибка входа
+                    Alert(title: Text(self.titleAlert), message: Text(self.messageAlert), dismissButton: .default(Text("Ок")))
+                }
                 VStack{
-                    Text("(или)").foregroundColor(Color.gray.opacity(0.5)).padding(.top,30)
+                    Text("(или)").foregroundColor(Color.gray.opacity(0.5)).padding(.top, 30)
                     HStack(spacing: 8){
                         Text("Нет учетной записи?").foregroundColor(Color.gray.opacity(0.5))
                         Button(action: {
@@ -105,12 +110,13 @@ struct AuthorizationView: View {
                           Text("Регистрация")
                         }.foregroundColor(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
                     }
-                    .padding(.top, 25)
+                    .padding(.top, 5)
                 }
                 .sheet(isPresented: $showRegistrationWindow){
-                    RegistrationView(registrationViewModel: RegistrationViewModel(), showRegistrationWindow: self.$showRegistrationWindow)
+                    RegistrationView(registrationViewModel: RegistrationViewModel(), showRegistrationWindow: self.$showRegistrationWindow, screenWidth: $screenWidth)
                 }
             }
+            .frame(maxWidth: screenWidth)
             .onChange(of: email){ value in
                 authorizationViewModel.statusCheckEmail = false
                 authorizationViewModel.statusCheckEmailPassword = false
@@ -118,11 +124,17 @@ struct AuthorizationView: View {
             .onChange(of: password){ value in
                 authorizationViewModel.statusCheckEmailPassword = false
             }
+            .onAppear(){
+                screenWidth = UIScreen.screenWidth
+                if(screenWidth >= 393){
+                    screenWidth = 393
+                }
+            }
         }
     }
     
-struct AuthorizationView_Previews: PreviewProvider {
-    static var previews: some View {
-        AuthorizationView(authorizationViewModel: AuthorizationViewModel())
-    }
-}
+//struct AuthorizationView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AuthorizationView(authorizationViewModel: AuthorizationViewModel())
+//    }
+//}

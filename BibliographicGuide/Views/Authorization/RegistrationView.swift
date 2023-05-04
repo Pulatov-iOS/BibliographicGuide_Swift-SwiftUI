@@ -19,10 +19,13 @@ struct RegistrationView: View {
     @State var showAlert = false
     
     @Binding var showRegistrationWindow: Bool
+    @Binding var screenWidth : CGFloat
     
     var body: some View{
             VStack {
-                Text("Регистрация").fontWeight(.heavy).font(.largeTitle).padding([.top,.bottom], 20)
+                Text("Регистрация").fontWeight(.heavy).font(.largeTitle)
+                    .padding(.top, 20)
+                    .padding(.bottom, 30)
                 VStack{
                     VStack(alignment: .leading){
                         VStack(alignment: .leading){
@@ -121,17 +124,21 @@ struct RegistrationView: View {
                             }
                         }
                     }) {
-                        Text("Регистрация").foregroundColor(.black).frame(width: UIScreen.main.bounds.width - 200).padding()
+                        Text("Регистрация")
+                            .foregroundColor(.black)
+                            .frame(width: 180)
+                            .padding()
                     }
                     .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
                     .clipShape(Capsule())
                     .padding(.top, 45)
                 }
-                .padding()
+                .padding([.leading, .trailing], 30)
                         .alert(isPresented: $showAlert){ // Ошибка входа
                             Alert(title: Text(titleAlert), message: Text(messageAlert), dismissButton: .default(Text("Ок")))
                         }
             }
+            .frame(maxWidth: screenWidth)
         }
     }
 
