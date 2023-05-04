@@ -12,8 +12,6 @@ struct ChatView: View {
         NavigationView{
             VStack{
                 MessageListView(messageListViewModel: MessageListViewModel())
-                
-               
             }
         }
     }
