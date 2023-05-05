@@ -37,8 +37,7 @@ final class CreateViewModel: ObservableObject {
         if(record.description == ""){
             newRecord.description = "Отсутствует"
         }
-        newRecord.idUsers.removeAll()
-        newRecord.idUsers.append(userId)
+        newRecord.idUser = userId
         recordRepository.addRecord(record: newRecord, imageTitle: ImageTitle){ (verified, status) in
             if !verified {
                 completion(false, "Ошибка при запросе создания записи.")

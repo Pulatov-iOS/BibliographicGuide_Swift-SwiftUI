@@ -70,7 +70,7 @@ struct RecordListView: View {
                     if(showTopFiveRecords == true){
                         VStack(alignment: .leading) {
                             HStack{
-                                Text("По дате редактирования:")
+                                Text("По дате изменения:")
                                     .font(.headline)
                                     .padding(.leading, 15)
                                     .padding(.top, 5)

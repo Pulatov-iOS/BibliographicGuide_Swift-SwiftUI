@@ -379,9 +379,8 @@
 			isa = PBXGroup;
 			children = (
 				1132A06129D89B210007B181 /* RecordListView.swift */,
-				1132A06429DAF1B70007B181 /* RecordView.swift */,
-				1132A07B29DB506C0007B181 /* RecordDescriptionView.swift */,
 				1148682129EEAF1300C698D6 /* TopFiveRecordsView.swift */,
+				11639A422A054D4C00933103 /* Record */,
 				1148682329EEB3CF00C698D6 /* SearchBarView.swift */,
 				116A631C29FE8A380024C357 /* KeywordSearchBarView.swift */,
 				1148681829ED5A8D00C698D6 /* RecordPage */,
@@ -546,6 +545,15 @@
 				1148683D29F0AF9700C698D6 /* PdfCreator.swift */,
 			);
 			path = Report;
+			sourceTree = "<group>";
+		};
+		11639A422A054D4C00933103 /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				1132A06429DAF1B70007B181 /* RecordView.swift */,
+				1132A07B29DB506C0007B181 /* RecordDescriptionView.swift */,
+			);
+			path = Record;
 			sourceTree = "<group>";
 		};
 		116A63242A02B8F00024C357 /* Color */ = {

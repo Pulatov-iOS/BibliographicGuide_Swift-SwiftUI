@@ -47,9 +47,10 @@ struct TopFiveRecordsView: View {
                     Text("\(userNameRecord)")
                         .foregroundColor(Color.white)
                         .font(.callout)
+                        .lineLimit(1)
                     Spacer()
                     
-                    Text(recordListViewModel.checkingEditingTime(recordViewModel.record.datesChange.last ?? Date())) // может быть ошибка
+                    Text(recordListViewModel.checkingEditingTime(recordViewModel.record.dateChange ?? Date()))
                         .foregroundColor(Color.white)
                         .font(.callout)
                         .padding(.trailing, 5)

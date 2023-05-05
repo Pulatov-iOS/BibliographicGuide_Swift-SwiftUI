@@ -12,24 +12,21 @@ struct RecordDescriptionView: View {
     @ObservedObject var recordDescriptionViewModel: RecordDescriptionViewModel
     var recordListViewModel: RecordListViewModel
     var recordViewModel: RecordViewModel
-    var userNameRecord: String
     
     var body: some View {
         VStack{
             HStack(alignment: .center, spacing: 12) {
-                HStack(alignment: .center, spacing: 2, content: {
-                    Image(systemName: "person.2")
-                    Text("Ник: \(userNameRecord)")
-                })
-                HStack(alignment: .center, spacing: 2, content: {
+                HStack(alignment: .center){
+                    
+                    Image(systemName: "clock")
+                    Text("Дата создания: \(recordDescriptionViewModel.checkingCreatingTime(recordViewModel.record.dateCreation ?? Date()))")
+                        .padding(.trailing, 6)
                     Image(systemName: "pencil.line")
-                    Text("Редакт: \(recordDescriptionViewModel.checkingEditingTime(recordViewModel.record.datesChange.last ?? Date()))") // esfsefhsleffsef
-                        //fesfsefsefse!!!!!
-                })
+                    Text("Редакт: \(recordDescriptionViewModel.checkingEditingTime(recordViewModel.record.dateChange ?? Date()))")
+                }
             }
             HStack(alignment: .center, spacing: 2, content: {
-                Image(systemName: "clock")
-                Text("Дата создания: \(recordDescriptionViewModel.checkingCreatingTime(recordViewModel.record.dateCreation))")
+                
             })
         }
         .padding(.leading, 7)

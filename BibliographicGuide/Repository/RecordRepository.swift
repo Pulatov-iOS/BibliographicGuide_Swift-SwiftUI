@@ -41,7 +41,7 @@ final class RecordRepository: ObservableObject {
     }
     
     func fetchTopFiveRecords(){
-        db.collection(pathRecords).order(by: "datesChange",descending: true).limit(to: 5).addSnapshotListener { (snapshot, error) in
+        db.collection(pathRecords).order(by: "dateChange",descending: true).limit(to: 5).addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print(error)
                 return
@@ -150,7 +150,7 @@ final class RecordRepository: ObservableObject {
         case "authors":
             self.records.sort(by: { $0.authors > $1.authors })
         case "dateCreation":
-            self.records.sort(by: { $0.dateCreation > $1.dateCreation })
+            self.records.sort(by: { $0.dateCreation ?? Date() > $1.dateCreation ?? Date() })
         case "journalName":
             self.records.sort(by: { $0.journalName > $1.journalName })
         default:

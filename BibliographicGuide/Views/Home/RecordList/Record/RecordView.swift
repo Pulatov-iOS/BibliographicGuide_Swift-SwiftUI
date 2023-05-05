@@ -45,38 +45,58 @@ struct RecordView: View {
                 
                 HStack {
                     Spacer()
-                    Button(action: {
-                        recordListViewModel.updateInclusionReport(record: recordViewModel.record, inclusionReport: !inclusionReportButton){ (verified, status) in
-                            if !verified  {
-                                alertTextEditingTitle = "Ошибка"
-                                alertTextEditingMessage = "Запись не была добавлена в список отчета."
-                            }
-                            else{
-                                alertTextEditingTitle = "Успешно"
-                                alertTextEditingMessage = "Запись успешно добавлена в список отчета."
-                                if(inclusionReportButton != true){
-                                    showAlertInclusionReport.toggle()
-                                }
-                                inclusionReportButton.toggle()
-                            }
+                    VStack{
+                        Spacer()
+                        HStack(alignment: .bottom){
+                            Image(systemName: "person.2")
+                                .foregroundColor(Color.white)
+                                .font(.callout)
+                                .padding(.leading, 5)
+                            
+                            Text("\(userNameRecord)")
+                                .foregroundColor(Color.white)
+                                .font(.callout)
+                                .lineLimit(1)
+                            Spacer()
                         }
-                    }) {
-                        Image(systemName: inclusionReportButton ? "list.clipboard.fill" : "list.clipboard")
-                            .font(.system(size:30, weight: .light))
-                            .foregroundColor(Color.white)
-                            .shadow(color: Color.gray, radius: 2, x: 0, y: 0)
-                            .padding(20)
+                        .padding(.bottom, 17)
                     }
-                    .alert(isPresented: $showAlertInclusionReport) {
-                        Alert(
-                            title: Text(alertTextEditingTitle),
-                            message: Text(alertTextEditingMessage),
-                            dismissButton: .default(Text("Ок")))
-                    }
-                    .onAppear(){
-                        inclusionReportButton = recordListViewModel.checkInclusionReport(recordViewModel.record)
+                    
+                    VStack{
+                        Button(action: {
+                            recordListViewModel.updateInclusionReport(record: recordViewModel.record, inclusionReport: !inclusionReportButton){ (verified, status) in
+                                if !verified  {
+                                    alertTextEditingTitle = "Ошибка"
+                                    alertTextEditingMessage = "Запись не была добавлена в список отчета."
+                                }
+                                else{
+                                    alertTextEditingTitle = "Успешно"
+                                    alertTextEditingMessage = "Запись успешно добавлена в список отчета."
+                                    if(inclusionReportButton != true){
+                                        showAlertInclusionReport.toggle()
+                                    }
+                                    inclusionReportButton.toggle()
+                                }
+                            }
+                        }) {
+                            Image(systemName: inclusionReportButton ? "list.clipboard.fill" : "list.clipboard")
+                                .font(.system(size:30, weight: .light))
+                                .foregroundColor(Color.white)
+                                .shadow(color: Color.gray, radius: 2, x: 0, y: 0)
+                                .padding(20)
+                        }
+                        .alert(isPresented: $showAlertInclusionReport) {
+                            Alert(
+                                title: Text(alertTextEditingTitle),
+                                message: Text(alertTextEditingMessage),
+                                dismissButton: .default(Text("Ок")))
+                        }
+                        .onAppear(){
+                            inclusionReportButton = recordListViewModel.checkInclusionReport(recordViewModel.record)
+                        }
                     }
                 }
+                .frame(height: 70)
                 .background(
                     LinearGradient(gradient: Gradient(colors: [Color.clear, Color.black]), startPoint: .top, endPoint: .bottom)
                 )
@@ -87,8 +107,8 @@ struct RecordView: View {
             VStack(alignment: .leading, spacing: 12) {
                 Text(recordViewModel.record.title)
                     .font(.system(.headline, design: .default))
-                    .lineLimit(3)
-                RecordDescriptionView(recordDescriptionViewModel: RecordDescriptionViewModel(), recordListViewModel: recordListViewModel, recordViewModel: recordViewModel, userNameRecord: userNameRecord)
+                    .lineLimit(2)
+                RecordDescriptionView(recordDescriptionViewModel: RecordDescriptionViewModel(), recordListViewModel: recordListViewModel, recordViewModel: recordViewModel)
             }
             .padding()
             .padding(.bottom, 12)

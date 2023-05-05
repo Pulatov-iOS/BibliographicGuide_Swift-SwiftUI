@@ -79,7 +79,7 @@ final class RecordListViewModel: ObservableObject {
 
     func getUserNameRecord(_ record: Record) -> String{
         let newUsers = usersInformation.filter { (item) -> Bool in
-            item.id! == record.idUsers[0]
+            item.id! == record.idUser
         }
         return newUsers.first?.userName ?? "User"
     }
@@ -145,8 +145,7 @@ final class RecordListViewModel: ObservableObject {
         if(record.description == ""){
             newRecord.description = "Отсутствует"
         }
-        newRecord.idUsers.append(userId)
-        newRecord.datesChange.append(Date())
+        newRecord.dateChange = nil
         recordRepository.updateRecord(record: newRecord, imageTitle: ImageTitle){ (verified, status) in
             if !verified {
                 completion(false, "Ошибка при запросе редактирования записи.")

@@ -10,9 +10,11 @@ import FirebaseFirestoreSwift
 struct Record: Identifiable, Codable, Equatable {
     
     @DocumentID var id: String?
-    var idUsers: [String]
-    var dateCreation: Date
-    var datesChange: [Date]
+    var idUser: String
+    @ServerTimestamp
+    var dateCreation: Date?
+    @ServerTimestamp
+    var dateChange: Date?
     var title: String
     var year: Int
     var keywords: [String]

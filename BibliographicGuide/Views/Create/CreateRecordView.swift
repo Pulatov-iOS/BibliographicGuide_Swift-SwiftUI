@@ -219,7 +219,7 @@ struct CreateRecordView: View {
                             
                             let role = createViewModel.getСurrentUserInformation().role
                             if(role == "admin" || role == "editor"){
-                                let newRecord = Record(idUsers: [""], dateCreation: Date(), datesChange: [], title: newTitle, year: Int(newYear) ?? 2000, keywords: ["id key"], authors: newAuthors, linkDoi: newLinkDoi, linkWebsite: newLinkWebsite, journalName: newJournalName, journalNumber: newJournalNumber, pageNumbers: newPageNumbers, description: newDescription, pdfRecord: false, idUsersReporting: [], universityRecord: false) // изменить данные
+                                let newRecord = Record(idUser: "", dateCreation: nil, dateChange: nil, title: newTitle, year: Int(newYear) ?? 2000, keywords: ["id key"], authors: newAuthors, linkDoi: newLinkDoi, linkWebsite: newLinkWebsite, journalName: newJournalName, journalNumber: newJournalNumber, pageNumbers: newPageNumbers, description: newDescription, pdfRecord: false, idUsersReporting: [], universityRecord: false) // изменить данные
                                 createViewModel.addRecord(newRecord, ImageTitle: (imageData ?? imageDataDefault)!){ (verified, status) in
                                     if !verified {
                                         alertTextCreateTitle = "Ошибка"
