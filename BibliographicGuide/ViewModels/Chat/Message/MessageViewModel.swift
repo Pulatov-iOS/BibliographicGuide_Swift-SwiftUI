@@ -34,7 +34,7 @@ final class MessageViewModel: ObservableObject, Identifiable {
     
     func timeMessage(_ date: Date) -> String{
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "hh:mm"
+        dateFormatter.dateFormat = "HH:mm"
         // Convert Date to String
         let newTime = dateFormatter.string(from: date)
         return newTime

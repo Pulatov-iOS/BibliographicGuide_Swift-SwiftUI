@@ -88,7 +88,7 @@ struct MessageListView: View {
                     if(editingMessage != true){
                         Button{
                             if(textNewMessage != ""){ // если текст есть, то отправляем сообщение
-                                var mes = Message(idUser: "0y1kzDU4QxMqjxDSeTupTOmWbDl2", typeMessage: "text", date: Date(), text: textNewMessage, idFiles: [""], replyIdMessage: replyIdMessage, editing: false)
+                                var mes = Message(idUser: messageListViewModel.userId, typeMessage: "text", date: nil, text: textNewMessage, idFiles: [""], replyIdMessage: replyIdMessage, editing: false)
                                 messageListViewModel.addMessage(mes)
                                 replyWindowShow = false
                             }

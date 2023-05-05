@@ -12,7 +12,8 @@ struct Message: Identifiable, Codable, Equatable {
     @DocumentID var id: String?
     var idUser: String
     var typeMessage: String
-    var date: Date
+    @ServerTimestamp
+    var date: Date?
     var text: String
     var idFiles: [String]
     var replyIdMessage: String

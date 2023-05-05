@@ -84,7 +84,7 @@ final class MessageListViewModel: ObservableObject, Equatable {
     }
     
     func showDateMessage(_ message: Message) -> Bool{
-        let newDateMessage = dateMessage(message.date)
+        let newDateMessage = dateMessage(message.date ?? Date())
         if(newDateMessage == сurrentDateMessage){
             return false
         }

@@ -63,7 +63,7 @@ struct IncomingMessageView: View {
                     }
                     
                     // Если текст сообщения короткий, то время ставится сразу после него
-                    if((messageViewModel.message.editing == true && labelSizeTimeIncoming(textWithTime: ("\(messageViewModel.message.text)ред.\(messageViewModel.timeMessage(messageViewModel.message.date))")) < UIScreen.screenWidth * 0.65) || (messageViewModel.message.editing == false && labelSizeTimeIncoming(textWithTime: ("\(messageViewModel.message.text)\(messageViewModel.timeMessage(messageViewModel.message.date))")) < UIScreen.screenWidth * 0.65)){
+                    if((messageViewModel.message.editing == true && labelSizeTimeIncoming(textWithTime: ("\(messageViewModel.message.text)ред.\(messageViewModel.timeMessage(messageViewModel.message.date ?? Date()))")) < UIScreen.screenWidth * 0.65) || (messageViewModel.message.editing == false && labelSizeTimeIncoming(textWithTime: ("\(messageViewModel.message.text)\(messageViewModel.timeMessage(messageViewModel.message.date ?? Date()))")) < UIScreen.screenWidth * 0.65)){
                         HStack{
                             Text(messageViewModel.message.text)
                                 .foregroundColor(.black)
@@ -78,7 +78,7 @@ struct IncomingMessageView: View {
                                         .foregroundColor(Color(white: 0.6))
                                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
                                 }
-                                Text(messageViewModel.timeMessage(messageViewModel.message.date))
+                                Text(messageViewModel.timeMessage(messageViewModel.message.date ?? Date()))
                                     .font(.caption)
                                     .foregroundColor(Color(white: 0.6))
                                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 8))
@@ -101,7 +101,7 @@ struct IncomingMessageView: View {
                                     .foregroundColor(Color(.black))
                                     .padding(EdgeInsets(top: 0, leading: 8, bottom: 8, trailing: 0))
                             }
-                            Text(messageViewModel.timeMessage(messageViewModel.message.date))
+                            Text(messageViewModel.timeMessage(messageViewModel.message.date ?? Date()))
                                 .font(.caption)
                                 .foregroundColor(Color(white: 0.6))
                                 .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 8))
@@ -112,7 +112,7 @@ struct IncomingMessageView: View {
                 .background(Color(white: 0.9))
                 .cornerRadius(8)
             }
-            .frame(maxWidth: (labelSizeTextIncoming(userName: userName, text: messageViewModel.message.text, time: messageViewModel.timeMessage(messageViewModel.message.date), editing: messageViewModel.message.editing))+24, alignment: .leading) // было 16
+            .frame(maxWidth: (labelSizeTextIncoming(userName: userName, text: messageViewModel.message.text, time: messageViewModel.timeMessage(messageViewModel.message.date ?? Date()), editing: messageViewModel.message.editing))+24, alignment: .leading) // было 16
             //.background(Color(.blue))
             Spacer()
         }

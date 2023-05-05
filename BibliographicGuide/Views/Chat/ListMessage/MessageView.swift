@@ -20,7 +20,7 @@ struct MessageView: View {
     var body: some View {
         VStack{
             if(messageListViewModel.showDateMessage(messageViewModel.message) == true){
-                Text(messageViewModel.dateMessage(messageViewModel.message.date))
+                Text(messageViewModel.dateMessage(messageViewModel.message.date ?? Date()))
                     .font(.system(size: 16))
                     .font(.caption)
                     .foregroundColor(Color(white: 0.6))
