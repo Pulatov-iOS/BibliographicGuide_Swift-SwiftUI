@@ -24,7 +24,7 @@ struct DescriptionRecordPageView: View {
                 
                 VStack (alignment: .leading, spacing: 5) {
                     VStack (alignment: .leading, spacing: 5) {
-                        Text("Ключевые слова: " + recordListViewModel.getKeywordNameRecord(recordViewModel.record)) // не все
+                        Text("Ключевые слова: " + recordListViewModel.getKeywordNameRecord(recordViewModel.record))
                             .font(.footnote)
                             .multilineTextAlignment(TextAlignment.leading)
                             .fixedSize(horizontal: false, vertical: true)
@@ -67,6 +67,13 @@ struct DescriptionRecordPageView: View {
                     }
                     VStack (alignment: .leading, spacing: 5) {
                         Text("Номера страниц: " + recordViewModel.record.pageNumbers)
+                            .font(.footnote)
+                            .multilineTextAlignment(TextAlignment.leading)
+                            .fixedSize(horizontal: false, vertical: true)
+                        Divider()
+                    }
+                    VStack (alignment: .leading, spacing: 5) {
+                        Text("Университета/кафедры: \(recordListViewModel.universityRecordToString(recordViewModel.record.universityRecord))")
                             .font(.footnote)
                             .multilineTextAlignment(TextAlignment.leading)
                             .fixedSize(horizontal: false, vertical: true)

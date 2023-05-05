@@ -9,10 +9,10 @@ import SwiftUI
 
 enum SortingRecord: String, CaseIterable, Identifiable {
     case title
-    case year
     case authors
-    case dateCreation
+    case year
     case journalName
+    case universityRecord
     
     var id: Self {
         self
@@ -22,14 +22,14 @@ enum SortingRecord: String, CaseIterable, Identifiable {
         switch self {
         case .title:
             return "Названию"
-        case .year:
-            return "Году"
         case .authors:
             return "Автору"
-        case .dateCreation:
-            return "Созданию"
+        case .year:
+            return "Году"
         case .journalName:
             return "Журналу"
+        case .universityRecord:
+            return "Кафедре"
         }
     }
 }
@@ -43,6 +43,7 @@ struct RecordListView: View {
     @State var isSearching = false
     @State var keywordsSearch = 0
     @State var quantityRecords = 3
+    @State var quantityRecordsSearch = 20
     @State private var sortingSelectedItem: SortingRecord = .title
     
     var body: some View {
@@ -132,19 +133,32 @@ struct RecordListView: View {
                         ForEach(recordListViewModel.recordViewModels.prefix(quantityRecords)) { records in
                             RecordView(recordViewModel: records, recordListViewModel: recordListViewModel, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
                         }
-                        Button{
-                            quantityRecords += 1
-                        } label: {
-                            Image(systemName: "plus")
-                                .resizable()
-                                .frame(width: 20, height: 20)
-                                .foregroundColor(Color.green)
+                        if(recordListViewModel.recordViewModels.count > quantityRecords){
+                            Button{
+                                quantityRecords += 1
+                            } label: {
+                                Image(systemName: "plus")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(Color.green)
+                            }
+                            .padding(.bottom, 15)
                         }
-                        .padding(10)
                     }
                     else{
-                        ForEach(recordListViewModel.searchRecordViewModels) { records in
+                        ForEach(recordListViewModel.searchRecordViewModels.prefix(quantityRecordsSearch)) { records in
                             RecordView(recordViewModel: records, recordListViewModel: recordListViewModel, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
+                        }
+                        if(recordListViewModel.searchRecordViewModels.count > quantityRecordsSearch){
+                            Button{
+                                quantityRecordsSearch += 10
+                            } label: {
+                                Image(systemName: "plus")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(Color.green)
+                            }
+                            .padding(.bottom, 15)
                         }
                     }
                 }

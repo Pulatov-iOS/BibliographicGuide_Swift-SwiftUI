@@ -9,27 +9,50 @@ import SwiftUI
 
 struct RecordDescriptionView: View {
     
-    @ObservedObject var recordDescriptionViewModel: RecordDescriptionViewModel
     var recordListViewModel: RecordListViewModel
     var recordViewModel: RecordViewModel
+    @State var universityRecord = ""
     
     var body: some View {
         VStack{
-            HStack(alignment: .center, spacing: 12) {
-                HStack(alignment: .center){
-                    
+            HStack{
+                VStack{
+                    Image(systemName: "key.horizontal")
+                    Image(systemName: "person.2")
                     Image(systemName: "clock")
-                    Text("Дата создания: \(recordDescriptionViewModel.checkingCreatingTime(recordViewModel.record.dateCreation ?? Date()))")
-                        .padding(.trailing, 6)
-                    Image(systemName: "pencil.line")
-                    Text("Редакт: \(recordDescriptionViewModel.checkingEditingTime(recordViewModel.record.dateChange ?? Date()))")
+                    Image(systemName: "text.book.closed")
+                    Image(systemName: "building.2")
+                }
+                
+                VStack{
+                    HStack(alignment: .center) {
+                        Text("Кл. слова: \(recordListViewModel.getKeywordNameRecord(recordViewModel.record))")
+                            .lineLimit(1)
+                        Spacer()
+                    }
+                    HStack(alignment: .center) {
+                        Text("Авторы: \(recordViewModel.record.authors)")
+                            .lineLimit(1)
+                        Spacer()
+                    }
+                    HStack(alignment: .center) {
+                        Text("Год: \(String(recordViewModel.record.year))")
+                            .lineLimit(1)
+                        Spacer()
+                    }
+                    HStack(alignment: .center) {
+                        Text("Журнал: \(recordViewModel.record.journalName)")
+                            .lineLimit(1)
+                        Spacer()
+                    }
+                    HStack(alignment: .center) {
+                        Text("Университета/кафедры: \(recordListViewModel.universityRecordToString(recordViewModel.record.universityRecord))")
+                            .lineLimit(1)
+                        Spacer()
+                    }
                 }
             }
-            HStack(alignment: .center, spacing: 2, content: {
-                
-            })
         }
-        .padding(.leading, 7)
         .font(.footnote)
         .foregroundColor(Color.gray)
     }

@@ -71,7 +71,20 @@ struct RecordPageView: View {
                                     .lineLimit(1)
                                 Spacer()
                             }
-                            .padding(.bottom, 17)
+                            
+                            HStack{
+                                Text("Дата созд: \(recordListViewModel.checkingCreatingTime(recordViewModel.record.dateCreation ?? Date()))")
+                                    .foregroundColor(Color.white)
+                                    .font(.caption)
+                                    .lineLimit(1)
+                                    .padding(.leading, 5)
+                                Text(" Ред: \(recordListViewModel.checkingEditingTime(recordViewModel.record.dateChange ?? Date())) назад")
+                                    .foregroundColor(Color.white)
+                                    .font(.caption)
+                                    .lineLimit(1)
+                                Spacer()
+                            }
+                            .padding(.bottom, 12)
                         }
                         
                         VStack{
@@ -120,8 +133,6 @@ struct RecordPageView: View {
                         .fontWeight(.heavy)
                         .multilineTextAlignment(.center)
                         .padding(.top, 10)
-                    
-                    RecordDescriptionView(recordDescriptionViewModel: RecordDescriptionViewModel(), recordListViewModel: recordListViewModel, recordViewModel: recordViewModel)
 
                     HStack {
                         Button(action: {

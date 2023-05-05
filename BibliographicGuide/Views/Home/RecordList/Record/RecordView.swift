@@ -48,7 +48,7 @@ struct RecordView: View {
                     VStack{
                         Spacer()
                         HStack(alignment: .bottom){
-                            Image(systemName: "person.2")
+                            Image(systemName: "person")
                                 .foregroundColor(Color.white)
                                 .font(.callout)
                                 .padding(.leading, 5)
@@ -59,7 +59,20 @@ struct RecordView: View {
                                 .lineLimit(1)
                             Spacer()
                         }
-                        .padding(.bottom, 17)
+                       
+                        HStack{
+                            Text("Дата созд: \(recordListViewModel.checkingCreatingTime(recordViewModel.record.dateCreation ?? Date()))")
+                                .foregroundColor(Color.white)
+                                .font(.caption)
+                                .lineLimit(1)
+                                .padding(.leading, 5)
+                            Text(" Ред: \(recordListViewModel.checkingEditingTime(recordViewModel.record.dateChange ?? Date())) назад")
+                                .foregroundColor(Color.white)
+                                .font(.caption)
+                                .lineLimit(1)
+                            Spacer()
+                        }
+                        .padding(.bottom, 12)
                     }
                     
                     VStack{
@@ -102,16 +115,14 @@ struct RecordView: View {
                 )
             }
 
-            
-            
             VStack(alignment: .leading, spacing: 12) {
                 Text(recordViewModel.record.title)
                     .font(.system(.headline, design: .default))
                     .lineLimit(2)
-                RecordDescriptionView(recordDescriptionViewModel: RecordDescriptionViewModel(), recordListViewModel: recordListViewModel, recordViewModel: recordViewModel)
+                RecordDescriptionView(recordListViewModel: recordListViewModel, recordViewModel: recordViewModel)
             }
-            .padding()
-            .padding(.bottom, 12)
+            .padding(0)
+            .padding([.top, .bottom], 12)
             
         }
         .background(Color("ColorBackgroundAdaptive"))

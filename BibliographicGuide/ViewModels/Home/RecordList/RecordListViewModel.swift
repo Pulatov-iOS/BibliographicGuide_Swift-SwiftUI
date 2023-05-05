@@ -55,7 +55,6 @@ final class RecordListViewModel: ObservableObject {
             searchRecordViewModels = recordViewModels.filter{ $0.record.title.lowercased().contains(SearchString.lowercased()) ||
                 $0.record.authors.lowercased().contains(SearchString.lowercased()) ||
                 $0.record.journalName.lowercased().contains(SearchString.lowercased()) ||
-                $0.record.journalNumber.lowercased().contains(SearchString.lowercased()) ||
                 String($0.record.year).lowercased().contains(SearchString.lowercased())
             }
         }
@@ -73,6 +72,7 @@ final class RecordListViewModel: ObservableObject {
             }
         }
     }
+    
     func sortingRecords(sortingRecords: String){
         globalRecordRepository.setSortingRecords(sortingRecordsString: sortingRecords)
     }
@@ -138,6 +138,23 @@ final class RecordListViewModel: ObservableObject {
 
         }
         return timeEditing
+    }
+    
+    func checkingCreatingTime(_ date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/YY"
+        // Convert Date to String
+        let newDate = dateFormatter.string(from: date)
+        return newDate
+    }
+    
+    func universityRecordToString(_ universityRecord: Bool) -> String{
+        if(universityRecord == true){
+            return "Да"
+        }
+        else{
+            return "Нет"
+        }
     }
     
     func updateRecord(record: Record, ImageTitle: Data, completion: @escaping (Bool, String)->Void){
@@ -215,5 +232,15 @@ final class RecordListViewModel: ObservableObject {
                 completion(true, status)
             }
         }
+    }
+}
+
+extension Date{
+    var millisecondsSince1970: Int64 {
+        Int64((self.timeIntervalSince1970).rounded())
+    }
+    
+    init(milliseconds: Int64) {
+        self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
     }
 }

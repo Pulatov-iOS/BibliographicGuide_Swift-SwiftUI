@@ -144,15 +144,15 @@ final class RecordRepository: ObservableObject {
     func sortingRecords(sortingRecords: String){
         switch sortingRecords {
         case "title":
-            self.records.sort(by: { $0.title > $1.title })
-        case "year":
-            self.records.sort(by: { $0.year > $1.year })
+            self.records.sort(by: { $0.title < $1.title })
         case "authors":
             self.records.sort(by: { $0.authors > $1.authors })
-        case "dateCreation":
-            self.records.sort(by: { $0.dateCreation ?? Date() > $1.dateCreation ?? Date() })
+        case "year":
+            self.records.sort(by: { $0.year > $1.year })
         case "journalName":
             self.records.sort(by: { $0.journalName > $1.journalName })
+        case "universityRecord":
+            self.records.sort(by: { $0.universityRecord && !$1.universityRecord })
         default:
             self.records.sort(by: { $0.title > $1.title })
         }
