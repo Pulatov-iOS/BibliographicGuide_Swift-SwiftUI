@@ -50,7 +50,7 @@ struct TopFiveRecordsView: View {
                         .lineLimit(1)
                     Spacer()
                     
-                    Text(recordListViewModel.checkingEditingTime(recordViewModel.record.dateChange ?? Date()))
+                    Text(recordListViewModel.checkingEditingTime(recordViewModel.record, withDescription: false))
                         .foregroundColor(Color.white)
                         .font(.callout)
                         .padding(.trailing, 5)

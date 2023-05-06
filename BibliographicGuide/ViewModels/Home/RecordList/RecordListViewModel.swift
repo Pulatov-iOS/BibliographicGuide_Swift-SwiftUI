@@ -105,39 +105,76 @@ final class RecordListViewModel: ObservableObject {
         return userName.first ?? UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true)
     }
     
-    func checkingEditingTime(_ time: Date) -> String {
-        var timeEditing: String
+    func checkingEditingTime(_ record: Record, withDescription: Bool) -> String {
         
-//        if(time == nil){   //// если редакт нет!!!!!
-//            timeEditing = "отсутствует"
-//        }
+        let secondsAgo = Int(Date().timeIntervalSince(record.dateChange ?? Date()))
         
+        let minute = 60
+        let hour = 60 * minute
+        let day = 24 * hour
+        let week = 7 * day
+        let month = 4 * week
+        let year = 12 * month
         
-        var time = time.millisecondsSince1970
-        let nowTime = Date().millisecondsSince1970
-        time = nowTime - time
-        if(time < 60){
-                let seconds = time
-                timeEditing = String(seconds) + " сек."
-            }
-        else{
-            if(time > 59 && time < 3600){
-                let minutes = (time / 60) % 60
-                timeEditing = String(minutes) + " мин."
-            }
-            else{
-                if(time > 3599 && time < 86400){
-                    let hours = (time / 3600) % 60
-                    timeEditing = String(hours) + " ч."
+        if(withDescription){
+            if(record.dateChange != record.dateCreation){
+                if secondsAgo < minute {
+                    return "\(secondsAgo) сек. назад"
+                } else if secondsAgo < hour {
+                    return "\(secondsAgo / minute) мин. назад"
+                } else if secondsAgo < day {
+                    return "\(secondsAgo / hour) ч. назад"
+                } else if secondsAgo < week {
+                    return "\(secondsAgo / day) дн. назад"
+                } else if secondsAgo < month {
+                    return "\(secondsAgo / week) нед. назад"
+                } else if secondsAgo < year {
+                    return "\(secondsAgo / month) мес. назад"
+                }
+                
+                if((secondsAgo / year) > 1){
+                    if((secondsAgo / year) > 4){
+                        return "\(secondsAgo / year) лет назад"
+                    }
+                    else{
+                        return "\(secondsAgo / year) года назад"
+                    }
                 }
                 else{
-                    let day = (time / 86400) % 30
-                    timeEditing = String(day) + " дн."
+                    return "\(secondsAgo / year) год назад"
                 }
             }
-
+            else{
+                return "отсутствует"
+            }
         }
-        return timeEditing
+        else{
+            if secondsAgo < minute {
+                return "\(secondsAgo) сек."
+            } else if secondsAgo < hour {
+                return "\(secondsAgo / minute) мин."
+            } else if secondsAgo < day {
+                return "\(secondsAgo / hour) ч."
+            } else if secondsAgo < week {
+                return "\(secondsAgo / day) дн."
+            } else if secondsAgo < month {
+                return "\(secondsAgo / week) нед."
+            } else if secondsAgo < year {
+                return "\(secondsAgo / month) мес."
+            }
+            
+            if((secondsAgo / year) > 1){
+                if((secondsAgo / year) > 4){
+                    return "\(secondsAgo / year) лет"
+                }
+                else{
+                    return "\(secondsAgo / year) года"
+                }
+            }
+            else{
+                return "\(secondsAgo / year) год"
+            }
+        }
     }
     
     func checkingCreatingTime(_ date: Date) -> String {

@@ -78,7 +78,7 @@ struct RecordPageView: View {
                                     .font(.caption)
                                     .lineLimit(1)
                                     .padding(.leading, 5)
-                                Text(" Ред: \(recordListViewModel.checkingEditingTime(recordViewModel.record.dateChange ?? Date())) назад")
+                                Text(" Ред: \(recordListViewModel.checkingEditingTime(recordViewModel.record, withDescription: true))")
                                     .foregroundColor(Color.white)
                                     .font(.caption)
                                     .lineLimit(1)
