@@ -13,7 +13,7 @@ let globalUserInformationRepository = UserInformationRepository()
 
 final class UserInformationRepository: ObservableObject {
     
-    private let path = "UsersInformation"
+    private let pathUserInformation = "UsersInformation"
     private let userName = "userName"
     private let db = Firestore.firestore()
     @Published var usersInformation: [UserInformation] = []
@@ -23,7 +23,7 @@ final class UserInformationRepository: ObservableObject {
     }
     
     func fetchUsersInformation(){
-        db.collection(path).addSnapshotListener { (snapshot, error) in
+        db.collection(pathUserInformation).addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print(error)
                 return
@@ -35,9 +35,8 @@ final class UserInformationRepository: ObservableObject {
     }
     
     func addUserInformation(userInformation: UserInformation, userId: String, completion: @escaping (Bool, String)->Void){
-        db.collection(path).document(userId).setData(["role": "user", "userName": userInformation.userName,
+        db.collection(pathUserInformation).document(userId).setData(["role": "user", "userName": userInformation.userName,
                                                       "blockingChat": userInformation.blockingChat,
-                                                      "dateUnblockingChat": userInformation.dateUnblockingChat,
                                                       "blockingAccount": userInformation.blockingAccount]){
             error in
             if let error = error{
@@ -49,13 +48,26 @@ final class UserInformationRepository: ObservableObject {
     }
     
     func updateUserInformation(userId: String, newUserName: String, completion: @escaping (Bool, String)->Void){
-        db.collection(path).document(userId).updateData([
+        db.collection(pathUserInformation).document(userId).updateData([
             userName: newUserName
         ]) { err in
             if let err = err {
                 completion(false, "error")
             } else {
                 completion(true, "success")
+            }
+        }
+    }
+    
+    func updateAccountLock(idUser: String, blockingChat: Bool, blockingAccount: Bool, completion: @escaping (Bool, String)->Void){
+        db.collection(pathUserInformation).document(idUser).updateData([
+            "blockingChat": blockingChat,
+            "blockingAccount": blockingAccount
+        ]) { err in
+            if err != nil {
+                completion(false, "Ошибка при обновлении")
+            } else {
+                completion(true, "Обновлено успешно")
             }
         }
     }

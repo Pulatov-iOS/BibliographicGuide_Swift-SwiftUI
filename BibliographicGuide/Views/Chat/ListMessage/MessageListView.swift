@@ -18,6 +18,10 @@ struct MessageListView: View {
     @State private var editingMessage = false
     @State private var ChangeableMessage: Message?
     
+    @State var showAlert: Bool = false
+    @State var alertTextTitle = ""
+    @State var alertTextMessage = ""
+    
     var body: some View {
         ZStack(alignment: .trailing){
             VStack(spacing: 0){
@@ -88,12 +92,19 @@ struct MessageListView: View {
                     if(editingMessage != true){
                         Button{
                             if(textNewMessage != ""){ // если текст есть, то отправляем сообщение
-                                var mes = Message(idUser: messageListViewModel.userId, typeMessage: "text", date: nil, text: textNewMessage, idFiles: [""], replyIdMessage: replyIdMessage, editing: false)
-                                messageListViewModel.addMessage(mes)
-                                replyWindowShow = false
+                                if(!messageListViewModel.getСurrentUserInformation().blockingChat){
+                                    var mes = Message(idUser: messageListViewModel.userId, typeMessage: "text", date: nil, text: textNewMessage, idFiles: [""], replyIdMessage: replyIdMessage, editing: false)
+                                    messageListViewModel.addMessage(mes)
+                                    replyWindowShow = false
+                                    textNewMessage = ""
+                                    replyIdMessage = ""
+                                }
+                                else{
+                                    alertTextTitle = "Отказано!"
+                                    alertTextMessage = "Функция отправки сообщений заблокирована"
+                                    showAlert.toggle()
+                                }
                             }
-                            textNewMessage = ""
-                            replyIdMessage = ""
                         } label: {
                             Image(systemName: "arrow.up.circle.fill")
                                 .resizable()
@@ -108,18 +119,32 @@ struct MessageListView: View {
                             textNewMessage = ""
                         }
                         Button("Save"){
-                            editingMessage = false
-                            if(ChangeableMessage?.text != textNewMessage){
-                                ChangeableMessage?.editing = true
-                                ChangeableMessage?.text = textNewMessage
-                                messageListViewModel.updateMessage(ChangeableMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false))
+                            if(!messageListViewModel.getСurrentUserInformation().blockingChat){
+                                editingMessage = false
+                                if(ChangeableMessage?.text != textNewMessage){
+                                    ChangeableMessage?.editing = true
+                                    ChangeableMessage?.text = textNewMessage
+                                    messageListViewModel.updateMessage(ChangeableMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false))
+                                }
+                                textNewMessage = ""
                             }
-                            textNewMessage = ""
+                            else{
+                                alertTextTitle = "Отказано!"
+                                alertTextMessage = "Функция отправки сообщений заблокирована"
+                                showAlert.toggle()
+                            }
                         }
                     }
                 }
                 .padding(4)
                 .background(Color(white: 0.97))
+                .alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text(alertTextTitle),
+                        message: Text(alertTextMessage),
+                        dismissButton: .default(Text("Ок"))
+                    )
+                }
             }
             .padding(0)
             if(editingWindowShow == true){
@@ -141,7 +166,7 @@ struct MessageListView: View {
                     OutgoingMessageEditingWindow(messageListViewModel: messageListViewModel, userName: messageListViewModel.getUserName(ChangeableMessage ??  Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false)), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(ChangeableMessage?.replyIdMessage ?? ""), textResponseMessage: messageListViewModel.getTextResponseMessage(ChangeableMessage?.replyIdMessage ?? ""), replyIdMessage: $replyIdMessage, editingMessage: $editingMessage, ChangeableMessage: $ChangeableMessage, textNewMessage: $textNewMessage, editingWindowShow: $editingWindowShow, replyWindowShow: $replyWindowShow)
                 }
                 else{
-                    IncomingMessageEditingWindow(messageListViewModel: messageListViewModel, userName: messageListViewModel.getUserName(ChangeableMessage ??  Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false)), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(ChangeableMessage?.replyIdMessage ?? ""), textResponseMessage: messageListViewModel.getTextResponseMessage(ChangeableMessage?.replyIdMessage ?? ""), replyIdMessage: $replyIdMessage, editingMessage: $editingMessage, ChangeableMessage: $ChangeableMessage, textNewMessage: $textNewMessage, editingWindowShow: $editingWindowShow, replyWindowShow: $replyWindowShow)
+                    IncomingMessageEditingWindow(messageListViewModel: messageListViewModel, userName: messageListViewModel.getUserName(ChangeableMessage ??  Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false)), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(ChangeableMessage?.replyIdMessage ?? ""), textResponseMessage: messageListViewModel.getTextResponseMessage(ChangeableMessage?.replyIdMessage ?? ""), replyIdMessage: $replyIdMessage, editingMessage: $editingMessage, ChangeableMessage: $ChangeableMessage, textNewMessage: $textNewMessage, editingWindowShow: $editingWindowShow, replyWindowShow: $replyWindowShow, showAlert: $showAlert, alertTextTitle: $alertTextTitle, alertTextMessage: $alertTextMessage)
                 }
             }
         }

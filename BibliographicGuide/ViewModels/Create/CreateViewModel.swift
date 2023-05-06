@@ -29,7 +29,7 @@ final class CreateViewModel: ObservableObject {
         let userName = usersInformation.filter { (item) -> Bool in
             item.id == userId
         }
-        return userName.first ?? UserInformation(role: "", userName: "", blockingChat: true, dateUnblockingChat: Date(), blockingAccount: true)
+        return userName.first ?? UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true)
     }
     
     func addRecord(_ record: Record, ImageTitle: Data, completion: @escaping (Bool, String)->Void){

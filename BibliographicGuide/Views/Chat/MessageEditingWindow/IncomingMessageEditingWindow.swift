@@ -9,10 +9,10 @@ import SwiftUI
 
 struct IncomingMessageEditingWindow: View {
     
-    var messageListViewModel: MessageListViewModel
-    var userName: String
-    var userNameResponseMessage: String
-    var textResponseMessage: String
+    @State var messageListViewModel: MessageListViewModel
+    @State var userName: String
+    @State var userNameResponseMessage: String
+    @State var textResponseMessage: String
     @Binding var replyIdMessage: String
     @Binding var editingMessage: Bool
     @Binding var ChangeableMessage: Message?
@@ -20,24 +20,76 @@ struct IncomingMessageEditingWindow: View {
     @Binding var editingWindowShow: Bool
     @Binding var replyWindowShow: Bool
     
+    @Binding var showAlert: Bool
+    @Binding var alertTextTitle: String
+    @Binding var alertTextMessage: String
+    
     var body: some View {
         VStack(alignment: .leading){
             IncomingMessageView(messageViewModel: messageListViewModel.MessageToMessageViewModel(ChangeableMessage?.id ?? ""), userName: userName, userNameResponseMessage: userNameResponseMessage, textResponseMessage: textResponseMessage)
             VStack(spacing: 0){
                 HStack{
                     Text("Ответить")
-                        .padding(EdgeInsets(top: 15, leading: 20, bottom: 10, trailing: 0))
+                        .padding(EdgeInsets(top: 15, leading: 20, bottom: 15, trailing: 0))
                     Spacer()
                     Image(systemName: "arrowshape.turn.up.left")
                         .resizable()
                         .frame(width: 15, height: 15)
-                        .padding(EdgeInsets(top: 15, leading: 0, bottom: 10, trailing: 20))
+                        .padding(EdgeInsets(top: 15, leading: 0, bottom: 15, trailing: 20))
                 }
                 .background(Color.white)
                 .onTapGesture {
                     editingWindowShow.toggle()
                     replyWindowShow = true
                     replyIdMessage = ChangeableMessage?.id ?? "" // сохраняем id сообщения к которому прикрепляется сообщение
+                }
+                if(messageListViewModel.getСurrentUserInformation().role == "admin"){
+                    if(messageListViewModel.getUserInformation(idUser: ChangeableMessage?.idUser ?? "").blockingChat == false){
+                        HStack{
+                            Text("Заблокировать")
+                                .padding(EdgeInsets(top: 5, leading: 20, bottom: 15, trailing: 0))
+                            Spacer()
+                            Image(systemName: "lock")
+                                .resizable()
+                                .frame(width: 12, height: 15)
+                                .padding(EdgeInsets(top: 5, leading: 0, bottom: 15, trailing: 20))
+                        }
+                        .foregroundColor(.red)
+                        .background(Color.white)
+                        .onTapGesture {
+                            messageListViewModel.updateAccountLock(idUser: ChangeableMessage?.idUser ?? "", blockingChat: true, blockingAccount: false){ (verified, status) in
+                                if !verified {
+                                    alertTextTitle = "Ошибка!"
+                                    alertTextMessage = "Данный пользователь не заблокирован. Проверьте подключение к сети"
+                                    showAlert.toggle()
+                                }
+                            }
+                            editingWindowShow.toggle()
+                        }
+                    }
+                    else{
+                        HStack{
+                            Text("Разблокировать")
+                                .padding(EdgeInsets(top: 5, leading: 20, bottom: 15, trailing: 0))
+                            Spacer()
+                            Image(systemName: "lock.open")
+                                .resizable()
+                                .frame(width: 15, height: 15)
+                                .padding(EdgeInsets(top: 5, leading: 0, bottom: 15, trailing: 20))
+                        }
+                        .foregroundColor(.green)
+                        .background(Color.white)
+                        .onTapGesture {
+                            messageListViewModel.updateAccountLock(idUser: ChangeableMessage?.idUser ?? "", blockingChat: false, blockingAccount: false){ (verified, status) in
+                                if !verified {
+                                    alertTextTitle = "Ошибка!"
+                                    alertTextMessage = "Данный пользователь не разблокирован. Проверьте подключение к сети"
+                                    showAlert.toggle()
+                                }
+                            }
+                            editingWindowShow.toggle()
+                        }
+                    }
                 }
             }
             .frame(width: UIScreen.screenWidth * 0.5)

@@ -9,10 +9,10 @@ import SwiftUI
 
 struct OutgoingMessageEditingWindow: View {
     
-    var messageListViewModel: MessageListViewModel
-    var userName: String
-    var userNameResponseMessage: String
-    var textResponseMessage: String
+    @State var messageListViewModel: MessageListViewModel
+    @State var userName: String
+    @State var userNameResponseMessage: String
+    @State var textResponseMessage: String
     @Binding var replyIdMessage: String
     @Binding var editingMessage: Bool
     @Binding var ChangeableMessage: Message?

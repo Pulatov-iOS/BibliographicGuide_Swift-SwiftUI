@@ -11,7 +11,7 @@ struct UsersRightsView: View {
     
     @State var userInformationListViewModel: UserInformationListViewModel
     @State private var showUserRightsWindow: Bool = false
-    @State var userInformationViewModel = UserInformationViewModel(userInformation: UserInformation(role: "", userName: "", blockingChat: true, dateUnblockingChat: Date(), blockingAccount: true))
+    @State var userInformationViewModel = UserInformationViewModel(userInformation: UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true))
     @State var isSearching = false
     
     var body: some View {

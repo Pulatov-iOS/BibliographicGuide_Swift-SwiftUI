@@ -37,7 +37,7 @@ final class UserInformationListViewModel: ObservableObject {
         let userName = usersInformationViewModel.filter { (item) -> Bool in
             item.id == userId
         }
-        return userName.first?.userInformation ?? UserInformation(role: "", userName: "", blockingChat: true, dateUnblockingChat: Date(), blockingAccount: true)
+        return userName.first?.userInformation ?? UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true)
     }
     
     func updateUserInformation(_ newUserName: String, completion: @escaping (Bool, String)->Void){

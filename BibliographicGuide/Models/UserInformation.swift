@@ -13,7 +13,6 @@ struct UserInformation: Identifiable, Codable {
     var role: String
     var userName: String
     var blockingChat: Bool
-    var dateUnblockingChat: Date
     var blockingAccount: Bool
     
 }

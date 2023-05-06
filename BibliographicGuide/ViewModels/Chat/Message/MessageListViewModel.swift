@@ -46,6 +46,17 @@ final class MessageListViewModel: ObservableObject, Equatable {
         messageRepository.removeMessage(message)
     }
     
+    func updateAccountLock(idUser: String, blockingChat: Bool, blockingAccount: Bool, completion: @escaping (Bool, String)->Void){
+        userInformationRepository.updateAccountLock(idUser: idUser, blockingChat: blockingChat, blockingAccount: blockingAccount){ (verified, status) in
+            if !verified {
+                completion(false, "Ошибка.")
+            }
+            else{
+                completion(true, "Успешно.")
+            }
+        }
+    }
+    
     func getUserName(_ message: Message) -> String{
         let newUsers = usersInformation.filter { (item) -> Bool in
             item.id! == message.idUser
@@ -83,6 +94,20 @@ final class MessageListViewModel: ObservableObject, Equatable {
         return newMessage.first ?? MessageViewModel(message: Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false))
     }
     
+    func getСurrentUserInformation() -> UserInformation{
+        let userName = usersInformation.filter { (item) -> Bool in
+            item.id == userId
+        }
+        return userName.first ?? UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true)
+    }
+    
+    func getUserInformation(idUser: String) -> UserInformation{
+        let userName = usersInformation.filter { (item) -> Bool in
+            item.id == idUser
+        }
+        return userName.first ?? UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true)
+    }
+    
     func showDateMessage(_ message: Message) -> Bool{
         let newDateMessage = dateMessage(message.date ?? Date())
         if(newDateMessage == сurrentDateMessage){
@@ -97,7 +122,6 @@ final class MessageListViewModel: ObservableObject, Equatable {
     func dateMessage(_ date: Date) -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy"
-        // Convert Date to String
         let newDate = dateFormatter.string(from: date)
         return newDate
     }
