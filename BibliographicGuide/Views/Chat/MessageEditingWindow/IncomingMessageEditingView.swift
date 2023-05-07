@@ -7,18 +7,20 @@
 
 import SwiftUI
 
-struct IncomingMessageEditingWindow: View {
+struct IncomingMessageEditingView: View {
     
     @State var messageListViewModel: MessageListViewModel
     @State var userName: String
     @State var userNameResponseMessage: String
     @State var textResponseMessage: String
+    
     @Binding var replyIdMessage: String
-    @Binding var editingMessage: Bool
+    @Binding var changeWindowShow: Bool
     @Binding var ChangeableMessage: Message?
     @Binding var textNewMessage: String
     @Binding var editingWindowShow: Bool
     @Binding var replyWindowShow: Bool
+    @Binding var changeKeyboardIsFocused: Bool
     
     @Binding var showAlert: Bool
     @Binding var alertTextTitle: String
@@ -41,6 +43,8 @@ struct IncomingMessageEditingWindow: View {
                 .onTapGesture {
                     editingWindowShow.toggle()
                     replyWindowShow = true
+                    changeWindowShow = false
+                    changeKeyboardIsFocused.toggle() // Открытие клавиатуры
                     replyIdMessage = ChangeableMessage?.id ?? "" // сохраняем id сообщения к которому прикрепляется сообщение
                 }
                 if(messageListViewModel.getСurrentUserInformation().role == "admin"){

@@ -7,18 +7,20 @@
 
 import SwiftUI
 
-struct OutgoingMessageEditingWindow: View {
+struct OutgoingMessageEditingView: View {
     
     @State var messageListViewModel: MessageListViewModel
     @State var userName: String
     @State var userNameResponseMessage: String
     @State var textResponseMessage: String
+    
     @Binding var replyIdMessage: String
-    @Binding var editingMessage: Bool
+    @Binding var changeWindowShow: Bool
     @Binding var ChangeableMessage: Message?
     @Binding var textNewMessage: String
     @Binding var editingWindowShow: Bool
     @Binding var replyWindowShow: Bool
+    @Binding var changeKeyboardIsFocused: Bool
     
     var body: some View {
         VStack(alignment: .trailing){
@@ -37,6 +39,8 @@ struct OutgoingMessageEditingWindow: View {
                 .onTapGesture {
                     editingWindowShow.toggle()
                     replyWindowShow = true
+                    changeWindowShow = false
+                    changeKeyboardIsFocused.toggle() // Открытие клавиатуры
                     replyIdMessage = ChangeableMessage?.id ?? "" // сохраняем id сообщения к которому прикрепляется сообщение
                 }
                 HStack{
@@ -50,8 +54,10 @@ struct OutgoingMessageEditingWindow: View {
                 }
                 .background(Color.white)
                 .onTapGesture {
-                    editingMessage = true
+                    replyWindowShow = false
+                    changeWindowShow = true
                     editingWindowShow.toggle()
+                    changeKeyboardIsFocused.toggle() // Открытие клавиатуры
                     textNewMessage = ChangeableMessage?.text ?? ""
                 }
                 HStack{

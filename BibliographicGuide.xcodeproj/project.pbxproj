@@ -11,6 +11,8 @@
 		1126AD9F29F132BB00A210BF /* KeywordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1126AD9E29F132BB00A210BF /* KeywordsView.swift */; };
 		1126ADA229F1353100A210BF /* UsersRightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1126ADA129F1353100A210BF /* UsersRightsView.swift */; };
 		1126ADA429F1393100A210BF /* UserRightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1126ADA329F1393100A210BF /* UserRightsView.swift */; };
+		11274D962A07AEFF008B9EF0 /* MessageChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274D952A07AEFF008B9EF0 /* MessageChangeView.swift */; };
+		11274D982A07AFA1008B9EF0 /* MessageReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274D972A07AFA1008B9EF0 /* MessageReplyView.swift */; };
 		1132A02329D3219C0007B181 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A02229D3219C0007B181 /* AppView.swift */; };
 		1132A02729D3219D0007B181 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1132A02629D3219D0007B181 /* Assets.xcassets */; };
 		1132A02A29D3219D0007B181 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1132A02929D3219D0007B181 /* Preview Assets.xcassets */; };
@@ -42,8 +44,8 @@
 		1132A09A29DDBF980007B181 /* UserInformationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A09929DDBF980007B181 /* UserInformationViewModel.swift */; };
 		1132A09D29E01C6C0007B181 /* IncomingMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A09C29E01C6C0007B181 /* IncomingMessageView.swift */; };
 		1132A09F29E01C9F0007B181 /* OutgoingMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A09E29E01C9F0007B181 /* OutgoingMessageView.swift */; };
-		1148681329E7075F00C698D6 /* IncomingMessageEditingWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148681229E7075F00C698D6 /* IncomingMessageEditingWindow.swift */; };
-		1148681529E7077200C698D6 /* OutgoingMessageEditingWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148681429E7077200C698D6 /* OutgoingMessageEditingWindow.swift */; };
+		1148681329E7075F00C698D6 /* IncomingMessageEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148681229E7075F00C698D6 /* IncomingMessageEditingView.swift */; };
+		1148681529E7077200C698D6 /* OutgoingMessageEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148681429E7077200C698D6 /* OutgoingMessageEditingView.swift */; };
 		1148681729ED5A7F00C698D6 /* RecordPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148681629ED5A7E00C698D6 /* RecordPageView.swift */; };
 		1148681A29EDE16400C698D6 /* DescriptionRecordPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148681929EDE16400C698D6 /* DescriptionRecordPageView.swift */; };
 		1148681D29EE034B00C698D6 /* CreateRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148681C29EE034B00C698D6 /* CreateRecordView.swift */; };
@@ -92,6 +94,8 @@
 		1126AD9E29F132BB00A210BF /* KeywordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordsView.swift; sourceTree = "<group>"; };
 		1126ADA129F1353100A210BF /* UsersRightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersRightsView.swift; sourceTree = "<group>"; };
 		1126ADA329F1393100A210BF /* UserRightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRightsView.swift; sourceTree = "<group>"; };
+		11274D952A07AEFF008B9EF0 /* MessageChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChangeView.swift; sourceTree = "<group>"; };
+		11274D972A07AFA1008B9EF0 /* MessageReplyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReplyView.swift; sourceTree = "<group>"; };
 		1132A01F29D3219C0007B181 /* BibliographicGuide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BibliographicGuide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1132A02229D3219C0007B181 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		1132A02629D3219D0007B181 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -127,8 +131,8 @@
 		1132A09929DDBF980007B181 /* UserInformationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformationViewModel.swift; sourceTree = "<group>"; };
 		1132A09C29E01C6C0007B181 /* IncomingMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingMessageView.swift; sourceTree = "<group>"; };
 		1132A09E29E01C9F0007B181 /* OutgoingMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessageView.swift; sourceTree = "<group>"; };
-		1148681229E7075F00C698D6 /* IncomingMessageEditingWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingMessageEditingWindow.swift; sourceTree = "<group>"; };
-		1148681429E7077200C698D6 /* OutgoingMessageEditingWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessageEditingWindow.swift; sourceTree = "<group>"; };
+		1148681229E7075F00C698D6 /* IncomingMessageEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingMessageEditingView.swift; sourceTree = "<group>"; };
+		1148681429E7077200C698D6 /* OutgoingMessageEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessageEditingView.swift; sourceTree = "<group>"; };
 		1148681629ED5A7E00C698D6 /* RecordPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordPageView.swift; sourceTree = "<group>"; };
 		1148681929EDE16400C698D6 /* DescriptionRecordPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionRecordPageView.swift; sourceTree = "<group>"; };
 		1148681C29EE034B00C698D6 /* CreateRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecordView.swift; sourceTree = "<group>"; };
@@ -342,7 +346,6 @@
 		1132A06329DAF11B0007B181 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				11639A432A05565200933103 /* Search */,
 				1132A07A29DB50240007B181 /* RecordList */,
 			);
 			path = Home;
@@ -379,6 +382,7 @@
 			children = (
 				1132A06129D89B210007B181 /* RecordListView.swift */,
 				1148682129EEAF1300C698D6 /* TopFiveRecordsView.swift */,
+				11639A432A05565200933103 /* Search */,
 				11639A422A054D4C00933103 /* Record */,
 			);
 			path = RecordList;
@@ -415,6 +419,8 @@
 			children = (
 				1132A08A29DC4FFC0007B181 /* MessageListView.swift */,
 				1132A09129DC58370007B181 /* MessageView.swift */,
+				11274D972A07AFA1008B9EF0 /* MessageReplyView.swift */,
+				11274D952A07AEFF008B9EF0 /* MessageChangeView.swift */,
 				1132A09B29E01C2B0007B181 /* Message */,
 			);
 			path = ListMessage;
@@ -441,8 +447,8 @@
 		1148681129E706AD00C698D6 /* MessageEditingWindow */ = {
 			isa = PBXGroup;
 			children = (
-				1148681429E7077200C698D6 /* OutgoingMessageEditingWindow.swift */,
-				1148681229E7075F00C698D6 /* IncomingMessageEditingWindow.swift */,
+				1148681429E7077200C698D6 /* OutgoingMessageEditingView.swift */,
+				1148681229E7075F00C698D6 /* IncomingMessageEditingView.swift */,
 			);
 			path = MessageEditingWindow;
 			sourceTree = "<group>";
@@ -832,7 +838,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1132A09D29E01C6C0007B181 /* IncomingMessageView.swift in Sources */,
-				1148681529E7077200C698D6 /* OutgoingMessageEditingWindow.swift in Sources */,
+				1148681529E7077200C698D6 /* OutgoingMessageEditingView.swift in Sources */,
 				1132A09629DD9A7F0007B181 /* UserInformationRepository.swift in Sources */,
 				1132A09029DC565A0007B181 /* MessageViewModel.swift in Sources */,
 				1132A08129DC4C1B0007B181 /* MessageRepository.swift in Sources */,
@@ -854,9 +860,10 @@
 				1132A06529DAF1B70007B181 /* RecordView.swift in Sources */,
 				1132A09A29DDBF980007B181 /* UserInformationViewModel.swift in Sources */,
 				1132A09829DDA2430007B181 /* RegistrationViewModel.swift in Sources */,
-				1148681329E7075F00C698D6 /* IncomingMessageEditingWindow.swift in Sources */,
+				1148681329E7075F00C698D6 /* IncomingMessageEditingView.swift in Sources */,
 				1148683229F0A79200C698D6 /* ReportView.swift in Sources */,
 				116A631729F868400024C357 /* Report.swift in Sources */,
+				11274D962A07AEFF008B9EF0 /* MessageChangeView.swift in Sources */,
 				1148683729F0A9FA00C698D6 /* PdfPreviewView.swift in Sources */,
 				1148682B29F00FFA00C698D6 /* InformationDOI.swift in Sources */,
 				1132A05C29D849140007B181 /* RecordRepository.swift in Sources */,
@@ -867,6 +874,7 @@
 				1132A07029DAFF870007B181 /* RegistrationView.swift in Sources */,
 				1132A06929DAF2610007B181 /* RecordViewModel.swift in Sources */,
 				116A63262A02B9140024C357 /* ColorHex.swift in Sources */,
+				11274D982A07AFA1008B9EF0 /* MessageReplyView.swift in Sources */,
 				1148682029EE03B300C698D6 /* CreateViewModel.swift in Sources */,
 				1148681D29EE034B00C698D6 /* CreateRecordView.swift in Sources */,
 				116A631F29FE8A880024C357 /* Keyword.swift in Sources */,
