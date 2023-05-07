@@ -129,4 +129,17 @@ final class MessageListViewModel: ObservableObject, Equatable {
     static func == (lhs: MessageListViewModel, rhs: MessageListViewModel) -> Bool {
         lhs.messageViewModels.count > rhs.messageViewModels.count
     }
+    
+    func stringCountUsers(countUsers: Int) -> String {
+        if(countUsers == 1){
+            return "1 участник"
+        }
+        if(countUsers > 1 && countUsers < 5){
+            return "\(countUsers) участника"
+        }
+        if(countUsers > 4){
+            return "\(countUsers) участников"
+        }
+        return "0 участников"
+    }
 }

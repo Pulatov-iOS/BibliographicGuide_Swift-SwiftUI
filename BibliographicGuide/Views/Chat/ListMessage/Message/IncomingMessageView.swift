@@ -65,25 +65,31 @@ struct IncomingMessageView: View {
                     // Если текст сообщения короткий, то время ставится сразу после него
                     if((messageViewModel.message.editing == true && labelSizeTimeIncoming(textWithTime: ("\(messageViewModel.message.text)ред.\(messageViewModel.timeMessage(messageViewModel.message.date ?? Date()))")) < UIScreen.screenWidth * 0.65) || (messageViewModel.message.editing == false && labelSizeTimeIncoming(textWithTime: ("\(messageViewModel.message.text)\(messageViewModel.timeMessage(messageViewModel.message.date ?? Date()))")) < UIScreen.screenWidth * 0.65)){
                         HStack{
-                            Text(messageViewModel.message.text)
-                                .foregroundColor(.black)
-                                .font(.system(size: 16))
-                                .padding([.leading, .trailing], 8)
-                                .padding(.bottom, 6)
-                                .lineLimit(nil)
-                            HStack{
-                                if(messageViewModel.message.editing == true){
-                                    Text("ред.")
+                            ZStack{
+                                HStack{
+                                    Text(messageViewModel.message.text)
+                                        .foregroundColor(.black)
+                                        .font(.system(size: 16))
+                                        .padding([.leading, .trailing], 8)
+                                        .padding(.bottom, 6)
+                                        .lineLimit(nil)
+                                    Spacer()
+                                }
+                                HStack{
+                                    Spacer()
+                                    if(messageViewModel.message.editing == true){
+                                        Text("ред.")
+                                            .font(.caption)
+                                            .foregroundColor(Color(white: 0.6))
+                                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
+                                    }
+                                    Text(messageViewModel.timeMessage(messageViewModel.message.date ?? Date()))
                                         .font(.caption)
                                         .foregroundColor(Color(white: 0.6))
-                                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
+                                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 8))
                                 }
-                                Text(messageViewModel.timeMessage(messageViewModel.message.date ?? Date()))
-                                    .font(.caption)
-                                    .foregroundColor(Color(white: 0.6))
-                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 8))
+                                .frame(maxHeight: 40, alignment: .bottom)
                             }
-                            .frame(maxHeight: 40, alignment: .bottom)
                         }
                     }
                     else{
@@ -98,7 +104,7 @@ struct IncomingMessageView: View {
                                 Text("ред.")
                                     
                                     .font(.caption)
-                                    .foregroundColor(Color(.black))
+                                    .foregroundColor(Color(white: 0.6))
                                     .padding(EdgeInsets(top: 0, leading: 8, bottom: 8, trailing: 0))
                             }
                             Text(messageViewModel.timeMessage(messageViewModel.message.date ?? Date()))
@@ -137,7 +143,7 @@ func labelSizeTextIncoming(userName: String, text: String, time: String, editing
     if((editing == true && (rect[1].size.width + rect[3].size.width) < UIScreen.screenWidth * 0.65) || (editing == false && (rect[1].size.width + rect[2].size.width) < UIScreen.screenWidth * 0.65)){
         
         if((editing == true && rect[0].size.width > (rect[1].size.width + rect[3].size.width)) || (editing == false && rect[0].size.width > (rect[1].size.width + rect[2].size.width))){ // если имя пользователя больше длины сообщения
-            widthText = rect[0].size.width
+            widthText = rect[0].size.width - 10
         }
         else{
             if(editing == true){

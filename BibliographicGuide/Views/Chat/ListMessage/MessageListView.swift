@@ -32,8 +32,7 @@ struct MessageListView: View {
                     VStack{
                         Text("Общий чат")
                             .font(.headline)
-                         
-                        Text("2 участника")
+                        Text(messageListViewModel.stringCountUsers(countUsers: messageListViewModel.usersInformation.count))
                             .padding(.bottom, 5)
                             .font(.footnote)
                     }.padding(0)
