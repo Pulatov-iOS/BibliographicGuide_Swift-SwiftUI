@@ -13,6 +13,8 @@
 		1126ADA429F1393100A210BF /* UserRightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1126ADA329F1393100A210BF /* UserRightsView.swift */; };
 		11274D962A07AEFF008B9EF0 /* MessageChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274D952A07AEFF008B9EF0 /* MessageChangeView.swift */; };
 		11274D982A07AFA1008B9EF0 /* MessageReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274D972A07AFA1008B9EF0 /* MessageReplyView.swift */; };
+		11274D9A2A0849B1008B9EF0 /* MessageImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274D992A0849B1008B9EF0 /* MessageImagesView.swift */; };
+		11274D9D2A08574A008B9EF0 /* MessageImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274D9C2A08574A008B9EF0 /* MessageImageView.swift */; };
 		1132A02329D3219C0007B181 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A02229D3219C0007B181 /* AppView.swift */; };
 		1132A02729D3219D0007B181 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1132A02629D3219D0007B181 /* Assets.xcassets */; };
 		1132A02A29D3219D0007B181 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1132A02929D3219D0007B181 /* Preview Assets.xcassets */; };
@@ -96,6 +98,8 @@
 		1126ADA329F1393100A210BF /* UserRightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRightsView.swift; sourceTree = "<group>"; };
 		11274D952A07AEFF008B9EF0 /* MessageChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChangeView.swift; sourceTree = "<group>"; };
 		11274D972A07AFA1008B9EF0 /* MessageReplyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReplyView.swift; sourceTree = "<group>"; };
+		11274D992A0849B1008B9EF0 /* MessageImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageImagesView.swift; sourceTree = "<group>"; };
+		11274D9C2A08574A008B9EF0 /* MessageImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageImageView.swift; sourceTree = "<group>"; };
 		1132A01F29D3219C0007B181 /* BibliographicGuide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BibliographicGuide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1132A02229D3219C0007B181 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		1132A02629D3219D0007B181 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -208,6 +212,15 @@
 				1126ADA329F1393100A210BF /* UserRightsView.swift */,
 			);
 			path = UsersRights;
+			sourceTree = "<group>";
+		};
+		11274D9B2A085713008B9EF0 /* MessageImage */ = {
+			isa = PBXGroup;
+			children = (
+				11274D992A0849B1008B9EF0 /* MessageImagesView.swift */,
+				11274D9C2A08574A008B9EF0 /* MessageImageView.swift */,
+			);
+			path = MessageImage;
 			sourceTree = "<group>";
 		};
 		1132A01629D3219C0007B181 = {
@@ -421,6 +434,7 @@
 				1132A09129DC58370007B181 /* MessageView.swift */,
 				11274D972A07AFA1008B9EF0 /* MessageReplyView.swift */,
 				11274D952A07AEFF008B9EF0 /* MessageChangeView.swift */,
+				11274D9B2A085713008B9EF0 /* MessageImage */,
 				1132A09B29E01C2B0007B181 /* Message */,
 			);
 			path = ListMessage;
@@ -857,6 +871,7 @@
 				1148682229EEAF1300C698D6 /* TopFiveRecordsView.swift in Sources */,
 				1132A08B29DC4FFC0007B181 /* MessageListView.swift in Sources */,
 				1132A08329DC4CC40007B181 /* Message.swift in Sources */,
+				11274D9A2A0849B1008B9EF0 /* MessageImagesView.swift in Sources */,
 				1132A06529DAF1B70007B181 /* RecordView.swift in Sources */,
 				1132A09A29DDBF980007B181 /* UserInformationViewModel.swift in Sources */,
 				1132A09829DDA2430007B181 /* RegistrationViewModel.swift in Sources */,
@@ -876,6 +891,7 @@
 				116A63262A02B9140024C357 /* ColorHex.swift in Sources */,
 				11274D982A07AFA1008B9EF0 /* MessageReplyView.swift in Sources */,
 				1148682029EE03B300C698D6 /* CreateViewModel.swift in Sources */,
+				11274D9D2A08574A008B9EF0 /* MessageImageView.swift in Sources */,
 				1148681D29EE034B00C698D6 /* CreateRecordView.swift in Sources */,
 				116A631F29FE8A880024C357 /* Keyword.swift in Sources */,
 				1132A09429DD96CA0007B181 /* UserInformation.swift in Sources */,

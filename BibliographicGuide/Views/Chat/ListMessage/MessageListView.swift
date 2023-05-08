@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct MessageListView: View {
     
@@ -16,7 +17,11 @@ struct MessageListView: View {
     @State private var editingWindowShow = false
     @State private var replyWindowShow = false
     @State private var changeWindowShow = false
+    @State private var imagesWindowShow = false
     @State private var changeableMessage: Message?
+    
+    @State private var imagesPhotosPicker = [PhotosPickerItem]()
+    @State private var imagesImage = [ImageModel]()
     
     @State private var changeKeyboardIsFocused = false
     @FocusState private var keyboardIsFocused: Bool
@@ -76,17 +81,39 @@ struct MessageListView: View {
                 if(changeWindowShow == true){
                     MessageChangeView(changeableMessage: $changeableMessage, changeWindowShow: $changeWindowShow, textNewMessage: $textNewMessage)
                 }
-                
+                if(imagesWindowShow == true && imagesPhotosPicker.count > 0){
+                    MessageImagesView(imagesPhotosPicker: $imagesPhotosPicker, imagesImage: $imagesImage)
+                }
+
                 HStack(spacing: 4){
-                    Button{
-                        
-                    } label: {
+                    PhotosPicker(
+                        selection: $imagesPhotosPicker,
+                        maxSelectionCount: 6,
+                        matching: .images
+                    ){
                         Image(systemName: "paperclip")
                             .resizable()
                             .frame(width: 25, height: 25)
                             .foregroundColor(Color.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+                            .padding(8)
                     }
-                    .padding(8)
+                    .onChange(of: imagesPhotosPicker){ newValue in
+                        var indexImage = 0
+                        Task {
+                            imagesImage.removeAll()
+                            for item in imagesPhotosPicker {
+                                if let data = try? await item.loadTransferable(type: Data.self) {
+                                    if let uiImage = UIImage(data: data) {
+                                        let image = Image(uiImage: uiImage)
+                                        imagesImage.append(ImageModel(idInt: indexImage, image: image))
+                                    }
+                                }
+                                indexImage += 1
+                            }
+                        }
+                        imagesWindowShow = true
+                    }
+                        
                     TextField("Comment", text: $textNewMessage, prompt: Text("Сообщение"), axis: .vertical)
                         .foregroundColor(.black)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -176,6 +203,15 @@ struct MessageListView: View {
             }
         }
     }
+}
+
+struct ImageModel: Identifiable, Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    let id = UUID()
+    let idInt: Int
+    let image: Image
 }
 
 struct MessageListView_Previews: PreviewProvider {
