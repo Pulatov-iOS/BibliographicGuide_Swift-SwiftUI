@@ -13,8 +13,11 @@
 		1126ADA429F1393100A210BF /* UserRightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1126ADA329F1393100A210BF /* UserRightsView.swift */; };
 		11274D962A07AEFF008B9EF0 /* MessageChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274D952A07AEFF008B9EF0 /* MessageChangeView.swift */; };
 		11274D982A07AFA1008B9EF0 /* MessageReplyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274D972A07AFA1008B9EF0 /* MessageReplyView.swift */; };
-		11274D9A2A0849B1008B9EF0 /* MessageImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274D992A0849B1008B9EF0 /* MessageImagesView.swift */; };
-		11274D9D2A08574A008B9EF0 /* MessageImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274D9C2A08574A008B9EF0 /* MessageImageView.swift */; };
+		11274D9A2A0849B1008B9EF0 /* SelectedMessageImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274D992A0849B1008B9EF0 /* SelectedMessageImagesView.swift */; };
+		11274D9D2A08574A008B9EF0 /* SelectedMessageImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274D9C2A08574A008B9EF0 /* SelectedMessageImageView.swift */; };
+		11274DA02A091D82008B9EF0 /* MessageImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274D9F2A091D82008B9EF0 /* MessageImages.swift */; };
+		11274DA42A095E31008B9EF0 /* MessageFullSizeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DA32A095E31008B9EF0 /* MessageFullSizeImageView.swift */; };
+		11274DA62A0A7105008B9EF0 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DA52A0A7105008B9EF0 /* LoaderView.swift */; };
 		1132A02329D3219C0007B181 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A02229D3219C0007B181 /* AppView.swift */; };
 		1132A02729D3219D0007B181 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1132A02629D3219D0007B181 /* Assets.xcassets */; };
 		1132A02A29D3219D0007B181 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1132A02929D3219D0007B181 /* Preview Assets.xcassets */; };
@@ -98,8 +101,11 @@
 		1126ADA329F1393100A210BF /* UserRightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRightsView.swift; sourceTree = "<group>"; };
 		11274D952A07AEFF008B9EF0 /* MessageChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageChangeView.swift; sourceTree = "<group>"; };
 		11274D972A07AFA1008B9EF0 /* MessageReplyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReplyView.swift; sourceTree = "<group>"; };
-		11274D992A0849B1008B9EF0 /* MessageImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageImagesView.swift; sourceTree = "<group>"; };
-		11274D9C2A08574A008B9EF0 /* MessageImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageImageView.swift; sourceTree = "<group>"; };
+		11274D992A0849B1008B9EF0 /* SelectedMessageImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedMessageImagesView.swift; sourceTree = "<group>"; };
+		11274D9C2A08574A008B9EF0 /* SelectedMessageImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedMessageImageView.swift; sourceTree = "<group>"; };
+		11274D9F2A091D82008B9EF0 /* MessageImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageImages.swift; sourceTree = "<group>"; };
+		11274DA32A095E31008B9EF0 /* MessageFullSizeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageFullSizeImageView.swift; sourceTree = "<group>"; };
+		11274DA52A0A7105008B9EF0 /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		1132A01F29D3219C0007B181 /* BibliographicGuide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BibliographicGuide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1132A02229D3219C0007B181 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		1132A02629D3219D0007B181 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -214,13 +220,23 @@
 			path = UsersRights;
 			sourceTree = "<group>";
 		};
-		11274D9B2A085713008B9EF0 /* MessageImage */ = {
+		11274D9B2A085713008B9EF0 /* SelectedMessageImage */ = {
 			isa = PBXGroup;
 			children = (
-				11274D992A0849B1008B9EF0 /* MessageImagesView.swift */,
-				11274D9C2A08574A008B9EF0 /* MessageImageView.swift */,
+				11274D992A0849B1008B9EF0 /* SelectedMessageImagesView.swift */,
+				11274D9C2A08574A008B9EF0 /* SelectedMessageImageView.swift */,
 			);
-			path = MessageImage;
+			path = SelectedMessageImage;
+			sourceTree = "<group>";
+		};
+		11274D9E2A091A58008B9EF0 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				11274D9F2A091D82008B9EF0 /* MessageImages.swift */,
+				11274DA32A095E31008B9EF0 /* MessageFullSizeImageView.swift */,
+				11274DA52A0A7105008B9EF0 /* LoaderView.swift */,
+			);
+			path = Image;
 			sourceTree = "<group>";
 		};
 		1132A01629D3219C0007B181 = {
@@ -434,7 +450,7 @@
 				1132A09129DC58370007B181 /* MessageView.swift */,
 				11274D972A07AFA1008B9EF0 /* MessageReplyView.swift */,
 				11274D952A07AEFF008B9EF0 /* MessageChangeView.swift */,
-				11274D9B2A085713008B9EF0 /* MessageImage */,
+				11274D9B2A085713008B9EF0 /* SelectedMessageImage */,
 				1132A09B29E01C2B0007B181 /* Message */,
 			);
 			path = ListMessage;
@@ -454,6 +470,7 @@
 			children = (
 				1132A09E29E01C9F0007B181 /* OutgoingMessageView.swift */,
 				1132A09C29E01C6C0007B181 /* IncomingMessageView.swift */,
+				11274D9E2A091A58008B9EF0 /* Image */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -859,6 +876,7 @@
 				1148681729ED5A7F00C698D6 /* RecordPageView.swift in Sources */,
 				1132A04F29D445DB0007B181 /* SettingsView.swift in Sources */,
 				1148682629F0036D00C698D6 /* ImagePicker.swift in Sources */,
+				11274DA42A095E31008B9EF0 /* MessageFullSizeImageView.swift in Sources */,
 				1148682D29F0889100C698D6 /* EditingRecordView.swift in Sources */,
 				116A632329FFED450024C357 /* KeywordView.swift in Sources */,
 				116A631D29FE8A380024C357 /* KeywordSearchBarView.swift in Sources */,
@@ -866,12 +884,14 @@
 				1126ADA229F1353100A210BF /* UsersRightsView.swift in Sources */,
 				1126AD9F29F132BB00A210BF /* KeywordsView.swift in Sources */,
 				1132A07329DB003C0007B181 /* AuthorizationViewModel.swift in Sources */,
+				11274DA02A091D82008B9EF0 /* MessageImages.swift in Sources */,
 				116A632129FE8AFD0024C357 /* KeywordRepository.swift in Sources */,
 				1148683429F0A7A400C698D6 /* ReportViewModel.swift in Sources */,
 				1148682229EEAF1300C698D6 /* TopFiveRecordsView.swift in Sources */,
 				1132A08B29DC4FFC0007B181 /* MessageListView.swift in Sources */,
 				1132A08329DC4CC40007B181 /* Message.swift in Sources */,
-				11274D9A2A0849B1008B9EF0 /* MessageImagesView.swift in Sources */,
+				11274DA62A0A7105008B9EF0 /* LoaderView.swift in Sources */,
+				11274D9A2A0849B1008B9EF0 /* SelectedMessageImagesView.swift in Sources */,
 				1132A06529DAF1B70007B181 /* RecordView.swift in Sources */,
 				1132A09A29DDBF980007B181 /* UserInformationViewModel.swift in Sources */,
 				1132A09829DDA2430007B181 /* RegistrationViewModel.swift in Sources */,
@@ -891,7 +911,7 @@
 				116A63262A02B9140024C357 /* ColorHex.swift in Sources */,
 				11274D982A07AFA1008B9EF0 /* MessageReplyView.swift in Sources */,
 				1148682029EE03B300C698D6 /* CreateViewModel.swift in Sources */,
-				11274D9D2A08574A008B9EF0 /* MessageImageView.swift in Sources */,
+				11274D9D2A08574A008B9EF0 /* SelectedMessageImageView.swift in Sources */,
 				1148681D29EE034B00C698D6 /* CreateRecordView.swift in Sources */,
 				116A631F29FE8A880024C357 /* Keyword.swift in Sources */,
 				1132A09429DD96CA0007B181 /* UserInformation.swift in Sources */,

@@ -21,10 +21,15 @@ struct OutgoingMessageEditingView: View {
     @Binding var editingWindowShow: Bool
     @Binding var replyWindowShow: Bool
     @Binding var changeKeyboardIsFocused: Bool
+    @Binding var newMessageId: String
+    
+    @Binding var selectedMessage: Message?
+    @Binding var selectedImage: Int
+    @Binding  var openFullSizeImage: Bool
     
     var body: some View {
         VStack(alignment: .trailing){
-            OutgoingMessageView(messageViewModel: messageListViewModel.MessageToMessageViewModel(ChangeableMessage?.id ?? ""), userName: userName, userNameResponseMessage: userNameResponseMessage, textResponseMessage: textResponseMessage)
+            OutgoingMessageView(messageListViewModel: messageListViewModel, messageViewModel: messageListViewModel.MessageToMessageViewModel(ChangeableMessage?.id ?? ""), userName: userName, userNameResponseMessage: userNameResponseMessage, textResponseMessage: textResponseMessage, newMessageId: $newMessageId, selectedMessage: $selectedMessage, selectedImage: $selectedImage, openFullSizeImage: $openFullSizeImage, editingWindowShow: $editingWindowShow, isEditingWindow: false)
             VStack(spacing: 0){
                 HStack{
                     Text("Ответить")
@@ -73,7 +78,7 @@ struct OutgoingMessageEditingView: View {
                 }
                 .background(Color.white)
                 .onTapGesture {
-                    messageListViewModel.removeMessage(ChangeableMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false))
+                    messageListViewModel.removeMessage(ChangeableMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", countImages: 0, replyIdMessage: "", editing: false))
                     editingWindowShow.toggle()
                 }
             }

@@ -9,13 +9,18 @@ import SwiftUI
 
 struct MessageView: View {
     
-    
+    var messageListViewModel: MessageListViewModel
     var messageViewModel: MessageViewModel
     var userName: String
     var userNameResponseMessage: String
     var textResponseMessage: String
     var outgoingOrIncomingMessage: Bool
-    var messageListViewModel: MessageListViewModel
+    @Binding var newMessageId: String
+    
+    @Binding var selectedMessage: Message?
+    @Binding var selectedImage: Int
+    @Binding  var openFullSizeImage: Bool
+    @Binding var editingWindowShow: Bool
     
     var body: some View {
         VStack{
@@ -27,10 +32,12 @@ struct MessageView: View {
                     .padding(.top, 15)
             }
             if(outgoingOrIncomingMessage == true){
-                OutgoingMessageView(messageViewModel: messageViewModel, userName: userName, userNameResponseMessage: userNameResponseMessage, textResponseMessage: textResponseMessage)
+                OutgoingMessageView(messageListViewModel: messageListViewModel, messageViewModel: messageViewModel, userName: userName, userNameResponseMessage: userNameResponseMessage, textResponseMessage: textResponseMessage, newMessageId: $newMessageId, selectedMessage: $selectedMessage, selectedImage: $selectedImage, openFullSizeImage: $openFullSizeImage, editingWindowShow: $editingWindowShow, isEditingWindow: true)
+                    .padding(.top, 6)
             }
             else{
-                IncomingMessageView(messageViewModel: messageViewModel, userName: userName, userNameResponseMessage: userNameResponseMessage, textResponseMessage: textResponseMessage)
+                IncomingMessageView(messageListViewModel: messageListViewModel, messageViewModel: messageViewModel, userName: userName, userNameResponseMessage: userNameResponseMessage, textResponseMessage: textResponseMessage, newMessageId: $newMessageId, selectedMessage: $selectedMessage, selectedImage: $selectedImage, openFullSizeImage: $openFullSizeImage, editingWindowShow: $editingWindowShow, isEditingWindow: true)
+                    .padding(.top, 6)
             }
         }
     }

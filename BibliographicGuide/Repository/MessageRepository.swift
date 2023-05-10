@@ -7,14 +7,17 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseStorage
 import FirebaseFirestoreSwift
 
 let globalMessageRepository = MessageRepository()
 
 final class MessageRepository: ObservableObject {
     
-    private let path = "Messages"
+    private let pathMessages = "Messages"
+    private let pathImageMessage = "ImageMessage"
     private let db = Firestore.firestore()
+    private let storage = Storage.storage() // Получаем ссылку на службу хранения, используя приложение Firebase по умолчанию
     @Published var messages: [Message] = []
     
     init(){
@@ -22,7 +25,7 @@ final class MessageRepository: ObservableObject {
     }
     
     func fetchMessages(){
-        db.collection(path).order(by: "date").addSnapshotListener { (snapshot, error) in
+        db.collection(pathMessages).order(by: "date").addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print(error)
                 return
@@ -33,18 +36,29 @@ final class MessageRepository: ObservableObject {
         }
     }
     
-    func addMessage(_ message: Message){
+    func addMessage(_ message: Message, imageMessage: [Data], completion: @escaping (Bool, String)->Void){
+        var idMessage = ""
         do {
-            _ = try db.collection(path).addDocument(from: message)
+            _ = try idMessage = db.collection(pathMessages).addDocument(from: message).documentID
         } catch {
             fatalError("Adding a message failed")
+        }
+        if(message.typeMessage == "image"){
+            addImageMessage(idImageMessage: idMessage, imageMessage: imageMessage){ (verified, path) in
+                if !verified {
+                    completion(false, "Error")
+                }
+                else{
+                    completion(true, idMessage)
+                }
+            }
         }
     }
     
     func updateMessage(_ message: Message){
         guard let documentId = message.id else { return }
         do {
-            try db.collection(path).document(documentId).setData(from: message)
+            try db.collection(pathMessages).document(documentId).setData(from: message)
         } catch {
             fatalError("Ошибка при обновлении сообщения")
         }
@@ -52,10 +66,47 @@ final class MessageRepository: ObservableObject {
     
     func removeMessage(_ message: Message){
         guard let documentId = message.id else { return }
-        db.collection(path).document(documentId).delete { error in
+        db.collection(pathMessages).document(documentId).delete { error in
             if let error = error {
                 print("Нe удалось удалить сообщение: \(error.localizedDescription)")
             }
         }
+    }
+    
+    func addImageMessage(idImageMessage: String, imageMessage: [Data], completion: @escaping (Bool, String)->Void){
+        
+        let referenceSorage = storage.reference() // Создаем ссылку на хранилище
+        let pathRef = referenceSorage.child(pathImageMessage) // Создаем дочернюю ссылку
+    
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        
+        var item = 0
+        for itemData in imageMessage{
+            pathRef.child("\(idImageMessage)_\(item)").putData(itemData, metadata: metadata){
+                metadata, error in
+                if let metadata = metadata
+                {
+                    completion(true, metadata.path ?? "")
+                } else{
+                    completion(false, "")
+                    return
+                }
+            }
+            item += 1
+        }
+        
+    }
+    
+    func getImageUrl(pathImage: String, idImage: String, completion: @escaping (Bool, URL)->Void){
+        var imageUrl = URL(string: "")
+        let storage = storage.reference(withPath: pathImage + "/" + idImage)
+           storage.downloadURL { (url, error) in
+               if error != nil {
+                   return
+               }
+               imageUrl = url!
+               completion(true, (imageUrl ?? (URL(string: "https://turbok.by/public/img/no-photo--lg.png")))!)
+           }
     }
 }

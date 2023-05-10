@@ -12,6 +12,7 @@ struct MessageReplyView: View {
     @State var messageListViewModel: MessageListViewModel
     @Binding var changeableMessage: Message?
     @Binding var replyWindowShow: Bool
+    @State var textReplyMessage = ""
     
     var body: some View {
         VStack{
@@ -26,11 +27,11 @@ struct MessageReplyView: View {
                     .frame(width: 3, height: 33)
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                 VStack(alignment: .leading){
-                    Text(messageListViewModel.getUserName(changeableMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false)))
+                    Text(messageListViewModel.getUserName(changeableMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", countImages: 0, replyIdMessage: "", editing: false)))
                         .lineLimit(1)
                         .fontWeight(.bold)
                         .foregroundColor(Color.blue)
-                    Text(changeableMessage?.text ?? "")
+                    Text(textReplyMessage)
                         .lineLimit(1)
                 }
                 Spacer()
@@ -44,7 +45,34 @@ struct MessageReplyView: View {
                     }
             }
             .padding(EdgeInsets(top: 8, leading: 0, bottom: 0, trailing: 0))
-        }.background(Color(white: 0.97))
+        }
+        .background(Color(white: 0.97))
+        .onAppear(){
+            if(changeableMessage?.text == "" && changeableMessage?.countImages ?? 0 > 0){
+                if(changeableMessage?.countImages ?? 0 == 1){
+                    textReplyMessage = "[Фотография]"
+                }
+                else{
+                    textReplyMessage = "[Фотографии]"
+                }
+            }
+            else{
+                textReplyMessage = changeableMessage?.text ?? ""
+            }
+        }
+        .onChange(of: changeableMessage?.text){ value in
+            if(changeableMessage?.text == "" && changeableMessage?.countImages ?? 0 > 0){
+                if(changeableMessage?.countImages ?? 0 == 1){
+                    textReplyMessage = "[Фотография]"
+                }
+                else{
+                    textReplyMessage = "[Фотографии]"
+                }
+            }
+            else{
+                textReplyMessage = changeableMessage?.text ?? ""
+            }
+        }
     }
 }
 

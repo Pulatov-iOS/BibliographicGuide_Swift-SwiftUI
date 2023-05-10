@@ -14,14 +14,18 @@ struct MessageListView: View {
     
     @State private var textNewMessage = ""
     @State private var replyIdMessage = ""
-    @State private var editingWindowShow = false
+    @Binding var editingWindowShow: Bool
     @State private var replyWindowShow = false
     @State private var changeWindowShow = false
     @State private var imagesWindowShow = false
-    @State private var changeableMessage: Message?
+    @Binding var selectedMessage: Message?
     
     @State private var imagesPhotosPicker = [PhotosPickerItem]()
     @State private var imagesImage = [ImageModel]()
+    @State private var imagesData = [Data]()
+    @Binding var newMessageId: String
+    @Binding var openFullSizeImage: Bool
+    @Binding var selectedImage: Int
     
     @State private var changeKeyboardIsFocused = false
     @FocusState private var keyboardIsFocused: Bool
@@ -43,30 +47,28 @@ struct MessageListView: View {
                     }.padding(0)
                     HStack{
                         Spacer()
-                        Image("logo-chat")
+                        Image(systemName: "message")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 40, height: 40)
+                            .frame(width: 25, height: 25)
                             .padding(.trailing, 10)
                             .padding(.bottom, 8)
                             .shadow(color: Color("ColorBlackTransparentLight"), radius: 8, x: 0, y: 4)
                     }
                 }
                 .background(Color(red: 0.949, green: 0.949, blue: 0.971))
-                
+                Divider()
                 VStack{
-                    ScrollView(.vertical, showsIndicators: true, content: {
-                        VStack {
+                    ScrollView(.vertical, showsIndicators: false, content: {
+                        VStack(spacing: 0){
                             ForEach(messageListViewModel.messageViewModels) { messages in
-                                MessageView(messageViewModel: messages, userName: messageListViewModel.getUserName(messages.message), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(messages.message.replyIdMessage), textResponseMessage: messageListViewModel.getTextResponseMessage(messages.message.replyIdMessage), outgoingOrIncomingMessage: messageListViewModel.OutgoingOrIncomingMessage(messages.message), messageListViewModel: messageListViewModel)
-                                    .onLongPressGesture(minimumDuration: 0.5){
-                                        changeableMessage = messages.message
-                                        editingWindowShow.toggle()
-                                    }
+                                MessageView(messageListViewModel: messageListViewModel, messageViewModel: messages, userName: messageListViewModel.getUserName(messages.message), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(messages.message.replyIdMessage), textResponseMessage: messageListViewModel.getTextResponseMessage(messages.message.replyIdMessage), outgoingOrIncomingMessage: messageListViewModel.OutgoingOrIncomingMessage(messages.message), newMessageId: $newMessageId, selectedMessage: $selectedMessage, selectedImage: $selectedImage, openFullSizeImage: $openFullSizeImage, editingWindowShow: $editingWindowShow)
                             }
-                        }.rotationEffect(Angle(degrees: 180)).scaleEffect(x: -1.0, y: 1.0, anchor: .center)
+                        }
+                        .rotationEffect(Angle(degrees: 180)).scaleEffect(x: -1.0, y: 1.0, anchor: .center)
                             .padding(.top, 15)
                                 }).rotationEffect(Angle(degrees: 180)).scaleEffect(x: -1.0, y: 1.0, anchor: .center)
+                        
                 }
                 .onChange(of: changeKeyboardIsFocused){ value in
                     keyboardIsFocused = true // открытие клавиатуры при ответе и изменении сообщения
@@ -76,34 +78,39 @@ struct MessageListView: View {
                 }
                 
                 if(replyWindowShow == true){
-                    MessageReplyView(messageListViewModel: messageListViewModel, changeableMessage: $changeableMessage, replyWindowShow: $replyWindowShow)
+                    MessageReplyView(messageListViewModel: messageListViewModel, changeableMessage: $selectedMessage, replyWindowShow: $replyWindowShow)
                 }
                 if(changeWindowShow == true){
-                    MessageChangeView(changeableMessage: $changeableMessage, changeWindowShow: $changeWindowShow, textNewMessage: $textNewMessage)
+                    MessageChangeView(changeableMessage: $selectedMessage, changeWindowShow: $changeWindowShow, textNewMessage: $textNewMessage)
                 }
                 if(imagesWindowShow == true && imagesPhotosPicker.count > 0){
-                    MessageImagesView(imagesPhotosPicker: $imagesPhotosPicker, imagesImage: $imagesImage)
+                    SelectedMessageImagesView(imagesPhotosPicker: $imagesPhotosPicker, imagesImage: $imagesImage, imagesData: $imagesData)
                 }
 
+                Divider()
                 HStack(spacing: 4){
                     PhotosPicker(
                         selection: $imagesPhotosPicker,
                         maxSelectionCount: 6,
                         matching: .images
                     ){
-                        Image(systemName: "paperclip")
+                        Image(systemName: "photo.circle.fill")
                             .resizable()
-                            .frame(width: 25, height: 25)
-                            .foregroundColor(Color.init(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)))
+                            .frame(width: 32, height: 32)
+                            .background(Color(UIColor.init(hex: "#ffffff") ?? .white))
+                            .cornerRadius(32)
+                            .foregroundColor(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
                             .padding(8)
                     }
                     .onChange(of: imagesPhotosPicker){ newValue in
                         var indexImage = 0
                         Task {
                             imagesImage.removeAll()
+                            imagesData.removeAll()
                             for item in imagesPhotosPicker {
                                 if let data = try? await item.loadTransferable(type: Data.self) {
                                     if let uiImage = UIImage(data: data) {
+                                        imagesData.append(uiImage.jpegData(compressionQuality: 0.1) ?? Data())
                                         let image = Image(uiImage: uiImage)
                                         imagesImage.append(ImageModel(idInt: indexImage, image: image))
                                     }
@@ -121,10 +128,41 @@ struct MessageListView: View {
                         .focused($keyboardIsFocused)
                     if(changeWindowShow != true){
                         Button{
-                            if(textNewMessage != ""){ // если текст есть, то отправляем сообщение
+                            if(imagesImage.count == 0){
+                                if(textNewMessage != ""){ // если текст есть, то отправляем сообщение
+                                    if(!messageListViewModel.getСurrentUserInformation().blockingChat){
+                                        var newMessage = Message(idUser: messageListViewModel.userId, typeMessage: "text", date: nil, text: textNewMessage, countImages: 0, replyIdMessage: replyIdMessage, editing: false)
+                                        messageListViewModel.addMessage(newMessage, imageMessage: imagesData){ (verified, numberImage) in
+                                            if !verified {
+                                                
+                                            }
+                                            else{
+                                                
+                                            }
+                                        }
+                                        replyWindowShow = false
+                                        textNewMessage = ""
+                                        replyIdMessage = ""
+                                    }
+                                    else{
+                                        alertTextTitle = "Отказано!"
+                                        alertTextMessage = "Функция отправки сообщений заблокирована"
+                                        showAlert.toggle()
+                                    }
+                                }
+                            }
+                            else{
                                 if(!messageListViewModel.getСurrentUserInformation().blockingChat){
-                                    var mes = Message(idUser: messageListViewModel.userId, typeMessage: "text", date: nil, text: textNewMessage, idFiles: [""], replyIdMessage: replyIdMessage, editing: false)
-                                    messageListViewModel.addMessage(mes)
+                                    let newMessage = Message(idUser: messageListViewModel.userId, typeMessage: "image", date: nil, text: textNewMessage, countImages: imagesImage.count, replyIdMessage: replyIdMessage, editing: false)
+                                    messageListViewModel.addMessage(newMessage, imageMessage: imagesData){ (verified, idMessage) in
+                                        if !verified {
+                                        }
+                                        else{
+                                            newMessageId = idMessage
+                                        }
+                                    }
+                                    imagesWindowShow = false
+                                    imagesPhotosPicker.removeAll()
                                     replyWindowShow = false
                                     textNewMessage = ""
                                     replyIdMessage = ""
@@ -140,6 +178,8 @@ struct MessageListView: View {
                                 .resizable()
                                 .frame(width: 32, height: 32)
                                 .foregroundColor(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
+                                .background(Color(UIColor.init(hex: "#ffffff") ?? .white))
+                                .cornerRadius(32)
                         }
                         .padding(8)
                     }
@@ -147,10 +187,10 @@ struct MessageListView: View {
                         Button{
                             if(!messageListViewModel.getСurrentUserInformation().blockingChat){
                                 changeWindowShow = false
-                                if(changeableMessage?.text != textNewMessage){
-                                    changeableMessage?.editing = true
-                                    changeableMessage?.text = textNewMessage
-                                    messageListViewModel.updateMessage(changeableMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false))
+                                if(selectedMessage?.text != textNewMessage){
+                                    selectedMessage?.editing = true
+                                    selectedMessage?.text = textNewMessage
+                                    messageListViewModel.updateMessage(selectedMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", countImages: 0, replyIdMessage: "", editing: false))
                                 }
                                 textNewMessage = ""
                             }
@@ -182,23 +222,24 @@ struct MessageListView: View {
             
             if(editingWindowShow == true){
                 VStack{}
-                .frame(
-                    minWidth: 0,
-                    maxWidth: .infinity,
-                    minHeight: 0,
-                    maxHeight: .infinity,
-                    alignment: .topLeading
-                  )
-                .background(.ultraThinMaterial)
-                .onTapGesture {
-                    editingWindowShow = false
-                }
-                
-                if(messageListViewModel.OutgoingOrIncomingMessage(changeableMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false))){
-                    OutgoingMessageEditingView(messageListViewModel: messageListViewModel, userName: messageListViewModel.getUserName(changeableMessage ??  Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false)), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(changeableMessage?.replyIdMessage ?? ""), textResponseMessage: messageListViewModel.getTextResponseMessage(changeableMessage?.replyIdMessage ?? ""), replyIdMessage: $replyIdMessage, changeWindowShow: $changeWindowShow, ChangeableMessage: $changeableMessage, textNewMessage: $textNewMessage, editingWindowShow: $editingWindowShow, replyWindowShow: $replyWindowShow, changeKeyboardIsFocused: $changeKeyboardIsFocused)
+                    .frame(
+                        minWidth: 0,
+                        maxWidth: .infinity,
+                        minHeight: 0,
+                        maxHeight: .infinity,
+                        alignment: .topLeading
+                    )
+                    .background(.ultraThinMaterial)
+                    .onTapGesture {
+                        editingWindowShow = false
+                        openFullSizeImage = false
+                    }
+              
+                if(messageListViewModel.OutgoingOrIncomingMessage(selectedMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", countImages: 0, replyIdMessage: "", editing: false))){
+                    OutgoingMessageEditingView(messageListViewModel: messageListViewModel, userName: messageListViewModel.getUserName(selectedMessage ??  Message(idUser: "", typeMessage: "", date: Date(), text: "", countImages: 0, replyIdMessage: "", editing: false)), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(selectedMessage?.replyIdMessage ?? ""), textResponseMessage: messageListViewModel.getTextResponseMessage(selectedMessage?.replyIdMessage ?? ""), replyIdMessage: $replyIdMessage, changeWindowShow: $changeWindowShow, ChangeableMessage: $selectedMessage, textNewMessage: $textNewMessage, editingWindowShow: $editingWindowShow, replyWindowShow: $replyWindowShow, changeKeyboardIsFocused: $changeKeyboardIsFocused, newMessageId: $newMessageId, selectedMessage: $selectedMessage, selectedImage: $selectedImage, openFullSizeImage: $openFullSizeImage)
                 }
                 else{
-                    IncomingMessageEditingView(messageListViewModel: messageListViewModel, userName: messageListViewModel.getUserName(changeableMessage ??  Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false)), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(changeableMessage?.replyIdMessage ?? ""), textResponseMessage: messageListViewModel.getTextResponseMessage(changeableMessage?.replyIdMessage ?? ""), replyIdMessage: $replyIdMessage, changeWindowShow: $changeWindowShow, ChangeableMessage: $changeableMessage, textNewMessage: $textNewMessage, editingWindowShow: $editingWindowShow, replyWindowShow: $replyWindowShow, changeKeyboardIsFocused: $changeKeyboardIsFocused, showAlert: $showAlert, alertTextTitle: $alertTextTitle, alertTextMessage: $alertTextMessage)
+                    IncomingMessageEditingView(messageListViewModel: messageListViewModel, userName: messageListViewModel.getUserName(selectedMessage ??  Message(idUser: "", typeMessage: "", date: Date(), text: "", countImages: 0, replyIdMessage: "", editing: false)), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(selectedMessage?.replyIdMessage ?? ""), textResponseMessage: messageListViewModel.getTextResponseMessage(selectedMessage?.replyIdMessage ?? ""), replyIdMessage: $replyIdMessage, changeWindowShow: $changeWindowShow, ChangeableMessage: $selectedMessage, textNewMessage: $textNewMessage, editingWindowShow: $editingWindowShow, replyWindowShow: $replyWindowShow, changeKeyboardIsFocused: $changeKeyboardIsFocused, newMessageId: $newMessageId, selectedMessage: $selectedMessage, selectedImage: $selectedImage, openFullSizeImage: $openFullSizeImage, showAlert: $showAlert, alertTextTitle: $alertTextTitle, alertTextMessage: $alertTextMessage)
                 }
             }
         }
@@ -214,8 +255,8 @@ struct ImageModel: Identifiable, Hashable {
     let image: Image
 }
 
-struct MessageListView_Previews: PreviewProvider {
-    static var previews: some View {
-        MessageListView(messageListViewModel: MessageListViewModel())
-    }
-}
+//struct MessageListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MessageListView(messageListViewModel: MessageListViewModel())
+//    }
+//}

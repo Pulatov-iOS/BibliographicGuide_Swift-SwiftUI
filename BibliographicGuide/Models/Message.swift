@@ -15,7 +15,7 @@ struct Message: Identifiable, Codable, Equatable {
     @ServerTimestamp
     var date: Date?
     var text: String
-    var idFiles: [String]
+    var countImages: Int
     var replyIdMessage: String
     var editing: Bool
     

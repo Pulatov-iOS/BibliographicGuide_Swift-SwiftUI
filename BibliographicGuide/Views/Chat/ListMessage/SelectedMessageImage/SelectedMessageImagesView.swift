@@ -8,17 +8,19 @@
 import SwiftUI
 import _PhotosUI_SwiftUI
 
-struct MessageImagesView: View {
+struct SelectedMessageImagesView: View {
     
     @Binding var imagesPhotosPicker: [PhotosPickerItem]
     @Binding var imagesImage: [ImageModel]
+    @Binding var imagesData: [Data]
     
     var body: some View {
+        Divider()
         VStack{
             ScrollView(.horizontal, showsIndicators: false){
                 HStack{
                     ForEach(imagesImage) { image in
-                        MessageImageView(image: image, imagesPhotosPicker: $imagesPhotosPicker)
+                        SelectedMessageImageView(image: image, imagesPhotosPicker: $imagesPhotosPicker, imagesData: $imagesData)
                     }
                 }
                 .frame(height: 94)
@@ -26,14 +28,14 @@ struct MessageImagesView: View {
         }
         .padding(7)
         .frame(height: 94)
-        .background(Color(red: 0.949, green: 0.949, blue: 0.971))
-        Divider()
+        .background(Color(UIColor.init(hex: "#f7f7f7") ?? .white))
+        
     }
 }
 
-//struct MessageImagesView_Previews: PreviewProvider {
+//struct SelectedMessageImagesView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        MessageImagesView()
+//        SelectedMessageImagesView()
 //    }
 //}
 

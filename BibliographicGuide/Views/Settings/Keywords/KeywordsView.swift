@@ -60,10 +60,13 @@ struct KeywordsView: View {
                     .padding(10)
                 }
 
-                ForEach(userInformationListViewModel.keywords) {keyword in
-                    KeywordView(keyword: keyword, idSelectedKeyword: $idSelectedKeyword, newKeywordName: $newKeywordName)
+                ScrollView(.vertical, showsIndicators: false){
+                    ForEach(userInformationListViewModel.keywords) {keyword in
+                        KeywordView(keyword: keyword, idSelectedKeyword: $idSelectedKeyword, newKeywordName: $newKeywordName)
+                    }
                 }
                 Spacer()
+                    
             }
         }
     }

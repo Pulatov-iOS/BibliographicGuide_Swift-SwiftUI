@@ -21,6 +21,11 @@ struct IncomingMessageEditingView: View {
     @Binding var editingWindowShow: Bool
     @Binding var replyWindowShow: Bool
     @Binding var changeKeyboardIsFocused: Bool
+    @Binding var newMessageId: String
+    
+    @Binding var selectedMessage: Message?
+    @Binding var selectedImage: Int
+    @Binding  var openFullSizeImage: Bool
     
     @Binding var showAlert: Bool
     @Binding var alertTextTitle: String
@@ -28,7 +33,7 @@ struct IncomingMessageEditingView: View {
     
     var body: some View {
         VStack(alignment: .leading){
-            IncomingMessageView(messageViewModel: messageListViewModel.MessageToMessageViewModel(ChangeableMessage?.id ?? ""), userName: userName, userNameResponseMessage: userNameResponseMessage, textResponseMessage: textResponseMessage)
+            IncomingMessageView(messageListViewModel: messageListViewModel, messageViewModel: messageListViewModel.MessageToMessageViewModel(ChangeableMessage?.id ?? ""), userName: userName, userNameResponseMessage: userNameResponseMessage, textResponseMessage: textResponseMessage, newMessageId: $newMessageId, selectedMessage: $selectedMessage, selectedImage: $selectedImage, openFullSizeImage: $openFullSizeImage, editingWindowShow: $editingWindowShow, isEditingWindow: false)
             VStack(spacing: 0){
                 HStack{
                     Text("Ответить")

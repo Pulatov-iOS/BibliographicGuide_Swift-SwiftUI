@@ -8,10 +8,11 @@
 import SwiftUI
 import _PhotosUI_SwiftUI
 
-struct MessageImageView: View {
+struct SelectedMessageImageView: View {
     
     @State var image: ImageModel
     @Binding var imagesPhotosPicker: [PhotosPickerItem]
+    @Binding var imagesData: [Data]
     
     var body: some View {
         ZStack{
@@ -27,6 +28,7 @@ struct MessageImageView: View {
                     Button{
                         if(imagesPhotosPicker.count > 0 && imagesPhotosPicker.count > image.idInt){
                             imagesPhotosPicker.remove(at: image.idInt)
+                            imagesData.remove(at: image.idInt)
                         }
                     } label: {
                         Image(systemName: "multiply.circle.fill")
@@ -45,8 +47,8 @@ struct MessageImageView: View {
     }
 }
 
-//struct MessageImageView_Previews: PreviewProvider {
+//struct SelectedMessageImageView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        MessageImageView()
+//        SelectedMessageImageView()
 //    }
 //}

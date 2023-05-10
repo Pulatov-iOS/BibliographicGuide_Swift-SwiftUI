@@ -34,8 +34,15 @@ final class MessageListViewModel: ObservableObject, Equatable {
             .store(in: &cancellables)
     }
     
-    func addMessage(_ message: Message) {
-        messageRepository.addMessage(message)
+    func addMessage(_ message: Message, imageMessage: [Data], completion: @escaping (Bool, String)->Void) {
+        messageRepository.addMessage(message, imageMessage: imageMessage){ (verified, idMessage) in
+            if !verified {
+                completion(false, idMessage)
+            }
+            else{
+                completion(true, idMessage)
+            }
+        }
     }
     
     func updateMessage(_ message: Message) {
@@ -68,7 +75,7 @@ final class MessageListViewModel: ObservableObject, Equatable {
         let newMessage = messageViewModels.filter { (item) -> Bool in
             item.id == replyIdMessage
         }
-        return getUserName(newMessage.first?.message ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false))
+        return getUserName(newMessage.first?.message ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", countImages: 0, replyIdMessage: "", editing: false))
     }
     
     func getTextResponseMessage(_ replyIdMessage: String) -> String{
@@ -91,7 +98,7 @@ final class MessageListViewModel: ObservableObject, Equatable {
         let newMessage = messageViewModels.filter { (item) -> Bool in
             item.id == idMessage
         }
-        return newMessage.first ?? MessageViewModel(message: Message(idUser: "", typeMessage: "", date: Date(), text: "", idFiles: [""], replyIdMessage: "", editing: false))
+        return newMessage.first ?? MessageViewModel(message: Message(idUser: "", typeMessage: "", date: Date(), text: "", countImages: 0, replyIdMessage: "", editing: false))
     }
     
     func getСurrentUserInformation() -> UserInformation{

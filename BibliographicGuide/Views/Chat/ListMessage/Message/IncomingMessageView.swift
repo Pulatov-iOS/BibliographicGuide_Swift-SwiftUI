@@ -10,10 +10,18 @@ import SDWebImageSwiftUI
 
 struct IncomingMessageView: View {
     
+    var messageListViewModel: MessageListViewModel
     var messageViewModel: MessageViewModel
     var userName: String
     var userNameResponseMessage: String
     var textResponseMessage: String
+    @Binding var newMessageId: String
+    
+    @Binding var selectedMessage: Message?
+    @Binding var selectedImage: Int
+    @Binding  var openFullSizeImage: Bool
+    @Binding var editingWindowShow: Bool
+    @State var isEditingWindow = true
     
     var body: some View {
         HStack(alignment: .top) {
@@ -38,6 +46,11 @@ struct IncomingMessageView: View {
                         .fontWeight(.bold)
                         .padding([.top, .leading, .trailing], 8)
                         .clipped()
+                    if(messageViewModel.message.countImages > 0 && messageViewModel.message.replyIdMessage == ""){
+                        VStack{
+                            
+                        }.padding(.bottom, 5)
+                    }
                     if(messageViewModel.message.replyIdMessage != ""){ // отображаем текст ответа на сообщение
                         HStack(){
                             RoundedRectangle(cornerRadius: 1)
@@ -60,69 +73,128 @@ struct IncomingMessageView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                             }
                         }
+                        if(messageViewModel.message.countImages > 0){
+                            VStack{
+                                
+                            }.padding(.bottom, 5)
+                        }
                     }
                     
-                    // Если текст сообщения короткий, то время ставится сразу после него
-                    if((messageViewModel.message.editing == true && labelSizeTimeIncoming(textWithTime: ("\(messageViewModel.message.text)ред.\(messageViewModel.timeMessage(messageViewModel.message.date ?? Date()))")) < UIScreen.screenWidth * 0.65) || (messageViewModel.message.editing == false && labelSizeTimeIncoming(textWithTime: ("\(messageViewModel.message.text)\(messageViewModel.timeMessage(messageViewModel.message.date ?? Date()))")) < UIScreen.screenWidth * 0.65)){
+                    ZStack{
                         HStack{
-                            ZStack{
-                                HStack{
-                                    Text(messageViewModel.message.text)
-                                        .foregroundColor(.black)
-                                        .font(.system(size: 16))
-                                        .padding([.leading, .trailing], 8)
-                                        .padding(.bottom, 6)
-                                        .lineLimit(nil)
-                                    Spacer()
-                                }
+                            if(messageViewModel.message.countImages > 0){
+                                MessageImages(messageListViewModel: messageListViewModel, messageViewModel: messageViewModel, newMessageId: $newMessageId, selectedMessage: $selectedMessage, selectedImage: $selectedImage, openFullSizeImage: $openFullSizeImage)
+                            }
+                        }
+                        // Если изображение без текста
+                        if(messageViewModel.message.text == ""){
+                            VStack{
+                                Spacer()
                                 HStack{
                                     Spacer()
                                     if(messageViewModel.message.editing == true){
                                         Text("ред.")
                                             .font(.caption)
-                                            .foregroundColor(Color(white: 0.6))
+                                            .foregroundColor(Color(.white))
                                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
                                     }
                                     Text(messageViewModel.timeMessage(messageViewModel.message.date ?? Date()))
                                         .font(.caption)
-                                        .foregroundColor(Color(white: 0.6))
+                                        .foregroundColor(Color(white: 0.9))
                                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 8))
                                 }
-                                .frame(maxHeight: 40, alignment: .bottom)
                             }
+                            .frame(maxWidth: UIScreen.screenWidth * 0.66, maxHeight: heightImageOutgoingMessage(messageViewModel))
                         }
                     }
-                    else{
-                        Text(messageViewModel.message.text)
-                            .foregroundColor(.black)
-                            .font(.system(size: 16))
-                            .padding([.leading, .trailing], 8)
-                            .padding(.bottom, 1)
-                            .lineLimit(nil)
-                        HStack{
-                            if(messageViewModel.message.editing == true){
-                                Text("ред.")
+                    
+                    // Если изображение с текстом
+                    if(messageViewModel.message.text != ""){
+                        
+                        // Если текст сообщения короткий, то время ставится сразу после него
+                        if((messageViewModel.message.editing == true && labelSizeTimeIncoming(textWithTime: ("\(messageViewModel.message.text)ред.\(messageViewModel.timeMessage(messageViewModel.message.date ?? Date()))")) < UIScreen.screenWidth * 0.66) || (messageViewModel.message.editing == false && labelSizeTimeIncoming(textWithTime: ("\(messageViewModel.message.text)\(messageViewModel.timeMessage(messageViewModel.message.date ?? Date()))")) < UIScreen.screenWidth * 0.66)){
+                            HStack{
+                                ZStack{
+                                    HStack{
+                                        Text(messageViewModel.message.text)
+                                            .foregroundColor(.black)
+                                            .font(.system(size: 16))
+                                            .padding([.leading, .trailing], 8)
+                                            .padding(.bottom, 6)
+                                            .lineLimit(nil)
+                                        Spacer()
+                                    }
+                                    HStack{
+                                        Spacer()
+                                        if(messageViewModel.message.editing == true){
+                                            Text("ред.")
+                                                .font(.caption)
+                                                .foregroundColor(Color(white: 0.6))
+                                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
+                                        }
+                                        Text(messageViewModel.timeMessage(messageViewModel.message.date ?? Date()))
+                                            .font(.caption)
+                                            .foregroundColor(Color(white: 0.6))
+                                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 8))
+                                    }
+                                    .frame(maxHeight: 40, alignment: .bottom)
+                                }
+                            }
+                        }
+                        else{
+                            Text(messageViewModel.message.text)
+                                .foregroundColor(.black)
+                                .font(.system(size: 16))
+                                .padding([.leading, .trailing], 8)
+                                .padding(.bottom, 1)
+                                .lineLimit(nil)
+                            HStack{
+                                if(messageViewModel.message.editing == true){
+                                    Text("ред.")
                                     
+                                        .font(.caption)
+                                        .foregroundColor(Color(white: 0.6))
+                                        .padding(EdgeInsets(top: 0, leading: 8, bottom: 8, trailing: 0))
+                                }
+                                Text(messageViewModel.timeMessage(messageViewModel.message.date ?? Date()))
                                     .font(.caption)
                                     .foregroundColor(Color(white: 0.6))
-                                    .padding(EdgeInsets(top: 0, leading: 8, bottom: 8, trailing: 0))
+                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 8))
                             }
-                            Text(messageViewModel.timeMessage(messageViewModel.message.date ?? Date()))
-                                .font(.caption)
-                                .foregroundColor(Color(white: 0.6))
-                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 8))
+                            .frame(maxWidth: .infinity, alignment: .trailing)
                         }
-                        .frame(maxWidth: .infinity, alignment: .trailing)
                     }
                 }
+                .onTapGesture {
+
+                }
+                .gesture(
+                    LongPressGesture(minimumDuration: 0.5)
+                        .onEnded { _ in
+                            if(isEditingWindow){
+                                selectedMessage = messageViewModel.message
+                                editingWindowShow.toggle()
+                            }
+                        }
+                )
                 .background(Color(white: 0.9))
                 .cornerRadius(8)
             }
-            .frame(maxWidth: (labelSizeTextIncoming(userName: userName, text: messageViewModel.message.text, time: messageViewModel.timeMessage(messageViewModel.message.date ?? Date()), editing: messageViewModel.message.editing))+24, alignment: .leading) // было 16
-            //.background(Color(.blue))
+            .frame(maxWidth: widthIncomingMessage(messageViewModel: self.messageViewModel, userName: userName, text: messageViewModel.message.text, time: messageViewModel.timeMessage(messageViewModel.message.date ?? Date()), editing: messageViewModel.message.editing), alignment: .leading) // было 16
             Spacer()
         }
     }
+}
+
+func widthIncomingMessage(messageViewModel: MessageViewModel,userName: String, text: String, time: String, editing: Bool) -> CGFloat {
+    var widthMessage: CGFloat
+    if(messageViewModel.message.countImages > 0){
+        widthMessage = UIScreen.screenWidth * 0.66
+    }
+    else{
+        widthMessage = (labelSizeTextIncoming(userName: userName, text: messageViewModel.message.text, time: messageViewModel.timeMessage(messageViewModel.message.date ?? Date()), editing: messageViewModel.message.editing))+24
+    }
+    return widthMessage
 }
 
 // узнать ширину и высоту (имени и текста)
@@ -140,7 +212,7 @@ func labelSizeTextIncoming(userName: String, text: String, time: String, editing
     var widthText: CGFloat
     
     // ширина сообщения, если оно в одну строку
-    if((editing == true && (rect[1].size.width + rect[3].size.width) < UIScreen.screenWidth * 0.65) || (editing == false && (rect[1].size.width + rect[2].size.width) < UIScreen.screenWidth * 0.65)){
+    if((editing == true && (rect[1].size.width + rect[3].size.width) < UIScreen.screenWidth * 0.66) || (editing == false && (rect[1].size.width + rect[2].size.width) < UIScreen.screenWidth * 0.66)){
         
         if((editing == true && rect[0].size.width > (rect[1].size.width + rect[3].size.width)) || (editing == false && rect[0].size.width > (rect[1].size.width + rect[2].size.width))){ // если имя пользователя больше длины сообщения
             widthText = rect[0].size.width - 10
@@ -160,8 +232,8 @@ func labelSizeTextIncoming(userName: String, text: String, time: String, editing
         }
         else{
             // ограничение ширины сообщения в 0.8 от ширины экрана пользователя
-            if(rect[1].size.width > UIScreen.screenWidth * 0.65){
-                widthText = UIScreen.screenWidth * 0.65
+            if(rect[1].size.width > UIScreen.screenWidth * 0.66){
+                widthText = UIScreen.screenWidth * 0.66
             }
             else{
                 widthText = rect[1].size.width
