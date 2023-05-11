@@ -10,7 +10,7 @@ import Foundation
 
 final class RecordListViewModel: ObservableObject {
     
-    let userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
+    var userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
     
     @Published var recordRepository = globalRecordRepository
     @Published var recordViewModels: [RecordViewModel] = []
@@ -48,6 +48,12 @@ final class RecordListViewModel: ObservableObject {
         userInformationRepository.$usersInformation
             .assign(to: \.usersInformation, on: self)
             .store(in: &cancellables)
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("statusChange"), object: nil, queue: .main){
+            (_) in
+            let userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
+            self.userId = userId
+        }
     }
     
     func fetchRecordsSearch(SearchString: String){
@@ -102,7 +108,7 @@ final class RecordListViewModel: ObservableObject {
         let userName = usersInformation.filter { (item) -> Bool in
             item.id == userId
         }
-        return userName.first ?? UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true)
+        return userName.first ?? UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true, reasonBlockingAccount: "")
     }
     
     func checkingEditingTime(_ record: Record, withDescription: Bool) -> String {

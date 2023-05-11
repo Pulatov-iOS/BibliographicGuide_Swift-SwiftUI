@@ -15,7 +15,6 @@ struct SelectedMessageImagesView: View {
     @Binding var imagesData: [Data]
     
     var body: some View {
-        Divider()
         VStack{
             ScrollView(.horizontal, showsIndicators: false){
                 HStack{

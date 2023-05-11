@@ -10,7 +10,7 @@ import Foundation
 
 final class CreateViewModel: ObservableObject {
     
-    let userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
+    var userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
     
     @Published var recordRepository = globalRecordRepository
     
@@ -23,13 +23,19 @@ final class CreateViewModel: ObservableObject {
         userInformationRepository.$usersInformation
             .assign(to: \.usersInformation, on: self)
             .store(in: &cancellables)
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("statusChange"), object: nil, queue: .main){
+            (_) in
+            let userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
+            self.userId = userId
+        }
     }
     
     func getСurrentUserInformation() -> UserInformation{
         let userName = usersInformation.filter { (item) -> Bool in
             item.id == userId
         }
-        return userName.first ?? UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true)
+        return userName.first ?? UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true, reasonBlockingAccount: "")
     }
     
     func addRecord(_ record: Record, ImageTitle: Data, completion: @escaping (Bool, String)->Void){

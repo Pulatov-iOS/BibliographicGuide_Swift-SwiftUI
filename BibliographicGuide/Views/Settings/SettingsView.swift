@@ -123,15 +123,17 @@ struct SettingsView: View {
         .background(Color(red: 0.949, green: 0.949, blue: 0.971))
         .sheet(isPresented: self.$showKeywordsWindow) {
             KeywordsView()
+                .environmentObject(userInformationListViewModel)
         }
         .sheet(isPresented: self.$showUserEditingWindow) {
-            UsersRightsView(userInformationListViewModel: userInformationListViewModel)
+            UsersRightsView()
+                .environmentObject(userInformationListViewModel)
         }
     }
 }
 
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView()
-    }
-}
+//struct SettingsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SettingsView()
+//    }
+//}

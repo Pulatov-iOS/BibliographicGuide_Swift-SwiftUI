@@ -10,7 +10,7 @@ import Foundation
 
 final class ReportViewModel: ObservableObject {
     
-    let userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
+    var userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
     
     @Published var recordRepository = globalRecordRepository
     @Published var recordViewModels: [Record] = []
@@ -21,6 +21,12 @@ final class ReportViewModel: ObservableObject {
         recordRepository.$records
             .assign(to: \.recordViewModels, on: self)
             .store(in: &cancellables)
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("statusChange"), object: nil, queue: .main){
+            (_) in
+            let userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
+            self.userId = userId
+        }
     }
     
     func getRecordsIncludedReport() -> [Record]{

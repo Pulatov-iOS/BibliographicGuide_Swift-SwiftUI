@@ -38,20 +38,6 @@ struct CreateRecordView: View {
     
     var body: some View {
         VStack{
-//                Button("sf"){
-//                    let imageData = imageTitle.jpegData(compressionQuality: 0.1)
-//                    let imageDataDefault = defaultImageTitle?.jpegData(compressionQuality: 0.1)
-//                    let newRecord = Record(idUsers: [""], dateCreation: Date(), datesChange: [], title: "newTitle", year: 2001, keywords: ["id key"], authors: "newAuthors", linkDoi: "newLinkDoi", linkWebsite: "newLinkWebsite", journalName: "newJournalName", journalNumber: "newJournalNumber", pageNumbers: "newPageNumbers", description: "newDescription", pdfRecord: false, idUsersReporting: [], universityRecord: false) // изменить данные
-//                    createViewModel.addRecord(newRecord, ImageTitle: (imageData ?? imageDataDefault)!){ (verified, status) in
-//                        if !verified {
-//
-//                        }
-//                        else{
-//
-//                        }
-//                    }
-//                }
-            
             VStack{
                 Text("Добавить запись".uppercased())
                     .font(.system(.title, design: .rounded))

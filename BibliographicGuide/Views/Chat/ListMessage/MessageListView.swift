@@ -85,9 +85,9 @@ struct MessageListView: View {
                 }
                 if(imagesWindowShow == true && imagesPhotosPicker.count > 0){
                     SelectedMessageImagesView(imagesPhotosPicker: $imagesPhotosPicker, imagesImage: $imagesImage, imagesData: $imagesData)
+                    Divider()
                 }
-
-                Divider()
+                
                 HStack(spacing: 4){
                     PhotosPicker(
                         selection: $imagesPhotosPicker,
@@ -121,7 +121,7 @@ struct MessageListView: View {
                         imagesWindowShow = true
                     }
                         
-                    TextField("Comment", text: $textNewMessage, prompt: Text("Сообщение"), axis: .vertical)
+                    TextField("Comment", text: $textNewMessage, prompt: Text("Сообщение..."), axis: .vertical)
                         .foregroundColor(.black)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .lineLimit(1...5)
@@ -186,13 +186,15 @@ struct MessageListView: View {
                     else{
                         Button{
                             if(!messageListViewModel.getСurrentUserInformation().blockingChat){
-                                changeWindowShow = false
-                                if(selectedMessage?.text != textNewMessage){
-                                    selectedMessage?.editing = true
-                                    selectedMessage?.text = textNewMessage
-                                    messageListViewModel.updateMessage(selectedMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", countImages: 0, replyIdMessage: "", editing: false))
+                                if(textNewMessage != ""){
+                                    changeWindowShow = false
+                                    if(selectedMessage?.text != textNewMessage){
+                                        selectedMessage?.editing = true
+                                        selectedMessage?.text = textNewMessage
+                                        messageListViewModel.updateMessage(selectedMessage ?? Message(idUser: "", typeMessage: "", date: Date(), text: "", countImages: 0, replyIdMessage: "", editing: false))
+                                    }
+                                    textNewMessage = ""
                                 }
-                                textNewMessage = ""
                             }
                             else{
                                 alertTextTitle = "Отказано!"

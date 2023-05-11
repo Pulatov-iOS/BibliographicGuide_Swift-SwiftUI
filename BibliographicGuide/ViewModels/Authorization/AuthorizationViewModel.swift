@@ -5,16 +5,19 @@
 //  Created by Alexander on 3.04.23.
 //
 
+import Combine
 import Foundation
 
 final class AuthorizationViewModel: ObservableObject {
     
-    @Published var authorizationRepository = AuthorizationRepository()
+    @Published var authorizationRepository = globalAuthorizationRepository
+    @Published var userInformationRepository = globalUserInformationRepository
+    @Published var currentUserInformation: UserInformation?
     
     @Published var statusCheckEmail = false
     @Published var statusCheckEmailPassword = false
     @Published var textAuthorizationError = ""
-  
+    
     func authorizationWithEmail(email: String, password: String, completion: @escaping
                                 (Bool, [String])->Void) {
         if(email != "" && password != ""){
@@ -45,7 +48,19 @@ final class AuthorizationViewModel: ObservableObject {
                     }
                 }
                 else{
-                    completion(true, ["Ок"])
+                    self.userInformationRepository.getCurrentUserInformation(status){ (verified, idMessage) in
+                        if !verified {
+                            completion(false, ["Ошибка авторизации!", "Проверьте подключение к сети или повторите попытку позже", ""])
+                        }
+                        else{
+                            if(!((idMessage.blockingAccount))){
+                                completion(true, [status])
+                            }
+                            else{
+                                completion(false, ["Заблокирован", "Ваша учетная запись заблокирована.\nПричина: \(idMessage.reasonBlockingAccount)", ""])
+                            }
+                        }
+                    }
                 }
             }
         }

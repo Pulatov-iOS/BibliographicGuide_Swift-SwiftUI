@@ -10,7 +10,7 @@ import Foundation
 
 final class MessageListViewModel: ObservableObject, Equatable {
     
-    let userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
+    var userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
     
     @Published var messageRepository = globalMessageRepository
     @Published var messageViewModels: [MessageViewModel] = []
@@ -32,6 +32,12 @@ final class MessageListViewModel: ObservableObject, Equatable {
         userInformationRepository.$usersInformation
             .assign(to: \.usersInformation, on: self)
             .store(in: &cancellables)
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("statusChange"), object: nil, queue: .main){
+            (_) in
+            let userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
+            self.userId = userId
+        }
     }
     
     func addMessage(_ message: Message, imageMessage: [Data], completion: @escaping (Bool, String)->Void) {
@@ -85,6 +91,13 @@ final class MessageListViewModel: ObservableObject, Equatable {
         return newMessage.first?.message.text ?? ""
     }
     
+    func getCountImagesResponseMessage(_ replyIdMessage: String) -> Int{
+        let newMessage = messageViewModels.filter { (item) -> Bool in
+            item.id == replyIdMessage
+        }
+        return newMessage.first?.message.countImages ?? 0
+    }
+    
     func OutgoingOrIncomingMessage(_ message: Message) -> Bool{
         if(message.idUser == userId){
             return true
@@ -105,14 +118,14 @@ final class MessageListViewModel: ObservableObject, Equatable {
         let userName = usersInformation.filter { (item) -> Bool in
             item.id == userId
         }
-        return userName.first ?? UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true)
+        return userName.first ?? UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true, reasonBlockingAccount: "")
     }
     
     func getUserInformation(idUser: String) -> UserInformation{
         let userName = usersInformation.filter { (item) -> Bool in
             item.id == idUser
         }
-        return userName.first ?? UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true)
+        return userName.first ?? UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true, reasonBlockingAccount: "")
     }
     
     func showDateMessage(_ message: Message) -> Bool{

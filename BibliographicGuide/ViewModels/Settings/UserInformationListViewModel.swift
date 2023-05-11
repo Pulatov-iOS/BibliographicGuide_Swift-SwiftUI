@@ -10,7 +10,7 @@ import Combine
 
 final class UserInformationListViewModel: ObservableObject {
     
-    let userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
+    var userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
     
     @Published var userInformationRepository = globalUserInformationRepository
     @Published var usersInformationViewModel: [UserInformationViewModel] = []
@@ -31,13 +31,19 @@ final class UserInformationListViewModel: ObservableObject {
         keywordRepository.$keywords
             .assign(to: \.keywords, on: self)
             .store(in: &cancellables)
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("statusChange"), object: nil, queue: .main){
+            (_) in
+            let userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
+            self.userId = userId
+        }
     }
     
     func getСurrentUserInformation() -> UserInformation{
         let userName = usersInformationViewModel.filter { (item) -> Bool in
             item.id == userId
         }
-        return userName.first?.userInformation ?? UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true)
+        return userName.first?.userInformation ?? UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true, reasonBlockingAccount: "")
     }
     
     func updateUserInformation(_ newUserName: String, completion: @escaping (Bool, String)->Void){
@@ -84,6 +90,7 @@ final class UserInformationListViewModel: ObservableObject {
     
     func exitOfAccount(){
         UserDefaults.standard.set(false, forKey: "status")
+        UserDefaults.standard.set("", forKey: "userId")
         NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
     }
 }

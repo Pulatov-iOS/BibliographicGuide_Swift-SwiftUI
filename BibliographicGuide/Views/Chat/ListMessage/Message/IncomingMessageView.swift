@@ -65,12 +65,32 @@ struct IncomingMessageView: View {
                                     .padding(EdgeInsets(top: 3, leading: 0, bottom: 0, trailing: 4))
                                     .lineLimit(1)
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                Text(textResponseMessage)
-                                    .font(.system(size: 15))
-                                    .foregroundColor(.white)
-                                    .padding(.trailing, 4)
-                                    .lineLimit(1)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                if(textResponseMessage != ""){
+                                    Text(textResponseMessage)
+                                        .font(.system(size: 15))
+                                        .foregroundColor(.white)
+                                        .padding(.trailing, 4)
+                                        .lineLimit(1)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                }
+                                else{
+                                    if(messageListViewModel.getCountImagesResponseMessage(messageViewModel.message.replyIdMessage) == 1){
+                                        Text("[Фотография]")
+                                            .font(.system(size: 15))
+                                            .foregroundColor(.white)
+                                            .padding(.trailing, 4)
+                                            .lineLimit(1)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                    }
+                                    else{
+                                        Text("[Фотографии]")
+                                            .font(.system(size: 15))
+                                            .foregroundColor(.white)
+                                            .padding(.trailing, 4)
+                                            .lineLimit(1)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                    }
+                                }
                             }
                         }
                         if(messageViewModel.message.countImages > 0){

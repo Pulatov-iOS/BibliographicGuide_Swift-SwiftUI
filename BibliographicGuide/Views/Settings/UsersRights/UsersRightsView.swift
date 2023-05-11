@@ -9,9 +9,9 @@ import SwiftUI
 
 struct UsersRightsView: View {
     
-    @State var userInformationListViewModel: UserInformationListViewModel
+    @EnvironmentObject var userInformationListViewModel: UserInformationListViewModel
     @State private var showUserRightsWindow: Bool = false
-    @State var userInformationViewModel = UserInformationViewModel(userInformation: UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true))
+    @State var userInformationViewModel = UserInformationViewModel(userInformation: UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true, reasonBlockingAccount: ""))
     @State var isSearching = false
     
     var body: some View {
@@ -48,7 +48,8 @@ struct UsersRightsView: View {
                 Spacer()
             }
             .sheet(isPresented: self.$showUserRightsWindow) {
-                UserRightsView(userInformationListViewModel: userInformationListViewModel, userInformationViewModel: $userInformationViewModel)
+                UserRightsView(userInformationViewModel: $userInformationViewModel)
+                    .environmentObject(userInformationListViewModel)
             }
         }
     }

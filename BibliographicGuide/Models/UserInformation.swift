@@ -14,5 +14,6 @@ struct UserInformation: Identifiable, Codable {
     var userName: String
     var blockingChat: Bool
     var blockingAccount: Bool
+    var reasonBlockingAccount: String
     
 }

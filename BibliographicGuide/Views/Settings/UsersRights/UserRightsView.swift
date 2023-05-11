@@ -9,13 +9,14 @@ import SwiftUI
 
 struct UserRightsView: View {
     
-    @State var userInformationListViewModel: UserInformationListViewModel
+    @EnvironmentObject var userInformationListViewModel: UserInformationListViewModel
     @Binding var userInformationViewModel: UserInformationViewModel
     
     @State private var isBlockingChat = false
     @State private var blockingAccount = false
     @State private var currentDate = Date()
     @State var newUserName = ""
+    @State var reasonBlockingAccount = ""
     
     var body: some View {
         NavigationView{
@@ -46,16 +47,6 @@ struct UserRightsView: View {
                         }
                     }
                     HStack{
-                        VStack{
-                            HStack{
-                                Text("Дата разблокирования чата:")
-                                Spacer()
-                            }
-                            DatePicker("", selection: $currentDate, displayedComponents: [.date, .hourAndMinute])
-                                .labelsHidden()
-                        }
-                    }
-                    HStack{
                         Text("Блокировка учетной записи:")
                         Toggle("", isOn: $blockingAccount).onTapGesture {
                             blockingAccount.toggle()
@@ -66,6 +57,20 @@ struct UserRightsView: View {
                                 
                             }
                         }
+                    }
+                    HStack{
+                        Text("Причина блокировки учетной записи:")
+                        TextField(userInformationViewModel.userInformation.reasonBlockingAccount, text: $reasonBlockingAccount)
+                        Spacer()
+                        Button{
+                           
+                        } label: {
+                            Image(systemName: "doc.text")
+                                .resizable()
+                                .frame(width: 20, height: 28)
+                                .foregroundColor(Color.black)
+                        }
+                        .padding(8)
                     }
                     HStack{
                         Text("Новое имя польз.:")

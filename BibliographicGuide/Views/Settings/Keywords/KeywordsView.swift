@@ -63,6 +63,7 @@ struct KeywordsView: View {
                 ScrollView(.vertical, showsIndicators: false){
                     ForEach(userInformationListViewModel.keywords) {keyword in
                         KeywordView(keyword: keyword, idSelectedKeyword: $idSelectedKeyword, newKeywordName: $newKeywordName)
+                            .environmentObject(userInformationListViewModel)
                     }
                 }
                 Spacer()
@@ -72,8 +73,8 @@ struct KeywordsView: View {
     }
 }
 
-struct KeywordsView_Previews: PreviewProvider {
-    static var previews: some View {
-        KeywordsView()
-    }
-}
+//struct KeywordsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        KeywordsView()
+//    }
+//}
