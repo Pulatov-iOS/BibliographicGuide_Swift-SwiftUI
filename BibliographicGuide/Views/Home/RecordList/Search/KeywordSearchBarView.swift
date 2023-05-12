@@ -34,12 +34,8 @@ struct KeywordSearchBarView: View {
                 }
                 .padding([.leading, .trailing], 10)
                 .padding([.top, .bottom], 5)
-                .background(Color.white)
+                .background(Color(UIColor.init(hex: "#f2f2f7") ?? .gray))
                 .cornerRadius(10)
-                .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(.gray, lineWidth: 1)
-                    )
                 .onTapGesture {
                     keywordsSearch += 1
                     recordListViewModel.sortingKeyword(keyword)

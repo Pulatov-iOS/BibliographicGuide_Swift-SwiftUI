@@ -1,16 +1,14 @@
 //
-//  SearchBarView.swift
+//  SearchBarCreateView.swift
 //  BibliographicGuide
 //
-//  Created by Alexander on 18.04.23.
+//  Created by Alexander on 12.05.23.
 //
 
 import SwiftUI
 
-struct SearchBarHomeView: View {
+struct SearchBarCreateView: View {
     
-    @EnvironmentObject var recordListViewModel: RecordListViewModel
-
     @Binding var textSearch: String
     @Binding var isSearching: Bool
     
@@ -27,7 +25,7 @@ struct SearchBarHomeView: View {
                             .foregroundColor(.gray)
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 8)
-                 
+                        
                         if isSearching {
                             Button(action: {
                                 self.textSearch = ""
@@ -43,12 +41,12 @@ struct SearchBarHomeView: View {
                 .onTapGesture {
                     self.isSearching = true
                 }
-
+            
             if isSearching {
                 Button(action: {
                     self.isSearching = false
                     self.textSearch = ""
-             
+                    
                     // Dismiss the keyboard
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }) {
@@ -59,14 +57,11 @@ struct SearchBarHomeView: View {
                 .animation(.default)
             }
         }
-        .onChange(of: textSearch){ newValue in
-            recordListViewModel.fetchRecordsSearch(SearchString: textSearch)
-        }
     }
 }
 
-//struct SearchBarHomeView_Previews: PreviewProvider {
+//struct SearchBarCreateView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        SearchBarHomeView()
+//        SearchBarCreateView()
 //    }
 //}

@@ -21,9 +21,9 @@ struct MessageFullSizeImageView: View {
             VStack{
                 ZStack{
                     HStack{
-                        Image(systemName: "arrowtriangle.backward.fill")
+                        Image(systemName: "chevron.backward")
                             .resizable()
-                            .frame(width: 15, height: 15)
+                            .frame(width: 8, height: 15)
                         Text("Назад")
                             .font(.headline)
                         Spacer()

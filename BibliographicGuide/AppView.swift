@@ -53,7 +53,7 @@ struct AppView: App {
                                     Image(systemName: "message.badge")
                                     Text("Chat")
                                 }
-                            CreateRecordView(createViewModel: CreateViewModel())
+                            CreateRecordView(createRecordViewModel: CreateRecordViewModel())
                                 .tabItem {
                                     Image(systemName: "square.and.pencil")
                                     Text("Add Record")

@@ -8,11 +8,17 @@
 import Combine
 import Foundation
 
-final class CreateViewModel: ObservableObject {
+final class CreateRecordViewModel: ObservableObject {
     
     var userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
     
     @Published var recordRepository = globalRecordRepository
+    
+    @Published var keywordRepository = globalKeywordRepository
+    @Published var keywords: [Keyword] = []
+    @Published var selectedKeywordsId: [String] = []
+    @Published var selectedKeywords: [Keyword] = []
+    @Published var searchKeywords: [Keyword] = []
     
     @Published var userInformationRepository = globalUserInformationRepository
     @Published var usersInformation: [UserInformation] = []
@@ -20,6 +26,10 @@ final class CreateViewModel: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     init(){
+        keywordRepository.$keywords
+            .assign(to: \.keywords, on: self)
+            .store(in: &cancellables)
+        
         userInformationRepository.$usersInformation
             .assign(to: \.usersInformation, on: self)
             .store(in: &cancellables)
@@ -28,6 +38,16 @@ final class CreateViewModel: ObservableObject {
             (_) in
             let userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
             self.userId = userId
+        }
+    }
+    
+    func fetchKeywordsSearch(SearchString: String){
+        if(SearchString != ""){
+            searchKeywords = keywords.filter{ $0.name.lowercased().contains(SearchString.lowercased())
+            }
+        }
+        else{
+            searchKeywords = keywords
         }
     }
     
@@ -51,6 +71,24 @@ final class CreateViewModel: ObservableObject {
             else{
                 completion(true, "Запись успешно создана.")
             }
+        }
+    }
+    
+    func sortingKeyword(_ keyword: Keyword){
+        if(selectedKeywordsId.contains(keyword.id ?? "")){
+            selectedKeywordsId.remove(at: selectedKeywordsId.firstIndex(of: keyword.id ?? "") ?? 999999)
+        }
+        else{
+            selectedKeywordsId.append(keyword.id ?? "")
+        }
+        globalKeywordRepository.selectedKeywordsSearch = selectedKeywordsId
+        globalKeywordRepository.sortingKeywords()
+    }
+    
+    func keywordsIdToKeywords(){
+        selectedKeywords.removeAll()
+        for keyword in selectedKeywordsId {
+            selectedKeywords.append(keywords.first(where: { $0.id == keyword }) ?? Keyword(name: ""))
         }
     }
 }

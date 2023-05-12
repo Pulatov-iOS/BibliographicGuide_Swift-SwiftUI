@@ -49,7 +49,7 @@ struct RecordListView: View {
     var body: some View {
         VStack{
             
-            SearchBarView(textSearch: $textSearch, isSearching: $isSearching)
+            SearchBarHomeView(textSearch: $textSearch, isSearching: $isSearching)
                 .padding(.vertical, 10)
             
             if(isSearching == true){
@@ -71,13 +71,18 @@ struct RecordListView: View {
                     if(showTopFiveRecords == true){
                         VStack(alignment: .leading) {
                             HStack{
-                                Text("По дате изменения:")
-                                    .font(.headline)
-                                    .padding(.leading, 15)
-                                    .padding(.top, 5)
+//                                Text("По дате изменения:")
+//                                    .font(.headline)
+//                                    .padding(.leading, 15)
+//                                    .padding(.top, 5)
                                 Spacer()
-                                Button("скрыть"){
-                                    showTopFiveRecords.toggle()
+                                HStack(spacing: 0){
+                                    Button("Скрыть"){
+                                        showTopFiveRecords.toggle()
+                                    }
+                                    .padding(.trailing, 5)
+                                    Image(systemName: "chevron.up")
+                                        .foregroundColor(.blue)
                                 }
                                 .padding(.trailing, 15)
                             }
@@ -120,8 +125,13 @@ struct RecordListView: View {
                     else{
                         HStack{
                             Spacer()
-                            Button("Показать"){
-                                showTopFiveRecords.toggle()
+                            HStack(spacing: 0){
+                                Button("Показать"){
+                                    showTopFiveRecords.toggle()
+                                }
+                                .padding(.trailing, 5)
+                                Image(systemName: "chevron.down")
+                                    .foregroundColor(.blue)
                             }
                             .padding(.trailing, 15)
                         }
