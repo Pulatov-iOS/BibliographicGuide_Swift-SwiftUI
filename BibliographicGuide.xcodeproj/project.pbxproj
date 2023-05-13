@@ -26,6 +26,7 @@
 		11274DBB2A0E52C8008B9EF0 /* SearchBarCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DBA2A0E52C8008B9EF0 /* SearchBarCreateView.swift */; };
 		11274DC02A0E5D2C008B9EF0 /* KeywordsSelectionCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DBF2A0E5D2C008B9EF0 /* KeywordsSelectionCreateView.swift */; };
 		11274DC22A0E5E2A008B9EF0 /* KeywordsSelectionSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DC12A0E5E2A008B9EF0 /* KeywordsSelectionSearchView.swift */; };
+		11274DC42A0FA86C008B9EF0 /* CreateReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DC32A0FA86C008B9EF0 /* CreateReportView.swift */; };
 		1132A02329D3219C0007B181 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A02229D3219C0007B181 /* AppView.swift */; };
 		1132A02729D3219D0007B181 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1132A02629D3219D0007B181 /* Assets.xcassets */; };
 		1132A02A29D3219D0007B181 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1132A02929D3219D0007B181 /* Preview Assets.xcassets */; };
@@ -121,6 +122,7 @@
 		11274DBA2A0E52C8008B9EF0 /* SearchBarCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarCreateView.swift; sourceTree = "<group>"; };
 		11274DBF2A0E5D2C008B9EF0 /* KeywordsSelectionCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordsSelectionCreateView.swift; sourceTree = "<group>"; };
 		11274DC12A0E5E2A008B9EF0 /* KeywordsSelectionSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeywordsSelectionSearchView.swift; path = BibliographicGuide/Views/Create/Pages/KeywordsSelectionSearchView.swift; sourceTree = SOURCE_ROOT; };
+		11274DC32A0FA86C008B9EF0 /* CreateReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateReportView.swift; sourceTree = "<group>"; };
 		1132A01F29D3219C0007B181 /* BibliographicGuide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BibliographicGuide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1132A02229D3219C0007B181 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		1132A02629D3219D0007B181 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -593,6 +595,7 @@
 			isa = PBXGroup;
 			children = (
 				1148683129F0A79200C698D6 /* ReportView.swift */,
+				11274DC32A0FA86C008B9EF0 /* CreateReportView.swift */,
 				1148683529F0A9E400C698D6 /* Detail */,
 			);
 			path = Report;
@@ -962,6 +965,7 @@
 				11274D982A07AFA1008B9EF0 /* MessageReplyView.swift in Sources */,
 				11274DAC2A0D4EB0008B9EF0 /* AppViewModel.swift in Sources */,
 				1148682029EE03B300C698D6 /* CreateRecordViewModel.swift in Sources */,
+				11274DC42A0FA86C008B9EF0 /* CreateReportView.swift in Sources */,
 				11274DB02A0D9614008B9EF0 /* FirstPageCreateRecordView.swift in Sources */,
 				11274D9D2A08574A008B9EF0 /* SelectedMessageImageView.swift in Sources */,
 				116A631F29FE8A880024C357 /* Keyword.swift in Sources */,

@@ -19,7 +19,8 @@ struct SearchBarHomeView: View {
             TextField("Поиск ...", text: $textSearch)
                 .padding(7)
                 .padding(.horizontal, 25)
-                .background(Color(.systemGray6))
+//                .background(Color(.systemGray6))
+                .background(Color.white)
                 .cornerRadius(8)
                 .overlay(
                     HStack {

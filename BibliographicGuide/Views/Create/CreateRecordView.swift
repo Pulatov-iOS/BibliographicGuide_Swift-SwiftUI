@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CreateRecordView: View {
     
-    @ObservedObject var createRecordViewModel: CreateRecordViewModel
+    @EnvironmentObject var createRecordViewModel: CreateRecordViewModel
     
     @State var newTitle = ""
     @State var newAuthors = ""
@@ -21,6 +21,8 @@ struct CreateRecordView: View {
     @State var newLinkWebsite = ""
     @State var newDescription = ""
     @State var newUniversityRecord = false
+    
+    @State var countKeywordsSelected = 0
     
     @State var showAlertCreate: Bool = false
     @State var alertTextCreateTitle: String = "Отказано"
@@ -34,7 +36,7 @@ struct CreateRecordView: View {
                 FirstPageViewCreateRecord(createRecordViewModel: createRecordViewModel, newTitle: $newTitle, newAuthors: $newAuthors, newYear: $newYear, newJournalName: $newJournalName, newJournalNumber: $newJournalNumber, newPageNumbers: $newPageNumbers, newLinkDoi: $newLinkDoi, newLinkWebsite: $newLinkWebsite, showAlertCreate: $showAlertCreate, alertTextCreateTitle: $alertTextCreateTitle, alertTextCreateMessage: $alertTextCreateMessage, pageCreateRecord: $pageCreateRecord)
             }
             else{
-                SecondPageCreateRecord(createRecordViewModel: createRecordViewModel, newTitle: $newTitle, newAuthors: $newAuthors, newYear: $newYear, newJournalName: $newJournalName, newJournalNumber: $newJournalNumber, newPageNumbers: $newPageNumbers, newLinkDoi: $newLinkDoi, newLinkWebsite: $newLinkWebsite, newDescription: $newDescription, newUniversityRecord: $newUniversityRecord, showAlertCreate: $showAlertCreate, alertTextCreateTitle: $alertTextCreateTitle, alertTextCreateMessage: $alertTextCreateMessage, pageCreateRecord: $pageCreateRecord)
+                SecondPageCreateRecord(createRecordViewModel: createRecordViewModel, newTitle: $newTitle, newAuthors: $newAuthors, newYear: $newYear, newJournalName: $newJournalName, newJournalNumber: $newJournalNumber, newPageNumbers: $newPageNumbers, newLinkDoi: $newLinkDoi, newLinkWebsite: $newLinkWebsite, newDescription: $newDescription, newUniversityRecord: $newUniversityRecord, countKeywordsSelected: $countKeywordsSelected, showAlertCreate: $showAlertCreate, alertTextCreateTitle: $alertTextCreateTitle, alertTextCreateMessage: $alertTextCreateMessage, pageCreateRecord: $pageCreateRecord)
             }
         }
     }

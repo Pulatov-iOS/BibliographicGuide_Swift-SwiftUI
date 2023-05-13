@@ -28,6 +28,7 @@ struct AppView: App {
     
     @StateObject var appViewModel: AppViewModel = AppViewModel()
     @StateObject var recordListViewModel: RecordListViewModel = RecordListViewModel()
+    @StateObject var createRecordViewModel: CreateRecordViewModel = CreateRecordViewModel()
     @StateObject var userInformationListViewModel: UserInformationListViewModel = UserInformationListViewModel()
     
     @State private var selectedMessage: Message?
@@ -53,12 +54,13 @@ struct AppView: App {
                                     Image(systemName: "message.badge")
                                     Text("Chat")
                                 }
-                            CreateRecordView(createRecordViewModel: CreateRecordViewModel())
+                            CreateRecordView()
                                 .tabItem {
                                     Image(systemName: "square.and.pencil")
                                     Text("Add Record")
                                 }
-                            ReportView(reportViewModel: ReportViewModel())
+                                .environmentObject(createRecordViewModel)
+                            ReportView()
                                 .tabItem {
                                     Image(systemName: "list.bullet.clipboard")
                                     Text("Report")

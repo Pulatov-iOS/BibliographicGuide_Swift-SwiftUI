@@ -9,84 +9,63 @@ import SwiftUI
 
 struct ReportView: View {
     
-    @ObservedObject var reportViewModel: ReportViewModel
-    @State var newTitleReport = ""
-    @State var newCreatorReport = ""
+    @State private var showCreateReportWindow = false
     
     var body: some View {
-        NavigationView {
+        ZStack{
             VStack{
-            Text("Создать отчет".uppercased())
-                .font(.system(.title, design: .rounded))
-                .fontWeight(.bold)
-                .frame(minWidth: 200)
-                .padding(.top, 26)
-            NavigationView {
-                Form {
-                    Section() {
-                        HStack {
-                            Text("Название отчета:")
-                                .foregroundColor(Color.gray)
-                            Spacer()
-                            TextField("", text: $newTitleReport)
-                        }
-                        HStack {
-                            Text("Создатель:")
-                                .foregroundColor(Color.gray)
-                            Spacer()
-                            TextField("", text: $newCreatorReport)
-                        }
-                        HStack {
-                            Text("Кол-во записей в отчете:")
-                                .foregroundColor(Color.gray)
-                            Spacer()
-                            //   Text(String(viewModelReport.bibliographicRecordInReport.count))
-                        }
-                        HStack {
-                            Text("Формат отчета:")
-                                .foregroundColor(Color.gray)
-                            Spacer()
-                            Text(".pdf")
-                        }
+                ZStack{
+                    List{
+                        ForEach(0...1, id: \.self) { (item) in
+                            Text("названание")
+                                   }.onDelete(perform: self.deleteItem)
+                        Text("ФИО")
+                        Text("Дата созд")
+                        Text("Колво статей")
                     }
-                }
-                
-            }
-            .navigationViewStyle(StackNavigationViewStyle())
-            
-            HStack{
-                Button{
-                    clear()
-                    hideKeyboard()
-                } label:{
-                    Text("Очистить").foregroundColor(.black).padding().frame(width: UIScreen.main.bounds.width - 260)
-                }.background(Color(red: 0.949, green: 0.949, blue: 0.971))
-                    .clipShape(Capsule())
-                
-                HStack() {
-                    NavigationLink(destination : PdfPreviewView(reportViewModel: reportViewModel, recordsIncludedReport: reportViewModel.getRecordsIncludedReport(), newTitleReport: newTitleReport, newCreatorReport: newCreatorReport) ){
-                        Text("Создать")
-                            .foregroundColor(.black)
-                            .padding()
-                            .frame(width: UIScreen.main.bounds.width - 230)
-                            .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
-                            .clipShape(Capsule())
+                    .padding(.top, 45)
+                    VStack{
+                        HStack{
+                            Text("Отчеты".uppercased())
+                                .font(.system(.title, design: .rounded))
+                                .fontWeight(.bold)
+                                .padding(EdgeInsets(top: 25, leading: 0, bottom: 10, trailing: 0))
+                                .frame(width: UIScreen.screenWidth)
+                        }
+                        .background(Color(red: 0.949, green: 0.949, blue: 0.971))
+                        Spacer()
                     }
                 }
             }
-            .padding(.bottom, 330)
+            VStack{
+                Spacer()
+                HStack{
+                    Spacer()
+                    VStack{
+                        Image(systemName: "plus")
+                            .resizable()
+                            .frame(width: 20, height: 20)
+                            .foregroundColor(Color.white)
+                    }
+                    .onTapGesture {
+                        showCreateReportWindow = true
+                    }
+                    .frame(width: 50, height: 50)
+                    .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
+                    .cornerRadius(50)
+                    .padding(30)
+                }
+            }
+
+        }
+        .sheet(isPresented: self.$showCreateReportWindow) {
+            CreateReportView(reportViewModel: ReportViewModel())
         }
         .background(Color(red: 0.949, green: 0.949, blue: 0.971))
-        }
-        .background(Color(red: 0.949, green: 0.949, blue: 0.971))
-    }
-    func clear(){
-        newTitleReport = ""
-        newCreatorReport = ""
     }
     
-    func hideKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    private func deleteItem(at indexSet: IndexSet) {
+     //      self.listItems.remove(atOffsets: indexSet)
     }
 }
 

@@ -27,7 +27,7 @@ struct SecondPageCreateRecord: View {
     @State private var showImagePicker = false
     @State private var showKeywordsWindow = false
     
-    @State var countKeywordsSelected = 0
+    @Binding var countKeywordsSelected: Int
     
     @Binding var showAlertCreate: Bool
     @State var showAlertCreateError = false
@@ -83,6 +83,7 @@ struct SecondPageCreateRecord: View {
                                             Spacer()
                                         }
                                         HStack{
+                                            Spacer()
                                             Toggle("", isOn: $newUniversityRecord)
                                                 .onTapGesture {
                                                     newUniversityRecord.toggle()
@@ -93,7 +94,6 @@ struct SecondPageCreateRecord: View {
                                                         
                                                     }
                                                 }
-                                            Spacer()
                                         }
                                     }
                                 }
@@ -111,7 +111,7 @@ struct SecondPageCreateRecord: View {
                                             }
                                             .foregroundColor(.blue)
                                     }
-                                    KeywordsSelectionCreateView(createRecordViewModel: createRecordViewModel, countKeywordsSelected: $countKeywordsSelected)
+                                    KeywordsSelectionCreateView(createRecordViewModel: createRecordViewModel, countKeywordsSelected: $countKeywordsSelected)                               
                                 }
                             }
                         }
@@ -148,9 +148,11 @@ struct SecondPageCreateRecord: View {
                     HStack{
                         Button{
                             clean()
+                            countKeywordsSelected = 0
+                            createRecordViewModel.selectedKeywordsId.removeAll()
                             pageCreateRecord = 1
                         } label:{
-                            Text("Очистить").foregroundColor(.black).padding().frame(width: UIScreen.main.bounds.width - 230)
+                            Text("Очистить").foregroundColor(.black).padding().frame(width: 160)
                         }.background(Color(red: 0.949, green: 0.949, blue: 0.971))
                             .clipShape(Capsule())
                         
@@ -182,7 +184,7 @@ struct SecondPageCreateRecord: View {
                             }
                         }) {
                             HStack {
-                                Text("Сохранить").foregroundColor(.black).padding().frame(width: UIScreen.main.bounds.width - 230)
+                                Text("Сохранить").foregroundColor(.black).padding().frame(width: 160)
                             }
                             .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
                             .clipShape(Capsule())

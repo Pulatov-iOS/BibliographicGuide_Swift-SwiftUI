@@ -179,6 +179,7 @@ struct RecordListView: View {
             .edgesIgnoringSafeArea(.all)
             .padding(0)
         }
+        .background(Color(red: 0.949, green: 0.949, blue: 0.971))
     }
 //    // свайп влево, удаление
 //    private func delete(at offsets: IndexSet) {
