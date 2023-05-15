@@ -77,7 +77,7 @@ struct RecordView: View {
                     
                     VStack{
                         Button(action: {
-                            recordListViewModel.updateInclusionReport(record: recordViewModel.record, inclusionReport: !inclusionReportButton){ (verified, status) in
+                            recordListViewModel.updateIncludedRecordInReport(record: recordViewModel.record, inclusionReport: !inclusionReportButton){ (verified, status) in
                                 if !verified  {
                                     alertTextEditingTitle = "Ошибка"
                                     alertTextEditingMessage = "Запись не была добавлена в список отчета."
@@ -85,10 +85,9 @@ struct RecordView: View {
                                 else{
                                     alertTextEditingTitle = "Успешно"
                                     alertTextEditingMessage = "Запись успешно добавлена в список отчета."
-                                    if(inclusionReportButton != true){
+                                    if(inclusionReportButton == true){
                                         showAlertInclusionReport.toggle()
                                     }
-                                    inclusionReportButton.toggle()
                                 }
                             }
                         }) {
@@ -105,7 +104,10 @@ struct RecordView: View {
                                 dismissButton: .default(Text("Ок")))
                         }
                         .onAppear(){
-                            inclusionReportButton = recordListViewModel.checkInclusionReport(recordViewModel.record)
+                            inclusionReportButton = recordListViewModel.checkInclusionReport(recordViewModel.record.idUsersReporting)
+                        }
+                        .onChange(of: recordViewModel.record.idUsersReporting){ Value in
+                            inclusionReportButton = recordListViewModel.checkInclusionReport(Value)
                         }
                     }
                 }
@@ -115,15 +117,19 @@ struct RecordView: View {
                 )
             }
 
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: 8) {
                 Text(recordViewModel.record.title)
                     .font(.system(.headline, design: .default))
                     .lineLimit(2)
+                    .padding(.trailing, 5)
+                    .padding(.leading, 6)
                 RecordDescriptionView(recordListViewModel: recordListViewModel, recordViewModel: recordViewModel)
+                    .padding(.trailing, 5)
+                    .padding(.leading, 6)
             }
             .padding(0)
             .padding([.top, .bottom], 12)
-            
+            .background(Color.white)
         }
         .background(Color("ColorBackgroundAdaptive"))
         .cornerRadius(12)

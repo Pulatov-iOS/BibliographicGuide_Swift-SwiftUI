@@ -9,7 +9,8 @@ import SwiftUI
 
 struct PdfPreviewView: View {
     
-    var reportViewModel: ReportViewModel
+    @EnvironmentObject var reportViewModel: ReportViewModel
+    
     @State private var showShareSheet : Bool = false
     var recordsIncludedReport: [Record]
     
@@ -18,36 +19,32 @@ struct PdfPreviewView: View {
     
     var body: some View {
         if #available(iOS 14.0, *) {
-            VStack {
+            ZStack {
                 PdfViewUI(data: reportViewModel.pdfData(recordsIncludedReport: recordsIncludedReport, newTitleReport: newTitleReport, newCreatorReport: newCreatorReport))
                 
-                Button(action: {
-                    self.showShareSheet.toggle()
-                }, label: {
-                    HStack{
-                        Text("Поделиться").foregroundColor(.black).frame(width: 150, height: 30)
-                    }
-                    .padding(10)
-                    .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
-                    .clipShape(Capsule())
-                    .cornerRadius(20)
+                VStack{
+                    Spacer()
                     
-                })
-                .padding(.bottom, 15)
-                .padding(.top, 10)
-                
-                Spacer()
-            }.background(Color(red: 0.949, green: 0.949, blue: 0.971))
-            .navigationTitle(Text("Отчёт PDF"))
-            .navigationBarTitleDisplayMode(.inline)
+                    Button(action: {
+                        self.showShareSheet.toggle()
+                    }) {
+                        HStack {
+                            Text("Поделиться").foregroundColor(.black).padding().frame(width: 160)
+                        }
+                        .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
+                        .clipShape(Capsule())
+                    }
+                    .padding(.bottom, 25)
+                }
+            }
+            .background(Color(red: 0.949, green: 0.949, blue: 0.971))
             .sheet(isPresented: $showShareSheet, content: {
-                
                 if let data = reportViewModel.pdfData(recordsIncludedReport: recordsIncludedReport, newTitleReport: newTitleReport, newCreatorReport: newCreatorReport) {
                     ShareView(activityItems: [data])
                 }
             })
         } else {
-            // Fallback on earlier versions
+            Text("Необходима версия iOS 14 и выше")
         }
     }
 }

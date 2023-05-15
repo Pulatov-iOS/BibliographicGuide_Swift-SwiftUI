@@ -29,6 +29,7 @@ struct AppView: App {
     @StateObject var appViewModel: AppViewModel = AppViewModel()
     @StateObject var recordListViewModel: RecordListViewModel = RecordListViewModel()
     @StateObject var createRecordViewModel: CreateRecordViewModel = CreateRecordViewModel()
+    @StateObject var reportViewModel: ReportViewModel = ReportViewModel()
     @StateObject var userInformationListViewModel: UserInformationListViewModel = UserInformationListViewModel()
     
     @State private var selectedMessage: Message?
@@ -46,29 +47,30 @@ struct AppView: App {
                             RecordListView()
                                 .tabItem {
                                     Image(systemName: "house")
-                                    Text("Home")
+                                    Text("Домашняя")
                                 }
                                 .environmentObject(recordListViewModel)
                             MessageListView(messageListViewModel: MessageListViewModel(), editingWindowShow: $editingWindowShow, selectedMessage: $selectedMessage, newMessageId: $newMessageId, openFullSizeImage: $openFullSizeImage, selectedImage: $selectedImage)
                                 .tabItem {
                                     Image(systemName: "message.badge")
-                                    Text("Chat")
+                                    Text("Общ. чат")
                                 }
                             CreateRecordView()
                                 .tabItem {
                                     Image(systemName: "square.and.pencil")
-                                    Text("Add Record")
+                                    Text("Доб. запись")
                                 }
                                 .environmentObject(createRecordViewModel)
                             ReportView()
                                 .tabItem {
                                     Image(systemName: "list.bullet.clipboard")
-                                    Text("Report")
+                                    Text("Отчеты")
                                 }
+                                .environmentObject(reportViewModel)
                             SettingsView()
                                 .tabItem {
                                     Image(systemName: "gear")
-                                    Text("Settings")
+                                    Text("Настройки")
                                 }
                                 .environmentObject(userInformationListViewModel)
                         }

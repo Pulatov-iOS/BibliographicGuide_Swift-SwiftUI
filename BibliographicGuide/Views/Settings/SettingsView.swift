@@ -39,7 +39,7 @@ struct SettingsView: View {
             Form {
                 Section(header: Text("Настройки")) {
                     HStack {
-                        Text("Название:")
+                        Text("Приложение:")
                             .foregroundColor(Color.gray)
                         Spacer()
                         Text(appName)

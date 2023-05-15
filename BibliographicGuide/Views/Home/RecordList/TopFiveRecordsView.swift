@@ -18,55 +18,61 @@ struct TopFiveRecordsView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            ZStack(alignment: .bottom) {
-                VStack{
-                    WebImage(url: imageUrl)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 180, height:  150)
-                }
-                .scaledToFit()
-                .onAppear{
-                    recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
-                        if !verified  {
-                            imageUrl = status
-                        }
-                        else{
-                            print(status)
-                            imageUrl = status
+            VStack(alignment: .leading){
+                ZStack(alignment: .bottom) {
+                    VStack{
+                        WebImage(url: imageUrl)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 180, height:  150)
+                    }
+                    .scaledToFit()
+                    .onAppear{
+                        recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
+                            if !verified  {
+                                imageUrl = status
+                            }
+                            else{
+                                print(status)
+                                imageUrl = status
+                            }
                         }
                     }
+                    
+                    HStack {
+                        Image(systemName: "person.2")
+                            .foregroundColor(Color.white)
+                            .font(.callout)
+                            .padding(.leading, 5)
+                        
+                        Text("\(userNameRecord)")
+                            .foregroundColor(Color.white)
+                            .font(.callout)
+                            .lineLimit(1)
+                        Spacer()
+                        
+                        Text(recordListViewModel.checkingEditingTime(recordViewModel.record, withDescription: false))
+                            .foregroundColor(Color.white)
+                            .font(.callout)
+                            .padding(.trailing, 5)
+                    }
+                    .background(
+                        LinearGradient(gradient: Gradient(colors: [Color.clear, Color.black]), startPoint: .top, endPoint: .bottom)
+                            .padding(.top, -20)
+                    )
+                    
                 }
-                    
-                HStack {
-                    Image(systemName: "person.2")
-                        .foregroundColor(Color.white)
-                        .font(.callout)
-                        .padding(.leading, 5)
-                    
-                    Text("\(userNameRecord)")
-                        .foregroundColor(Color.white)
-                        .font(.callout)
-                        .lineLimit(1)
-                    Spacer()
-                    
-                    Text(recordListViewModel.checkingEditingTime(recordViewModel.record, withDescription: false))
-                        .foregroundColor(Color.white)
-                        .font(.callout)
-                        .padding(.trailing, 5)
-                }
-                .background(
-                    LinearGradient(gradient: Gradient(colors: [Color.clear, Color.black]), startPoint: .top, endPoint: .bottom)
-                        .padding(.top, -20)
-                )
                 
+                Text(recordViewModel.record.title)
+                    .foregroundColor(.primary)
+                    .font(.caption)
+                    .lineLimit(1)
+                    .padding(.leading, 3)
+                    .padding(.trailing, 2)
+                    .padding(.bottom, 4)
             }
+            .background(Color.white)
             .cornerRadius(5)
-            
-            Text(recordViewModel.record.title)
-                .foregroundColor(.primary)
-                .font(.caption)
-                .lineLimit(1)
         }
         .padding(.leading, 15)
         .onTapGesture {

@@ -43,7 +43,7 @@ struct EditingRecordView: View {
         NavigationView{
             VStack{
                 VStack{
-                    Text("Добавить запись".uppercased())
+                    Text("Изменить запись".uppercased())
                         .font(.system(.title, design: .rounded))
                         .fontWeight(.bold)
                         .frame(minWidth: 200)

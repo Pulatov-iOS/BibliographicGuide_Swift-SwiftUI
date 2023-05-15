@@ -89,7 +89,7 @@ struct RecordPageView: View {
                         
                         VStack{
                             Button(action: {
-                                recordListViewModel.updateInclusionReport(record: recordViewModel.record, inclusionReport: !inclusionReportButton){ (verified, status) in
+                                recordListViewModel.updateIncludedRecordInReport(record: recordViewModel.record, inclusionReport: !inclusionReportButton){ (verified, status) in
                                     if !verified  {
                                         alertTextEditingTitle = "Ошибка"
                                         alertTextEditingMessage = "Запись не была добавлена в список отчета."
@@ -97,10 +97,9 @@ struct RecordPageView: View {
                                     else{
                                         alertTextEditingTitle = "Успешно"
                                         alertTextEditingMessage = "Запись успешно добавлена в список отчета."
-                                        if(inclusionReportButton != true){
+                                        if(inclusionReportButton == true){
                                             showAlertInclusionReport.toggle()
                                         }
-                                        inclusionReportButton.toggle()
                                     }
                                 }
                             }) {
@@ -117,7 +116,10 @@ struct RecordPageView: View {
                                     dismissButton: .default(Text("Ок")))
                             }
                             .onAppear(){
-                                inclusionReportButton = recordListViewModel.checkInclusionReport(recordViewModel.record)
+                                inclusionReportButton = recordListViewModel.checkInclusionReport(recordViewModel.record.idUsersReporting)
+                            }
+                            .onChange(of: recordViewModel.record.idUsersReporting){ Value in
+                                inclusionReportButton = recordListViewModel.checkInclusionReport(Value)
                             }
                         }
                     }

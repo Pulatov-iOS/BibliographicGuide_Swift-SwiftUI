@@ -7,11 +7,15 @@
 
 import FirebaseFirestoreSwift
 
-struct Report: Identifiable, Codable {
+struct Report: Identifiable, Codable, Equatable {
     
     @DocumentID var id: String?
     var idUser: String
+    var titleSaveReport: String
     var idRecords: [String]
-    var date: Date
+    @ServerTimestamp
+    var date: Date?
+    var nameCreatedReport: String
+    var authorCreatedReport: String
     
 }

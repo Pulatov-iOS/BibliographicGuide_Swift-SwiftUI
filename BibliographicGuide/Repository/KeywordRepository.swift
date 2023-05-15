@@ -39,7 +39,7 @@ final class KeywordRepository: ObservableObject {
         do {
             _ = try db.collection(pathKeywords).addDocument(from: keyword)
         } catch {
-            fatalError("Adding a message failed")
+            print("Ошибка при добавлении сообщения")
         }
     }
     
@@ -48,7 +48,7 @@ final class KeywordRepository: ObservableObject {
         do {
             try db.collection(pathKeywords).document(documentId).setData(from: keyword)
         } catch {
-            fatalError("Ошибка при обновлении ключевого слова")
+            print("Ошибка при обновлении ключевого слова")
         }
     }
     

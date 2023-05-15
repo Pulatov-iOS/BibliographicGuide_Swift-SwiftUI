@@ -16,6 +16,7 @@ final class RecordListViewModel: ObservableObject {
     @Published var recordViewModels: [RecordViewModel] = []
     @Published var searchRecordViewModels: [RecordViewModel] = []
     @Published var topFiveRecords: [RecordViewModel] = []
+    @Published var recordsInReport: [Record] = []
     
     @Published var userInformationRepository = globalUserInformationRepository
     @Published var usersInformation: [UserInformation] = []
@@ -220,8 +221,8 @@ final class RecordListViewModel: ObservableObject {
         recordRepository.removeRecord(record)
     }
     
-    func checkInclusionReport(_ record: Record) -> Bool{
-        let newRecord = record.idUsersReporting.filter { (item) -> Bool in
+    func checkInclusionReport(_ idUsersReporting: [String]) -> Bool {
+        let newRecord = idUsersReporting.filter { (item) -> Bool in
             item == userId
         }
         if(newRecord.count > 0){
@@ -232,7 +233,19 @@ final class RecordListViewModel: ObservableObject {
         }
     }
     
-    func updateInclusionReport(record: Record, inclusionReport: Bool, completion: @escaping (Bool, String)->Void){
+    func getRecordsIncludedInReport(){
+        recordsInReport.removeAll()
+        var records: [Record] = []
+        for recordViewModel in recordViewModels{
+            records.append(recordViewModel.record)
+        }
+        let newRecords = records.filter { (item) -> Bool in
+            item.idUsersReporting.contains(userId)
+        }
+        recordsInReport = newRecords
+    }
+    
+    func updateIncludedRecordInReport(record: Record, inclusionReport: Bool, completion: @escaping (Bool, String)->Void) {
         var newRecord = record
         if(inclusionReport == true){
             if !newRecord.idUsersReporting.contains(userId){
@@ -241,7 +254,7 @@ final class RecordListViewModel: ObservableObject {
         }
         else{
             if newRecord.idUsersReporting.contains(userId){
-                let removed = newRecord.idUsersReporting.remove(at: newRecord.idUsersReporting.firstIndex(of: userId)!)
+                newRecord.idUsersReporting.remove(at: newRecord.idUsersReporting.firstIndex(of: userId)!)
             }
         }
         
@@ -251,6 +264,23 @@ final class RecordListViewModel: ObservableObject {
             }
             else{
                 completion(true, "Обновлено успешно")
+            }
+        }
+    }
+    
+    func removeIncludedRecordsInReport(completion: @escaping (Bool, String)->Void) {
+        getRecordsIncludedInReport()
+        for recordInReport in recordsInReport{
+            var newRecordsInReport = recordInReport.idUsersReporting
+            newRecordsInReport.remove(at: newRecordsInReport.firstIndex(of: userId)!)
+            
+            recordRepository.updateInclusionReport(idRecord: recordInReport.id ?? "", idUsersReporting: newRecordsInReport){ (verified, status) in
+                if !verified  {
+                    completion(false, "")
+                }
+                else{
+                    completion(true, "")
+                }
             }
         }
     }

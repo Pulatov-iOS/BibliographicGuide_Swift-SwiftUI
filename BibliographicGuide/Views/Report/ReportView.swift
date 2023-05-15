@@ -9,33 +9,48 @@ import SwiftUI
 
 struct ReportView: View {
     
+    @EnvironmentObject var reportViewModel: ReportViewModel
+    
     @State private var showCreateReportWindow = false
+    @State private var showPdfReportWindow = false
     
     var body: some View {
         ZStack{
             VStack{
                 ZStack{
-                    List{
-                        ForEach(0...1, id: \.self) { (item) in
-                            Text("названание")
-                                   }.onDelete(perform: self.deleteItem)
-                        Text("ФИО")
-                        Text("Дата созд")
-                        Text("Колво статей")
+                    if(reportViewModel.reports.count > 0){
+                        List{
+                            ForEach(reportViewModel.reports) { report in
+                                ReportDescriptionView(report: report, userNameReport: reportViewModel.getUserNameReport(report))
+                                    .environmentObject(reportViewModel)
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        reportViewModel.idRecordsToRecords(report.idRecords, titleReport: report.nameCreatedReport, creatorReport: report.authorCreatedReport)
+                                        showPdfReportWindow = true
+                                    }
+                            }
+                            .onDelete{ indexSet in
+                                for index in indexSet{
+                                    reportViewModel.removeReport(index)
+                                }
+                            }
+                        }
+                        .padding(.top, 40)
                     }
-                    .padding(.top, 45)
                     VStack{
                         HStack{
                             Text("Отчеты".uppercased())
                                 .font(.system(.title, design: .rounded))
                                 .fontWeight(.bold)
-                                .padding(EdgeInsets(top: 25, leading: 0, bottom: 10, trailing: 0))
+                                .padding(EdgeInsets(top: 25, leading: 0, bottom: 5, trailing: 0))
                                 .frame(width: UIScreen.screenWidth)
                         }
                         .background(Color(red: 0.949, green: 0.949, blue: 0.971))
                         Spacer()
                     }
+                    
                 }
+                .background(Color(red: 0.949, green: 0.949, blue: 0.971))
             }
             VStack{
                 Spacer()
@@ -59,13 +74,14 @@ struct ReportView: View {
 
         }
         .sheet(isPresented: self.$showCreateReportWindow) {
-            CreateReportView(reportViewModel: ReportViewModel())
+            CreateReportView()
+                .environmentObject(reportViewModel)
+        }
+        .sheet(isPresented: self.$showPdfReportWindow) {
+            PdfPreviewView(recordsIncludedReport: reportViewModel.recordsInReport, newTitleReport: reportViewModel.titleReport, newCreatorReport: reportViewModel.creatorReport)
+                .environmentObject(reportViewModel)
         }
         .background(Color(red: 0.949, green: 0.949, blue: 0.971))
-    }
-    
-    private func deleteItem(at indexSet: IndexSet) {
-     //      self.listItems.remove(atOffsets: indexSet)
     }
 }
 

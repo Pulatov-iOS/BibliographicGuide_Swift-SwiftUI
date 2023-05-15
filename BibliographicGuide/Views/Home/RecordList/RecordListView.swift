@@ -46,6 +46,10 @@ struct RecordListView: View {
     @State var quantityRecordsSearch = 20
     @State private var sortingSelectedItem: SortingRecord = .title
     
+    @State private var showAlertRemoveIncludeRecords = false
+    @State private var showAlertRemoveIncludeRecordsTitle = ""
+    @State private var showAlertRemoveIncludeRecordsMessage = ""
+    
     var body: some View {
         VStack{
             
@@ -71,18 +75,47 @@ struct RecordListView: View {
                     if(showTopFiveRecords == true){
                         VStack(alignment: .leading) {
                             HStack{
+                                HStack(spacing: 0){
+                                    Button{
+                                        recordListViewModel.removeIncludedRecordsInReport(){ (verified, status) in
+                                            if !verified  {
+                                                showAlertRemoveIncludeRecordsTitle = "Не обновлено!"
+                                                showAlertRemoveIncludeRecordsMessage = "Проверьте подключение к сети и повторите попытку"
+                                                showAlertRemoveIncludeRecords.toggle()
+                                            }
+                                            else{
+                                                showAlertRemoveIncludeRecordsTitle = "Успешно"
+                                                showAlertRemoveIncludeRecordsMessage = "Все выбранные записи были успешно отменены"
+                                                showAlertRemoveIncludeRecords.toggle()
+                                            }
+                                        }
+                                    } label: {
+                                        Text(("Выбр. статьи"))
+                                        Image(systemName: "trash")
+                                    }
+                                    .padding(.trailing, 5)
+                                    .foregroundColor(.red)
+                                    .alert(isPresented: $showAlertRemoveIncludeRecords) {
+                                        Alert(
+                                            title: Text(showAlertRemoveIncludeRecordsTitle),
+                                            message: Text(showAlertRemoveIncludeRecordsMessage),
+                                            dismissButton: .default(Text("Ок")))
+                                    }
+                                }
+                                .padding(.leading, 15)
 //                                Text("По дате изменения:")
 //                                    .font(.headline)
 //                                    .padding(.leading, 15)
 //                                    .padding(.top, 5)
                                 Spacer()
                                 HStack(spacing: 0){
-                                    Button("Скрыть"){
+                                    Button{
                                         showTopFiveRecords.toggle()
+                                    } label: {
+                                        Text("Скрыть")
+                                        Image(systemName: "chevron.up")
+                                            .foregroundColor(.blue)
                                     }
-                                    .padding(.trailing, 5)
-                                    Image(systemName: "chevron.up")
-                                        .foregroundColor(.blue)
                                 }
                                 .padding(.trailing, 15)
                             }
@@ -126,12 +159,13 @@ struct RecordListView: View {
                         HStack{
                             Spacer()
                             HStack(spacing: 0){
-                                Button("Показать"){
+                                Button{
                                     showTopFiveRecords.toggle()
+                                } label: {
+                                    Text("Показать")
+                                    Image(systemName: "chevron.down")
+                                        .foregroundColor(.blue)
                                 }
-                                .padding(.trailing, 5)
-                                Image(systemName: "chevron.down")
-                                    .foregroundColor(.blue)
                             }
                             .padding(.trailing, 15)
                         }
