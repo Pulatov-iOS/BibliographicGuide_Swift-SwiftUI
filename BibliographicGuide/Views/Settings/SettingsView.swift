@@ -128,26 +128,26 @@ struct SettingsView: View {
             
             VStack{
                 let role = userInformationListViewModel.getСurrentUserInformation().role
-                HStack{
+                VStack(spacing: 0){
                     if(role == "admin" || role == "editor"){
                         Button{
                             self.showKeywordsWindow = true
                         } label: {
-                            Text("Кл. слова").foregroundColor(.black).frame(width: UIScreen.main.bounds.width*0.25).padding()
+                            Text("Кл. слова").foregroundColor(.black).frame(width: 120).padding()
                         }
                         .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
                         .clipShape(Capsule())
-                        .padding(.bottom, 25)
+                        .padding(.bottom, 10)
                     }
                     if(role == "admin"){
                         Button{
                             self.showUserEditingWindow = true
                         } label: {
-                            Text("Изм. польз.").foregroundColor(.black).frame(width: UIScreen.main.bounds.width*0.25).padding()
+                            Text("Изм. польз.").foregroundColor(.black).frame(width: 120).padding()
                         }
                         .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
                         .clipShape(Capsule())
-                        .padding(.bottom, 25)
+                        .padding(.bottom, 15)
                     }
                 }
                 Button("Сохранить"){
@@ -169,7 +169,7 @@ struct SettingsView: View {
                     selectedNewImageAccount = false
                 }
                 .foregroundColor(.black)
-                .frame(width: UIScreen.main.bounds.width - 160)
+                .frame(width: 180)
                 .padding()
                 .alert(isPresented: $showAlertCreate) {
                     Alert(
@@ -187,7 +187,7 @@ struct SettingsView: View {
                 Button(action: {
                     userInformationListViewModel.exitOfAccount()
                 }){
-                    Text("Выйти").foregroundColor(.black).frame(width: UIScreen.main.bounds.width - 160).padding(.bottom, 25)
+                    Text("Выйти").foregroundColor(.black).frame(width: 180).padding(.bottom, 25)
                 }
             }
         }

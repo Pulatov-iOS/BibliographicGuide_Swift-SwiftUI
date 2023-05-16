@@ -17,6 +17,7 @@ final class UserInformationListViewModel: ObservableObject {
     
     @Published var keywordRepository = globalKeywordRepository
     @Published var keywords: [Keyword] = []
+    @Published var searchKeywords: [Keyword] = []
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -106,16 +107,41 @@ final class UserInformationListViewModel: ObservableObject {
         }
     }
     
-    func addKeyword(_ keyword: Keyword){
-        var newKeyword = keyword
-        newKeyword.name = newKeyword.name.lowercased()
-        keywordRepository.addKeyword(newKeyword)
+    func fetchKeywordsSearch(SearchString: String){
+        if(SearchString != ""){
+            searchKeywords = keywords.filter{
+                $0.name.lowercased().contains(SearchString.lowercased())
+            }
+        }
+        else{
+            searchKeywords = keywords
+        }
     }
     
-    func updateKeyword(_ keyword: Keyword){
+    func addKeyword(_ keyword: Keyword, completion: @escaping (Bool, String)->Void) {
         var newKeyword = keyword
         newKeyword.name = newKeyword.name.lowercased()
-        keywordRepository.updateKeyword(newKeyword)
+        keywordRepository.addKeyword(newKeyword){ (verified, status) in
+            if !verified  {
+                completion(false, "")
+            }
+            else{
+                completion(true, "")
+            }
+        }
+    }
+    
+    func updateKeyword(_ keyword: Keyword, completion: @escaping (Bool, String)->Void) {
+        var newKeyword = keyword
+        newKeyword.name = newKeyword.name.lowercased()
+        keywordRepository.updateKeyword(newKeyword){ (verified, status) in
+            if !verified  {
+                completion(false, "")
+            }
+            else{
+                completion(true, "")
+            }
+        }
     }
     
     func removeKeyword(_ keyword: Keyword){

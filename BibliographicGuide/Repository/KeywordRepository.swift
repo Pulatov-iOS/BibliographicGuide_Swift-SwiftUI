@@ -35,19 +35,23 @@ final class KeywordRepository: ObservableObject {
         sortingKeywords()
     }
     
-    func addKeyword(_ keyword: Keyword){
+    func addKeyword(_ keyword: Keyword, completion: @escaping (Bool, String)->Void) {
         do {
             _ = try db.collection(pathKeywords).addDocument(from: keyword)
+            completion(true, "")
         } catch {
+            completion(false, "")
             print("Ошибка при добавлении сообщения")
         }
     }
     
-    func updateKeyword(_ keyword: Keyword){
+    func updateKeyword(_ keyword: Keyword, completion: @escaping (Bool, String)->Void) {
         guard let documentId = keyword.id else { return }
         do {
             try db.collection(pathKeywords).document(documentId).setData(from: keyword)
+            completion(true, "")
         } catch {
+            completion(false, "")
             print("Ошибка при обновлении ключевого слова")
         }
     }
