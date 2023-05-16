@@ -81,7 +81,7 @@ struct MessageFullSizeImageView: View {
 }
 
 func getImageUrl(pathImage: String, idImage: String, completion: @escaping (Bool, URL)->Void){
-    globalMessageRepository.getImageUrl(pathImage: pathImage, idImage: idImage){ (verified, status) in
+    globalMessageRepository.getImageMessageUrl(pathImage: pathImage, idImage: idImage){ (verified, status) in
         if !verified  {
             completion(false, URL(string: "https://turbok.by/public/img/no-photo--lg.png")!)
         }

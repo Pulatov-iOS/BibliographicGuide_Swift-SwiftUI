@@ -28,9 +28,9 @@ struct RecordView: View {
                 VStack{
                     WebImage(url: imageUrl)
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
                 }
-                .scaledToFit()
+                .frame(height: UIScreen.screenWidth * 0.53)
+                .aspectRatio(contentMode: .fit)
                 .onAppear{
                     recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
                         if !verified  {

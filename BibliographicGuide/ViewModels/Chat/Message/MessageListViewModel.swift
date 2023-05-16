@@ -107,6 +107,17 @@ final class MessageListViewModel: ObservableObject, Equatable {
         }
     }
     
+    func getImageUrl(pathImage: String, completion: @escaping (Bool, URL)->Void) {
+        messageRepository.getImageAccountUrl(pathImage: pathImage, idImage: self.userId){ (verified, status) in
+            if !verified  {
+                completion(false, URL(string: "https://firebase.google.com/")!)
+            }
+            else{
+                completion(true, status)
+            }
+        }
+    }
+    
     func MessageToMessageViewModel(_ idMessage: String) -> MessageViewModel{
         let newMessage = messageViewModels.filter { (item) -> Bool in
             item.id == idMessage

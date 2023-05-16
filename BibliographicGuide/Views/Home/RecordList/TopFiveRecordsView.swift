@@ -23,10 +23,9 @@ struct TopFiveRecordsView: View {
                     VStack{
                         WebImage(url: imageUrl)
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 180, height:  150)
                     }
-                    .scaledToFit()
+                    .frame(width: 190, height:  150)
+                    .aspectRatio(contentMode: .fit)
                     .onAppear{
                         recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
                             if !verified  {

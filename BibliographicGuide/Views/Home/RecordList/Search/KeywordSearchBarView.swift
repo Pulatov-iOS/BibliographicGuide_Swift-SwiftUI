@@ -34,7 +34,7 @@ struct KeywordSearchBarView: View {
                 }
                 .padding([.leading, .trailing], 10)
                 .padding([.top, .bottom], 5)
-                .background(Color(UIColor.init(hex: "#f2f2f7") ?? .gray))
+                .background(Color(UIColor.init(hex: "#92929b5c") ?? .gray))
                 .cornerRadius(10)
                 .onTapGesture {
                     keywordsSearch += 1

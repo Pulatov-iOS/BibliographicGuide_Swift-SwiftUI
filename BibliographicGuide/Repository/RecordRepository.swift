@@ -52,7 +52,7 @@ final class RecordRepository: ObservableObject {
         }
     }
     
-    func addRecord(record: Record, imageTitle: Data, completion: @escaping (Bool, String)->Void){
+    func addRecord(record: Record, imageTitle: Data, completion: @escaping (Bool, String)->Void) {
         do {
             let result = try db.collection(pathRecords).addDocument(from: record)
         
@@ -69,7 +69,7 @@ final class RecordRepository: ObservableObject {
         }
     }
     
-    func updateRecord(record: Record, imageTitle: Data, completion: @escaping (Bool, String)->Void){
+    func updateRecord(record: Record, imageTitle: Data, completion: @escaping (Bool, String)->Void) {
         guard let documentId = record.id else { return }
         do {
             try db.collection(pathRecords).document(documentId).setData(from: record)
@@ -95,7 +95,7 @@ final class RecordRepository: ObservableObject {
         }
     }
     
-    func updateInclusionReport(idRecord: String, idUsersReporting: [String], completion: @escaping (Bool, String)->Void){
+    func updateInclusionReport(idRecord: String, idUsersReporting: [String], completion: @escaping (Bool, String)->Void) {
         db.collection(pathRecords).document(idRecord).updateData([
             "idUsersReporting": idUsersReporting
         ]) { err in
@@ -107,7 +107,7 @@ final class RecordRepository: ObservableObject {
         }
     }
     
-    func addImageTitle(idImageTitle: String, imageTitle: Data, completion: @escaping (Bool, String)->Void){
+    func addImageTitle(idImageTitle: String, imageTitle: Data, completion: @escaping (Bool, String)->Void) {
         let referenceSorage = storage.reference() // Создаем ссылку на хранилище
         let pathRef = referenceSorage.child(pathImageTitle) // Создаем дочернюю ссылку
     
@@ -124,7 +124,7 @@ final class RecordRepository: ObservableObject {
         }
     }
     
-    func getImageUrl(pathImage: String, idImage: String, completion: @escaping (Bool, URL)->Void){
+    func getImageUrl(pathImage: String, idImage: String, completion: @escaping (Bool, URL)->Void) {
         var imageUrl = URL(string: "")
         let storage = storage.reference(withPath: pathImage + "/" + idImage)
            storage.downloadURL { (url, error) in

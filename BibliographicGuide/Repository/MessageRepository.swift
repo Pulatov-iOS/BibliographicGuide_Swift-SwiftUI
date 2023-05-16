@@ -98,7 +98,7 @@ final class MessageRepository: ObservableObject {
         
     }
     
-    func getImageUrl(pathImage: String, idImage: String, completion: @escaping (Bool, URL)->Void){
+    func getImageMessageUrl(pathImage: String, idImage: String, completion: @escaping (Bool, URL)->Void) {
         var imageUrl = URL(string: "")
         let storage = storage.reference(withPath: pathImage + "/" + idImage)
            storage.downloadURL { (url, error) in
@@ -107,6 +107,20 @@ final class MessageRepository: ObservableObject {
                }
                imageUrl = url!
                completion(true, (imageUrl ?? (URL(string: "https://turbok.by/public/img/no-photo--lg.png")))!)
+           }
+    }
+    
+    func getImageAccountUrl(pathImage: String, idImage: String, completion: @escaping (Bool, URL)->Void) {
+        var imageUrl = URL(string: "")
+        let storage = storage.reference(withPath: pathImage + "/" + idImage)
+           storage.downloadURL { (url, error) in
+               if error != nil {
+                   completion(false, URL(string: "https://firebase.google.com/")!)
+               }
+               else{
+                   imageUrl = url!
+                   completion(true, (imageUrl ?? (URL(string: "")))!)
+               }
            }
     }
 }

@@ -134,7 +134,7 @@ struct RecordListView: View {
                             Text("Все записи")
                                 .fontWeight(.bold)
                                 .font(.system(.title, design: .default))
-                                .foregroundColor(Color.gray)
+                                .foregroundColor(Color.black)
                                 .padding(0)
                         }
                         HStack{

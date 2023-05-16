@@ -46,28 +46,62 @@ final class UserInformationListViewModel: ObservableObject {
         return userName.first?.userInformation ?? UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true, reasonBlockingAccount: "")
     }
     
-    func updateUserInformation(_ newUserName: String, completion: @escaping (Bool, String)->Void){
-        if(newUserName == ""){
+    func updateUserInformation(newUserName: String, imageAccount: Data, newImageAccount: Bool, completion: @escaping (Bool, String)->Void) {
+        if(newUserName == "" && newImageAccount == false){
             completion(false, "Введите новое имя пользователя.")
         }
         else{
-            // проверка нет ли такого имени пользователя
-            let userName = usersInformationViewModel.filter { (item) -> Bool in
-                item.userInformation.userName.lowercased() == newUserName.lowercased()
-            }
-            if(userName.first?.userInformation.id == nil){
-                userInformationRepository.updateUserInformation(userId: userId, newUserName: newUserName){
-                    (verified, status) in
+            if(newUserName == "" && newImageAccount == true){
+                self.userInformationRepository.addImageAccount(idImageAccount: self.userId, imageAccount: imageAccount){ (verified, status) in
                     if !verified {
-                        completion(false, "Ошибка при запросе обновления имени пользователя.")
+                        completion(false, "Ошибка при запросе обновления изображения пользователя.")
                     }
                     else{
-                        completion(true, "Имя пользователя обновлено успешно.")
+                        completion(true, "Изображение пользователя успешно обновлено.")
                     }
                 }
             }
             else{
-                completion(false, "Данное имя пользователя уже занято.")
+                // проверка нет ли такого имени пользователя
+                let userName = usersInformationViewModel.filter { (item) -> Bool in
+                    item.userInformation.userName.lowercased() == newUserName.lowercased()
+                }
+                if(userName.first?.userInformation.id == nil){
+                    userInformationRepository.updateUserInformation(userId: userId, newUserName: newUserName){ (verified, status) in
+                        if !verified {
+                            completion(false, "Ошибка при запросе обновления имени пользователя.")
+                        }
+                        else{
+                            if(newImageAccount){
+                                self.userInformationRepository.addImageAccount(idImageAccount: self.userId, imageAccount: imageAccount){ (verified, status) in
+                                    if !verified {
+                                        completion(false, "Ошибка при запросе обновления изображения пользователя.")
+                                    }
+                                    else{
+                                        completion(true, "Имя и изображение пользователя успешно обновлено.")
+                                    }
+                                }
+                            }
+                            else{
+                                completion(true, "Имя пользователя успешно обновлено.")
+                            }
+                        }
+                    }
+                }
+                else{
+                    completion(false, "Данное имя пользователя уже занято.")
+                }
+            }
+        }
+    }
+    
+    func getImageUrl(pathImage: String, completion: @escaping (Bool, URL)->Void) {
+        userInformationRepository.getImageUrl(pathImage: pathImage, idImage: self.userId){ (verified, status) in
+            if !verified  {
+                completion(false, URL(string: "https://firebase.google.com/")!)
+            }
+            else{
+                completion(true, status)
             }
         }
     }

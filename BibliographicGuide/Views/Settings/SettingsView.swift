@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct SettingsView: View {
     
@@ -14,12 +15,19 @@ struct SettingsView: View {
     
     @EnvironmentObject var userInformationListViewModel: UserInformationListViewModel
     
-    @State private var newNickname = ""
-    @State private var alertTitle: String = "Успешно"
-    @State private var alertMessage: String = "Настройки успешно изменены."
-    @State private var showAlertCreate: Bool = false
-    @State private var showKeywordsWindow: Bool = false
-    @State private var showUserEditingWindow: Bool = false
+    @State private var userName = ""
+    @State private var imageAccount = UIImage()
+    @State private var newImageAccount = UIImage()
+    @State private var selectedNewImageAccount = false
+    @State private var defaultImageAccount = false
+    @State private var imageUrl = URL(string: "")
+    @State private var showImagePicker = false
+    
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
+    @State private var showAlertCreate = false
+    @State private var showKeywordsWindow = false
+    @State private var showUserEditingWindow = false
     
     var body: some View {
 
@@ -48,13 +56,72 @@ struct SettingsView: View {
                         Text("Версия:")
                             .foregroundColor(Color.gray)
                         Spacer()
-                        Text(appVersion)
+                        Text("V\(appVersion)")
                     }
                     HStack {
                         Text("Имя пользователя:")
                             .foregroundColor(Color.gray)
                         Spacer()
-                        TextField(userInformationListViewModel.getСurrentUserInformation().userName, text: $newNickname).multilineTextAlignment(TextAlignment.trailing)
+                        TextField(userInformationListViewModel.getСurrentUserInformation().userName, text: $userName).multilineTextAlignment(TextAlignment.trailing)
+                    }
+                    HStack {
+                        Text("Изображение аккаунта:")
+                            .foregroundColor(Color.gray)
+                        Spacer()
+                        HStack{
+                            HStack{
+                                if(defaultImageAccount == true){
+                                    Image(uiImage: self.imageAccount)
+                                        .resizable()
+                                        .cornerRadius(50)
+                                        .frame(width: 60, height: 60)
+                                        .background(Color.black.opacity(0.2))
+                                        .aspectRatio(contentMode: .fill)
+                                        .clipShape(Circle())
+                                        .onTapGesture {
+                                            showImagePicker = true
+                                        }
+                                }
+                                else{
+                                    WebImage(url: imageUrl)
+                                        .resizable()
+                                        .cornerRadius(50)
+                                        .frame(width: 60, height: 60)
+                                        .background(Color.white)
+                                        .aspectRatio(contentMode: .fill)
+                                        .clipShape(Circle())
+                                        .onTapGesture {
+                                            showImagePicker = true
+                                        }
+                                }
+                            }
+                            .onAppear{
+                                userInformationListViewModel.getImageUrl(pathImage: "ImageAccount"){ (verified, status) in
+                                    if !verified  {
+                                        defaultImageAccount = true
+                                        imageUrl = status
+                                    }
+                                    else{
+                                        defaultImageAccount = false
+                                        imageUrl = status
+                                    }
+                                }
+                            }
+                            .onChange(of: imageAccount){ Value in
+                                if(newImageAccount != imageAccount){
+                                    defaultImageAccount = true
+                                    newImageAccount = imageAccount
+                                    selectedNewImageAccount = true
+                                }
+                            }
+                            .sheet(isPresented: $showImagePicker) {
+                                ImagePicker(sourceType: .photoLibrary, selectedImage: self.$imageAccount)
+                            }
+                        }
+                        .onAppear(){
+                            imageAccount = UIImage(named: "default") ?? UIImage()
+                            newImageAccount = UIImage(named: "default") ?? UIImage()
+                        }
                     }
                 }
             }.padding(.top, -12)
@@ -84,18 +151,22 @@ struct SettingsView: View {
                     }
                 }
                 Button("Сохранить"){
-                    userInformationListViewModel.updateUserInformation(newNickname){
+                    let imageData = newImageAccount.jpegData(compressionQuality: 0.1)
+                    
+                    userInformationListViewModel.updateUserInformation(newUserName: userName, imageAccount: imageData ?? Data(), newImageAccount: selectedNewImageAccount){
                         (verified, status) in
                         if !verified {
                             alertTitle = "Ошибка"
                             alertMessage = status
+                            showAlertCreate.toggle()
                         }
                         else{
                             alertTitle = "Успешно"
                             alertMessage = status
+                            showAlertCreate.toggle()
                         }
                     }
-                    showAlertCreate.toggle()
+                    selectedNewImageAccount = false
                 }
                 .foregroundColor(.black)
                 .frame(width: UIScreen.main.bounds.width - 160)

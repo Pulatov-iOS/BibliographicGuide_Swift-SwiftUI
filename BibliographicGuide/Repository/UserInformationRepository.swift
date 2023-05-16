@@ -8,14 +8,17 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseStorage
 
 let globalUserInformationRepository = UserInformationRepository()
 
 final class UserInformationRepository: ObservableObject {
     
     private let pathUserInformation = "UsersInformation"
+    private let pathImageAccount = "ImageAccount"
     private let userName = "userName"
     private let db = Firestore.firestore()
+    private let storage = Storage.storage()
     @Published var usersInformation: [UserInformation] = []
     @Published var currentUserInformation: UserInformation?
     
@@ -72,7 +75,7 @@ final class UserInformationRepository: ObservableObject {
         }
     }
     
-    func addUserInformation(userInformation: UserInformation, userId: String, completion: @escaping (Bool, String)->Void){
+    func addUserInformation(userInformation: UserInformation, userId: String, completion: @escaping (Bool, String)->Void) {
         db.collection(pathUserInformation).document(userId).setData(["role": "user", "userName": userInformation.userName,
                                                       "blockingChat": userInformation.blockingChat,
                                                                      "blockingAccount": userInformation.blockingAccount, "reasonBlockingAccount": ""]){
@@ -85,7 +88,7 @@ final class UserInformationRepository: ObservableObject {
         completion(true, "Ok")
     }
     
-    func updateUserInformation(userId: String, newUserName: String, completion: @escaping (Bool, String)->Void){
+    func updateUserInformation(userId: String, newUserName: String, completion: @escaping (Bool, String)->Void) {
         db.collection(pathUserInformation).document(userId).updateData([
             userName: newUserName
         ]) { err in
@@ -97,7 +100,7 @@ final class UserInformationRepository: ObservableObject {
         }
     }
     
-    func updateAccountLock(idUser: String, blockingChat: Bool, blockingAccount: Bool, completion: @escaping (Bool, String)->Void){
+    func updateAccountLock(idUser: String, blockingChat: Bool, blockingAccount: Bool, completion: @escaping (Bool, String)->Void) {
         db.collection(pathUserInformation).document(idUser).updateData([
             "blockingChat": blockingChat,
             "blockingAccount": blockingAccount
@@ -108,5 +111,36 @@ final class UserInformationRepository: ObservableObject {
                 completion(true, "Обновлено успешно")
             }
         }
+    }
+    
+    func addImageAccount(idImageAccount: String, imageAccount: Data, completion: @escaping (Bool, String)->Void) {
+        let referenceSorage = storage.reference() // Создаем ссылку на хранилище
+        let pathRef = referenceSorage.child(pathImageAccount) // Создаем дочернюю ссылку
+    
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        
+        pathRef.child(idImageAccount).putData(imageAccount, metadata: metadata){
+            metadata, error in
+            guard let metadata = metadata else{
+                completion(false, "Ошибка")
+                return
+            }
+            completion(true, "Успешно")
+        }
+    }
+    
+    func getImageUrl(pathImage: String, idImage: String, completion: @escaping (Bool, URL)->Void) {
+        var imageUrl = URL(string: "")
+        let storage = storage.reference(withPath: pathImage + "/" + idImage)
+           storage.downloadURL { (url, error) in
+               if error != nil {
+                   completion(false, URL(string: "https://firebase.google.com/")!)
+               }
+               else{
+                   imageUrl = url!
+                   completion(true, (imageUrl ?? (URL(string: "")))!)
+               }
+           }
     }
 }

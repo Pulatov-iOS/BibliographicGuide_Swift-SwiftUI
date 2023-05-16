@@ -23,19 +23,47 @@ struct IncomingMessageView: View {
     @Binding var editingWindowShow: Bool
     @State var isEditingWindow = true
     
+    @State private var imageAccount = UIImage()
+    @State private var defaultImageAccount = false
+    @State private var imageUrl = URL(string: "")
+    
     var body: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading) {
                 HStack(alignment: .top) {
                     VStack{
-                        WebImage(url: URL(string: "https://sun9-47.userapi.com/impg/pZPc4CkVZuBFxq5o8sLnqql1E5QAGv-duK110g/k65Itu6amGE.jpg?size=607x1080&quality=95&sign=98e693801965832b0f3daf57957f51bd&type=album"))
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 36, height: 36)
-                            .clipShape(Circle())
+                        if(defaultImageAccount == true){
+                            Image(uiImage: self.imageAccount)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 36, height: 36)
+                                .clipShape(Circle())
+                        }
+                        else{
+                            WebImage(url: imageUrl)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 36, height: 36)
+                                .clipShape(Circle())
+                        }
                     }
                     .scaledToFit()
                     .padding(.leading, 6)
+                    .onAppear{
+                        messageListViewModel.getImageUrl(pathImage: "ImageAccount"){ (verified, status) in
+                            if !verified  {
+                                defaultImageAccount = true
+                                imageUrl = status
+                            }
+                            else{
+                                defaultImageAccount = false
+                                imageUrl = status
+                            }
+                        }
+                    }
+                }
+                .onAppear(){
+                    imageAccount = UIImage(named: "default") ?? UIImage()
                 }
             }
             VStack(alignment: .leading) {
