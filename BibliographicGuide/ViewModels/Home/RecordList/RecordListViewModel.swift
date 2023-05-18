@@ -75,7 +75,7 @@ final class RecordListViewModel: ObservableObject {
         }
         for idKeyword in selectedKeywordsSearch{ // Поиск записей по кл. словам
             searchRecordViewModels = searchRecordViewModels.filter{
-                $0.record.keywords.contains(idKeyword)
+                $0.record.idKeywords.contains(idKeyword)
             }
         }
     }
@@ -93,7 +93,7 @@ final class RecordListViewModel: ObservableObject {
     
     func getKeywordNameRecord(_ record: Record) -> String{
         var keywordsArray = ""
-        for keyword in record.keywords{
+        for keyword in record.idKeywords{
             if(keywordsArray != ""){
                 keywordsArray = keywordsArray + ", "
             }

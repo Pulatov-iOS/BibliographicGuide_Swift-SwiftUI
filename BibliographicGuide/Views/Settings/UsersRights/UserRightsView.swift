@@ -7,88 +7,222 @@
 
 import SwiftUI
 
+enum userRole: String, CaseIterable, Identifiable {
+    case reader
+    case editor
+    case admin
+    
+    var id: Self {
+        self
+    }
+    
+    var title: String {
+        switch self {
+        case .reader:
+            return "Читатель"
+        case .editor:
+            return "Редактор"
+        case .admin:
+            return "Администратор"
+        }
+    }
+}
+
 struct UserRightsView: View {
     
     @EnvironmentObject var userInformationListViewModel: UserInformationListViewModel
-    @Binding var userInformationViewModel: UserInformationViewModel
+    @Binding var selectedUser: UserInformation
     
-    @State private var isBlockingChat = false
+    @State private var userRoleSelectedItem: userRole = .reader
+    @State private var blockingChat = false
     @State private var blockingAccount = false
-    @State private var currentDate = Date()
-    @State var newUserName = ""
-    @State var reasonBlockingAccount = ""
+    @State private var newReasonBlockingAccount = ""
+    @State private var userName = ""
+    @State private var newUserName = ""
+    
+    @State private var showAlertUpdateUserInformation = false
+    @State private var alertTextUpdateUserInformationTitle = ""
+    @State private var alertTextUpdateUserInformationMessage = ""
     
     var body: some View {
-        NavigationView{
-            VStack{
-                Text(userInformationViewModel.userInformation.userName.uppercased())
-                    .font(.system(.title, design: .rounded))
-                    .fontWeight(.bold)
-                    .frame(minWidth: 200)
-                    .padding(.top, 26)
-                    .padding(.bottom, 15)
+        VStack{
+            ZStack{
+                VStack{
+                    List{
+                        ZStack{
+                            HStack{
+                                Text("Роль:")
+                                Spacer()
+                            }
+                            VStack{
+                                Picker("", selection: $userRoleSelectedItem){
+                                    ForEach(userRole.allCases){ userRole in
+                                        Text(userRole.title)
+                                            .tag(userRole)
+                                    }
+                                }
+                                .pickerStyle(.automatic)
+                                .tint(.black)
+                            }
+                        }
+                        HStack{
+                            Text("Блокировка чата:")
+                            Spacer()
+                            Toggle("", isOn: $blockingChat)
+                        }
+                        .onChange(of: blockingChat){ Value in
+                            userInformationListViewModel.updateChatLock(idUser: selectedUser.id ?? "", blockingChat: blockingChat){ (verified, status) in
+                                if !verified {
+                                    alertTextUpdateUserInformationTitle = "Ошибка!"
+                                    alertTextUpdateUserInformationMessage = "Проверьте подключение к сети и повторите попытку"
+                                    showAlertUpdateUserInformation.toggle()
+                                }
+                                else{
+                                    if(Value){
+                                        alertTextUpdateUserInformationTitle = "Успешно!"
+                                        alertTextUpdateUserInformationMessage = "Функция общего чата успешно заблокирована"
+                                    }
+                                    else{
+                                        alertTextUpdateUserInformationTitle = "Успешно!"
+                                        alertTextUpdateUserInformationMessage = "Функция общего чата успешно разблокирована"
+                                    }
+                                    showAlertUpdateUserInformation.toggle()
+                                }
+                            }
+                        }
+                        HStack{
+                            Text("Блокировка учетной записи:")
+                            Spacer()
+                            Toggle("", isOn: $blockingAccount)
+                        }
+                        .onChange(of: blockingAccount){ Value in
+                            userInformationListViewModel.updateAccountLock(idUser: selectedUser.id ?? "", blockingAccount: blockingAccount){ (verified, status) in
+                                if !verified {
+                                    alertTextUpdateUserInformationTitle = "Ошибка!"
+                                    alertTextUpdateUserInformationMessage = "Данный пользователь не заблокирован. Проверьте подключение к сети и повторите попытку"
+                                    showAlertUpdateUserInformation.toggle()
+                                }
+                                else{
+                                    if(Value){
+                                        alertTextUpdateUserInformationTitle = "Успешно!"
+                                        alertTextUpdateUserInformationMessage = "Данный пользователь успешно заблокирован"
+                                    }
+                                    else{
+                                        alertTextUpdateUserInformationTitle = "Успешно!"
+                                        alertTextUpdateUserInformationMessage = "Данный пользователь успешно разблокирован"
+                                    }
+                                    showAlertUpdateUserInformation.toggle()
+                                }
+                            }
+                        }
+                        HStack{
+                            VStack(spacing: 8){
+                                HStack{
+                                    Text("Причина блокировки учетной записи:")
+                                    Spacer()
+                                }
+                                TextField("Причина", text: $newReasonBlockingAccount, prompt: Text("Отсутствует"), axis: .vertical)
+                                    .foregroundColor(.red)
+                                    .lineLimit(1...3)
+                            }
+                        }
+                        HStack{
+                            VStack(spacing: 8){
+                                HStack{
+                                    Text("Новое имя пользователя:")
+                                    Spacer()
+                                }
+                                TextField(userName, text: $newUserName)
+                            }
+                        }
+                    }
+                    .padding(.top, 40)
+                }
+                
+                VStack{
+                    Spacer()
+                    Button("Сохранить"){
+                        userInformationListViewModel.updateRoleReasonBlockingUserName(idUser: selectedUser.id ?? "", role: userRoleSelectedItem.rawValue, reasonBlocking: newReasonBlockingAccount, newUserName: newUserName){ (verified, status) in
+                            if !verified {
+                                alertTextUpdateUserInformationTitle = "Ошибка!"
+                                alertTextUpdateUserInformationMessage = status
+                                showAlertUpdateUserInformation.toggle()
+                            }
+                            else{
+                                alertTextUpdateUserInformationTitle = "Успешно!"
+                                alertTextUpdateUserInformationMessage = "Данные пользователя успешно обновлены."
+                                showAlertUpdateUserInformation.toggle()
+                            }
+                        }
+                    }
+                    .foregroundColor(.black)
+                    .frame(width: 180)
+                    .padding()
+                    .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
+                    .clipShape(Capsule())
+                    .padding(.bottom, 25)
+                }
                 
                 VStack{
                     HStack{
-                        Text("Роль:")
-                        Spacer()
-                        Text(userInformationViewModel.userInformation.role)
+                        Text(selectedUser.userName)
+                            .font(.system(.title, design: .rounded))
+                            .fontWeight(.bold)
+                            .padding(EdgeInsets(top: 25, leading: 0, bottom: 5, trailing: 0))
                     }
-                    HStack{
-                        Text("Блокировка чата:")
-                        Toggle("", isOn: $isBlockingChat).onTapGesture {
-                            isBlockingChat.toggle()
-                            if(isBlockingChat == false){
-                                
-                            }
-                            else{
-                                
-                            }
-                        }
-                    }
-                    HStack{
-                        Text("Блокировка учетной записи:")
-                        Toggle("", isOn: $blockingAccount).onTapGesture {
-                            blockingAccount.toggle()
-                            if(blockingAccount == false){
-                                
-                            }
-                            else{
-                                
-                            }
-                        }
-                    }
-                    HStack{
-                        Text("Причина блокировки учетной записи:")
-                        TextField(userInformationViewModel.userInformation.reasonBlockingAccount, text: $reasonBlockingAccount)
-                        Spacer()
-                        Button{
-                           
-                        } label: {
-                            Image(systemName: "doc.text")
-                                .resizable()
-                                .frame(width: 20, height: 28)
-                                .foregroundColor(Color.black)
-                        }
-                        .padding(8)
-                    }
-                    HStack{
-                        Text("Новое имя польз.:")
-                        TextField(userInformationViewModel.userInformation.userName, text: $newUserName)
-                        Spacer()
-                        Button{
-                           
-                        } label: {
-                            Image(systemName: "doc.text")
-                                .resizable()
-                                .frame(width: 20, height: 28)
-                                .foregroundColor(Color.black)
-                        }
-                        .padding(8)
-                    }
-                }.padding(20)
-                Spacer()
+                    .frame(maxWidth: .infinity)
+                    .background(Color(red: 0.949, green: 0.949, blue: 0.971))
+                    Spacer()
+                }
             }
+        }
+        .onAppear{
+            switch selectedUser.role {
+            case "reader":
+                userRoleSelectedItem = .reader
+            case "editor":
+                userRoleSelectedItem = .editor
+            case "admin":
+                userRoleSelectedItem = .admin
+            default:
+                userRoleSelectedItem = .reader
+            }
+            blockingChat = selectedUser.blockingChat
+            blockingAccount = selectedUser.blockingAccount
+            if(selectedUser.reasonBlockingAccount == ""){
+                newReasonBlockingAccount = ""
+            }
+            else{
+                newReasonBlockingAccount = selectedUser.reasonBlockingAccount
+            }
+            userName = selectedUser.userName
+        }
+        .onChange(of: selectedUser){ Value in
+            switch selectedUser.role {
+            case "reader":
+                userRoleSelectedItem = .reader
+            case "editor":
+                userRoleSelectedItem = .editor
+            case "admin":
+                userRoleSelectedItem = .admin
+            default:
+                userRoleSelectedItem = .reader
+            }
+            blockingChat = selectedUser.blockingChat
+            blockingAccount = selectedUser.blockingAccount
+            if(selectedUser.reasonBlockingAccount == ""){
+                newReasonBlockingAccount = ""
+            }
+            else{
+                newReasonBlockingAccount = selectedUser.reasonBlockingAccount
+            }
+            userName = selectedUser.userName
+        }
+        .alert(isPresented: $showAlertUpdateUserInformation) {
+            Alert(
+                title: Text(alertTextUpdateUserInformationTitle),
+                message: Text(alertTextUpdateUserInformationMessage),
+                dismissButton: .default(Text("Ок")))
         }
     }
 }

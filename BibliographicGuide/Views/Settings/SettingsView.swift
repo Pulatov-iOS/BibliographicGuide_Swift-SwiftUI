@@ -65,7 +65,7 @@ struct SettingsView: View {
                         TextField(userInformationListViewModel.getСurrentUserInformation().userName, text: $userName).multilineTextAlignment(TextAlignment.trailing)
                     }
                     HStack {
-                        Text("Изображение аккаунта:")
+                        Text("Изображение учетной \nзаписи:")
                             .foregroundColor(Color.gray)
                         Spacer()
                         HStack{

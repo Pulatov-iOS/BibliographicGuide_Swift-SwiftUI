@@ -1,5 +1,5 @@
 //
-//  SearchBarKeywordView.swift
+//  SearchBarUserRightsView.swift
 //  BibliographicGuide
 //
 //  Created by Alexander on 16.05.23.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct SearchBarKeywordView: View {
-    
+struct SearchBarUserRightsView: View {
+
     @EnvironmentObject var userInformationListViewModel: UserInformationListViewModel
 
     @State private var textSearch = ""
@@ -48,7 +48,6 @@ struct SearchBarKeywordView: View {
                     self.isSearching = false
                     self.textSearch = ""
                     
-                    // Dismiss the keyboard
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }) {
                     Text("Отмена")
@@ -58,14 +57,14 @@ struct SearchBarKeywordView: View {
             }
         }
         .onAppear(){
-            userInformationListViewModel.searchKeywords = userInformationListViewModel.keywords
+            userInformationListViewModel.searchUsersInformation = userInformationListViewModel.usersInformationViewModel
         }
         .onChange(of: textSearch){ newValue in
-            userInformationListViewModel.fetchKeywordsSearch(SearchString: textSearch)
+            userInformationListViewModel.fetchUsersInformationSearch(SearchString: textSearch)
         }
         .onChange(of: isSearching){ newValue in
             if(newValue){
-                userInformationListViewModel.searchKeywords = userInformationListViewModel.keywords
+                userInformationListViewModel.searchUsersInformation = userInformationListViewModel.usersInformationViewModel
             }
         }
         .padding(.leading, 20)
@@ -73,8 +72,8 @@ struct SearchBarKeywordView: View {
     }
 }
 
-//struct SearchBarKeywordView_Previews: PreviewProvider {
+//struct SearchBarUserRightsView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        SearchBarKeywordView()
+//        SearchBarUserRightsView()
 //    }
 //}

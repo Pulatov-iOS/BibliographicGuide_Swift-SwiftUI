@@ -14,6 +14,7 @@ final class UserInformationListViewModel: ObservableObject {
     
     @Published var userInformationRepository = globalUserInformationRepository
     @Published var usersInformationViewModel: [UserInformationViewModel] = []
+    @Published var searchUsersInformation: [UserInformationViewModel] = []
     
     @Published var keywordRepository = globalKeywordRepository
     @Published var keywords: [Keyword] = []
@@ -37,6 +38,17 @@ final class UserInformationListViewModel: ObservableObject {
             (_) in
             let userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
             self.userId = userId
+        }
+    }
+    
+    func fetchUsersInformationSearch(SearchString: String){
+        if(SearchString != ""){
+            searchUsersInformation = usersInformationViewModel.filter{
+                $0.userInformation.userName.lowercased().contains(SearchString.lowercased())
+            }
+        }
+        else{
+            searchUsersInformation = usersInformationViewModel
         }
     }
     
@@ -91,6 +103,60 @@ final class UserInformationListViewModel: ObservableObject {
                 }
                 else{
                     completion(false, "Данное имя пользователя уже занято.")
+                }
+            }
+        }
+    }
+    
+    func updateChatLock(idUser: String, blockingChat: Bool, completion: @escaping (Bool, String)->Void){
+        userInformationRepository.updateChatLock(idUser: idUser, blockingChat: blockingChat) { (verified, status) in
+            if !verified {
+                completion(false, "Ошибка.")
+            }
+            else{
+                completion(true, "Успешно.")
+            }
+        }
+    }
+    
+    func updateAccountLock(idUser: String, blockingAccount: Bool, completion: @escaping (Bool, String)->Void) {
+        userInformationRepository.updateAccountLock(idUser: idUser, blockingAccount: blockingAccount){ (verified, status) in
+            if !verified {
+                completion(false, "Ошибка.")
+            }
+            else{
+                completion(true, "Успешно.")
+            }
+        }
+    }
+    
+    func updateRoleReasonBlockingUserName(idUser: String, role: String, reasonBlocking: String, newUserName: String, completion: @escaping (Bool, String)->Void) {
+        if(newUserName != ""){
+            // проверка нет ли такого имени пользователя
+            let userName = usersInformationViewModel.filter { (item) -> Bool in
+                item.userInformation.userName.lowercased() == newUserName.lowercased()
+            }
+            if(userName.first?.userInformation.id == nil){
+                userInformationRepository.updateRoleReasonBlockingUserName(idUser: idUser, role: role, reasonBlocking: reasonBlocking, userName: newUserName){ (verified, status) in
+                    if !verified {
+                        completion(false, "Проверьте подключение к сети и повторите ошибку.")
+                    }
+                    else{
+                        completion(true, "Данные пользователя успешно обновлены.")
+                    }
+                }
+            }
+            else{
+                completion(false, "Данное имя пользователя уже занято.")
+            }
+        }
+        else{
+            userInformationRepository.updateRoleReasonBlocking(idUser: idUser, role: role, reasonBlocking: reasonBlocking){ (verified, status) in
+                if !verified {
+                    completion(false, "Проверьте подключение к сети и повторите ошибку.")
+                }
+                else{
+                    completion(true, "Данные пользователя успешно обновлены.")
                 }
             }
         }

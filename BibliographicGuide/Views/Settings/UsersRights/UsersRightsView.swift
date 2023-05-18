@@ -10,47 +10,105 @@ import SwiftUI
 struct UsersRightsView: View {
     
     @EnvironmentObject var userInformationListViewModel: UserInformationListViewModel
+    
     @State private var showUserRightsWindow: Bool = false
-    @State var userInformationViewModel = UserInformationViewModel(userInformation: UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true, reasonBlockingAccount: ""))
+    @State var selectedUser = UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true, reasonBlockingAccount: "")
+    
     @State var isSearching = false
     
     var body: some View {
-        NavigationView{
-            VStack{
-                Text("Пользователи".uppercased())
-                    .font(.system(.title, design: .rounded))
-                    .fontWeight(.bold)
-                    .frame(minWidth: 200)
-                    .padding(.top, 26)
-                   
-                
-              //  SearchBarView(textSearch: "", isSearching: $isSearching)
-                
+        VStack{
+            ZStack{
                 VStack{
-                    ForEach(userInformationListViewModel.usersInformationViewModel) { users in
-                        HStack{
-                           // Text(users.objectWillChange.values)
-                            Text(users.userInformation.userName)
-                            Spacer()
-                            Text(users.userInformation.role)
+                    if(!(isSearching == true && userInformationListViewModel.searchUsersInformation.count == 0)){
+                        List{
+                            if(isSearching == true){
+                                ForEach(userInformationListViewModel.searchUsersInformation) { userInformation in
+                                    HStack{
+                                        Text("\(userInformation.userInformation.userName)")
+                                            .lineLimit(1)
+                                        Spacer()
+                                        HStack{
+                                            Text(stringUserRole(userInformation.userInformation.role))
+                                                .foregroundColor(.gray)
+                                        }
+                                    }
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        showUserRightsWindow.toggle()
+                                        selectedUser = userInformation.userInformation
+                                    }
+                                    .onChange(of: userInformation.userInformation){ Value in
+                                        if(selectedUser.id == userInformation.userInformation.id){
+                                            selectedUser = Value
+                                        }
+                                    }
+                                }
+                            }
+                            else{
+                                ForEach(userInformationListViewModel.usersInformationViewModel) { userInformation in
+                                    HStack{
+                                        Text("\(userInformation.userInformation.userName)")
+                                            .lineLimit(1)
+                                        Spacer()
+                                        HStack{
+                                            Text(stringUserRole(userInformation.userInformation.role))
+                                                .foregroundColor(.gray)
+                                        }
+                                    }
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        showUserRightsWindow.toggle()
+                                        selectedUser = userInformation.userInformation
+                                    }
+                                    .onChange(of: userInformation.userInformation){ Value in
+                                        if(selectedUser.id == userInformation.userInformation.id){
+                                            selectedUser = Value
+                                        }
+                                    }
+                                }
+                            }
                         }
-                        .padding([.top, .bottom], 5)
-                        .padding(.leading, 15)
-                        .padding(.trailing, 50)
-                        .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
-                        .onTapGesture {
-                            userInformationViewModel = users
-                            showUserRightsWindow = true
-                        }
+                        .padding(.top, 87)
                     }
                 }
-                .padding([.leading, .trailing], 10)
-                Spacer()
+                
+                VStack{
+                    HStack{
+                        Text("Пользователи".uppercased())
+                            .font(.system(.title, design: .rounded))
+                            .fontWeight(.bold)
+                            .padding(EdgeInsets(top: 25, leading: 0, bottom: 5, trailing: 0))
+                    }
+                    .frame(maxWidth: .infinity)
+                    .background(Color(red: 0.949, green: 0.949, blue: 0.971))
+                    
+                    SearchBarUserRightsView(isSearching: $isSearching)
+                        .padding(.bottom, 8)
+                        .background(Color(red: 0.949, green: 0.949, blue: 0.971))
+                        .environmentObject(userInformationListViewModel)
+                    
+                    Spacer()
+                }
             }
-            .sheet(isPresented: self.$showUserRightsWindow) {
-                UserRightsView(userInformationViewModel: $userInformationViewModel)
-                    .environmentObject(userInformationListViewModel)
-            }
+        }
+        .background(Color(red: 0.949, green: 0.949, blue: 0.971))
+        .sheet(isPresented: self.$showUserRightsWindow) {
+            UserRightsView(selectedUser: $selectedUser)
+                .environmentObject(userInformationListViewModel)
+        }
+    }
+    
+    func stringUserRole(_ userRole: String) -> String {
+        switch userRole {
+        case "reader":
+            return "Читатель"
+        case "editor":
+            return "Редактор"
+        case "admin":
+            return "Администратор"
+        default:
+            return "Читатель"
         }
     }
 }

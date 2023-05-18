@@ -76,7 +76,7 @@ final class UserInformationRepository: ObservableObject {
     }
     
     func addUserInformation(userInformation: UserInformation, userId: String, completion: @escaping (Bool, String)->Void) {
-        db.collection(pathUserInformation).document(userId).setData(["role": "user", "userName": userInformation.userName,
+        db.collection(pathUserInformation).document(userId).setData(["role": "reader", "userName": userInformation.userName,
                                                       "blockingChat": userInformation.blockingChat,
                                                                      "blockingAccount": userInformation.blockingAccount, "reasonBlockingAccount": ""]){
             error in
@@ -100,10 +100,48 @@ final class UserInformationRepository: ObservableObject {
         }
     }
     
-    func updateAccountLock(idUser: String, blockingChat: Bool, blockingAccount: Bool, completion: @escaping (Bool, String)->Void) {
+    func updateChatLock(idUser: String, blockingChat: Bool, completion: @escaping (Bool, String)->Void) {
         db.collection(pathUserInformation).document(idUser).updateData([
             "blockingChat": blockingChat,
+        ]) { err in
+            if err != nil {
+                completion(false, "Ошибка при обновлении")
+            } else {
+                completion(true, "Обновлено успешно")
+            }
+        }
+    }
+    
+    func updateAccountLock(idUser: String, blockingAccount: Bool, completion: @escaping (Bool, String)->Void) {
+        db.collection(pathUserInformation).document(idUser).updateData([
             "blockingAccount": blockingAccount
+        ]) { err in
+            if err != nil {
+                completion(false, "Ошибка при обновлении")
+            } else {
+                completion(true, "Обновлено успешно")
+            }
+        }
+    }
+    
+    func updateRoleReasonBlockingUserName(idUser: String, role: String, reasonBlocking: String, userName: String, completion: @escaping (Bool, String)->Void) {
+        db.collection(pathUserInformation).document(idUser).updateData([
+            "role": role,
+            "reasonBlockingAccount": reasonBlocking,
+            "userName": userName
+        ]) { err in
+            if err != nil {
+                completion(false, "Ошибка при обновлении")
+            } else {
+                completion(true, "Обновлено успешно")
+            }
+        }
+    }
+    
+    func updateRoleReasonBlocking(idUser: String, role: String, reasonBlocking: String, completion: @escaping (Bool, String)->Void) {
+        db.collection(pathUserInformation).document(idUser).updateData([
+            "role": role,
+            "reasonBlockingAccount": reasonBlocking,
         ]) { err in
             if err != nil {
                 completion(false, "Ошибка при обновлении")

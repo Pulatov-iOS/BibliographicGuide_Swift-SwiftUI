@@ -35,7 +35,7 @@ struct KeywordsView: View {
                     if(!(isSearching == true && userInformationListViewModel.searchKeywords.count == 0)){
                         List{
                             if(isSearching == true){
-                                ForEach(userInformationListViewModel.searchKeywords) {keyword in
+                                ForEach(userInformationListViewModel.searchKeywords) { keyword in
                                     KeywordView(keyword: keyword, idSelectedKeyword: $idSelectedKeyword, showAlertKeyword: $showAlertKeyword, alertTextKeywordTitle: $alertTextKeywordTitle, alertTextKeywordMessage: $alertTextKeywordMessage)
                                         .environmentObject(userInformationListViewModel)
                                         .contentShape(Rectangle())
@@ -52,7 +52,7 @@ struct KeywordsView: View {
                                 }
                             }
                             else{
-                                ForEach(userInformationListViewModel.keywords) {keyword in
+                                ForEach(userInformationListViewModel.keywords) { keyword in
                                     KeywordView(keyword: keyword, idSelectedKeyword: $idSelectedKeyword, showAlertKeyword: $showAlertKeyword, alertTextKeywordTitle: $alertTextKeywordTitle, alertTextKeywordMessage: $alertTextKeywordMessage)
                                         .environmentObject(userInformationListViewModel)
                                         .contentShape(Rectangle())

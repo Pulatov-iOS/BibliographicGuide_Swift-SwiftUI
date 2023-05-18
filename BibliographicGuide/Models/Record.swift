@@ -17,7 +17,7 @@ struct Record: Identifiable, Codable, Equatable {
     var dateChange: Date?
     var title: String
     var year: Int
-    var keywords: [String]
+    var idKeywords: [String]
     var authors: String // [String]
     var linkDoi: String
     var linkWebsite: String

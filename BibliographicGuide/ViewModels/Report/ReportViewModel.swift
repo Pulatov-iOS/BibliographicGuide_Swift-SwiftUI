@@ -73,7 +73,7 @@ final class ReportViewModel: ObservableObject {
             let newRecord = records.filter { (item) -> Bool in
                 item.id! == idRecord
             }
-            recordsInReport.append(newRecord.first ?? Record(idUser: "", title: "", year: 0, keywords: [], authors: "", linkDoi: "", linkWebsite: "", journalName: "", journalNumber: "", pageNumbers: "", description: "", idUsersReporting: [], universityRecord: false))
+            recordsInReport.append(newRecord.first ?? Record(idUser: "", title: "", year: 0, idKeywords: [], authors: "", linkDoi: "", linkWebsite: "", journalName: "", journalNumber: "", pageNumbers: "", description: "", idUsersReporting: [], universityRecord: false))
         }
     }
     

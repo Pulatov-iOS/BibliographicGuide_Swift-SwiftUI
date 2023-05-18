@@ -59,8 +59,8 @@ final class MessageListViewModel: ObservableObject, Equatable {
         messageRepository.removeMessage(message)
     }
     
-    func updateAccountLock(idUser: String, blockingChat: Bool, blockingAccount: Bool, completion: @escaping (Bool, String)->Void){
-        userInformationRepository.updateAccountLock(idUser: idUser, blockingChat: blockingChat, blockingAccount: blockingAccount){ (verified, status) in
+    func updateChatLock(idUser: String, blockingChat: Bool, completion: @escaping (Bool, String)->Void){
+        userInformationRepository.updateChatLock(idUser: idUser, blockingChat: blockingChat){ (verified, status) in
             if !verified {
                 completion(false, "Ошибка.")
             }

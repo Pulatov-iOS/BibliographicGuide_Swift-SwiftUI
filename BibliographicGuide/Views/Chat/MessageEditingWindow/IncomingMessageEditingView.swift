@@ -66,7 +66,7 @@ struct IncomingMessageEditingView: View {
                         .foregroundColor(.red)
                         .background(Color.white)
                         .onTapGesture {
-                            messageListViewModel.updateAccountLock(idUser: ChangeableMessage?.idUser ?? "", blockingChat: true, blockingAccount: false){ (verified, status) in
+                            messageListViewModel.updateChatLock(idUser: ChangeableMessage?.idUser ?? "", blockingChat: true){ (verified, status) in
                                 if !verified {
                                     alertTextTitle = "Ошибка!"
                                     alertTextMessage = "Данный пользователь не заблокирован. Проверьте подключение к сети"
@@ -89,7 +89,7 @@ struct IncomingMessageEditingView: View {
                         .foregroundColor(.green)
                         .background(Color.white)
                         .onTapGesture {
-                            messageListViewModel.updateAccountLock(idUser: ChangeableMessage?.idUser ?? "", blockingChat: false, blockingAccount: false){ (verified, status) in
+                            messageListViewModel.updateChatLock(idUser: ChangeableMessage?.idUser ?? "", blockingChat: false){ (verified, status) in
                                 if !verified {
                                     alertTextTitle = "Ошибка!"
                                     alertTextMessage = "Данный пользователь не разблокирован. Проверьте подключение к сети"
