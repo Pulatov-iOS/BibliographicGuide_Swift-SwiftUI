@@ -25,7 +25,7 @@ final class MessageRepository: ObservableObject {
     }
     
     func fetchMessages(){
-        db.collection(pathMessages).order(by: "date").addSnapshotListener { (snapshot, error) in
+        db.collection(pathMessages).order(by: "date", descending: true).addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print(error)
                 return

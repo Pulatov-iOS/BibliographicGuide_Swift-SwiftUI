@@ -10,6 +10,7 @@ import SDWebImageSwiftUI
 
 struct RecordView: View {
     
+    @Binding var newRecordId: String
     var recordViewModel: RecordViewModel
     var recordListViewModel: RecordListViewModel
     
@@ -37,8 +38,20 @@ struct RecordView: View {
                             imageUrl = status
                         }
                         else{
-                            print(status)
                             imageUrl = status
+                        }
+                    }
+                }
+                .onChange(of: newRecordId){ Value in
+                    if(Value == recordViewModel.record.id){
+                        recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
+                            if !verified  {
+                                imageUrl = status
+                            }
+                            else{
+                                print(status)
+                                imageUrl = status
+                            }
                         }
                     }
                 }

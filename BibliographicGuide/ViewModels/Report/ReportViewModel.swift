@@ -152,6 +152,13 @@ final class ReportViewModel: ObservableObject {
         return newUsers.first?.userName ?? "User"
     }
     
+    func getСurrentUserInformation() -> UserInformation {
+        let userName = usersInformation.filter { (item) -> Bool in
+            item.id == userId
+        }
+        return userName.first ?? UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true, reasonBlockingAccount: "")
+    }
+    
     func checkingCreatingTime(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/YY"

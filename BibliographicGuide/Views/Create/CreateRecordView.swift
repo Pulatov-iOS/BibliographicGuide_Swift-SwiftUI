@@ -11,6 +11,8 @@ struct CreateRecordView: View {
     
     @EnvironmentObject var createRecordViewModel: CreateRecordViewModel
     
+    @Binding var newRecordId: String
+    
     @State var newTitle = ""
     @State var newAuthors = ""
     @State var newYear = ""
@@ -25,7 +27,7 @@ struct CreateRecordView: View {
     @State var countKeywordsSelected = 0
     
     @State var showAlertCreate: Bool = false
-    @State var alertTextCreateTitle: String = "Отказано"
+    @State var alertTextCreateTitle: String = "Отказано!"
     @State var alertTextCreateMessage: String = "Отсутствуют права для создания записи."
     
     @State var pageCreateRecord = 1
@@ -36,7 +38,7 @@ struct CreateRecordView: View {
                 FirstPageViewCreateRecord(createRecordViewModel: createRecordViewModel, newTitle: $newTitle, newAuthors: $newAuthors, newYear: $newYear, newJournalName: $newJournalName, newJournalNumber: $newJournalNumber, newPageNumbers: $newPageNumbers, newLinkDoi: $newLinkDoi, newLinkWebsite: $newLinkWebsite, showAlertCreate: $showAlertCreate, alertTextCreateTitle: $alertTextCreateTitle, alertTextCreateMessage: $alertTextCreateMessage, pageCreateRecord: $pageCreateRecord)
             }
             else{
-                SecondPageCreateRecord(createRecordViewModel: createRecordViewModel, newTitle: $newTitle, newAuthors: $newAuthors, newYear: $newYear, newJournalName: $newJournalName, newJournalNumber: $newJournalNumber, newPageNumbers: $newPageNumbers, newLinkDoi: $newLinkDoi, newLinkWebsite: $newLinkWebsite, newDescription: $newDescription, newUniversityRecord: $newUniversityRecord, countKeywordsSelected: $countKeywordsSelected, showAlertCreate: $showAlertCreate, alertTextCreateTitle: $alertTextCreateTitle, alertTextCreateMessage: $alertTextCreateMessage, pageCreateRecord: $pageCreateRecord)
+                SecondPageCreateRecordView(createRecordViewModel: createRecordViewModel, newTitle: $newTitle, newAuthors: $newAuthors, newYear: $newYear, newJournalName: $newJournalName, newJournalNumber: $newJournalNumber, newPageNumbers: $newPageNumbers, newLinkDoi: $newLinkDoi, newLinkWebsite: $newLinkWebsite, newDescription: $newDescription, newUniversityRecord: $newUniversityRecord, countKeywordsSelected: $countKeywordsSelected, showAlertCreate: $showAlertCreate, alertTextCreateTitle: $alertTextCreateTitle, alertTextCreateMessage: $alertTextCreateMessage, pageCreateRecord: $pageCreateRecord, newRecordId: $newRecordId)
             }
         }
     }

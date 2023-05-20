@@ -50,7 +50,7 @@ struct IncomingMessageView: View {
                     .scaledToFit()
                     .padding(.leading, 6)
                     .onAppear{
-                        messageListViewModel.getImageUrl(pathImage: "ImageAccount"){ (verified, status) in
+                        messageListViewModel.getImageUrl(pathImage: "ImageAccount", idImage: messageViewModel.message.idUser){ (verified, status) in
                             if !verified  {
                                 defaultImageAccount = true
                                 imageUrl = status

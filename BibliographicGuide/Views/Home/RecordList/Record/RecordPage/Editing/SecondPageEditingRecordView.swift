@@ -1,15 +1,17 @@
 //
-//  SecondPageCreateRecord.swift
+//  SecondPageEditingRecordView.swift
 //  BibliographicGuide
 //
-//  Created by Alexander on 12.05.23.
+//  Created by Alexander on 20.05.23.
 //
 
 import SwiftUI
 
-struct SecondPageCreateRecord: View {
+struct SecondPageEditingRecordView: View {
     
-    @State var createRecordViewModel: CreateRecordViewModel
+    @State var recordListViewModel: RecordListViewModel
+    @Binding var recordViewModel: RecordViewModel
+    @Binding var showEditingWindow: Bool
     
     @Binding var newTitle: String
     @Binding var newAuthors: String
@@ -35,6 +37,9 @@ struct SecondPageCreateRecord: View {
     @Binding var alertTextCreateMessage: String
     
     @Binding var pageCreateRecord: Int
+    @Binding var newRecordId: String
+    
+    var defaultImageTitle = UIImage(named: "default")
     
     var body: some View {
         VStack{
@@ -111,14 +116,14 @@ struct SecondPageCreateRecord: View {
                                             }
                                             .foregroundColor(.blue)
                                     }
-                                    KeywordsSelectionCreateView(createRecordViewModel: createRecordViewModel, countKeywordsSelected: $countKeywordsSelected)                               
+                                    KeywordsSelectionEditingView(recordListViewModel: recordListViewModel, countKeywordsSelected: $countKeywordsSelected)
                                 }
                             }
                         }
                     }
                     .padding(.top, 80)
                     VStack{
-                        Text("Добавить запись".uppercased())
+                        Text("Изменить запись".uppercased())
                             .font(.system(.title, design: .rounded))
                             .fontWeight(.bold)
                             .frame(minWidth: 200)
@@ -148,8 +153,6 @@ struct SecondPageCreateRecord: View {
                     HStack{
                         Button{
                             clean()
-                            countKeywordsSelected = 0
-                            createRecordViewModel.selectedKeywordsId.removeAll()
                             pageCreateRecord = 1
                         } label:{
                             Text("Очистить").foregroundColor(.black).padding().frame(width: 160)
@@ -158,27 +161,34 @@ struct SecondPageCreateRecord: View {
                         
                         Button(action: {
                             let imageData = imageTitle.jpegData(compressionQuality: 0.1)
+                            let imageDataDefault = defaultImageTitle?.jpegData(compressionQuality: 0.1)
 
-                            let role = createRecordViewModel.getСurrentUserInformation().role
+                            let role = recordListViewModel.getСurrentUserInformation().role
                             if(role == "admin" || role == "editor"){
-                                let newRecord = Record(idUser: "", dateCreation: nil, dateChange: nil, title: newTitle, year: Int(newYear) ?? 2000, idKeywords: createRecordViewModel.selectedKeywordsId, authors: newAuthors, linkDoi: newLinkDoi, linkWebsite: newLinkWebsite, journalName: newJournalName, journalNumber: newJournalNumber, pageNumbers: newPageNumbers, description: newDescription, idUsersReporting: [], universityRecord: newUniversityRecord)
-                                createRecordViewModel.addRecord(newRecord, ImageTitle: imageData ?? Data()){ (verified, status) in
+                                var newRecord = recordViewModel.record
+                                newRecord.title = newTitle
+                                newRecord.year = Int(newYear) ?? 20000
+                                newRecord.authors = newAuthors
+                                newRecord.journalName = newJournalName
+                                newRecord.journalNumber = newJournalNumber
+                                newRecord.pageNumbers = newPageNumbers
+                                newRecord.description = newDescription
+                                newRecord.linkDoi = newLinkDoi
+                                newRecord.linkWebsite = newLinkWebsite
+                                // изменить данные
+                                recordListViewModel.updateRecord(record: newRecord, ImageTitle: (imageData ?? imageDataDefault)!){ (verified, status) in
                                     if !verified {
-                                        alertTextCreateTitle = "Ошибка"
-                                        alertTextCreateMessage = status
-                                        self.showAlertCreateError.toggle()
+//                                        alertTextEditingTitle = "Ошибка"
+//                                        alertTextEditingMessage = status
+//                                        self.showAlertEditing.toggle()
                                     }
                                     else{
-                                        alertTextCreateTitle = "Успешно"
-                                        alertTextCreateMessage = status
-                                        clean()
-                                        self.showAlertCreate.toggle()
-                                        pageCreateRecord = 1
+                                        showEditingWindow.toggle()
                                     }
                                 }
                             }
                             else{
-                                alertTextCreateTitle = "Отказано"
+                                alertTextCreateTitle = "Отказано!"
                                 alertTextCreateMessage = "Отсутствуют права для создания записи."
                                 self.showAlertCreateError.toggle()
                             }
@@ -206,7 +216,7 @@ struct SecondPageCreateRecord: View {
             imageTitle = UIImage(named: "default") ?? UIImage()
         }
         .sheet(isPresented: self.$showKeywordsWindow) {
-            KeywordsSelectionSearchView(createRecordViewModel: createRecordViewModel, countKeywordsSelected: $countKeywordsSelected)
+            EditingKeywordsSelectionSearchView(recordListViewModel: recordListViewModel, countKeywordsSelected: $countKeywordsSelected)
         }
     }
     
@@ -223,11 +233,7 @@ struct SecondPageCreateRecord: View {
         newDescription = ""
         newUniversityRecord = false
         imageTitle = UIImage(named: "default") ?? UIImage()
+        countKeywordsSelected = 0
+        recordListViewModel.selectedKeywordsId.removeAll()
     }
 }
-
-//struct SecondPageCreateRecord_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SecondPageCreateRecord()
-//    }
-//}

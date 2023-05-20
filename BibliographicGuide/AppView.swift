@@ -6,13 +6,21 @@
 //
 
 import SwiftUI
+import FirebaseAnalytics
 import FirebaseCore
+import FirebaseFirestore
 
 // Подключение БД
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
     FirebaseApp.configure()
+    FirebaseConfiguration.shared.setLoggerLevel(.error)
+    Analytics.setAnalyticsCollectionEnabled(true)
+    let settings = Firestore.firestore().settings
+    settings.cacheSizeBytes = FirestoreCacheSizeUnlimited
+    settings.isPersistenceEnabled = true
+    Firestore.firestore().settings = settings
     return true
   }
 }
@@ -36,6 +44,7 @@ struct AppView: App {
     @State private var selectedImage = 0
     @State private var editingWindowShow = false
     @State private var openFullSizeImage = false
+    @State private var newRecordId = ""
     @State private var newMessageId = ""
 
     var body: some Scene {
@@ -44,7 +53,7 @@ struct AppView: App {
                 VStack{
                     if(status && !(appViewModel.currentUserInformation?.blockingAccount ?? false)){
                         TabView {
-                            RecordListView()
+                            RecordListView(newRecordId: $newRecordId)
                                 .tabItem {
                                     Image(systemName: "house")
                                     Text("Домашняя")
@@ -55,7 +64,7 @@ struct AppView: App {
                                     Image(systemName: "message.badge")
                                     Text("Общ. чат")
                                 }
-                            CreateRecordView()
+                            CreateRecordView(newRecordId: $newRecordId)
                                 .tabItem {
                                     Image(systemName: "square.and.pencil")
                                     Text("Доб. запись")

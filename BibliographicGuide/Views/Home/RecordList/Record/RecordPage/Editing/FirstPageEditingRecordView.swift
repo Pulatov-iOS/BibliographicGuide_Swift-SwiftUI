@@ -1,16 +1,15 @@
 //
-//  FirstPageCreatRecordView.swift
+//  FirstPageEditingRecordView.swift
 //  BibliographicGuide
 //
-//  Created by Alexander on 12.05.23.
+//  Created by Alexander on 20.05.23.
 //
 
 import SwiftUI
 
-
-struct FirstPageViewCreateRecord: View {
+struct FirstPageEditingRecordView: View {
     
-    @State var createRecordViewModel: CreateRecordViewModel
+    @State var recordListViewModel: RecordListViewModel
     var informationDOIApi = InformationDOI()
     
     @Binding var newTitle: String
@@ -59,7 +58,7 @@ struct FirstPageViewCreateRecord: View {
                                             .padding(2)
                                             .onTapGesture {
                                                 if(newLinkDoi != ""){
-                                                    let role = createRecordViewModel.getСurrentUserInformation().role
+                                                    let role = recordListViewModel.getСurrentUserInformation().role
                                                     if(role == "admin" || role == "editor"){
                                                         informationDOIApi.getObject(doi: newLinkDoi){ (verified, status) in
                                                             if !verified {
@@ -152,7 +151,7 @@ struct FirstPageViewCreateRecord: View {
                     }
                     .padding(.top, 80)
                     VStack{
-                        Text("Добавить запись".uppercased())
+                        Text("Изменить запись".uppercased())
                             .font(.system(.title, design: .rounded))
                             .fontWeight(.bold)
                             .frame(minWidth: 200)
@@ -190,9 +189,3 @@ struct FirstPageViewCreateRecord: View {
         }
     }
 }
-
-//struct FirstPageViewCreateRecord_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FirstPageViewCreateRecord()
-//    }
-//}

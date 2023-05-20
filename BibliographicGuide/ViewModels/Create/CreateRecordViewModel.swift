@@ -69,7 +69,7 @@ final class CreateRecordViewModel: ObservableObject {
                 completion(false, "Ошибка при запросе создания записи.")
             }
             else{
-                completion(true, "Запись успешно создана.")
+                completion(true, status)
             }
         }
     }

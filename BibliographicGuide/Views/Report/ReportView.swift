@@ -13,6 +13,7 @@ struct ReportView: View {
     
     @State private var showCreateReportWindow = false
     @State private var showPdfReportWindow = false
+    @State private var showAlertDelete = false
     
     var body: some View {
         ZStack{
@@ -30,8 +31,14 @@ struct ReportView: View {
                                     }
                             }
                             .onDelete{ indexSet in
+                                let role = reportViewModel.getСurrentUserInformation().role
                                 for index in indexSet{
-                                    reportViewModel.removeReport(index)
+                                    if(role == "admin" || role == "editor"){
+                                        reportViewModel.removeReport(index)
+                                    }
+                                    else{
+                                        showAlertDelete.toggle()
+                                    }
                                 }
                             }
                         }
@@ -71,7 +78,13 @@ struct ReportView: View {
                     .padding(30)
                 }
             }
-
+            .alert(isPresented: $showAlertDelete) {
+                Alert(
+                    title: Text("Отказано!"),
+                    message: Text("У вас отсутствуют права для удаления отчетов."),
+                    dismissButton: .default(Text("Ок"))
+                )
+            }
         }
         .sheet(isPresented: self.$showCreateReportWindow) {
             CreateReportView()

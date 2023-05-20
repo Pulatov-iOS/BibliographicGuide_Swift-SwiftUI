@@ -89,7 +89,15 @@ struct KeywordView: View {
                     Alert(title: Text(showAlertDeleteTitle), message: Text(showAlertDeleteMessage), primaryButton: .default(Text("Отмена"), action: {
                         // Ничего не делаем
                     }), secondaryButton: .default(Text(showAlertDeleteButton), action: {
-                        userInformationListViewModel.removeKeyword(keyword)
+                        let role = userInformationListViewModel.getСurrentUserInformation().role
+                        if(role == "admin"){
+                            userInformationListViewModel.removeKeyword(keyword)
+                        }
+                        else{
+                            alertTextKeywordTitle = "Отказано!"
+                            alertTextKeywordMessage = "У вас отсутствуют права для удаления кл. слов."
+                            showAlertKeyword.toggle()
+                        }
                     }))
                 }
             }

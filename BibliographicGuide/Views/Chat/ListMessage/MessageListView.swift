@@ -12,6 +12,7 @@ struct MessageListView: View {
     
     @ObservedObject var messageListViewModel: MessageListViewModel
     
+    @State var quantityMessages = 10
     @State private var textNewMessage = ""
     @State private var replyIdMessage = ""
     @Binding var editingWindowShow: Bool
@@ -61,14 +62,25 @@ struct MessageListView: View {
                 VStack{
                     ScrollView(.vertical, showsIndicators: false, content: {
                         VStack(spacing: 0){
-                            ForEach(messageListViewModel.messageViewModels) { messages in
+//                            if(messageListViewModel.messageViewModels.count > quantityMessages){
+//                                Button{
+//                                    quantityMessages += 10
+//                                } label: {
+//                                    Image(systemName: "plus")
+//                                        .resizable()
+//                                        .frame(width: 20, height: 20)
+//                                        .foregroundColor(Color.green)
+//                                }
+//                                .padding(.bottom, 10)
+//                                .padding(.top, 35)
+//                            }
+                            ForEach(messageListViewModel.messageViewModels.reversed()) { messages in //.prefix(quantityMessages).reversed()
                                 MessageView(messageListViewModel: messageListViewModel, messageViewModel: messages, userName: messageListViewModel.getUserName(messages.message), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(messages.message.replyIdMessage), textResponseMessage: messageListViewModel.getTextResponseMessage(messages.message.replyIdMessage), outgoingOrIncomingMessage: messageListViewModel.OutgoingOrIncomingMessage(messages.message), newMessageId: $newMessageId, selectedMessage: $selectedMessage, selectedImage: $selectedImage, openFullSizeImage: $openFullSizeImage, editingWindowShow: $editingWindowShow)
                             }
                         }
                         .rotationEffect(Angle(degrees: 180)).scaleEffect(x: -1.0, y: 1.0, anchor: .center)
                             .padding(.top, 15)
                                 }).rotationEffect(Angle(degrees: 180)).scaleEffect(x: -1.0, y: 1.0, anchor: .center)
-                        
                 }
                 .onChange(of: changeKeyboardIsFocused){ value in
                     keyboardIsFocused = true // открытие клавиатуры при ответе и изменении сообщения

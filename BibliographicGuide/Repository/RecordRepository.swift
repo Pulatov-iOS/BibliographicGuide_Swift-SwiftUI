@@ -61,7 +61,7 @@ final class RecordRepository: ObservableObject {
                         completion(false, "Ошибка при добавлении записи.")
                     }
                     else{
-                        completion(true, "Запись добавлена успешно.")
+                        completion(true, result.documentID)
                     }
             }
         } catch {
@@ -73,14 +73,14 @@ final class RecordRepository: ObservableObject {
         guard let documentId = record.id else { return }
         do {
             try db.collection(pathRecords).document(documentId).setData(from: record)
-            addImageTitle(idImageTitle: record.id ?? "", imageTitle: imageTitle){ (verified, status) in
-                    if !verified {
-                        completion(false, "Ошибка при редактировании записи.")
-                    }
-                    else{
-                        completion(true, "Запись успешно отредактирована.")
-                    }
-            }
+//            addImageTitle(idImageTitle: record.id ?? "", imageTitle: imageTitle){ (verified, status) in
+//                    if !verified {
+//                        completion(false, "Ошибка при редактировании записи.")
+//                    }
+//                    else{
+//                        completion(true, "Запись успешно отредактирована.")
+//                    }
+//            }
         } catch {
             completion(false, "Ошибка при редактировании записи")
         }

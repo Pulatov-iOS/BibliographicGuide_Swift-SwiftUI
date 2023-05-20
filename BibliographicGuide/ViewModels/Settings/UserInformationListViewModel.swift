@@ -52,7 +52,7 @@ final class UserInformationListViewModel: ObservableObject {
         }
     }
     
-    func getСurrentUserInformation() -> UserInformation{
+    func getСurrentUserInformation() -> UserInformation {
         let userName = usersInformationViewModel.filter { (item) -> Bool in
             item.id == userId
         }

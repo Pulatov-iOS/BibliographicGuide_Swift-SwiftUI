@@ -24,6 +24,9 @@ final class RecordListViewModel: ObservableObject {
     @Published var keywordRepository = globalKeywordRepository
     @Published var keywords: [Keyword] = []
     @Published var selectedKeywordsSearch = [String]()
+    @Published var selectedKeywordsId: [String] = []
+    @Published var selectedKeywords: [Keyword] = []
+    @Published var searchKeywords: [Keyword] = []
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -77,6 +80,16 @@ final class RecordListViewModel: ObservableObject {
             searchRecordViewModels = searchRecordViewModels.filter{
                 $0.record.idKeywords.contains(idKeyword)
             }
+        }
+    }
+    
+    func fetchKeywordsSearch(SearchString: String){
+        if(SearchString != ""){
+            searchKeywords = keywords.filter{ $0.name.lowercased().contains(SearchString.lowercased())
+            }
+        }
+        else{
+            searchKeywords = keywords
         }
     }
     
@@ -282,6 +295,13 @@ final class RecordListViewModel: ObservableObject {
                     completion(true, "")
                 }
             }
+        }
+    }
+    
+    func keywordsIdToKeywords(){
+        selectedKeywords.removeAll()
+        for keyword in selectedKeywordsId {
+            selectedKeywords.append(keywords.first(where: { $0.id == keyword }) ?? Keyword(name: ""))
         }
     }
     

@@ -14,6 +14,7 @@ struct RecordPageView: View {
     var recordViewModel: RecordViewModel
     var userNameRecord: String
     @State private var imageUrl = URL(string: "")
+    @State private var updateRecordId = ""
 
     @State private var showEditingRecord: Bool = false
     @Environment(\.presentationMode) var presentationMode // Для закрытия sheet
@@ -193,7 +194,7 @@ struct RecordPageView: View {
                             .shadow(color: Color("ColorBlackTransparentLight"), radius: 5, x: 1, y: 2)
                         }
                         .sheet(isPresented: self.$showEditingRecord) {
-                            EditingRecordView(recordListViewModel: recordListViewModel, recordViewModel: recordViewModel)
+                            EditingRecordView(recordListViewModel: recordListViewModel, recordViewModel: recordViewModel, newRecordId: $updateRecordId)
                         }
                         .alert(isPresented: $showAlertEditing) {
                             Alert(

@@ -20,7 +20,7 @@
 		11274DA62A0A7105008B9EF0 /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DA52A0A7105008B9EF0 /* LoaderView.swift */; };
 		11274DAC2A0D4EB0008B9EF0 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DAB2A0D4EB0008B9EF0 /* AppViewModel.swift */; };
 		11274DB02A0D9614008B9EF0 /* FirstPageCreateRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DAF2A0D9614008B9EF0 /* FirstPageCreateRecordView.swift */; };
-		11274DB22A0D9630008B9EF0 /* SecondPageCreateRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DB12A0D9630008B9EF0 /* SecondPageCreateRecord.swift */; };
+		11274DB22A0D9630008B9EF0 /* SecondPageCreateRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DB12A0D9630008B9EF0 /* SecondPageCreateRecordView.swift */; };
 		11274DB42A0D99D4008B9EF0 /* CreateRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DB32A0D99D4008B9EF0 /* CreateRecordView.swift */; };
 		11274DB92A0E3BC3008B9EF0 /* KeywordSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DB82A0E3BC2008B9EF0 /* KeywordSelectionView.swift */; };
 		11274DBB2A0E52C8008B9EF0 /* SearchBarCreateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DBA2A0E52C8008B9EF0 /* SearchBarCreateView.swift */; };
@@ -31,10 +31,38 @@
 		11274DC92A124B1D008B9EF0 /* ReportDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DC82A124B1D008B9EF0 /* ReportDescriptionView.swift */; };
 		11274DCC2A139335008B9EF0 /* SearchBarKeywordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DCB2A139335008B9EF0 /* SearchBarKeywordView.swift */; };
 		11274DCE2A13B171008B9EF0 /* SearchBarUserRightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DCD2A13B171008B9EF0 /* SearchBarUserRightsView.swift */; };
+		11274DD02A182434008B9EF0 /* TestRegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DCF2A182434008B9EF0 /* TestRegistrationViewModel.swift */; };
+		11274DD22A182564008B9EF0 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A09729DDA2430007B181 /* RegistrationViewModel.swift */; };
+		11274DD32A1826D5008B9EF0 /* AuthorizationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A07429DB00CD0007B181 /* AuthorizationRepository.swift */; };
+		11274DD42A1826D8008B9EF0 /* UserInformationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A09529DD9A7F0007B181 /* UserInformationRepository.swift */; };
+		11274DD52A182709008B9EF0 /* UserInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A09329DD96CA0007B181 /* UserInformation.swift */; };
+		11274DD72A182A78008B9EF0 /* TestMessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DD62A182A78008B9EF0 /* TestMessageListViewModel.swift */; };
+		11274DD82A182A84008B9EF0 /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A08D29DC52270007B181 /* MessageListViewModel.swift */; };
+		11274DD92A182A99008B9EF0 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A08229DC4CC40007B181 /* Message.swift */; };
+		11274DDA2A182A9D008B9EF0 /* MessageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A08029DC4C1B0007B181 /* MessageRepository.swift */; };
+		11274DDB2A182B58008B9EF0 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A08F29DC565A0007B181 /* MessageViewModel.swift */; };
+		11274DDC2A182C9D008B9EF0 /* RecordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A05F29D899DD0007B181 /* RecordListViewModel.swift */; };
+		11274DDE2A182CB1008B9EF0 /* TestRecordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DDD2A182CB1008B9EF0 /* TestRecordListViewModel.swift */; };
+		11274DDF2A182D17008B9EF0 /* Record.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A05D29D891A80007B181 /* Record.swift */; };
+		11274DE02A182D1B008B9EF0 /* RecordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A05B29D849140007B181 /* RecordRepository.swift */; };
+		11274DE12A182DE7008B9EF0 /* Keyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116A631E29FE8A880024C357 /* Keyword.swift */; };
+		11274DE22A182DEC008B9EF0 /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A06829DAF2610007B181 /* RecordViewModel.swift */; };
+		11274DE32A182E18008B9EF0 /* KeywordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116A632029FE8AFD0024C357 /* KeywordRepository.swift */; };
+		11274DE42A182FEC008B9EF0 /* CreateRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148681F29EE03B300C698D6 /* CreateRecordViewModel.swift */; };
+		11274DE72A18309A008B9EF0 /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148683329F0A7A400C698D6 /* ReportViewModel.swift */; };
+		11274DE82A1830A0008B9EF0 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116A631629F868400024C357 /* Report.swift */; };
+		11274DE92A1830A3008B9EF0 /* ReportRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DC52A124776008B9EF0 /* ReportRepository.swift */; };
+		11274DEB2A1830B4008B9EF0 /* TestReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DEA2A1830B4008B9EF0 /* TestReportViewModel.swift */; };
+		11274DEC2A18318F008B9EF0 /* PdfCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148683D29F0AF9700C698D6 /* PdfCreator.swift */; };
+		11274DEE2A188F0B008B9EF0 /* FirstPageEditingRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DED2A188F0B008B9EF0 /* FirstPageEditingRecordView.swift */; };
+		11274DF02A188F2A008B9EF0 /* SecondPageEditingRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DEF2A188F2A008B9EF0 /* SecondPageEditingRecordView.swift */; };
+		11274DF32A1893FE008B9EF0 /* EditingKeywordsSelectionSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DF22A1893FE008B9EF0 /* EditingKeywordsSelectionSearchView.swift */; };
+		11274DF52A189410008B9EF0 /* EditingKeywordSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DF42A189410008B9EF0 /* EditingKeywordSelectionView.swift */; };
+		11274DF72A18942A008B9EF0 /* EditingSearchBarUserRightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DF62A18942A008B9EF0 /* EditingSearchBarUserRightsView.swift */; };
+		11274DF92A189789008B9EF0 /* KeywordsSelectionEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11274DF82A189789008B9EF0 /* KeywordsSelectionEditingView.swift */; };
 		1132A02329D3219C0007B181 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A02229D3219C0007B181 /* AppView.swift */; };
 		1132A02729D3219D0007B181 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1132A02629D3219D0007B181 /* Assets.xcassets */; };
 		1132A02A29D3219D0007B181 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1132A02929D3219D0007B181 /* Preview Assets.xcassets */; };
-		1132A03429D3219E0007B181 /* BibliographicGuideTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A03329D3219E0007B181 /* BibliographicGuideTests.swift */; };
 		1132A03E29D3219E0007B181 /* BibliographicGuideUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A03D29D3219E0007B181 /* BibliographicGuideUITests.swift */; };
 		1132A04029D3219E0007B181 /* BibliographicGuideUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A03F29D3219E0007B181 /* BibliographicGuideUITestsLaunchTests.swift */; };
 		1132A04F29D445DB0007B181 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A04E29D445DB0007B181 /* SettingsView.swift */; };
@@ -120,7 +148,7 @@
 		11274DA52A0A7105008B9EF0 /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		11274DAB2A0D4EB0008B9EF0 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		11274DAF2A0D9614008B9EF0 /* FirstPageCreateRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageCreateRecordView.swift; sourceTree = "<group>"; };
-		11274DB12A0D9630008B9EF0 /* SecondPageCreateRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondPageCreateRecord.swift; sourceTree = "<group>"; };
+		11274DB12A0D9630008B9EF0 /* SecondPageCreateRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondPageCreateRecordView.swift; sourceTree = "<group>"; };
 		11274DB32A0D99D4008B9EF0 /* CreateRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecordView.swift; sourceTree = "<group>"; };
 		11274DB82A0E3BC2008B9EF0 /* KeywordSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordSelectionView.swift; sourceTree = "<group>"; };
 		11274DBA2A0E52C8008B9EF0 /* SearchBarCreateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarCreateView.swift; sourceTree = "<group>"; };
@@ -131,12 +159,21 @@
 		11274DC82A124B1D008B9EF0 /* ReportDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportDescriptionView.swift; sourceTree = "<group>"; };
 		11274DCB2A139335008B9EF0 /* SearchBarKeywordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarKeywordView.swift; sourceTree = "<group>"; };
 		11274DCD2A13B171008B9EF0 /* SearchBarUserRightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarUserRightsView.swift; sourceTree = "<group>"; };
+		11274DCF2A182434008B9EF0 /* TestRegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRegistrationViewModel.swift; sourceTree = "<group>"; };
+		11274DD62A182A78008B9EF0 /* TestMessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMessageListViewModel.swift; sourceTree = "<group>"; };
+		11274DDD2A182CB1008B9EF0 /* TestRecordListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRecordListViewModel.swift; sourceTree = "<group>"; };
+		11274DEA2A1830B4008B9EF0 /* TestReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestReportViewModel.swift; sourceTree = "<group>"; };
+		11274DED2A188F0B008B9EF0 /* FirstPageEditingRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstPageEditingRecordView.swift; sourceTree = "<group>"; };
+		11274DEF2A188F2A008B9EF0 /* SecondPageEditingRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondPageEditingRecordView.swift; sourceTree = "<group>"; };
+		11274DF22A1893FE008B9EF0 /* EditingKeywordsSelectionSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingKeywordsSelectionSearchView.swift; sourceTree = "<group>"; };
+		11274DF42A189410008B9EF0 /* EditingKeywordSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingKeywordSelectionView.swift; sourceTree = "<group>"; };
+		11274DF62A18942A008B9EF0 /* EditingSearchBarUserRightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingSearchBarUserRightsView.swift; sourceTree = "<group>"; };
+		11274DF82A189789008B9EF0 /* KeywordsSelectionEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordsSelectionEditingView.swift; sourceTree = "<group>"; };
 		1132A01F29D3219C0007B181 /* BibliographicGuide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BibliographicGuide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1132A02229D3219C0007B181 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		1132A02629D3219D0007B181 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1132A02929D3219D0007B181 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1132A02F29D3219E0007B181 /* BibliographicGuideTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BibliographicGuideTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1132A03329D3219E0007B181 /* BibliographicGuideTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibliographicGuideTests.swift; sourceTree = "<group>"; };
 		1132A03929D3219E0007B181 /* BibliographicGuideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BibliographicGuideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1132A03D29D3219E0007B181 /* BibliographicGuideUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibliographicGuideUITests.swift; sourceTree = "<group>"; };
 		1132A03F29D3219E0007B181 /* BibliographicGuideUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BibliographicGuideUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -277,7 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				11274DAF2A0D9614008B9EF0 /* FirstPageCreateRecordView.swift */,
-				11274DB12A0D9630008B9EF0 /* SecondPageCreateRecord.swift */,
+				11274DB12A0D9630008B9EF0 /* SecondPageCreateRecordView.swift */,
 				11274DBF2A0E5D2C008B9EF0 /* KeywordsSelectionCreateView.swift */,
 				11274DBC2A0E5B15008B9EF0 /* ChoiceKeyword */,
 				11274DC12A0E5E2A008B9EF0 /* KeywordsSelectionSearchView.swift */,
@@ -309,6 +346,16 @@
 				1148683529F0A9E400C698D6 /* CreateDetail */,
 			);
 			path = Create;
+			sourceTree = "<group>";
+		};
+		11274DF12A1893D9008B9EF0 /* ChoiceKeyword */ = {
+			isa = PBXGroup;
+			children = (
+				11274DF22A1893FE008B9EF0 /* EditingKeywordsSelectionSearchView.swift */,
+				11274DF42A189410008B9EF0 /* EditingKeywordSelectionView.swift */,
+				11274DF62A18942A008B9EF0 /* EditingSearchBarUserRightsView.swift */,
+			);
+			path = ChoiceKeyword;
 			sourceTree = "<group>";
 		};
 		1132A01629D3219C0007B181 = {
@@ -361,7 +408,10 @@
 		1132A03229D3219E0007B181 /* BibliographicGuideTests */ = {
 			isa = PBXGroup;
 			children = (
-				1132A03329D3219E0007B181 /* BibliographicGuideTests.swift */,
+				11274DCF2A182434008B9EF0 /* TestRegistrationViewModel.swift */,
+				11274DDD2A182CB1008B9EF0 /* TestRecordListViewModel.swift */,
+				11274DD62A182A78008B9EF0 /* TestMessageListViewModel.swift */,
+				11274DEA2A1830B4008B9EF0 /* TestReportViewModel.swift */,
 			);
 			path = BibliographicGuideTests;
 			sourceTree = "<group>";
@@ -615,6 +665,10 @@
 			isa = PBXGroup;
 			children = (
 				1148682C29F0889100C698D6 /* EditingRecordView.swift */,
+				11274DED2A188F0B008B9EF0 /* FirstPageEditingRecordView.swift */,
+				11274DEF2A188F2A008B9EF0 /* SecondPageEditingRecordView.swift */,
+				11274DF82A189789008B9EF0 /* KeywordsSelectionEditingView.swift */,
+				11274DF12A1893D9008B9EF0 /* ChoiceKeyword */,
 			);
 			path = Editing;
 			sourceTree = "<group>";
@@ -963,6 +1017,7 @@
 				1132A07329DB003C0007B181 /* AuthorizationViewModel.swift in Sources */,
 				11274DA02A091D82008B9EF0 /* MessageImages.swift in Sources */,
 				116A632129FE8AFD0024C357 /* KeywordRepository.swift in Sources */,
+				11274DF92A189789008B9EF0 /* KeywordsSelectionEditingView.swift in Sources */,
 				1148683429F0A7A400C698D6 /* ReportViewModel.swift in Sources */,
 				11274DC22A0E5E2A008B9EF0 /* KeywordsSelectionSearchView.swift in Sources */,
 				1148682229EEAF1300C698D6 /* TopFiveRecordsView.swift in Sources */,
@@ -981,12 +1036,14 @@
 				116A631729F868400024C357 /* Report.swift in Sources */,
 				11274D962A07AEFF008B9EF0 /* MessageChangeView.swift in Sources */,
 				1148683729F0A9FA00C698D6 /* PdfPreviewView.swift in Sources */,
+				11274DF72A18942A008B9EF0 /* EditingSearchBarUserRightsView.swift in Sources */,
 				1148682B29F00FFA00C698D6 /* InformationDOI.swift in Sources */,
 				1132A05C29D849140007B181 /* RecordRepository.swift in Sources */,
 				1132A08E29DC52270007B181 /* MessageListViewModel.swift in Sources */,
 				1148683E29F0AF9700C698D6 /* PdfCreator.swift in Sources */,
 				1148683C29F0AAC700C698D6 /* ShareView.swift in Sources */,
 				1148681A29EDE16400C698D6 /* DescriptionRecordPageView.swift in Sources */,
+				11274DF52A189410008B9EF0 /* EditingKeywordSelectionView.swift in Sources */,
 				1132A07029DAFF870007B181 /* RegistrationView.swift in Sources */,
 				11274DB42A0D99D4008B9EF0 /* CreateRecordView.swift in Sources */,
 				1132A06929DAF2610007B181 /* RecordViewModel.swift in Sources */,
@@ -996,6 +1053,7 @@
 				11274DAC2A0D4EB0008B9EF0 /* AppViewModel.swift in Sources */,
 				1148682029EE03B300C698D6 /* CreateRecordViewModel.swift in Sources */,
 				11274DC42A0FA86C008B9EF0 /* CreateReportView.swift in Sources */,
+				11274DEE2A188F0B008B9EF0 /* FirstPageEditingRecordView.swift in Sources */,
 				11274DB02A0D9614008B9EF0 /* FirstPageCreateRecordView.swift in Sources */,
 				11274D9D2A08574A008B9EF0 /* SelectedMessageImageView.swift in Sources */,
 				116A631F29FE8A880024C357 /* Keyword.swift in Sources */,
@@ -1005,11 +1063,13 @@
 				1132A02329D3219C0007B181 /* AppView.swift in Sources */,
 				1148683A29F0AA9200C698D6 /* PdfViewUI.swift in Sources */,
 				11639A442A0575DE00933103 /* RecordDescriptionView.swift in Sources */,
+				11274DF02A188F2A008B9EF0 /* SecondPageEditingRecordView.swift in Sources */,
 				11274DCC2A139335008B9EF0 /* SearchBarKeywordView.swift in Sources */,
+				11274DF32A1893FE008B9EF0 /* EditingKeywordsSelectionSearchView.swift in Sources */,
 				1132A09F29E01C9F0007B181 /* OutgoingMessageView.swift in Sources */,
 				1132A06229D89B210007B181 /* RecordListView.swift in Sources */,
 				1148682429EEB3CF00C698D6 /* SearchBarView.swift in Sources */,
-				11274DB22A0D9630008B9EF0 /* SecondPageCreateRecord.swift in Sources */,
+				11274DB22A0D9630008B9EF0 /* SecondPageCreateRecordView.swift in Sources */,
 				1132A06029D899DD0007B181 /* RecordListViewModel.swift in Sources */,
 				11274DC92A124B1D008B9EF0 /* ReportDescriptionView.swift in Sources */,
 				1132A09229DC58370007B181 /* MessageView.swift in Sources */,
@@ -1022,7 +1082,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1132A03429D3219E0007B181 /* BibliographicGuideTests.swift in Sources */,
+				11274DD42A1826D8008B9EF0 /* UserInformationRepository.swift in Sources */,
+				11274DE92A1830A3008B9EF0 /* ReportRepository.swift in Sources */,
+				11274DEC2A18318F008B9EF0 /* PdfCreator.swift in Sources */,
+				11274DE12A182DE7008B9EF0 /* Keyword.swift in Sources */,
+				11274DD82A182A84008B9EF0 /* MessageListViewModel.swift in Sources */,
+				11274DDB2A182B58008B9EF0 /* MessageViewModel.swift in Sources */,
+				11274DDA2A182A9D008B9EF0 /* MessageRepository.swift in Sources */,
+				11274DD52A182709008B9EF0 /* UserInformation.swift in Sources */,
+				11274DD72A182A78008B9EF0 /* TestMessageListViewModel.swift in Sources */,
+				11274DD02A182434008B9EF0 /* TestRegistrationViewModel.swift in Sources */,
+				11274DE72A18309A008B9EF0 /* ReportViewModel.swift in Sources */,
+				11274DDF2A182D17008B9EF0 /* Record.swift in Sources */,
+				11274DDE2A182CB1008B9EF0 /* TestRecordListViewModel.swift in Sources */,
+				11274DEB2A1830B4008B9EF0 /* TestReportViewModel.swift in Sources */,
+				11274DE82A1830A0008B9EF0 /* Report.swift in Sources */,
+				11274DDC2A182C9D008B9EF0 /* RecordListViewModel.swift in Sources */,
+				11274DE22A182DEC008B9EF0 /* RecordViewModel.swift in Sources */,
+				11274DE02A182D1B008B9EF0 /* RecordRepository.swift in Sources */,
+				11274DD92A182A99008B9EF0 /* Message.swift in Sources */,
+				11274DD32A1826D5008B9EF0 /* AuthorizationRepository.swift in Sources */,
+				11274DE42A182FEC008B9EF0 /* CreateRecordViewModel.swift in Sources */,
+				11274DD22A182564008B9EF0 /* RegistrationViewModel.swift in Sources */,
+				11274DE32A182E18008B9EF0 /* KeywordRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
