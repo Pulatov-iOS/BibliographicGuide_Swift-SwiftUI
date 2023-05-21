@@ -144,7 +144,7 @@ struct RecordView: View {
             .padding([.top, .bottom], 12)
             .background(Color.white)
         }
-        .background(Color("ColorBackgroundAdaptive"))
+        .background(Color.white)
         .cornerRadius(12)
         .shadow(color: Color("ColorBlackTransparentLight"), radius: 8, x: 0, y: 0)
         
