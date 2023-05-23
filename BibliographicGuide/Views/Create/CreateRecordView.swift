@@ -23,6 +23,8 @@ struct CreateRecordView: View {
     @State var newLinkWebsite = ""
     @State var newDescription = ""
     @State var newUniversityRecord = false
+    @State var imageTitle = UIImage()
+    @State var imageTitleInformation = UIImage()
     
     @State var countKeywordsSelected = 0
     
@@ -38,8 +40,12 @@ struct CreateRecordView: View {
                 FirstPageViewCreateRecord(createRecordViewModel: createRecordViewModel, newTitle: $newTitle, newAuthors: $newAuthors, newYear: $newYear, newJournalName: $newJournalName, newJournalNumber: $newJournalNumber, newPageNumbers: $newPageNumbers, newLinkDoi: $newLinkDoi, newLinkWebsite: $newLinkWebsite, showAlertCreate: $showAlertCreate, alertTextCreateTitle: $alertTextCreateTitle, alertTextCreateMessage: $alertTextCreateMessage, pageCreateRecord: $pageCreateRecord)
             }
             else{
-                SecondPageCreateRecordView(createRecordViewModel: createRecordViewModel, newTitle: $newTitle, newAuthors: $newAuthors, newYear: $newYear, newJournalName: $newJournalName, newJournalNumber: $newJournalNumber, newPageNumbers: $newPageNumbers, newLinkDoi: $newLinkDoi, newLinkWebsite: $newLinkWebsite, newDescription: $newDescription, newUniversityRecord: $newUniversityRecord, countKeywordsSelected: $countKeywordsSelected, showAlertCreate: $showAlertCreate, alertTextCreateTitle: $alertTextCreateTitle, alertTextCreateMessage: $alertTextCreateMessage, pageCreateRecord: $pageCreateRecord, newRecordId: $newRecordId)
+                SecondPageCreateRecordView(createRecordViewModel: createRecordViewModel, newTitle: $newTitle, newAuthors: $newAuthors, newYear: $newYear, newJournalName: $newJournalName, newJournalNumber: $newJournalNumber, newPageNumbers: $newPageNumbers, newLinkDoi: $newLinkDoi, newLinkWebsite: $newLinkWebsite, newDescription: $newDescription, newUniversityRecord: $newUniversityRecord, imageTitle: $imageTitle, imageTitleInformation: $imageTitleInformation, countKeywordsSelected: $countKeywordsSelected, showAlertCreate: $showAlertCreate, alertTextCreateTitle: $alertTextCreateTitle, alertTextCreateMessage: $alertTextCreateMessage, pageCreateRecord: $pageCreateRecord, newRecordId: $newRecordId)
             }
+        }
+        .onAppear(){
+            imageTitle = UIImage(named: "default-create-record") ?? UIImage()
+            imageTitleInformation = UIImage(named: "default-create-record") ?? UIImage()
         }
     }
 }

@@ -58,13 +58,13 @@ final class CreateRecordViewModel: ObservableObject {
         return userName.first ?? UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true, reasonBlockingAccount: "")
     }
     
-    func addRecord(_ record: Record, ImageTitle: Data, completion: @escaping (Bool, String)->Void){
+    func addRecord(_ record: Record, imageTitle: Data, isImageTitle: Bool, completion: @escaping (Bool, String)->Void){
         var newRecord = record
         if(record.description == ""){
             newRecord.description = "Отсутствует"
         }
         newRecord.idUser = userId
-        recordRepository.addRecord(record: newRecord, imageTitle: ImageTitle){ (verified, status) in
+        recordRepository.addRecord(record: newRecord, imageTitle: imageTitle, isImageTitle: isImageTitle){ (verified, status) in
             if !verified {
                 completion(false, "Ошибка при запросе создания записи.")
             }

@@ -119,8 +119,8 @@ struct SettingsView: View {
                             }
                         }
                         .onAppear(){
-                            imageAccount = UIImage(named: "default") ?? UIImage()
-                            newImageAccount = UIImage(named: "default") ?? UIImage()
+                            imageAccount = UIImage(named: "default-create-record") ?? UIImage()
+                            newImageAccount = UIImage(named: "default-create-record") ?? UIImage()
                         }
                     }
                 }

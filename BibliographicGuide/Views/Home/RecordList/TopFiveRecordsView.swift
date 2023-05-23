@@ -17,23 +17,33 @@ struct TopFiveRecordsView: View {
     @State private var showRecordPage: Bool = false
     @State private var imageUrl = URL(string: "")
     
+    @State var isImageTitle = true
+    @State var imageDefaultTitle = UIImage(named: "default-square")
+    
     var body: some View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading){
                 ZStack(alignment: .bottom) {
                     VStack{
-                        WebImage(url: imageUrl)
-                            .resizable()
+                        if(isImageTitle){
+                            WebImage(url: imageUrl)
+                                .resizable()
+                        }
+                        else{
+                            Image(uiImage: self.imageDefaultTitle ?? UIImage())
+                                .resizable()
+                        }
                     }
                     .frame(width: 190, height:  150)
                     .aspectRatio(contentMode: .fit)
                     .onAppear{
                         recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
                             if !verified  {
+                                isImageTitle = false
                                 imageUrl = status
                             }
                             else{
-                                print(status)
+                                isImageTitle = true
                                 imageUrl = status
                             }
                         }
@@ -42,10 +52,11 @@ struct TopFiveRecordsView: View {
                         if(Value == recordViewModel.record.id){
                             recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
                                 if !verified  {
+                                    isImageTitle = false
                                     imageUrl = status
                                 }
                                 else{
-                                    print(status)
+                                    isImageTitle = true
                                     imageUrl = status
                                 }
                             }

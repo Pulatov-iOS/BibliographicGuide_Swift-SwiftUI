@@ -33,24 +33,33 @@ struct RecordPageView: View {
     @State private var showAlertEditingTitle: String = "Отказано!"
     @State private var showAlertEditingMessage: String = "У вас отсутствуют права для редактирования записей"
     
+    @State var isImageTitle = true
+    @State var imageDefaultTitle = UIImage(named: "default")
+    
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack (alignment: .center, spacing: 0) {
                 
                 ZStack(alignment: .bottom) {
                     VStack{
-                        WebImage(url: imageUrl)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
+                        if(isImageTitle){
+                            WebImage(url: imageUrl)
+                                .resizable()
+                        }
+                        else{
+                            Image(uiImage: self.imageDefaultTitle ?? UIImage())
+                                .resizable()
+                        }
                     }
-                    .scaledToFit()
+                    .frame(height: UIScreen.screenWidth * 0.6)
+                    .aspectRatio(contentMode: .fit)
                     .onAppear{
                         recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
                             if !verified  {
-                                imageUrl = status
+                                isImageTitle = false
                             }
                             else{
-                                print(status)
+                                isImageTitle = true
                                 imageUrl = status
                             }
                         }

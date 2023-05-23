@@ -52,17 +52,22 @@ final class RecordRepository: ObservableObject {
         }
     }
     
-    func addRecord(record: Record, imageTitle: Data, completion: @escaping (Bool, String)->Void) {
+    func addRecord(record: Record, imageTitle: Data, isImageTitle: Bool, completion: @escaping (Bool, String)->Void) {
         do {
             let result = try db.collection(pathRecords).addDocument(from: record)
         
-            addImageTitle(idImageTitle: result.documentID, imageTitle: imageTitle){ (verified, status) in
+            if(isImageTitle){
+                addImageTitle(idImageTitle: result.documentID, imageTitle: imageTitle){ (verified, status) in
                     if !verified {
                         completion(false, "Ошибка при добавлении записи.")
                     }
                     else{
                         completion(true, result.documentID)
                     }
+                }
+            }
+            else{
+                completion(true, result.documentID)
             }
         } catch {
             completion(false, "Ошибка при добавлении записи.")
@@ -129,6 +134,7 @@ final class RecordRepository: ObservableObject {
         let storage = storage.reference(withPath: pathImage + "/" + idImage)
            storage.downloadURL { (url, error) in
                if error != nil {
+                   completion(false, (URL(string: "https://turbok.by/public/img/no-photo--lg.png"))!)
                    return
                }
                imageUrl = url!

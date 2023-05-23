@@ -23,21 +23,31 @@ struct RecordView: View {
     var userNameRecord: String
     @State private var imageUrl = URL(string: "")
     
+    @State var isImageTitle = true
+    @State var imageDefaultTitle = UIImage(named: "default")
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             ZStack(alignment: .bottom) {
                 VStack{
-                    WebImage(url: imageUrl)
-                        .resizable()
+                    if(isImageTitle){
+                        WebImage(url: imageUrl)
+                            .resizable()
+                    }
+                    else{
+                        Image(uiImage: self.imageDefaultTitle ?? UIImage())
+                            .resizable()
+                    }
                 }
                 .frame(height: UIScreen.screenWidth * 0.53)
                 .aspectRatio(contentMode: .fit)
                 .onAppear{
                     recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
                         if !verified  {
-                            imageUrl = status
+                            isImageTitle = false
                         }
                         else{
+                            isImageTitle = true
                             imageUrl = status
                         }
                     }
@@ -46,10 +56,10 @@ struct RecordView: View {
                     if(Value == recordViewModel.record.id){
                         recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
                             if !verified  {
-                                imageUrl = status
+                                isImageTitle = false
                             }
                             else{
-                                print(status)
+                                isImageTitle = true
                                 imageUrl = status
                             }
                         }

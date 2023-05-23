@@ -19,11 +19,13 @@ struct SecondPageCreateRecordView: View {
     @Binding var newPageNumbers: String
     @Binding var newLinkDoi: String
     @Binding var newLinkWebsite: String
-    
+
     @Binding var newDescription: String
     @Binding var newUniversityRecord: Bool
     
-    @State private var imageTitle = UIImage()
+    @Binding var imageTitle: UIImage
+    @Binding var imageTitleInformation: UIImage
+
     @State private var showImagePicker = false
     @State private var showKeywordsWindow = false
     
@@ -156,12 +158,20 @@ struct SecondPageCreateRecordView: View {
                             .clipShape(Capsule())
                         
                         Button(action: {
-                            let imageData = imageTitle.jpegData(compressionQuality: 0.1)
+                            let isImageTitle: Bool
+                            var imageData = Data()
+                            if(imageTitle.cgImage != imageTitleInformation.cgImage){
+                                imageData = imageTitle.jpegData(compressionQuality: 0.1) ?? Data()
+                                isImageTitle = true
+                            }
+                            else{
+                                isImageTitle = false
+                            }
 
                             let role = createRecordViewModel.getСurrentUserInformation().role
                             if(role == "admin" || role == "editor"){
                                 let newRecord = Record(idUser: "", dateCreation: nil, dateChange: nil, title: newTitle, year: Int(newYear) ?? 2000, idKeywords: createRecordViewModel.selectedKeywordsId, authors: newAuthors, linkDoi: newLinkDoi, linkWebsite: newLinkWebsite, journalName: newJournalName, journalNumber: newJournalNumber, pageNumbers: newPageNumbers, description: newDescription, idUsersReporting: [], universityRecord: newUniversityRecord)
-                                createRecordViewModel.addRecord(newRecord, ImageTitle: imageData ?? Data()){ (verified, status) in
+                                createRecordViewModel.addRecord(newRecord, imageTitle: imageData, isImageTitle: isImageTitle){ (verified, status) in
                                     if !verified {
                                         alertTextCreateTitle = "Ошибка!"
                                         alertTextCreateMessage = status
@@ -202,9 +212,6 @@ struct SecondPageCreateRecordView: View {
             }
         }
         .background(Color(red: 0.949, green: 0.949, blue: 0.971))
-        .onAppear(){
-            imageTitle = UIImage(named: "default") ?? UIImage()
-        }
         .sheet(isPresented: self.$showKeywordsWindow) {
             KeywordsSelectionSearchView(createRecordViewModel: createRecordViewModel, countKeywordsSelected: $countKeywordsSelected)
         }
@@ -222,7 +229,7 @@ struct SecondPageCreateRecordView: View {
         newLinkWebsite = ""
         newDescription = ""
         newUniversityRecord = false
-        imageTitle = UIImage(named: "default") ?? UIImage()
+        imageTitle = UIImage(named: "default-square") ?? UIImage()
         countKeywordsSelected = 0
         createRecordViewModel.selectedKeywordsId.removeAll()
     }
