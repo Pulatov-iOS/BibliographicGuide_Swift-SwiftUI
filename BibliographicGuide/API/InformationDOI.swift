@@ -27,7 +27,6 @@ class InformationDOI{
         
         let ruCharacters = "йцукенгшщзхъфывапролджэёячсмитьбю"
         for character in ruCharacters {
-            print(character)
             if newDoi.contains(character) {
                 error = true
             }
@@ -35,7 +34,7 @@ class InformationDOI{
  
         if(error == false){
             //        var request = URLRequest(url: URL(string: "https://api.crossref.org/v1/works/10.36773/1818-1112-2022-127-1-32-36/transform/application/vnd.crossref.unixref+xml")!)
-            var request = URLRequest(url: URL(string: "https://api.crossref.org/v1/works/" + newDoi + "/transform/application/vnd.crossref.unixref+xml")!)
+            var request = URLRequest(url: (URL(string: "https://api.crossref.org/v1/works/" + newDoi + "/transform/application/vnd.crossref.unixref+xml") ?? URL(string: "https://api.crossref.org"))!)
             request.httpMethod = "GET"
             request.allHTTPHeaderFields = ["AuthToken": "null"]
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -57,40 +56,37 @@ class InformationDOI{
                 if(responseDOIApi != ""){
                     resResponseDOIApi = responseDOIApi
                     
-                    let newTitle = responseDOIApi.components(separatedBy: "<title>").last?.components(separatedBy: "</title>").first
+                    var articleInformation = ""
+                    if let index = responseDOIApi.indices(of: "</doi_data>").last    {
+                        let substring = responseDOIApi[..<index]
+                        articleInformation = String(substring)
+                    }
+                    
+                    let newTitle = articleInformation.components(separatedBy: "<title>").last?.components(separatedBy: "</title>").first
                     title = newTitle ?? ""
                     
-                    
-                    var endPosJournalArticle = 0
-                    var newResponseDOIApiJournalArticle = responseDOIApi
-                    if let rangeJournalArticle = newResponseDOIApiJournalArticle.range(of: "</person_name>") {
-                        endPosJournalArticle = newResponseDOIApiJournalArticle.distance(from: newResponseDOIApiJournalArticle.startIndex, to: rangeJournalArticle.upperBound)
-                    }
-                    let rangeJournalArticle2 = newResponseDOIApiJournalArticle.index(newResponseDOIApiJournalArticle.startIndex, offsetBy: endPosJournalArticle)..<newResponseDOIApiJournalArticle.endIndex
-                    newResponseDOIApiJournalArticle.removeSubrange(rangeJournalArticle2)
-                    let newYear = newResponseDOIApiJournalArticle.components(separatedBy: "<year>").last?.components(separatedBy: "</year>").first
+                    let newYear = articleInformation.components(separatedBy: "<year>").last?.components(separatedBy: "</year>").first
                     year = newYear ?? ""
                     
-                    let newJournalName = responseDOIApi.components(separatedBy: "<full_title>").last?.components(separatedBy: "</full_title>").first
+                    let newJournalName = articleInformation.components(separatedBy: "<full_title>").last?.components(separatedBy: "</full_title>").first
                     journalName = newJournalName ?? ""
                     
-                    let newJournalNumber = responseDOIApi.components(separatedBy: "<issue>").last?.components(separatedBy: "</issue>").first
+                    let newJournalNumber = articleInformation.components(separatedBy: "<issue>").last?.components(separatedBy: "</issue>").first
                     jornalNumber = newJournalNumber ?? ""
                     
-                    let newPageNumberFirst = responseDOIApi.components(separatedBy: "<first_page>").last?.components(separatedBy: "</first_page>").first
-                    let newPageNumberLast = responseDOIApi.components(separatedBy: "<last_page>").last?.components(separatedBy: "</last_page>").first
+                    let newPageNumberFirst = articleInformation.components(separatedBy: "<first_page>").last?.components(separatedBy: "</first_page>").first
+                    let newPageNumberLast = articleInformation.components(separatedBy: "<last_page>").last?.components(separatedBy: "</last_page>").first
                     pageNumbers = (newPageNumberFirst ?? "") + " - " + (newPageNumberLast ?? "")
                     
-                    let newLinkDoi = newResponseDOIApiJournalArticle.components(separatedBy: "<doi>").last?.components(separatedBy: "</doi>").first
+                    let newLinkDoi = articleInformation.components(separatedBy: "<doi>").last?.components(separatedBy: "</doi>").first
                     linkDoi = newLinkDoi ?? ""
                     
-                    let newLink = newResponseDOIApiJournalArticle.components(separatedBy: "<resource>").last?.components(separatedBy: "</resource>").first
+                    let newLink = articleInformation.components(separatedBy: "<resource>").last?.components(separatedBy: "</resource>").first
                     linkWebsite = newLink ?? ""
                     
-                    
-                    
-                    
-                    let countAuthor = responseDOIApi.components(separatedBy: "<surname>").last?.components(separatedBy: "</surname>").count ?? 0
+                    var countAuthor = 0
+                    countAuthor = responseDOIApi.indices(of: "</surname>").count
+                  //  Количество правильное, но отображает неправильно. Сделать проверку на <>
                     var item = 0;
                     var newResponseDOIApi = responseDOIApi
                     authors = ""
