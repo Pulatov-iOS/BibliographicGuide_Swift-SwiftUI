@@ -141,7 +141,7 @@ struct RecordView: View {
             }
 
             VStack(alignment: .leading, spacing: 8) {
-                Text(recordViewModel.record.title)
+                Text(recordViewModel.record.title.uppercased())
                     .font(.system(.headline, design: .default))
                     .lineLimit(2)
                     .padding(.trailing, 5)

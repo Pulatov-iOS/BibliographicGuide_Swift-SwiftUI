@@ -63,30 +63,30 @@ class InformationDOI{
                     }
                     
                     let newTitle = articleInformation.components(separatedBy: "<title>").last?.components(separatedBy: "</title>").first
-                    title = newTitle ?? ""
+                    title = isMistake(str: newTitle ?? "")
                     
                     let newYear = articleInformation.components(separatedBy: "<year>").last?.components(separatedBy: "</year>").first
-                    year = newYear ?? ""
+                    year = isMistake(str: newYear ?? "")
                     
                     let newJournalName = articleInformation.components(separatedBy: "<full_title>").last?.components(separatedBy: "</full_title>").first
-                    journalName = newJournalName ?? ""
+                    journalName = isMistake(str: newJournalName ?? "")
                     
                     let newJournalNumber = articleInformation.components(separatedBy: "<issue>").last?.components(separatedBy: "</issue>").first
-                    jornalNumber = newJournalNumber ?? ""
+                    jornalNumber = isMistake(str: newJournalNumber ?? "")
                     
                     let newPageNumberFirst = articleInformation.components(separatedBy: "<first_page>").last?.components(separatedBy: "</first_page>").first
                     let newPageNumberLast = articleInformation.components(separatedBy: "<last_page>").last?.components(separatedBy: "</last_page>").first
-                    pageNumbers = (newPageNumberFirst ?? "") + " - " + (newPageNumberLast ?? "")
+                    pageNumbers = isMistake(str: (newPageNumberFirst ?? "") + " - " + (newPageNumberLast ?? ""))
                     
                     let newLinkDoi = articleInformation.components(separatedBy: "<doi>").last?.components(separatedBy: "</doi>").first
-                    linkDoi = newLinkDoi ?? ""
+                    linkDoi = isMistake(str: newLinkDoi ?? "")
                     
-                    let newLink = articleInformation.components(separatedBy: "<resource>").last?.components(separatedBy: "</resource>").first
-                    linkWebsite = newLink ?? ""
+                    var newLink = articleInformation.components(separatedBy: "<resource").last?.components(separatedBy: "/resource>").first
+                    newLink = newLink?.components(separatedBy: ">").last?.components(separatedBy: "<").first
+                    linkWebsite = isMistake(str: newLink ?? "")
                     
                     var countAuthor = 0
-                    countAuthor = responseDOIApi.indices(of: "</surname>").count
-                  //  Количество правильное, но отображает неправильно. Сделать проверку на <>
+                    countAuthor = responseDOIApi.indices(of: "<person_name").count
                     var item = 0;
                     var newResponseDOIApi = responseDOIApi
                     authors = ""
@@ -96,30 +96,30 @@ class InformationDOI{
                             let newAuthorLastName = newResponseDOIApi.components(separatedBy: "<given_name>").last?.components(separatedBy: "</given_name>").first
                             authors = authors + (newAuthorSurname ?? "") + " " + (newAuthorLastName ?? "")
                             
-                            
-                            var endPos = 0
-                            if let range = newResponseDOIApi.range(of: "</person_name>") {
-                                endPos = newResponseDOIApi.distance(from: newResponseDOIApi.startIndex, to: range.upperBound)
+                            if let indexFirst = newResponseDOIApi.indices(of: "<person_name").first {
+                                if let indexLast = newResponseDOIApi.indices(of: "<person_name").last {
+                                    let substring = newResponseDOIApi[indexFirst..<indexLast]
+                                    newResponseDOIApi = String(substring)
+                                }
                             }
-                            let range2 = newResponseDOIApi.index(newResponseDOIApi.startIndex, offsetBy: endPos)..<newResponseDOIApi.endIndex
-                            newResponseDOIApi.removeSubrange(range2)
                         }
                         else{
                             let newAuthorSurname = newResponseDOIApi.components(separatedBy: "<surname>").last?.components(separatedBy: "</surname>").first
                             let newAuthorLastName = newResponseDOIApi.components(separatedBy: "<given_name>").last?.components(separatedBy: "</given_name>").first
-                            authors = authors + ", " + (newAuthorSurname ?? "") + " " + (newAuthorLastName ?? "")
+                            authors = (newAuthorSurname ?? "") + " " + (newAuthorLastName ?? "") + ", " + authors
                             
-                            var endPos = 0
-                            if let range = newResponseDOIApi.range(of: "</person_name>") {
-                                endPos = newResponseDOIApi.distance(from: newResponseDOIApi.startIndex, to: range.upperBound)
+                            if let indexFirst = newResponseDOIApi.indices(of: "<person_name").first {
+                                if let indexLast = newResponseDOIApi.indices(of: "<person_name").last {
+                                    let substring = newResponseDOIApi[indexFirst..<indexLast]
+                                    newResponseDOIApi = String(substring)
+                                }
                             }
-                            let range2 = newResponseDOIApi.index(newResponseDOIApi.startIndex, offsetBy: endPos)..<newResponseDOIApi.endIndex
-                            newResponseDOIApi.removeSubrange(range2)
                         }
-                        
                         
                         item = item + 1
                     }
+                    
+                    authors = isMistake(str: authors)
                     
                     break
                 }
@@ -136,5 +136,15 @@ class InformationDOI{
         resResponseDOIApi = ""
         responseDOIApi = ""
         error = false
+    }
+    
+    func isMistake(str: String) -> String {
+        if str.contains("<") {
+            return ""
+        }
+        if str.contains(">") {
+            return ""
+        }
+        return str
     }
 }

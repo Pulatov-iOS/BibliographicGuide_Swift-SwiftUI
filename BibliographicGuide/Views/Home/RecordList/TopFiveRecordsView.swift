@@ -87,7 +87,7 @@ struct TopFiveRecordsView: View {
                     
                 }
                 
-                Text(recordViewModel.record.title)
+                Text(recordViewModel.record.title.uppercased())
                     .foregroundColor(.primary)
                     .font(.caption)
                     .lineLimit(1)
