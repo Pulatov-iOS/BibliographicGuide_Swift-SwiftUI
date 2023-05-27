@@ -61,27 +61,31 @@ func pdfData(recordsIncludedReport: [Record], titleReport: String, creatorReport
         var ii = 1;
         
         for item in recordsIncludedReport{
-            journals = journals + "⠀      " + String(ii) + ". " + item.journalName + ". " + space
-            pointer = pointer + "⠀      " + String(ii) + ". " + item.authors + item.title + " // " + item.journalName + " - " + String(item.year) + ", " + item.journalNumber + ", c. " + item.pageNumbers + ". " + space
+            journals = journals + "\t" + String(ii) + ". " + item.journalName + ". " + "\n"
+            pointer = pointer + "\t" + String(ii) + ". " + item.authors + item.title + " // " + item.journalName + " - " + String(item.year) + ", " + item.journalNumber + ", c. " + item.pageNumbers + ". \n"
             ii += 1
         }
         
         //6
         self.addText( "", context: context)
-        self.addText( "Список использованных журналов" + spaceX + journals + spaceX + "Алфавитный указатель литературы" + spaceX + pointer, context: context)
-     
+        self.addText( "Список использованных журналов:" + "\n\n" + journals + "\n\n" + "Алфавитный указатель литературы:" + "\n\n" + pointer, context: context)
+        
     }
 
     return data
 }
     
-    private func addTitle ( title  : String, xx: Int, yy: Int ){
-        
-        let textRect = CGRect(x: xx, y: yy, // top margin
-                              width: Int(pageRect.width) - 40 ,height: 40)
-
+    private func addTitle(title: String, xx: Int, yy: Int){
+        let textRect = CGRect(x: xx, y: yy,
+                              width: Int(pageRect.width) - 40, height: 40)
         title.draw(in: textRect, withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16.0, weight: .regular)])
-      
+    }
+    
+    private func addImage(xx: Int, yy: Int){
+        let textRect = CGRect(x: xx, y: yy,
+                              width: 90, height: 90)
+        var image = UIImage(named: "BSTU") ?? UIImage()
+        image.draw(in: textRect)
     }
     
     
@@ -93,7 +97,7 @@ func addText(_ text : String, context : UIGraphicsPDFRendererContext) -> CGFloat
 
     // 2
     let paragraphStyle = NSMutableParagraphStyle()
-    paragraphStyle.alignment = .natural
+    paragraphStyle.alignment = .justified
     paragraphStyle.lineBreakMode = .byWordWrapping
 
     // 3
@@ -119,42 +123,43 @@ func addText(_ text : String, context : UIGraphicsPDFRendererContext) -> CGFloat
     repeat {
 
         //7
-        /* Mark the beginning of a new page.*/
+        // Начало новой страницы
         context.beginPage()
 
         if(pag == 1){
             currentPage += 1
         }
         if(currentPage == 0 && pag == 0){
-            addTitle(title: "БЕЛОРУСКИЙ ГОСУДАРСТВЕННЫЙ ТЕХНОЛОГИЧЕСКИЙ", xx: 70, yy: 70)
-            addTitle(title: "УНИВЕРСИТЕТ", xx: 70, yy: 90)
+            addTitle(title: "БЕЛОРУСКИЙ ГОСУДАРСТВЕННЫЙ ТЕХНОЛОГИЧЕСКИЙ", xx: 70, yy: 100)
+            addTitle(title: "УНИВЕРСИТЕТ", xx: 70, yy: 120)
             
-            addTitle(title: self.titleReport, xx: 70, yy: 230)
+            addTitle(title: self.titleReport, xx: 70, yy: 415)
             
-            addTitle(title: "Библиографический указатель", xx: 70, yy: 360)
+            addTitle(title: "Библиографический указатель", xx: 70, yy: 505)
             
-            addTitle(title: "Составитель: " + self.creatorReport, xx: 70, yy: 400)
+            addTitle(title: "Составитель: " + self.creatorReport, xx: 70, yy: 545)
             
-            addTitle(title: "Минск 2023", xx: 265, yy: 710)
+            addTitle(title: "Минск 2023", xx: 260, yy: 710)
         
+            addImage(xx: 260, yy: 190)
+            
             pag = 1
         }
+        
         //8
-        /*Draw a page number at the bottom of each page.*/
+        // Номер страницы внизу каждой страницы
         
         currentPage += 1
         drawPageNumber(currentPage)
 
-
         //9
-        /*Render the current page and update the current range to
-          point to the beginning of the next page. */
+        // Отобразить текущую страницу и обновить текущий диапазон, чтобы он указывал на начало следующей страницы.
         currentRange = renderPage(currentPage,
                                   withTextRange: currentRange,
                                   andFramesetter: framesetter)
 
         //10
-        /* If we're at the end of the text, exit the loop. */
+        // Если подошли к концу текста, выйти из цикла
         if currentRange.location == CFAttributedStringGetLength(currentText) {
             done = true
         }
@@ -218,6 +223,3 @@ func renderPage(_ pageNum: Int, withTextRange currentRange: CFRange, andFrameset
 
     }
 }
-
-var space = "ㅤㅤㅤㅤ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             "
-var spaceX = space + "⠀" + space
