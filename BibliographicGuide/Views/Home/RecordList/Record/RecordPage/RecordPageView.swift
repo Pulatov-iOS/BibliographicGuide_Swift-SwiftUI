@@ -14,8 +14,7 @@ struct RecordPageView: View {
     var recordViewModel: RecordViewModel
     var userNameRecord: String
     @State private var imageUrl = URL(string: "")
-    @State private var updateRecordId = ""
-
+    @Binding var newRecordId: String
     @State private var showEditingRecord: Bool = false
     @Environment(\.presentationMode) var presentationMode // Для закрытия sheet
     
@@ -61,6 +60,19 @@ struct RecordPageView: View {
                             else{
                                 isImageTitle = true
                                 imageUrl = status
+                            }
+                        }
+                    }
+                    .onChange(of: newRecordId){ Value in
+                        if(Value == recordViewModel.record.id){
+                            recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
+                                if !verified  {
+                                    isImageTitle = false
+                                }
+                                else{
+                                    isImageTitle = true
+                                    imageUrl = status
+                                }
                             }
                         }
                     }
@@ -203,7 +215,7 @@ struct RecordPageView: View {
                             .shadow(color: Color("ColorBlackTransparentLight"), radius: 5, x: 1, y: 2)
                         }
                         .sheet(isPresented: self.$showEditingRecord) {
-                            EditingRecordView(recordListViewModel: recordListViewModel, recordViewModel: recordViewModel, newRecordId: $updateRecordId)
+                            EditingRecordView(recordListViewModel: recordListViewModel, recordViewModel: recordViewModel, newRecordId: $newRecordId)
                         }
                         .alert(isPresented: $showAlertEditing) {
                             Alert(

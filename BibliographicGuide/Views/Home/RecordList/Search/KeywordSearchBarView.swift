@@ -25,7 +25,7 @@ struct KeywordSearchBarView: View {
                 .cornerRadius(10)
                 .onTapGesture {
                     keywordsSearch -= 1
-                    recordListViewModel.sortingKeyword(keyword)
+                    recordListViewModel.sortingKeywordSearch(keyword)
                 }
             }
             else{
@@ -38,7 +38,7 @@ struct KeywordSearchBarView: View {
                 .cornerRadius(10)
                 .onTapGesture {
                     keywordsSearch += 1
-                    recordListViewModel.sortingKeyword(keyword)
+                    recordListViewModel.sortingKeywordSearch(keyword)
                 }
             }
         }

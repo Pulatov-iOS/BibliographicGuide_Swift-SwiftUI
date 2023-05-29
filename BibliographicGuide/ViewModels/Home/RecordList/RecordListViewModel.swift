@@ -23,10 +23,10 @@ final class RecordListViewModel: ObservableObject {
     
     @Published var keywordRepository = globalKeywordRepository
     @Published var keywords: [Keyword] = []
-    @Published var selectedKeywordsSearch = [String]()
-    @Published var selectedKeywordsId: [String] = []
-    @Published var selectedKeywords: [Keyword] = []
-    @Published var searchKeywords: [Keyword] = []
+    @Published var selectedKeywordsSearch = [String]() // главный поиск
+    @Published var selectedKeywordsId: [String] = [] // редактирование, цвет фона
+    @Published var selectedKeywords: [Keyword] = [] // редактирование, заполняется массив массивов
+    @Published var searchKeywords: [Keyword] = [] // редактирование поиск
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -214,17 +214,20 @@ final class RecordListViewModel: ObservableObject {
         }
     }
     
-    func updateRecord(record: Record, ImageTitle: Data, completion: @escaping (Bool, String)->Void){
+    func updateRecord(record: Record, ImageTitle: Data, newImageRecord: Bool, completion: @escaping (Bool, String)->Void){
         var newRecord = record
         if(record.description == ""){
             newRecord.description = "Отсутствует"
         }
         newRecord.dateChange = nil
-        recordRepository.updateRecord(record: newRecord, imageTitle: ImageTitle){ (verified, status) in
+        recordRepository.updateRecord(record: newRecord, imageTitle: ImageTitle, newImageRecord: newImageRecord){ (verified, status) in
             if !verified {
                 completion(false, "Ошибка при запросе редактирования записи.")
             }
             else{
+                self.selectedKeywordsId.removeAll()
+                globalKeywordRepository.selectedKeywordsSearch.removeAll()
+                globalKeywordRepository.sortingNameKeywords()
                 completion(true, "Запись успешно отредактирована.")
             }
         }
@@ -305,7 +308,7 @@ final class RecordListViewModel: ObservableObject {
         }
     }
     
-    func sortingKeyword(_ keyword: Keyword){
+    func sortingKeywordSearch(_ keyword: Keyword){ // главный поиск
         if(selectedKeywordsSearch.contains(keyword.id ?? "")){
             selectedKeywordsSearch.remove(at: selectedKeywordsSearch.firstIndex(of: keyword.id ?? "") ?? 999999)
         }
@@ -316,10 +319,21 @@ final class RecordListViewModel: ObservableObject {
         globalKeywordRepository.sortingKeywords()
     }
     
+    func sortingKeywordEditingSearch(_ keyword: Keyword){
+        if(selectedKeywordsId.contains(keyword.id ?? "")){
+            selectedKeywordsId.remove(at: selectedKeywordsId.firstIndex(of: keyword.id ?? "") ?? 999999)
+        }
+        else{
+            selectedKeywordsId.append(keyword.id ?? "")
+        }
+        globalKeywordRepository.selectedKeywordsSearch = selectedKeywordsId
+        globalKeywordRepository.sortingKeywords()
+    }
+    
     func getImageUrl(pathImage: String, idImage: String, completion: @escaping (Bool, URL)->Void){
         recordRepository.getImageUrl(pathImage: pathImage, idImage: idImage){ (verified, status) in
             if !verified  {
-                completion(false, URL(string: "https://turbok.by/public/img/no-photo--lg.png")!)
+                completion(false, URL(string: "https://firebase.google.com/")!)
             }
             else{
                 completion(true, status)

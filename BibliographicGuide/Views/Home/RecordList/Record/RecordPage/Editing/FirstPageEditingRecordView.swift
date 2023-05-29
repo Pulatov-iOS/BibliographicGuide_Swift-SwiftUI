@@ -25,10 +25,6 @@ struct FirstPageEditingRecordView: View {
     @State var alertTextLinkDoiTitle: String = "Неверная ссылка DOI"
     @State var alertTextLinkDoiMessage: String = "Проверьте правильность введенной ссылки DOI. Пример: 10.36773/1818-1112-2022-127-1-32-36"
     
-    @Binding var showAlertCreate: Bool
-    @Binding var alertTextCreateTitle: String
-    @Binding var alertTextCreateMessage: String
-    
     @Binding var pageCreateRecord: Int
    
     var body: some View {
@@ -179,13 +175,6 @@ struct FirstPageEditingRecordView: View {
                 }
             }
             .background(Color(red: 0.949, green: 0.949, blue: 0.971))
-            .alert(isPresented: $showAlertCreate) {
-                Alert(
-                    title: Text(alertTextCreateTitle),
-                    message: Text(alertTextCreateMessage),
-                    dismissButton: .default(Text("Ок"))
-                )
-            }
         }
     }
 }

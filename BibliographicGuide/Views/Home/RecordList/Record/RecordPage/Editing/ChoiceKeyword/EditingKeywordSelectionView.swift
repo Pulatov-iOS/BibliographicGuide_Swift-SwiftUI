@@ -28,7 +28,7 @@ struct EditingKeywordSelectionView: View {
                 .cornerRadius(10)
                 .onTapGesture {
                     countKeywordsSelected -= 1
-                    recordListViewModel.sortingKeyword(keyword)
+                    recordListViewModel.sortingKeywordEditingSearch(keyword)
                 }
             }
             else{
@@ -44,7 +44,7 @@ struct EditingKeywordSelectionView: View {
                 .cornerRadius(10)
                 .onTapGesture {
                     countKeywordsSelected += 1
-                    recordListViewModel.sortingKeyword(keyword)
+                    recordListViewModel.sortingKeywordEditingSearch(keyword)
                 }
             }
         }

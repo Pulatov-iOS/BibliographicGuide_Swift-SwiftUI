@@ -232,6 +232,7 @@ struct SecondPageCreateRecordView: View {
         imageTitle = UIImage(named: "default-square") ?? UIImage()
         countKeywordsSelected = 0
         createRecordViewModel.selectedKeywordsId.removeAll()
+        createRecordViewModel.selectedKeywords.removeAll()
     }
 }
 

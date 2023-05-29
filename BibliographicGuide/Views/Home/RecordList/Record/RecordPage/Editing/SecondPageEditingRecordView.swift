@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct SecondPageEditingRecordView: View {
     
@@ -25,21 +26,24 @@ struct SecondPageEditingRecordView: View {
     @Binding var newDescription: String
     @Binding var newUniversityRecord: Bool
     
-    @State private var imageTitle = UIImage()
+    @State private var imageRecord = UIImage()
+    @State private var newImageRecord = UIImage()
+    @State private var defaultImageRecord = false
+    @State private var imageUrl = URL(string: "")
+    @State private var selectedNewImageRecord = false
+    
     @State private var showImagePicker = false
     @State private var showKeywordsWindow = false
     
     @Binding var countKeywordsSelected: Int
     
-    @Binding var showAlertCreate: Bool
-    @State var showAlertCreateError = false
-    @Binding var alertTextCreateTitle: String
-    @Binding var alertTextCreateMessage: String
+    @Binding var showAlertEditing: Bool
+    @State var showAlertEditingError = false
+    @Binding var alertTextEditingTitle: String
+    @Binding var alertTextEditingMessage: String
     
     @Binding var pageCreateRecord: Int
     @Binding var newRecordId: String
-    
-    var defaultImageTitle = UIImage(named: "default")
     
     var body: some View {
         VStack{
@@ -63,21 +67,58 @@ struct SecondPageEditingRecordView: View {
                                         .foregroundColor(Color.gray)
                                     Spacer()
                                     HStack {
-                                        HStack {
-                                            Image(uiImage: self.imageTitle)
-                                                .resizable()
-                                                .cornerRadius(50)
-                                                .frame(width: 80, height: 80)
-                                                .background(Color.black.opacity(0.2))
-                                                .aspectRatio(contentMode: .fill)
-                                                .clipShape(Circle())
-                                                .onTapGesture {
-                                                    showImagePicker = true
+                                        HStack{
+                                            if(defaultImageRecord == true){
+                                                Image(uiImage: self.imageRecord)
+                                                    .resizable()
+                                                    .cornerRadius(50)
+                                                    .frame(width: 60, height: 60)
+                                                    .background(Color.black.opacity(0.2))
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .clipShape(Circle())
+                                                    .onTapGesture {
+                                                        showImagePicker = true
+                                                    }
+                                            }
+                                            else{
+                                                WebImage(url: imageUrl)
+                                                    .resizable()
+                                                    .cornerRadius(50)
+                                                    .frame(width: 60, height: 60)
+                                                    .background(Color.white)
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .clipShape(Circle())
+                                                    .onTapGesture {
+                                                        showImagePicker = true
+                                                    }
+                                            }
+                                        }
+                                        .onAppear{
+                                            recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
+                                                if !verified  {
+                                                    defaultImageRecord = true
+                                                    imageUrl = status
                                                 }
+                                                else{
+                                                    defaultImageRecord = false
+                                                    imageUrl = status
+                                                }
+                                            }
+                                        }
+                                        .onChange(of: imageRecord){ Value in
+                                            if(newImageRecord != imageRecord){
+                                                defaultImageRecord = true
+                                                newImageRecord = imageRecord
+                                                selectedNewImageRecord = true
+                                            }
                                         }
                                         .sheet(isPresented: $showImagePicker) {
-                                            ImagePicker(sourceType: .photoLibrary, selectedImage: self.$imageTitle)
+                                            ImagePicker(sourceType: .photoLibrary, selectedImage: self.$imageRecord)
                                         }
+                                    }
+                                    .onAppear(){
+                                        imageRecord = UIImage(named: "default-square") ?? UIImage()
+                                        newImageRecord = UIImage(named: "default-square") ?? UIImage()
                                     }
                                 }
                                 VStack{
@@ -151,17 +192,8 @@ struct SecondPageEditingRecordView: View {
                 }
                 VStack{
                     HStack{
-                        Button{
-                            clean()
-                            pageCreateRecord = 1
-                        } label:{
-                            Text("Очистить").foregroundColor(.black).padding().frame(width: 160)
-                        }.background(Color(red: 0.949, green: 0.949, blue: 0.971))
-                            .clipShape(Capsule())
-                        
                         Button(action: {
-                            let imageData = imageTitle.jpegData(compressionQuality: 0.1)
-                            let imageDataDefault = defaultImageTitle?.jpegData(compressionQuality: 0.1)
+                            let imageData = newImageRecord.jpegData(compressionQuality: 0.1)
 
                             let role = recordListViewModel.getСurrentUserInformation().role
                             if(role == "admin" || role == "editor"){
@@ -175,22 +207,27 @@ struct SecondPageEditingRecordView: View {
                                 newRecord.description = newDescription
                                 newRecord.linkDoi = newLinkDoi
                                 newRecord.linkWebsite = newLinkWebsite
+                                newRecord.description = newDescription
+                                newRecord.universityRecord = newUniversityRecord
+                                newRecord.idKeywords = recordListViewModel.selectedKeywordsId
                                 // изменить данные
-                                recordListViewModel.updateRecord(record: newRecord, ImageTitle: (imageData ?? imageDataDefault)!){ (verified, status) in
+                                recordListViewModel.updateRecord(record: newRecord, ImageTitle: imageData ?? Data(), newImageRecord: selectedNewImageRecord){ (verified, status) in
                                     if !verified {
-//                                        alertTextEditingTitle = "Ошибка"
-//                                        alertTextEditingMessage = status
-//                                        self.showAlertEditing.toggle()
+                                        alertTextEditingTitle = "Ошибка"
+                                        alertTextEditingMessage = status
+                                        self.showAlertEditing.toggle()
                                     }
                                     else{
+                                        newRecordId = recordViewModel.record.id ?? ""
+                                        showAlertEditing.toggle()
                                         showEditingWindow.toggle()
                                     }
                                 }
                             }
                             else{
-                                alertTextCreateTitle = "Отказано!"
-                                alertTextCreateMessage = "Отсутствуют права для создания записи."
-                                self.showAlertCreateError.toggle()
+                                alertTextEditingTitle = "Отказано!"
+                                alertTextEditingMessage = "Отсутствуют права для создания записи."
+                                self.showAlertEditingError.toggle()
                             }
                         }) {
                             HStack {
@@ -199,10 +236,10 @@ struct SecondPageEditingRecordView: View {
                             .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
                             .clipShape(Capsule())
                         }
-                        .alert(isPresented: $showAlertCreateError) {
+                        .alert(isPresented: $showAlertEditingError) {
                             Alert(
-                                title: Text(alertTextCreateTitle),
-                                message: Text(alertTextCreateMessage),
+                                title: Text(alertTextEditingTitle),
+                                message: Text(alertTextEditingMessage),
                                 dismissButton: .default(Text("Ок"))
                             )
                         }
@@ -212,28 +249,8 @@ struct SecondPageEditingRecordView: View {
             }
         }
         .background(Color(red: 0.949, green: 0.949, blue: 0.971))
-        .onAppear(){
-            imageTitle = UIImage(named: "default") ?? UIImage()
-        }
         .sheet(isPresented: self.$showKeywordsWindow) {
             EditingKeywordsSelectionSearchView(recordListViewModel: recordListViewModel, countKeywordsSelected: $countKeywordsSelected)
         }
-    }
-    
-    func clean(){
-        newTitle = ""
-        newAuthors = ""
-        newYear = ""
-        newJournalName = ""
-        newJournalNumber = ""
-        newPageNumbers = ""
-        newLinkDoi = ""
-        newPageNumbers = ""
-        newLinkWebsite = ""
-        newDescription = ""
-        newUniversityRecord = false
-        imageTitle = UIImage(named: "default") ?? UIImage()
-        countKeywordsSelected = 0
-        recordListViewModel.selectedKeywordsId.removeAll()
     }
 }

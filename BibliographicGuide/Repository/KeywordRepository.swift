@@ -70,4 +70,10 @@ final class KeywordRepository: ObservableObject {
             selectedKeywordsSearch.contains($0.id ?? "") && !selectedKeywordsSearch.contains($1.id ?? "")
         })
     }
+    
+    func sortingNameKeywords(){
+        self.keywords.sort(by: {
+            $0.name < $1.name
+        })
+    }
 }

@@ -69,6 +69,9 @@ final class CreateRecordViewModel: ObservableObject {
                 completion(false, "Ошибка при запросе создания записи.")
             }
             else{
+                self.selectedKeywordsId.removeAll()
+                globalKeywordRepository.selectedKeywordsSearch.removeAll()
+                globalKeywordRepository.sortingNameKeywords()
                 completion(true, status)
             }
         }

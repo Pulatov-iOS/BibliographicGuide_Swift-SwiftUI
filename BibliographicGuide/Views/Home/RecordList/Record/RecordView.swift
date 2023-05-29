@@ -162,7 +162,7 @@ struct RecordView: View {
             self.showRecordPage = true
         }
         .sheet(isPresented: self.$showRecordPage) {
-            RecordPageView(recordListViewModel: recordListViewModel, recordViewModel: recordViewModel, userNameRecord: userNameRecord)
+            RecordPageView(recordListViewModel: recordListViewModel, recordViewModel: recordViewModel, userNameRecord: userNameRecord, newRecordId: $newRecordId)
         }
     }
 }

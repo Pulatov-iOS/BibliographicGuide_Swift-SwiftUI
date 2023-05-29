@@ -104,7 +104,7 @@ struct TopFiveRecordsView: View {
         }
         .frame(width: 200, height:  185)
         .sheet(isPresented: self.$showRecordPage) {
-            RecordPageView(recordListViewModel: recordListViewModel, recordViewModel: recordViewModel, userNameRecord: userNameRecord)
+            RecordPageView(recordListViewModel: recordListViewModel, recordViewModel: recordViewModel, userNameRecord: userNameRecord, newRecordId: $newRecordId)
         }
     }
 }
