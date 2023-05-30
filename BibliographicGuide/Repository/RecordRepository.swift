@@ -118,8 +118,8 @@ final class RecordRepository: ObservableObject {
     }
     
     func addImageTitle(idImageTitle: String, imageTitle: Data, completion: @escaping (Bool, String)->Void) {
-        let referenceSorage = storage.reference() // Создаем ссылку на хранилище
-        let pathRef = referenceSorage.child(pathImageTitle) // Создаем дочернюю ссылку
+        let referenceStorage = storage.reference() // Создаем ссылку на хранилище
+        let pathRef = referenceStorage.child(pathImageTitle) // Создаем дочернюю ссылку
     
         let metadata = StorageMetadata()
         metadata.contentType = "image/jpg"
@@ -131,6 +131,19 @@ final class RecordRepository: ObservableObject {
                 return
             }
             completion(true, "Успешно")
+        }
+    }
+    
+    func removeImageTitle(idImageTitle: String, completion: @escaping (Bool, String)->Void) {
+        let referenceStorage = storage.reference()
+        let pathRef = referenceStorage.child(pathImageTitle + "/\(idImageTitle)")
+
+        pathRef.delete { error in
+            if let error = error {
+                completion(false, "Ошибка")
+            } else {
+                completion(true, "Успешно")
+            }
         }
     }
     
