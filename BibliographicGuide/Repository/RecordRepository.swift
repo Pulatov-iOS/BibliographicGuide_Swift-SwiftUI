@@ -102,6 +102,9 @@ final class RecordRepository: ObservableObject {
             if let error = error {
                 print("Нe удалось удалить запись: \(error.localizedDescription)")
             }
+            else{
+                self.removeImageTitle(documentId)
+            }
         }
     }
     
@@ -134,15 +137,13 @@ final class RecordRepository: ObservableObject {
         }
     }
     
-    func removeImageTitle(idImageTitle: String, completion: @escaping (Bool, String)->Void) {
+    func removeImageTitle(_ idImageTitle: String) {
         let referenceStorage = storage.reference()
         let pathRef = referenceStorage.child(pathImageTitle + "/\(idImageTitle)")
 
         pathRef.delete { error in
             if let error = error {
-                completion(false, "Ошибка")
-            } else {
-                completion(true, "Успешно")
+                print("Error")
             }
         }
     }

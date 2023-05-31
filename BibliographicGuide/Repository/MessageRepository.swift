@@ -70,6 +70,9 @@ final class MessageRepository: ObservableObject {
             if let error = error {
                 print("Нe удалось удалить сообщение: \(error.localizedDescription)")
             }
+            else{
+                self.removeImageMessage(message)
+            }
         }
     }
     
@@ -96,6 +99,19 @@ final class MessageRepository: ObservableObject {
             item += 1
         }
         
+    }
+    
+    func removeImageMessage(_ message: Message) {
+        let referenceStorage = storage.reference()
+        
+        for item in 0..<message.countImages{
+            let pathRef = referenceStorage.child(pathImageMessage + "/\((message.id ?? "") + "_\(item)")")
+            pathRef.delete { error in
+                if let error = error {
+                    print("Error")
+                }
+            }
+        }
     }
     
     func getImageMessageUrl(pathImage: String, idImage: String, completion: @escaping (Bool, URL)->Void) {
