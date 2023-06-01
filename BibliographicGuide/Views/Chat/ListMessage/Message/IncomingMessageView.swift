@@ -96,8 +96,9 @@ struct IncomingMessageView: View {
                                 if(textResponseMessage != ""){
                                     Text(textResponseMessage)
                                         .font(.system(size: 15))
-                                        .foregroundColor(.white)
+                                        .foregroundColor(.black)
                                         .padding(.trailing, 4)
+                                        .padding(.bottom, 3)
                                         .lineLimit(1)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                 }
@@ -105,16 +106,18 @@ struct IncomingMessageView: View {
                                     if(messageListViewModel.getCountImagesResponseMessage(messageViewModel.message.replyIdMessage) == 1){
                                         Text("[Фотография]")
                                             .font(.system(size: 15))
-                                            .foregroundColor(.white)
+                                            .foregroundColor(.black)
                                             .padding(.trailing, 4)
+                                            .padding(.bottom, 3)
                                             .lineLimit(1)
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                     }
                                     else{
                                         Text("[Фотографии]")
                                             .font(.system(size: 15))
-                                            .foregroundColor(.white)
+                                            .foregroundColor(.black)
                                             .padding(.trailing, 4)
+                                            .padding(.bottom, 3)
                                             .lineLimit(1)
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                     }
