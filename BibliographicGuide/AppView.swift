@@ -14,15 +14,15 @@ import FirebaseFirestore
 class AppDelegate: NSObject, UIApplicationDelegate {
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    FirebaseApp.configure()
-    FirebaseConfiguration.shared.setLoggerLevel(.error)
-    Analytics.setAnalyticsCollectionEnabled(true)
-    let settings = Firestore.firestore().settings
-    settings.cacheSizeBytes = FirestoreCacheSizeUnlimited
-    settings.isPersistenceEnabled = true
-    Firestore.firestore().settings = settings
-    return true
-  }
+      FirebaseApp.configure()
+      FirebaseConfiguration.shared.setLoggerLevel(.error)
+      Analytics.setAnalyticsCollectionEnabled(true)
+      let settings = Firestore.firestore().settings
+      settings.cacheSizeBytes = FirestoreCacheSizeUnlimited
+      settings.isPersistenceEnabled = true
+      Firestore.firestore().settings = settings
+      return true
+    }
 }
 
 @main
