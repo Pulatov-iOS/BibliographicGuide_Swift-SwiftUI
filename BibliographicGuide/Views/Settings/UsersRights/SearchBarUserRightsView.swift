@@ -56,9 +56,6 @@ struct SearchBarUserRightsView: View {
                 .animation(.default)
             }
         }
-        .onAppear(){
-            userInformationListViewModel.searchUsersInformation = userInformationListViewModel.usersInformationViewModel
-        }
         .onChange(of: textSearch){ newValue in
             userInformationListViewModel.fetchUsersInformationSearch(SearchString: textSearch)
         }

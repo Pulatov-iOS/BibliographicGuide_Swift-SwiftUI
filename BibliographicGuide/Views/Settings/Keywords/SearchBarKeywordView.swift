@@ -57,9 +57,6 @@ struct SearchBarKeywordView: View {
                 .animation(.default)
             }
         }
-        .onAppear(){
-            userInformationListViewModel.searchKeywords = userInformationListViewModel.keywords
-        }
         .onChange(of: textSearch){ newValue in
             userInformationListViewModel.fetchKeywordsSearch(SearchString: textSearch)
         }

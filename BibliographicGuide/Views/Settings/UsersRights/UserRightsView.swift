@@ -35,7 +35,9 @@ struct UserRightsView: View {
     
     @State private var userRoleSelectedItem: userRole = .reader
     @State private var blockingChat = false
+    @State private var isChangeBlockingChat = false
     @State private var blockingAccount = false
+    @State private var isChangeBlockingAccount = false
     @State private var newReasonBlockingAccount = ""
     @State private var userName = ""
     @State private var newUserName = ""
@@ -69,50 +71,62 @@ struct UserRightsView: View {
                             Text("Блокировка чата:")
                             Spacer()
                             Toggle("", isOn: $blockingChat)
+                                .onTapGesture {
+                                    isChangeBlockingChat = true
+                                }
                         }
                         .onChange(of: blockingChat){ Value in
-                            userInformationListViewModel.updateChatLock(idUser: selectedUser.id ?? "", blockingChat: blockingChat){ (verified, status) in
-                                if !verified {
-                                    alertTextUpdateUserInformationTitle = "Ошибка!"
-                                    alertTextUpdateUserInformationMessage = "Проверьте подключение к сети и повторите попытку"
-                                    showAlertUpdateUserInformation.toggle()
-                                }
-                                else{
-                                    if(Value){
-                                        alertTextUpdateUserInformationTitle = "Успешно!"
-                                        alertTextUpdateUserInformationMessage = "Функция общего чата успешно заблокирована"
+                            if isChangeBlockingChat {
+                                userInformationListViewModel.updateChatLock(idUser: selectedUser.id ?? "", blockingChat: blockingChat){ (verified, status) in
+                                    if !verified {
+                                        alertTextUpdateUserInformationTitle = "Ошибка!"
+                                        alertTextUpdateUserInformationMessage = "Проверьте подключение к сети и повторите попытку"
+                                        showAlertUpdateUserInformation.toggle()
                                     }
                                     else{
-                                        alertTextUpdateUserInformationTitle = "Успешно!"
-                                        alertTextUpdateUserInformationMessage = "Функция общего чата успешно разблокирована"
+                                        if(Value){
+                                            alertTextUpdateUserInformationTitle = "Успешно!"
+                                            alertTextUpdateUserInformationMessage = "Функция общего чата успешно заблокирована"
+                                        }
+                                        else{
+                                            alertTextUpdateUserInformationTitle = "Успешно!"
+                                            alertTextUpdateUserInformationMessage = "Функция общего чата успешно разблокирована"
+                                        }
+                                        showAlertUpdateUserInformation.toggle()
                                     }
-                                    showAlertUpdateUserInformation.toggle()
                                 }
+                                isChangeBlockingChat = false
                             }
                         }
                         HStack{
                             Text("Блокировка учетной записи:")
                             Spacer()
                             Toggle("", isOn: $blockingAccount)
+                                .onTapGesture {
+                                    isChangeBlockingAccount = true
+                                }
                         }
                         .onChange(of: blockingAccount){ Value in
-                            userInformationListViewModel.updateAccountLock(idUser: selectedUser.id ?? "", blockingAccount: blockingAccount){ (verified, status) in
-                                if !verified {
-                                    alertTextUpdateUserInformationTitle = "Ошибка!"
-                                    alertTextUpdateUserInformationMessage = "Данный пользователь не заблокирован. Проверьте подключение к сети и повторите попытку"
-                                    showAlertUpdateUserInformation.toggle()
-                                }
-                                else{
-                                    if(Value){
-                                        alertTextUpdateUserInformationTitle = "Успешно!"
-                                        alertTextUpdateUserInformationMessage = "Данный пользователь успешно заблокирован"
+                            if isChangeBlockingAccount {
+                                userInformationListViewModel.updateAccountLock(idUser: selectedUser.id ?? "", blockingAccount: blockingAccount){ (verified, status) in
+                                    if !verified {
+                                        alertTextUpdateUserInformationTitle = "Ошибка!"
+                                        alertTextUpdateUserInformationMessage = "Данный пользователь не заблокирован. Проверьте подключение к сети и повторите попытку"
+                                        showAlertUpdateUserInformation.toggle()
                                     }
                                     else{
-                                        alertTextUpdateUserInformationTitle = "Успешно!"
-                                        alertTextUpdateUserInformationMessage = "Данный пользователь успешно разблокирован"
+                                        if(Value){
+                                            alertTextUpdateUserInformationTitle = "Успешно!"
+                                            alertTextUpdateUserInformationMessage = "Данный пользователь успешно заблокирован"
+                                        }
+                                        else{
+                                            alertTextUpdateUserInformationTitle = "Успешно!"
+                                            alertTextUpdateUserInformationMessage = "Данный пользователь успешно разблокирован"
+                                        }
+                                        showAlertUpdateUserInformation.toggle()
                                     }
-                                    showAlertUpdateUserInformation.toggle()
                                 }
+                                isChangeBlockingAccount = false
                             }
                         }
                         HStack{
