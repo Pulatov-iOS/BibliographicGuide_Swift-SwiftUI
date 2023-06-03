@@ -91,7 +91,13 @@ struct KeywordView: View {
                     }), secondaryButton: .default(Text(showAlertDeleteButton), action: {
                         let role = userInformationListViewModel.getСurrentUserInformation().role
                         if(role == "admin"){
-                            userInformationListViewModel.removeKeyword(keyword)
+                            userInformationListViewModel.removeKeyword(keyword){ error in
+                                if !error{
+                                    alertTextKeywordTitle = "Не удалено!"
+                                    alertTextKeywordMessage = "Проверьте подключение к сети и повторите попытку."
+                                    showAlertKeyword.toggle()
+                                }
+                            }
                         }
                         else{
                             alertTextKeywordTitle = "Отказано!"

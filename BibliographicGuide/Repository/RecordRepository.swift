@@ -52,6 +52,21 @@ final class RecordRepository: ObservableObject {
         }
     }
     
+    func getRecordsWithCurrentKeyword(_ keyword: Keyword, completion: @escaping (Bool, [Record])->Void) {
+        var records: [Record] = []
+        db.collection(pathRecords).whereField("idKeywords", arrayContains: keyword.id ?? "")
+            .getDocuments() { (querySnapshot, error) in
+                if let error = error {
+                    completion(false, [])
+                } else {
+                    records = querySnapshot?.documents.compactMap {
+                        try? $0.data(as: Record.self)
+                    } ?? []
+                    completion(true, records)
+                }
+        }
+    }
+    
     func addRecord(record: Record, imageTitle: Data, isImageTitle: Bool, completion: @escaping (Bool, String)->Void) {
         do {
             let result = try db.collection(pathRecords).addDocument(from: record)

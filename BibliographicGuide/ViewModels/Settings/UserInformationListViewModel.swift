@@ -20,6 +20,8 @@ final class UserInformationListViewModel: ObservableObject {
     @Published var keywords: [Keyword] = []
     @Published var searchKeywords: [Keyword] = []
     
+    private var recordRepository = globalRecordRepository
+    
     private var cancellables: Set<AnyCancellable> = []
     
     init(){
@@ -210,8 +212,34 @@ final class UserInformationListViewModel: ObservableObject {
         }
     }
     
-    func removeKeyword(_ keyword: Keyword){
-        keywordRepository.removeKeyword(keyword)
+    func removeKeyword(_ keyword: Keyword, completion: @escaping (Bool)->Void) {
+        var recordsWithCurrentKeyword: [Record] = []
+        recordRepository.getRecordsWithCurrentKeyword(keyword){ (error, records) in
+            if !error {
+                completion(false)
+            }
+            else{
+                recordsWithCurrentKeyword = records
+                self.keywordRepository.removeKeyword(keyword){ error in
+                    if !error {
+                        completion(false)
+                    }
+                    else{
+                        for record in recordsWithCurrentKeyword{
+                            var newRecord = record
+                            var newIdKeywords = newRecord.idKeywords
+                            if newIdKeywords.contains(keyword.id ?? ""){
+                                newIdKeywords.remove(at: newIdKeywords.firstIndex(of: keyword.id ?? "") ?? 999999)
+                            }
+                            newRecord.idKeywords = newIdKeywords
+                            self.recordRepository.updateRecord(record: newRecord, imageTitle: Data(), newImageRecord: false) { (error, status) in
+                            }
+                        }
+                        completion(true)
+                    }
+                }
+            }
+        }
     }
     
     func exitOfAccount(){

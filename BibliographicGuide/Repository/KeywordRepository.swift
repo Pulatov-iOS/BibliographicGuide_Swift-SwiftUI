@@ -56,11 +56,14 @@ final class KeywordRepository: ObservableObject {
         }
     }
     
-    func removeKeyword(_ keyword: Keyword){
+    func removeKeyword(_ keyword: Keyword, completion: @escaping (Bool)->Void) {
         guard let documentId = keyword.id else { return }
         db.collection(pathKeywords).document(documentId).delete { error in
             if let error = error {
-                print("Нe удалось удалить ключевое слово: \(error.localizedDescription)")
+                completion(false)
+            }
+            else{
+                completion(true)
             }
         }
     }
