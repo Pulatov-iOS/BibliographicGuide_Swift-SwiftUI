@@ -23,10 +23,12 @@ final class RecordListViewModel: ObservableObject {
     
     @Published var keywordRepository = globalKeywordRepository
     @Published var keywords: [Keyword] = []
-    @Published var selectedKeywordsSearch = [String]() // главный поиск
-    @Published var selectedKeywordsId: [String] = [] // редактирование, цвет фона
-    @Published var selectedKeywords: [Keyword] = [] // редактирование, заполняется массив массивов
-    @Published var searchKeywords: [Keyword] = [] // редактирование поиск
+    @Published var selectedKeywordsSearch = [String]() // Главный поиск
+    @Published var selectedKeywordsId: [String] = [] // Редактирование
+    @Published var selectedKeywords: [Keyword] = [] // Редактирование
+    @Published var searchKeywords: [Keyword] = [] // Редактирование
+    
+    private var reportRepository = globalReportRepository
     
     private var cancellables: Set<AnyCancellable> = []
     
@@ -233,8 +235,33 @@ final class RecordListViewModel: ObservableObject {
         }
     }
     
-    func removeRecord(_ record: Record) {
-        recordRepository.removeRecord(record)
+    func removeRecord(_ record: Record, completion: @escaping (Bool)->Void) {
+        var reportsWithCurrentRecord: [Report] = []
+        reportRepository.getReportsWithCurrentRecord(record){ (error, reports) in
+            if !error {
+                completion(false)
+            }
+            else{
+                reportsWithCurrentRecord = reports
+                self.recordRepository.removeRecord(record){ error in
+                    if !error {
+                        completion(false)
+                    }
+                    else {
+                        for report in reportsWithCurrentRecord{
+                            var newReport = report
+                            var newIdRecords = newReport.idRecords
+                            if newIdRecords.contains(record.id ?? " "){
+                                newIdRecords.remove(at: newIdRecords.firstIndex(of: record.id ?? "") ?? 99999999)
+                            }
+                            newReport.idRecords = newIdRecords
+                            self.reportRepository.updateReport(newReport)
+                        }
+                        completion(true)
+                    }
+                }
+            }
+        }
     }
     
     func checkInclusionReport(_ idUsersReporting: [String]) -> Bool {

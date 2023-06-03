@@ -32,6 +32,10 @@ struct RecordPageView: View {
     @State private var showAlertEditingTitle: String = "Отказано!"
     @State private var showAlertEditingMessage: String = "У вас отсутствуют права для редактирования записей"
     
+    @State private var showAlertDeleteError: Bool = false
+    @State private var showAlertDeleteTitleError: String = "Не удалена!"
+    @State private var showAlertDeleteMessageError: String = "Проверьте подключение к сети и повторите попытку"
+    
     @State var isImageTitle = true
     @State var imageDefaultTitle = UIImage(named: "default")
     
@@ -183,6 +187,13 @@ struct RecordPageView: View {
                             .background(Color.red)
                             .cornerRadius(40)
                             .shadow(color: Color("ColorBlackTransparentLight"), radius: 5, x: 1, y: 2)
+                            .alert(isPresented: $showAlertDeleteError) {
+                                Alert(
+                                    title: Text(showAlertDeleteTitleError),
+                                    message: Text(showAlertDeleteMessageError),
+                                    dismissButton: .default(Text("Ок"))
+                                )
+                            }
                         }
                         .alert(isPresented: $showAlertDelete){
                             Alert(title: Text(showAlertDeleteTitle), message: Text(showAlertDeleteMessage), primaryButton: .default(Text("Отмена"), action: {
@@ -190,8 +201,14 @@ struct RecordPageView: View {
                             }), secondaryButton: .default(Text(showAlertDeleteButton), action: {
                                 let role = recordListViewModel.getСurrentUserInformation().role
                                 if(role == "admin" || role == "editor"){
-                                    recordListViewModel.removeRecord(recordViewModel.record)
-                                    presentationMode.wrappedValue.dismiss() // Закрываем окно sheet
+                                    recordListViewModel.removeRecord(recordViewModel.record){ error in
+                                        if !error {
+                                            showAlertDeleteError.toggle()
+                                        }
+                                        else{
+                                            presentationMode.wrappedValue.dismiss() // Закрываем окно sheet
+                                        }
+                                    }
                                 }
                             }))
                         }
@@ -226,8 +243,8 @@ struct RecordPageView: View {
                         }
                     }
                 }
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 12)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 12)
                 
                 DescriptionRecordPageView(recordViewModel: recordViewModel)
             }

@@ -96,14 +96,20 @@ final class RecordRepository: ObservableObject {
         }
     }
     
-    func removeRecord(_ record: Record){
+    func removeRecord(_ record: Record, completion: @escaping (Bool)->Void){
         guard let documentId = record.id else { return }
         db.collection(pathRecords).document(documentId).delete { error in
-            if let error = error {
-                print("Нe удалось удалить запись: \(error.localizedDescription)")
+            if error != nil {
+                completion(false)
             }
             else{
-                self.removeImageTitle(documentId)
+                self.removeImageTitle(documentId){ error in
+                    if !error {
+                        completion(false)
+                    } else {
+                        completion(true)
+                    }
+                }
             }
         }
     }
@@ -111,8 +117,8 @@ final class RecordRepository: ObservableObject {
     func updateInclusionReport(idRecord: String, idUsersReporting: [String], completion: @escaping (Bool, String)->Void) {
         db.collection(pathRecords).document(idRecord).updateData([
             "idUsersReporting": idUsersReporting
-        ]) { err in
-            if err != nil {
+        ]) { error in
+            if error != nil {
                 completion(false, "Ошибка при обновлении")
             } else {
                 completion(true, "Обновлено успешно")
@@ -137,13 +143,16 @@ final class RecordRepository: ObservableObject {
         }
     }
     
-    func removeImageTitle(_ idImageTitle: String) {
+    func removeImageTitle(_ idImageTitle: String, completion: @escaping (Bool)->Void) {
         let referenceStorage = storage.reference()
         let pathRef = referenceStorage.child(pathImageTitle + "/\(idImageTitle)")
 
         pathRef.delete { error in
-            if let error = error {
-                print("Error")
+            if error != nil {
+                completion(true)
+            }
+            else{
+                completion(true)
             }
         }
     }

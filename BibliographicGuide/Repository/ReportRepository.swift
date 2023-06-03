@@ -33,11 +33,35 @@ final class ReportRepository: ObservableObject {
         }
     }
     
+    func getReportsWithCurrentRecord(_ record: Record, completion: @escaping (Bool, [Report])->Void) {
+        var reports: [Report] = []
+        db.collection(pathReport).whereField("idRecords", arrayContains: record.id ?? "")
+            .getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    completion(false, [])
+                } else {
+                    reports = querySnapshot?.documents.compactMap {
+                        try? $0.data(as: Report.self)
+                    } ?? []
+                    completion(true, reports)
+                }
+        }
+    }
+    
     func addReport(_ report: Report){
         do {
             _ = try db.collection(pathReport).addDocument(from: report)
         } catch {
             print("Ошибка при сохранении отчета")
+        }
+    }
+    
+    func updateReport(_ report: Report){
+        guard let documentId = report.id else { return }
+        do {
+            try db.collection(pathReport).document(documentId).setData(from: report)
+        } catch {
+            print("Ошибка при обновлении отчета")
         }
     }
     
