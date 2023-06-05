@@ -31,7 +31,7 @@ struct SettingsView: View {
     
     var body: some View {
 
-        VStack(alignment: .center, spacing: 10) {
+        VStack(alignment: .center, spacing: 0) {
             VStack(alignment: .center, spacing: 5) {
                 Image("logo")
                     .resizable()
@@ -43,6 +43,7 @@ struct SettingsView: View {
                     .fontWeight(.bold)
             }
             .padding()
+            .padding(.bottom, 10)
             
             Form {
                 Section(header: Text("Настройки")) {
@@ -124,20 +125,20 @@ struct SettingsView: View {
                         }
                     }
                 }
-            }.padding(.top, -12)
+            }
+            .padding(.top, -12)
             
             VStack{
                 let role = userInformationListViewModel.getСurrentUserInformation().role
-                VStack(spacing: 0){
+                HStack(spacing: 10){
                     if(role == "admin" || role == "editor"){
                         Button{
                             self.showKeywordsWindow = true
                         } label: {
                             Text("Кл. слова").foregroundColor(.black).frame(width: 120).padding()
                         }
-                        .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
+                        .background(Color.white)
                         .clipShape(Capsule())
-                        .padding(.bottom, 10)
                     }
                     if(role == "admin"){
                         Button{
@@ -145,11 +146,12 @@ struct SettingsView: View {
                         } label: {
                             Text("Изм. польз.").foregroundColor(.black).frame(width: 120).padding()
                         }
-                        .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
+                        .background(Color.white)
                         .clipShape(Capsule())
-                        .padding(.bottom, 15)
                     }
                 }
+                .padding(.top, 15)
+                Spacer()
                 Button("Сохранить"){
                     let imageData = newImageAccount.jpegData(compressionQuality: 0.1)
                     
@@ -180,14 +182,14 @@ struct SettingsView: View {
                 }
                     .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
                     .clipShape(Capsule())
-                    .padding(.bottom, 25)
+                    .padding(.bottom, 30)
             }
             
             VStack{
                 Button(action: {
                     userInformationListViewModel.exitOfAccount()
                 }){
-                    Text("Выйти").foregroundColor(.black).frame(width: 180).padding(.bottom, 25)
+                    Text("Выйти").foregroundColor(.black).frame(width: 180).padding(.bottom, 30)
                 }
             }
         }

@@ -22,8 +22,14 @@ final class UserInformationRepository: ObservableObject {
     @Published var usersInformation: [UserInformation] = []
     @Published var currentUserInformation: UserInformation?
     
+    private var linkCurrentUserInformation: ListenerRegistration!
+    
     init(){
         fetchUsersInformation()
+    }
+    
+    deinit{
+        removeLinkCurrentUserInformation()
     }
     
     func fetchUsersInformation(){
@@ -39,7 +45,7 @@ final class UserInformationRepository: ObservableObject {
     }
     
     func fetchCurrentUserInformation(_ idUser: String){
-        db.collection(pathUserInformation).document(idUser).addSnapshotListener { (snapshot, error) in
+        linkCurrentUserInformation = db.collection(pathUserInformation).document(idUser).addSnapshotListener { (snapshot, error) in
             guard let document = snapshot else {
                 return
             }
@@ -52,6 +58,12 @@ final class UserInformationRepository: ObservableObject {
             let role = data["role"] as? String ?? ""
             let userName = data["userName"] as? String ?? ""
             self.currentUserInformation = UserInformation(role: role, userName: userName, blockingChat: blockingChat, blockingAccount: blockingAccount, reasonBlockingAccount: reasonBlockingAccount)
+        }
+    }
+    
+    func removeLinkCurrentUserInformation(){
+        if(linkCurrentUserInformation != nil){
+            linkCurrentUserInformation.remove()
         }
     }
     

@@ -98,46 +98,48 @@ struct UserRightsView: View {
                                 isChangeBlockingChat = false
                             }
                         }
-                        HStack{
-                            Text("Блокировка учетной записи:")
-                            Spacer()
-                            Toggle("", isOn: $blockingAccount)
-                                .onTapGesture {
-                                    isChangeBlockingAccount = true
-                                }
-                        }
-                        .onChange(of: blockingAccount){ Value in
-                            if isChangeBlockingAccount {
-                                userInformationListViewModel.updateAccountLock(idUser: selectedUser.id ?? "", blockingAccount: blockingAccount){ (verified, status) in
-                                    if !verified {
-                                        alertTextUpdateUserInformationTitle = "Ошибка!"
-                                        alertTextUpdateUserInformationMessage = "Данный пользователь не заблокирован. Проверьте подключение к сети и повторите попытку"
-                                        showAlertUpdateUserInformation.toggle()
+                        if(selectedUser.id != userInformationListViewModel.getСurrentIdUser()){
+                            HStack{
+                                Text("Блокировка учетной записи:")
+                                Spacer()
+                                Toggle("", isOn: $blockingAccount)
+                                    .onTapGesture {
+                                        isChangeBlockingAccount = true
                                     }
-                                    else{
-                                        if(Value){
-                                            alertTextUpdateUserInformationTitle = "Успешно!"
-                                            alertTextUpdateUserInformationMessage = "Данный пользователь успешно заблокирован"
+                            }
+                            .onChange(of: blockingAccount){ Value in
+                                if isChangeBlockingAccount {
+                                    userInformationListViewModel.updateAccountLock(idUser: selectedUser.id ?? "", blockingAccount: blockingAccount){ (verified, status) in
+                                        if !verified {
+                                            alertTextUpdateUserInformationTitle = "Ошибка!"
+                                            alertTextUpdateUserInformationMessage = "Данный пользователь не заблокирован. Проверьте подключение к сети и повторите попытку"
+                                            showAlertUpdateUserInformation.toggle()
                                         }
                                         else{
-                                            alertTextUpdateUserInformationTitle = "Успешно!"
-                                            alertTextUpdateUserInformationMessage = "Данный пользователь успешно разблокирован"
+                                            if(Value){
+                                                alertTextUpdateUserInformationTitle = "Успешно!"
+                                                alertTextUpdateUserInformationMessage = "Данный пользователь успешно заблокирован"
+                                            }
+                                            else{
+                                                alertTextUpdateUserInformationTitle = "Успешно!"
+                                                alertTextUpdateUserInformationMessage = "Данный пользователь успешно разблокирован"
+                                            }
+                                            showAlertUpdateUserInformation.toggle()
                                         }
-                                        showAlertUpdateUserInformation.toggle()
                                     }
+                                    isChangeBlockingAccount = false
                                 }
-                                isChangeBlockingAccount = false
                             }
-                        }
-                        HStack{
-                            VStack(spacing: 8){
-                                HStack{
-                                    Text("Причина блокировки учетной записи:")
-                                    Spacer()
+                            HStack{
+                                VStack(spacing: 8){
+                                    HStack{
+                                        Text("Причина блокировки учетной записи:")
+                                        Spacer()
+                                    }
+                                    TextField("Причина", text: $newReasonBlockingAccount, prompt: Text("Отсутствует"), axis: .vertical)
+                                        .foregroundColor(.red)
+                                        .lineLimit(1...3)
                                 }
-                                TextField("Причина", text: $newReasonBlockingAccount, prompt: Text("Отсутствует"), axis: .vertical)
-                                    .foregroundColor(.red)
-                                    .lineLimit(1...3)
                             }
                         }
                         HStack{

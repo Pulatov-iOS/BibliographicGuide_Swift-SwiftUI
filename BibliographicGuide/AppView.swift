@@ -22,7 +22,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
       settings.isPersistenceEnabled = true
       Firestore.firestore().settings = settings
       return true
-    }
+      }
 }
 
 @main

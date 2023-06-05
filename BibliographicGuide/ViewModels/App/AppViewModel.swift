@@ -38,6 +38,7 @@ final class AppViewModel: ObservableObject {
     }
     
     func fetchCurrentUserInformation(_ idUser: String){
+        userInformationRepository.removeLinkCurrentUserInformation()
         userInformationRepository.fetchCurrentUserInformation(idUser)
     }
 }

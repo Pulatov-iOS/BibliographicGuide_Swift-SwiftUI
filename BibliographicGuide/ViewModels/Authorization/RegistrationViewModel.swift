@@ -70,11 +70,20 @@ final class RegistrationViewModel: ObservableObject {
         if(password.matches(regexQuantityCharactersPassword)){
             statusCheckPassword[0] = true
         }
+        else{
+            statusCheckPassword[0] = false
+        }
         if(password.matches(regexLowercaseLetterPassword)){
             statusCheckPassword[1] = true
         }
+        else{
+            statusCheckPassword[1] = false
+        }
         if(password.matches(regexUppercaseLetterPassword)){
             statusCheckPassword[2] = true
+        }
+        else{
+            statusCheckPassword[2] = false
         }
     }
 }

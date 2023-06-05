@@ -56,7 +56,7 @@ struct RegistrationView: View {
                             Divider()
                         }
                         .onChange(of: password){ newValue in
-                            registrationViewModel.checkPassword(password: self.password)
+                            registrationViewModel.checkPassword(password: newValue)
                         }
                         
                         VStack(alignment: .leading){
