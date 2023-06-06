@@ -140,7 +140,7 @@ struct FirstPageEditingRecordView: View {
                                             .foregroundColor(Color.gray)
                                         Spacer()
                                     }
-                                    TextField("https://journal.bstu.by/index.php ᅠ ", text: $newLinkWebsite)
+                                    TextField("https://journаl.bstu.by/index.php ᅠ ", text: $newLinkWebsite)
                                 }
                             }
                         }
@@ -152,10 +152,13 @@ struct FirstPageEditingRecordView: View {
                             .fontWeight(.bold)
                             .frame(minWidth: 200)
                             .padding(EdgeInsets(top: 25, leading: 0, bottom: 10, trailing: 0))
-                        Text("1 из 2")
-                            .padding(.bottom, 5)
-                            .frame(width: UIScreen.screenWidth)
-                            .background(Color(red: 0.949, green: 0.949, blue: 0.971))
+                        HStack{
+                            Spacer()
+                            Text("1 из 2")
+                                .padding(.bottom, 5)
+                            Spacer()
+                        }
+                        .background(Color(red: 0.949, green: 0.949, blue: 0.971))
                         Spacer()
                     }
                     VStack{

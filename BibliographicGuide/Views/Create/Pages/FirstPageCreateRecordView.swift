@@ -145,7 +145,7 @@ struct FirstPageViewCreateRecord: View {
                                             .foregroundColor(Color.gray)
                                         Spacer()
                                     }
-                                    TextField("https://journal.bstu.by/index.phㅤㅤㅤpㅤㅤㅤ ᅠ ", text: $newLinkWebsite)
+                                    TextField("https://journаl.bstu.by/index.phㅤㅤㅤpㅤㅤㅤ ᅠ ", text: $newLinkWebsite)
                                 }
                             }
                         }

@@ -36,6 +36,7 @@ struct SecondPageCreateRecordView: View {
     @Binding var alertTextCreateTitle: String
     @Binding var alertTextCreateMessage: String
     
+    @FocusState private var keyboardIsFocused: Bool
     @Binding var pageCreateRecord: Int
     @Binding var newRecordId: String
     
@@ -44,79 +45,158 @@ struct SecondPageCreateRecordView: View {
             VStack(spacing: 0){
                 ZStack{
                     VStack{
-                        List{
-                            Section(header: Spacer(minLength: 0)) {
-                                VStack {
-                                    HStack{
-                                        Text("Описание публикации:")
+                        ScrollView(.vertical, showsIndicators: false) {
+                            List{
+                                Section(header: Spacer(minLength: 0)) {
+                                    VStack {
+                                        HStack{
+                                            Text("Описание публикации:")
+                                                .foregroundColor(Color.gray)
+                                            Spacer()
+                                        }
+                                        TextField("Отсутствует", text: $newDescription, prompt: Text("Отсутствует..."), axis: .vertical)
+                                            .foregroundColor(.black)
+                                            .lineLimit(2...2)
+                                            .focused($keyboardIsFocused)
+                                    }
+                                    HStack {
+                                        Text("Изображение:")
                                             .foregroundColor(Color.gray)
                                         Spacer()
-                                    }
-                                    TextField("Отсутствует", text: $newDescription, prompt: Text("Отсутствует..."), axis: .vertical)
-                                        .foregroundColor(.black)
-                                        .lineLimit(1...3)
-                                }
-                                HStack {
-                                    Text("Изображение:")
-                                        .foregroundColor(Color.gray)
-                                    Spacer()
-                                    HStack {
                                         HStack {
-                                            Image(uiImage: self.imageTitle)
-                                                .resizable()
-                                                .cornerRadius(50)
-                                                .frame(width: 80, height: 80)
-                                                .background(Color.black.opacity(0.2))
-                                                .aspectRatio(contentMode: .fill)
-                                                .clipShape(Circle())
-                                                .onTapGesture {
-                                                    showImagePicker = true
-                                                }
-                                        }
-                                        .sheet(isPresented: $showImagePicker) {
-                                            ImagePicker(sourceType: .photoLibrary, selectedImage: self.$imageTitle)
-                                        }
-                                    }
-                                }
-                                VStack{
-                                    ZStack{
-                                        HStack{
-                                            Text("От университета/кафедры:")
-                                                .foregroundColor(Color.gray)
-                                            Spacer()
-                                        }
-                                        HStack{
-                                            Spacer()
-                                            Toggle("", isOn: $newUniversityRecord)
-                                                .onTapGesture {
-                                                    newUniversityRecord.toggle()
-                                                    if(newUniversityRecord == false){
-                                                        
+                                            HStack {
+                                                Image(uiImage: self.imageTitle)
+                                                    .resizable()
+                                                    .cornerRadius(50)
+                                                    .frame(width: 80, height: 80)
+                                                    .background(Color.black.opacity(0.2))
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .clipShape(Circle())
+                                                    .onTapGesture {
+                                                        showImagePicker = true
                                                     }
-                                                    else{
-                                                        
-                                                    }
-                                                }
-                                        }
-                                    }
-                                }
-                                VStack {
-                                    HStack{
-                                        HStack{
-                                            Text("Ключевые слова:")
-                                                .foregroundColor(Color.gray)
-                                            Spacer()
-                                        }
-                                        Spacer()
-                                        Text("Выбрать")
-                                            .onTapGesture {
-                                                showKeywordsWindow = true
                                             }
-                                            .foregroundColor(.blue)
+                                            .sheet(isPresented: $showImagePicker) {
+                                                ImagePicker(sourceType: .photoLibrary, selectedImage: self.$imageTitle)
+                                            }
+                                        }
                                     }
-                                    KeywordsSelectionCreateView(createRecordViewModel: createRecordViewModel, countKeywordsSelected: $countKeywordsSelected)                               
+                                    VStack{
+                                        ZStack{
+                                            HStack{
+                                                Text("От университета/кафедры:")
+                                                    .foregroundColor(Color.gray)
+                                                Spacer()
+                                            }
+                                            HStack{
+                                                Spacer()
+                                                Toggle("", isOn: $newUniversityRecord)
+                                                    .onTapGesture {
+                                                        newUniversityRecord.toggle()
+                                                        if(newUniversityRecord == false){
+                                                            
+                                                        }
+                                                        else{
+                                                            
+                                                        }
+                                                    }
+                                            }
+                                        }
+                                    }
+                                    VStack {
+                                        HStack{
+                                            HStack{
+                                                Text("Ключевые слова:")
+                                                    .foregroundColor(Color.gray)
+                                                Spacer()
+                                            }
+                                            Spacer()
+                                            Text("Выбрать")
+                                                .onTapGesture {
+                                                    showKeywordsWindow = true
+                                                }
+                                                .foregroundColor(.blue)
+                                        }
+                                        ScrollView(.vertical, showsIndicators: false) {
+                                            if(countKeywordsSelected > 0){
+                                                KeywordsSelectionCreateView(createRecordViewModel: createRecordViewModel, countKeywordsSelected: $countKeywordsSelected)
+                                                    .frame(width: UIScreen.screenWidth - 80)
+                                            }
+                                            else{
+                                                Text("Отсутствуют...").foregroundColor(Color(.systemGray3))
+                                                    .frame(width: UIScreen.screenWidth - 80)
+                                                    .padding(.top, 23)
+                                            }
+                                        }
+                                        .frame(height: 75)
+                                    }
                                 }
                             }
+                            .scrollDisabled(true)
+                            .frame(height: 420)
+                            
+                            VStack{
+                                HStack{
+                                    Button{
+                                        clean()
+                                        pageCreateRecord = 1
+                                    } label:{
+                                        Text("Очистить").foregroundColor(.black).padding().frame(width: 160)
+                                    }.background(Color(red: 0.949, green: 0.949, blue: 0.971))
+                                        .clipShape(Capsule())
+                                    
+                                    Button(action: {
+                                        let isImageTitle: Bool
+                                        var imageData = Data()
+                                        if(imageTitle.cgImage != imageTitleInformation.cgImage){
+                                            imageData = imageTitle.jpegData(compressionQuality: 0.1) ?? Data()
+                                            isImageTitle = true
+                                        }
+                                        else{
+                                            isImageTitle = false
+                                        }
+
+                                        let role = createRecordViewModel.getСurrentUserInformation().role
+                                        if(role == "admin" || role == "editor"){
+                                            let newRecord = Record(idUser: "", dateCreation: nil, dateChange: nil, title: newTitle, year: Int(newYear) ?? 2000, idKeywords: createRecordViewModel.selectedKeywordsId, authors: newAuthors, linkDoi: newLinkDoi, linkWebsite: newLinkWebsite, journalName: newJournalName, journalNumber: newJournalNumber, pageNumbers: newPageNumbers, description: newDescription, idUsersReporting: [], universityRecord: newUniversityRecord)
+                                            createRecordViewModel.addRecord(newRecord, imageTitle: imageData, isImageTitle: isImageTitle){ (verified, status) in
+                                                if !verified {
+                                                    alertTextCreateTitle = "Ошибка!"
+                                                    alertTextCreateMessage = status
+                                                    self.showAlertCreateError.toggle()
+                                                }
+                                                else{
+                                                    alertTextCreateTitle = "Успешно!"
+                                                    alertTextCreateMessage = "Запись успешно создана."
+                                                    clean()
+                                                    newRecordId = status
+                                                    self.showAlertCreate.toggle()
+                                                    pageCreateRecord = 1
+                                                }
+                                            }
+                                        }
+                                        else{
+                                            alertTextCreateTitle = "Отказано!"
+                                            alertTextCreateMessage = "Отсутствуют права для создания записи."
+                                            self.showAlertCreateError.toggle()
+                                        }
+                                    }) {
+                                        HStack {
+                                            Text("Сохранить").foregroundColor(.black).padding().frame(width: 160)
+                                        }
+                                        .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
+                                        .clipShape(Capsule())
+                                    }
+                                    .alert(isPresented: $showAlertCreateError) {
+                                        Alert(
+                                            title: Text(alertTextCreateTitle),
+                                            message: Text(alertTextCreateMessage),
+                                            dismissButton: .default(Text("Ок"))
+                                        )
+                                    }
+                                }
+                            }
+                            .padding(.bottom, 30)
                         }
                     }
                     .padding(.top, 80)
@@ -147,71 +227,13 @@ struct SecondPageCreateRecordView: View {
                         Spacer()
                     }
                 }
-                VStack{
-                    HStack{
-                        Button{
-                            clean()
-                            pageCreateRecord = 1
-                        } label:{
-                            Text("Очистить").foregroundColor(.black).padding().frame(width: 160)
-                        }.background(Color(red: 0.949, green: 0.949, blue: 0.971))
-                            .clipShape(Capsule())
-                        
-                        Button(action: {
-                            let isImageTitle: Bool
-                            var imageData = Data()
-                            if(imageTitle.cgImage != imageTitleInformation.cgImage){
-                                imageData = imageTitle.jpegData(compressionQuality: 0.1) ?? Data()
-                                isImageTitle = true
-                            }
-                            else{
-                                isImageTitle = false
-                            }
-
-                            let role = createRecordViewModel.getСurrentUserInformation().role
-                            if(role == "admin" || role == "editor"){
-                                let newRecord = Record(idUser: "", dateCreation: nil, dateChange: nil, title: newTitle, year: Int(newYear) ?? 2000, idKeywords: createRecordViewModel.selectedKeywordsId, authors: newAuthors, linkDoi: newLinkDoi, linkWebsite: newLinkWebsite, journalName: newJournalName, journalNumber: newJournalNumber, pageNumbers: newPageNumbers, description: newDescription, idUsersReporting: [], universityRecord: newUniversityRecord)
-                                createRecordViewModel.addRecord(newRecord, imageTitle: imageData, isImageTitle: isImageTitle){ (verified, status) in
-                                    if !verified {
-                                        alertTextCreateTitle = "Ошибка!"
-                                        alertTextCreateMessage = status
-                                        self.showAlertCreateError.toggle()
-                                    }
-                                    else{
-                                        alertTextCreateTitle = "Успешно!"
-                                        alertTextCreateMessage = "Запись успешно создана."
-                                        clean()
-                                        newRecordId = status
-                                        self.showAlertCreate.toggle()
-                                        pageCreateRecord = 1
-                                    }
-                                }
-                            }
-                            else{
-                                alertTextCreateTitle = "Отказано!"
-                                alertTextCreateMessage = "Отсутствуют права для создания записи."
-                                self.showAlertCreateError.toggle()
-                            }
-                        }) {
-                            HStack {
-                                Text("Сохранить").foregroundColor(.black).padding().frame(width: 160)
-                            }
-                            .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
-                            .clipShape(Capsule())
-                        }
-                        .alert(isPresented: $showAlertCreateError) {
-                            Alert(
-                                title: Text(alertTextCreateTitle),
-                                message: Text(alertTextCreateMessage),
-                                dismissButton: .default(Text("Ок"))
-                            )
-                        }
-                    }
-                    .padding(.bottom, 40)
-                }
+                
             }
         }
         .background(Color(red: 0.949, green: 0.949, blue: 0.971))
+        .onTapGesture {
+            keyboardIsFocused = false // закрытие клавиатуры при нажатии на экран
+        }
         .sheet(isPresented: self.$showKeywordsWindow) {
             KeywordsSelectionSearchView(createRecordViewModel: createRecordViewModel, countKeywordsSelected: $countKeywordsSelected)
         }
