@@ -131,6 +131,7 @@ struct KeywordsView: View {
                                             else{
                                                 alertTextKeywordTitle = "Успешно!"
                                                 alertTextKeywordMessage = "Ключевое слово было успешно добавлено"
+                                                newKeywordName = ""
                                                 showAlertKeyword.toggle()
                                             }
                                     }

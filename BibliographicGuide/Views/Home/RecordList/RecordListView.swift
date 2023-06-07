@@ -44,7 +44,7 @@ struct RecordListView: View {
     @State var textSearch = ""
     @State var isSearching = false
     @State var keywordsSearch = 0
-    @State var quantityRecords = 3
+    @State var quantityRecords = 9
     @State var quantityRecordsSearch = 20
     @State private var sortingSelectedItem: SortingRecord = .title
     
@@ -181,7 +181,7 @@ struct RecordListView: View {
                         }
                         if(recordListViewModel.recordViewModels.count > quantityRecords){
                             Button{
-                                quantityRecords += 1
+                                quantityRecords += 10
                             } label: {
                                 Image(systemName: "plus")
                                     .resizable()
