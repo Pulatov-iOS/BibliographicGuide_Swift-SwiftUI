@@ -31,9 +31,8 @@ final class AuthorizationRepository: ObservableObject {
                 completion(false, (err?.localizedDescription)!)
                 return
             }
-            completion(true,(res?.user.uid)!)
-            
             UserDefaults.standard.set(res?.user.uid, forKey: "userId") // Сохраним ID пользователя
+            completion(true,(res?.user.uid)!)
         }
     }
 }

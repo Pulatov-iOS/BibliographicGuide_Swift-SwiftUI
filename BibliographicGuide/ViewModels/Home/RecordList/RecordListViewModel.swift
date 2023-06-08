@@ -17,6 +17,7 @@ final class RecordListViewModel: ObservableObject {
     @Published var searchRecordViewModels: [RecordViewModel] = []
     @Published var topFiveRecords: [RecordViewModel] = []
     @Published var recordsInReport: [Record] = []
+    @Published var searchRecords: [Record] = []
     
     @Published var userInformationRepository = globalUserInformationRepository
     @Published var usersInformation: [UserInformation] = []
@@ -38,6 +39,10 @@ final class RecordListViewModel: ObservableObject {
                 records.map(RecordViewModel.init)
             }
             .assign(to: \.recordViewModels, on: self)
+            .store(in: &cancellables)
+        
+        recordRepository.$records
+            .assign(to: \.searchRecords, on: self)
             .store(in: &cancellables)
         
         recordRepository.$topFiveRecords

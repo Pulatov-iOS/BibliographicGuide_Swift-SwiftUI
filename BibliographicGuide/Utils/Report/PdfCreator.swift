@@ -87,7 +87,7 @@ func pdfData(recordsIncludedReport: [Record], titleReport: String, creatorReport
         self.recordsIncludedReport.sort(by: { $0.authors < $1.authors })
         for record in self.recordsIncludedReport{
             if(record.id != nil){
-                pointer = pointer + "\t" + String(item) + ". " + record.authors + record.title + " // " + record.journalName + " - " + String(record.year) + ", " + record.journalNumber + ", c. " + record.pageNumbers + ". \n"
+                pointer = pointer + "\t" + String(item) + ". " + record.authors + ". " + record.title + " // " + record.journalName + " - " + String(record.year) + ", " + record.journalNumber + ", c. " + record.pageNumbers + ". \n"
                 item += 1
             }
         }
