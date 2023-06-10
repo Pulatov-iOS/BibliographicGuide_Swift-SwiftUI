@@ -107,7 +107,7 @@ final class RecordRepository: ObservableObject {
                 completion(true, "Запись успешно отредактирована.")
             }
         } catch {
-            completion(false, "Ошибка при редактировании записи")
+            completion(false, "Ошибка при редактировании записи.")
         }
     }
     
@@ -151,10 +151,10 @@ final class RecordRepository: ObservableObject {
         pathRef.child(idImageTitle).putData(imageTitle, metadata: metadata){
             metadata, error in
             guard let metadata = metadata else{
-                completion(false, "Ошибка")
+                completion(false, "Ошибка!")
                 return
             }
-            completion(true, "Успешно")
+            completion(true, "Успешно!")
         }
     }
     

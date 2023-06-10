@@ -117,10 +117,10 @@ final class UserInformationListViewModel: ObservableObject {
     func updateChatLock(idUser: String, blockingChat: Bool, completion: @escaping (Bool, String)->Void){
         userInformationRepository.updateChatLock(idUser: idUser, blockingChat: blockingChat) { (verified, status) in
             if !verified {
-                completion(false, "Ошибка.")
+                completion(false, "Ошибка!")
             }
             else{
-                completion(true, "Успешно.")
+                completion(true, "Успешно!")
             }
         }
     }
@@ -128,10 +128,10 @@ final class UserInformationListViewModel: ObservableObject {
     func updateAccountLock(idUser: String, blockingAccount: Bool, completion: @escaping (Bool, String)->Void) {
         userInformationRepository.updateAccountLock(idUser: idUser, blockingAccount: blockingAccount){ (verified, status) in
             if !verified {
-                completion(false, "Ошибка.")
+                completion(false, "Ошибка!")
             }
             else{
-                completion(true, "Успешно.")
+                completion(true, "Успешно!")
             }
         }
     }
