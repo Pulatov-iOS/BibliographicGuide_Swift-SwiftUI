@@ -60,9 +60,6 @@ final class CreateRecordViewModel: ObservableObject {
     
     func addRecord(_ record: Record, imageTitle: Data, isImageTitle: Bool, completion: @escaping (Bool, String)->Void){
         var newRecord = record
-        if(record.description == ""){
-            newRecord.description = "Отсутствует"
-        }
         newRecord.idUser = userId
         recordRepository.addRecord(record: newRecord, imageTitle: imageTitle, isImageTitle: isImageTitle){ (verified, status) in
             if !verified {

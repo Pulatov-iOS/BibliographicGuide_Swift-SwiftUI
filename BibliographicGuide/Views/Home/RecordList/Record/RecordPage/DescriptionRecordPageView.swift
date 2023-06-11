@@ -119,11 +119,20 @@ struct DescriptionRecordPageView: View {
                         .imageScale(.large)
                         .font(Font.title.weight(.ultraLight))
                         .foregroundColor(Color.gray)
-                    Text(recordViewModel.record.description)
-                        .lineLimit(nil)
-                        .multilineTextAlignment(.leading)
-                        .font(.system(.body, design: .default))
-                        .fixedSize(horizontal: false, vertical: true)
+                    if(recordViewModel.record.description != ""){
+                        Text(recordViewModel.record.description)
+                            .lineLimit(nil)
+                            .multilineTextAlignment(.leading)
+                            .font(.system(.body, design: .default))
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    else{
+                        Text("Отсутствует")
+                            .lineLimit(nil)
+                            .multilineTextAlignment(.leading)
+                            .font(.system(.body, design: .default))
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
                 }
                 .padding(.vertical, 10)
             }
