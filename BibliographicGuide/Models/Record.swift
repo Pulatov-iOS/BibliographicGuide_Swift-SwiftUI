@@ -25,6 +25,7 @@ struct Record: Identifiable, Codable, Equatable {
     var journalNumber: String
     var pageNumbers: String
     var description: String
+    var updatingImage: Int
     var idUsersReporting: [String]
     var universityRecord: Bool
     
