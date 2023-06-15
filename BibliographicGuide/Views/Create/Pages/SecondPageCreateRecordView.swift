@@ -158,7 +158,7 @@ struct SecondPageCreateRecordView: View {
 
                                         let role = createRecordViewModel.getСurrentUserInformation().role
                                         if(role == "admin" || role == "editor"){
-                                            let newRecord = Record(idUser: "", dateCreation: nil, dateChange: nil, title: newTitle, year: Int(newYear) ?? 2000, idKeywords: createRecordViewModel.selectedKeywordsId, authors: newAuthors, linkDoi: newLinkDoi, linkWebsite: newLinkWebsite, journalName: newJournalName, journalNumber: newJournalNumber, pageNumbers: newPageNumbers, description: newDescription, idUsersReporting: [], universityRecord: newUniversityRecord)
+                                            let newRecord = Record(idUser: "", dateCreation: nil, dateChange: nil, title: newTitle, year: Int(newYear) ?? 2000, idKeywords: createRecordViewModel.selectedKeywordsId, authors: newAuthors, linkDoi: newLinkDoi, linkWebsite: newLinkWebsite, journalName: newJournalName, journalNumber: newJournalNumber, pageNumbers: newPageNumbers, description: newDescription, idUsersReporting: [], updatingImage: 0, universityRecord: newUniversityRecord)
                                             createRecordViewModel.addRecord(newRecord, imageTitle: imageData, isImageTitle: isImageTitle){ (verified, status) in
                                                 if !verified {
                                                     alertTextCreateTitle = "Ошибка!"
