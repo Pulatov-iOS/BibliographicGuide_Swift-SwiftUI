@@ -44,7 +44,6 @@ struct SecondPageEditingRecordView: View {
     
     @FocusState private var keyboardIsFocused: Bool
     @Binding var pageCreateRecord: Int
-    @Binding var newRecordId: String
     
     var body: some View {
         VStack{
@@ -209,7 +208,6 @@ struct SecondPageEditingRecordView: View {
                                                     self.showAlertEditing.toggle()
                                                 }
                                                 else{
-                                                    newRecordId = recordViewModel.record.id ?? ""
                                                     showAlertEditing.toggle()
                                                     showEditingWindow.toggle()
                                                 }

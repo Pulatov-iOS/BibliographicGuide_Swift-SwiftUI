@@ -10,7 +10,6 @@ import SDWebImageSwiftUI
 
 struct TopFiveRecordsView: View {
     
-    @Binding var newRecordId: String
     var recordListViewModel: RecordListViewModel
     var recordViewModel: RecordViewModel
     var userNameRecord: String
@@ -48,17 +47,15 @@ struct TopFiveRecordsView: View {
                             }
                         }
                     }
-                    .onChange(of: newRecordId){ Value in
-                        if(Value == recordViewModel.record.id){
-                            recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
-                                if !verified  {
-                                    isImageTitle = false
-                                    imageUrl = status
-                                }
-                                else{
-                                    isImageTitle = true
-                                    imageUrl = status
-                                }
+                    .onChange(of: recordViewModel.record.updatingImage){ Value in
+                        recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
+                            if !verified  {
+                                isImageTitle = false
+                                imageUrl = status
+                            }
+                            else{
+                                isImageTitle = true
+                                imageUrl = status
                             }
                         }
                     }
@@ -104,7 +101,7 @@ struct TopFiveRecordsView: View {
         }
         .frame(width: 200, height:  185)
         .sheet(isPresented: self.$showRecordPage) {
-            RecordPageView(recordListViewModel: recordListViewModel, recordViewModel: recordViewModel, userNameRecord: userNameRecord, newRecordId: $newRecordId)
+            RecordPageView(recordListViewModel: recordListViewModel, recordViewModel: recordViewModel, userNameRecord: userNameRecord)
         }
     }
 }

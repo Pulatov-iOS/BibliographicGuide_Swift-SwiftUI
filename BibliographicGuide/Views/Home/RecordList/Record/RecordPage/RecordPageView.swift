@@ -14,7 +14,6 @@ struct RecordPageView: View {
     var recordViewModel: RecordViewModel
     var userNameRecord: String
     @State private var imageUrl = URL(string: "")
-    @Binding var newRecordId: String
     @State private var showEditingRecord: Bool = false
     @Environment(\.presentationMode) var presentationMode // Для закрытия sheet
     
@@ -67,16 +66,14 @@ struct RecordPageView: View {
                             }
                         }
                     }
-                    .onChange(of: newRecordId){ Value in
-                        if(Value == recordViewModel.record.id){
-                            recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
-                                if !verified  {
-                                    isImageTitle = false
-                                }
-                                else{
-                                    isImageTitle = true
-                                    imageUrl = status
-                                }
+                    .onChange(of: recordViewModel.record.updatingImage){ Value in
+                        recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
+                            if !verified  {
+                                isImageTitle = false
+                            }
+                            else{
+                                isImageTitle = true
+                                imageUrl = status
                             }
                         }
                     }
@@ -232,7 +229,7 @@ struct RecordPageView: View {
                             .shadow(color: Color("ColorBlackTransparentLight"), radius: 5, x: 1, y: 2)
                         }
                         .sheet(isPresented: self.$showEditingRecord) {
-                            EditingRecordView(recordListViewModel: recordListViewModel, recordViewModel: recordViewModel, newRecordId: $newRecordId)
+                            EditingRecordView(recordListViewModel: recordListViewModel, recordViewModel: recordViewModel)
                         }
                         .alert(isPresented: $showAlertEditing) {
                             Alert(

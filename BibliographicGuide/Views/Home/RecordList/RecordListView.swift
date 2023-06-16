@@ -38,8 +38,6 @@ struct RecordListView: View {
     
     @EnvironmentObject var recordListViewModel: RecordListViewModel
     
-    @Binding var newRecordId: String
-    
     @State var showTopFiveRecords = true
     @State var textSearch = ""
     @State var isSearching = false
@@ -124,7 +122,7 @@ struct RecordListView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(alignment: .top, spacing: 0) {
                                     ForEach(recordListViewModel.topFiveRecords) { records in
-                                        TopFiveRecordsView(newRecordId: $newRecordId, recordListViewModel: recordListViewModel, recordViewModel: records, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
+                                        TopFiveRecordsView(recordListViewModel: recordListViewModel, recordViewModel: records, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
                                     }
                                 }
                             }
@@ -177,7 +175,7 @@ struct RecordListView: View {
                 VStack(alignment: .center, spacing: 20) {
                     if(isSearching == false){
                         ForEach(recordListViewModel.recordViewModels.prefix(quantityRecords)) { records in
-                            RecordView(newRecordId: $newRecordId, recordViewModel: records, recordListViewModel: recordListViewModel, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
+                            RecordView(recordViewModel: records, recordListViewModel: recordListViewModel, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
                         }
                         if(recordListViewModel.recordViewModels.count > quantityRecords){
                             Button{
@@ -193,7 +191,7 @@ struct RecordListView: View {
                     }
                     else{
                         ForEach(recordListViewModel.searchRecordViewModels.prefix(quantityRecordsSearch)) { records in
-                            RecordView(newRecordId: $newRecordId, recordViewModel: records, recordListViewModel: recordListViewModel, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
+                            RecordView(recordViewModel: records, recordListViewModel: recordListViewModel, userNameRecord: recordListViewModel.getUserNameRecord(records.record))
                         }
                         if(recordListViewModel.searchRecordViewModels.count > quantityRecordsSearch){
                             Button{

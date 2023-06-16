@@ -10,7 +10,6 @@ import SDWebImageSwiftUI
 
 struct RecordView: View {
     
-    @Binding var newRecordId: String
     var recordViewModel: RecordViewModel
     var recordListViewModel: RecordListViewModel
     
@@ -52,16 +51,14 @@ struct RecordView: View {
                         }
                     }
                 }
-                .onChange(of: newRecordId){ Value in
-                    if(Value == recordViewModel.record.id){
-                        recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
-                            if !verified  {
-                                isImageTitle = false
-                            }
-                            else{
-                                isImageTitle = true
-                                imageUrl = status
-                            }
+                .onChange(of: recordViewModel.record.updatingImage){ Value in
+                    recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
+                        if !verified  {
+                            isImageTitle = false
+                        }
+                        else{
+                            isImageTitle = true
+                            imageUrl = status
                         }
                     }
                 }
@@ -162,7 +159,7 @@ struct RecordView: View {
             self.showRecordPage = true
         }
         .sheet(isPresented: self.$showRecordPage) {
-            RecordPageView(recordListViewModel: recordListViewModel, recordViewModel: recordViewModel, userNameRecord: userNameRecord, newRecordId: $newRecordId)
+            RecordPageView(recordListViewModel: recordListViewModel, recordViewModel: recordViewModel, userNameRecord: userNameRecord)
         }
     }
 }

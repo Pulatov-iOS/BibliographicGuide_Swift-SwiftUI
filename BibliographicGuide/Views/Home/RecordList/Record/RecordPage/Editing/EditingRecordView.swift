@@ -14,8 +14,6 @@ struct EditingRecordView: View {
     @State var recordListViewModel: RecordListViewModel
     @State var recordViewModel: RecordViewModel
     
-    @Binding var newRecordId: String
-    
     @State var newTitle = ""
     @State var newAuthors = ""
     @State var newYear = ""
@@ -41,11 +39,10 @@ struct EditingRecordView: View {
                 FirstPageEditingRecordView(recordListViewModel: recordListViewModel, newTitle: $newTitle, newAuthors: $newAuthors, newYear: $newYear, newJournalName: $newJournalName, newJournalNumber: $newJournalNumber, newPageNumbers: $newPageNumbers, newLinkDoi: $newLinkDoi, newLinkWebsite: $newLinkWebsite, pageCreateRecord: $pageCreateRecord)
             }
             else{
-                SecondPageEditingRecordView(recordListViewModel: recordListViewModel, recordViewModel: $recordViewModel, showEditingWindow: $showEditingWindow, newTitle: $newTitle, newAuthors: $newAuthors, newYear: $newYear, newJournalName: $newJournalName, newJournalNumber: $newJournalNumber, newPageNumbers: $newPageNumbers, newLinkDoi: $newLinkDoi, newLinkWebsite: $newLinkWebsite, newDescription: $newDescription, newUniversityRecord: $newUniversityRecord, countKeywordsSelected: $countKeywordsSelected, showAlertEditing: $showAlertEditing, alertTextEditingTitle: $alertTextEditingTitle, alertTextEditingMessage: $alertTextEditingMessage, pageCreateRecord: $pageCreateRecord, newRecordId: $newRecordId)
+                SecondPageEditingRecordView(recordListViewModel: recordListViewModel, recordViewModel: $recordViewModel, showEditingWindow: $showEditingWindow, newTitle: $newTitle, newAuthors: $newAuthors, newYear: $newYear, newJournalName: $newJournalName, newJournalNumber: $newJournalNumber, newPageNumbers: $newPageNumbers, newLinkDoi: $newLinkDoi, newLinkWebsite: $newLinkWebsite, newDescription: $newDescription, newUniversityRecord: $newUniversityRecord, countKeywordsSelected: $countKeywordsSelected, showAlertEditing: $showAlertEditing, alertTextEditingTitle: $alertTextEditingTitle, alertTextEditingMessage: $alertTextEditingMessage, pageCreateRecord: $pageCreateRecord)
             }
         }
         .onAppear(){
-            newRecordId = ""
             newTitle = recordViewModel.record.title
             newAuthors = recordViewModel.record.authors
             newYear = String(recordViewModel.record.year)

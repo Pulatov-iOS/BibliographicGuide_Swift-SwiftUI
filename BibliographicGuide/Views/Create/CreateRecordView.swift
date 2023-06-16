@@ -11,8 +11,6 @@ struct CreateRecordView: View {
     
     @EnvironmentObject var createRecordViewModel: CreateRecordViewModel
     
-    @Binding var newRecordId: String
-    
     @State var newTitle = ""
     @State var newAuthors = ""
     @State var newYear = ""
@@ -40,7 +38,7 @@ struct CreateRecordView: View {
                 FirstPageViewCreateRecord(createRecordViewModel: createRecordViewModel, newTitle: $newTitle, newAuthors: $newAuthors, newYear: $newYear, newJournalName: $newJournalName, newJournalNumber: $newJournalNumber, newPageNumbers: $newPageNumbers, newLinkDoi: $newLinkDoi, newLinkWebsite: $newLinkWebsite, showAlertCreate: $showAlertCreate, alertTextCreateTitle: $alertTextCreateTitle, alertTextCreateMessage: $alertTextCreateMessage, pageCreateRecord: $pageCreateRecord)
             }
             else{
-                SecondPageCreateRecordView(createRecordViewModel: createRecordViewModel, newTitle: $newTitle, newAuthors: $newAuthors, newYear: $newYear, newJournalName: $newJournalName, newJournalNumber: $newJournalNumber, newPageNumbers: $newPageNumbers, newLinkDoi: $newLinkDoi, newLinkWebsite: $newLinkWebsite, newDescription: $newDescription, newUniversityRecord: $newUniversityRecord, imageTitle: $imageTitle, imageTitleInformation: $imageTitleInformation, countKeywordsSelected: $countKeywordsSelected, showAlertCreate: $showAlertCreate, alertTextCreateTitle: $alertTextCreateTitle, alertTextCreateMessage: $alertTextCreateMessage, pageCreateRecord: $pageCreateRecord, newRecordId: $newRecordId)
+                SecondPageCreateRecordView(createRecordViewModel: createRecordViewModel, newTitle: $newTitle, newAuthors: $newAuthors, newYear: $newYear, newJournalName: $newJournalName, newJournalNumber: $newJournalNumber, newPageNumbers: $newPageNumbers, newLinkDoi: $newLinkDoi, newLinkWebsite: $newLinkWebsite, newDescription: $newDescription, newUniversityRecord: $newUniversityRecord, imageTitle: $imageTitle, imageTitleInformation: $imageTitleInformation, countKeywordsSelected: $countKeywordsSelected, showAlertCreate: $showAlertCreate, alertTextCreateTitle: $alertTextCreateTitle, alertTextCreateMessage: $alertTextCreateMessage, pageCreateRecord: $pageCreateRecord)
             }
         }
         .onAppear(){

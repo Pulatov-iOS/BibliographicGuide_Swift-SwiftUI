@@ -44,7 +44,6 @@ struct AppView: App {
     @State private var selectedImage = 0
     @State private var editingWindowShow = false
     @State private var openFullSizeImage = false
-    @State private var newRecordId = ""
     @State private var newMessageId = ""
 
     var body: some Scene {
@@ -53,7 +52,7 @@ struct AppView: App {
                 VStack{
                     if(status && !(appViewModel.currentUserInformation?.blockingAccount ?? false)){
                         TabView {
-                            RecordListView(newRecordId: $newRecordId)
+                            RecordListView()
                                 .tabItem {
                                     Image(systemName: "house")
                                     Text("Домашняя")
@@ -64,7 +63,7 @@ struct AppView: App {
                                     Image(systemName: "message.badge")
                                     Text("Общ. чат")
                                 }
-                            CreateRecordView(newRecordId: $newRecordId)
+                            CreateRecordView()
                                 .tabItem {
                                     Image(systemName: "square.and.pencil")
                                     Text("Доб. запись")
