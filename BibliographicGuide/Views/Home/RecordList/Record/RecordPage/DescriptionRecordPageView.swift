@@ -115,22 +115,20 @@ struct DescriptionRecordPageView: View {
                 HStack(alignment: .center, spacing: 5) {
                     Image(systemName: "chevron.right")
                         .resizable()
-                        .frame(width: 15, height: 25, alignment: .center)
+                        .frame(width: 10, height: 15, alignment: .center)
                         .imageScale(.large)
                         .font(Font.title.weight(.ultraLight))
                         .foregroundColor(Color.gray)
                     if(recordViewModel.record.description != ""){
                         Text(recordViewModel.record.description)
-                            .lineLimit(nil)
+                            .font(.footnote)
                             .multilineTextAlignment(.leading)
-                            .font(.system(.body, design: .default))
                             .fixedSize(horizontal: false, vertical: true)
                     }
                     else{
-                        Text("Отсутствует")
-                            .lineLimit(nil)
+                        Text("Отсутствует.")
+                            .font(.footnote)
                             .multilineTextAlignment(.leading)
-                            .font(.system(.body, design: .default))
                             .fixedSize(horizontal: false, vertical: true)
                     }
                 }
