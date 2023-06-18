@@ -77,6 +77,7 @@ final class RecordRepository: ObservableObject {
                         completion(false, "Ошибка при добавлении записи.")
                     }
                     else{
+                        self.updateImageTitle(record, result.documentID)
                         completion(true, result.documentID)
                     }
                 }
@@ -99,6 +100,7 @@ final class RecordRepository: ObservableObject {
                         completion(false, "Ошибка при редактировании записи.")
                     }
                     else{
+                        self.updateImageTitle(record, record.id ?? "")
                         completion(true, "Запись успешно отредактирована.")
                     }
                 }
@@ -137,6 +139,23 @@ final class RecordRepository: ObservableObject {
                 completion(false, "Ошибка при обновлении")
             } else {
                 completion(true, "Обновлено успешно")
+            }
+        }
+    }
+    
+    func updateImageTitle(_ record: Record,_ idRecord: String){
+        var updateImage = 0
+        if(record.updatingImage < 100000){
+            updateImage = record.updatingImage + 1
+        }
+        else{
+            updateImage = 0
+        }
+        db.collection(pathRecords).document(idRecord).updateData([
+            "updatingImage": updateImage
+        ]) { error in
+            if error != nil {
+                print("Error")
             }
         }
     }

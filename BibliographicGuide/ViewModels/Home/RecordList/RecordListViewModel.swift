@@ -223,16 +223,7 @@ final class RecordListViewModel: ObservableObject {
     
     func updateRecord(record: Record, ImageTitle: Data, newImageRecord: Bool, completion: @escaping (Bool, String)->Void){
         var newRecord = record
-        if(record.description == ""){
-            newRecord.description = "Отсутствует"
-        }
         newRecord.dateChange = nil
-        if(newRecord.updatingImage > 100000){
-            newRecord.updatingImage = 0
-        }
-        else{
-            newRecord.updatingImage += 1
-        }
         recordRepository.updateRecord(record: newRecord, imageTitle: ImageTitle, newImageRecord: newImageRecord){ (verified, status) in
             if !verified {
                 completion(false, "Ошибка при запросе редактирования записи.")
