@@ -57,7 +57,8 @@ final class UserInformationRepository: ObservableObject {
             let reasonBlockingAccount = data["reasonBlockingAccount"] as? String ?? ""
             let role = data["role"] as? String ?? ""
             let userName = data["userName"] as? String ?? ""
-            self.currentUserInformation = UserInformation(role: role, userName: userName, blockingChat: blockingChat, blockingAccount: blockingAccount, reasonBlockingAccount: reasonBlockingAccount)
+            let updatingImage = data["updatingImage"] as? Int ?? 0
+            self.currentUserInformation = UserInformation(role: role, userName: userName, updatingImage: updatingImage, blockingChat: blockingChat, blockingAccount: blockingAccount, reasonBlockingAccount: reasonBlockingAccount)
         }
     }
     
@@ -70,11 +71,11 @@ final class UserInformationRepository: ObservableObject {
     func getCurrentUserInformation(_ idUser: String, completion: @escaping (Bool, UserInformation)->Void) {
         db.collection(pathUserInformation).document(idUser).getDocument() { (snapshot, error) in
             guard let document = snapshot else {
-                completion(false,  self.currentUserInformation ?? UserInformation(role: "", userName: "", blockingChat: false, blockingAccount: false, reasonBlockingAccount: ""))
+                completion(false,  self.currentUserInformation ?? UserInformation(role: "", userName: "", updatingImage: 0, blockingChat: false, blockingAccount: false, reasonBlockingAccount: ""))
                 return
             }
             guard let data = document.data() else {
-                completion(false,  self.currentUserInformation ?? UserInformation(role: "", userName: "", blockingChat: false, blockingAccount: false, reasonBlockingAccount: ""))
+                completion(false,  self.currentUserInformation ?? UserInformation(role: "", userName: "", updatingImage: 0, blockingChat: false, blockingAccount: false, reasonBlockingAccount: ""))
                 return
             }
             let blockingAccount = data["blockingAccount"] as? Bool ?? true
@@ -82,8 +83,9 @@ final class UserInformationRepository: ObservableObject {
             let reasonBlockingAccount = data["reasonBlockingAccount"] as? String ?? ""
             let role = data["role"] as? String ?? ""
             let userName = data["userName"] as? String ?? ""
-            self.currentUserInformation = UserInformation(role: role, userName: userName, blockingChat: blockingChat, blockingAccount: blockingAccount, reasonBlockingAccount: reasonBlockingAccount)
-            completion(true,  self.currentUserInformation ?? UserInformation(role: "", userName: "", blockingChat: false, blockingAccount: false, reasonBlockingAccount: ""))
+            let updatingImage = data["updatingImage"] as? Int ?? 0
+            self.currentUserInformation = UserInformation(role: role, userName: userName, updatingImage: updatingImage, blockingChat: blockingChat, blockingAccount: blockingAccount, reasonBlockingAccount: reasonBlockingAccount)
+            completion(true,  self.currentUserInformation ?? UserInformation(role: "", userName: "", updatingImage: 0, blockingChat: false, blockingAccount: false, reasonBlockingAccount: ""))
         }
     }
     

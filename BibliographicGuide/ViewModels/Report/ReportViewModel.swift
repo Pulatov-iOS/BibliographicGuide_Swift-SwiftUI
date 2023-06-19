@@ -156,7 +156,7 @@ final class ReportViewModel: ObservableObject {
         let userName = usersInformation.filter { (item) -> Bool in
             item.id == userId
         }
-        return userName.first ?? UserInformation(role: "", userName: "", blockingChat: true, blockingAccount: true, reasonBlockingAccount: "")
+        return userName.first ?? UserInformation(role: "", userName: "", updatingImage: 0, blockingChat: true, blockingAccount: true, reasonBlockingAccount: "")
     }
     
     func checkingCreatingTime(_ date: Date) -> String {

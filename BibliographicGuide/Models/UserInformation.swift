@@ -12,6 +12,7 @@ struct UserInformation: Identifiable, Codable, Equatable {
     @DocumentID var id: String?
     var role: String
     var userName: String
+    var updatingImage: Int
     var blockingChat: Bool
     var blockingAccount: Bool
     var reasonBlockingAccount: String
