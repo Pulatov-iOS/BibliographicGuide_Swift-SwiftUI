@@ -76,6 +76,7 @@ final class UserInformationListViewModel: ObservableObject {
                         completion(false, "Ошибка при запросе обновления изображения пользователя.")
                     }
                     else{
+                        self.userInformationRepository.updateImageAccount(self.getСurrentUserInformation())
                         completion(true, "Изображение пользователя успешно обновлено.")
                     }
                 }
@@ -97,6 +98,7 @@ final class UserInformationListViewModel: ObservableObject {
                                         completion(false, "Ошибка при запросе обновления изображения пользователя.")
                                     }
                                     else{
+                                        self.userInformationRepository.updateImageAccount(self.getСurrentUserInformation())
                                         completion(true, "Имя и изображение пользователя успешно обновлено.")
                                     }
                                 }

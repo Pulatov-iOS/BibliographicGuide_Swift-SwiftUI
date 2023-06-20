@@ -165,6 +165,23 @@ final class UserInformationRepository: ObservableObject {
         }
     }
     
+    func updateImageAccount(_ userInformation: UserInformation){
+        var updateImage = 0
+        if(userInformation.updatingImage < 100000){
+            updateImage = userInformation.updatingImage + 1
+        }
+        else{
+            updateImage = 0
+        }
+        db.collection(pathUserInformation).document(userInformation.id ?? "").updateData([
+            "updatingImage": updateImage
+        ]) { error in
+            if error != nil {
+                print("Error")
+            }
+        }
+    }
+    
     func addImageAccount(idImageAccount: String, imageAccount: Data, completion: @escaping (Bool, String)->Void) {
         let referenceSorage = storage.reference() // Создаем ссылку на хранилище
         let pathRef = referenceSorage.child(pathImageAccount) // Создаем дочернюю ссылку
