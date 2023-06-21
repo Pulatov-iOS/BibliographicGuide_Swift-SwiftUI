@@ -61,6 +61,9 @@ struct IncomingMessageView: View {
                             }
                         }
                     }
+//                    .onChange(of: messageViewModel.usersInformation.){ Value in
+//                        
+//                    }
                 }
                 .onAppear(){
                     imageAccount = UIImage(named: "default") ?? UIImage()

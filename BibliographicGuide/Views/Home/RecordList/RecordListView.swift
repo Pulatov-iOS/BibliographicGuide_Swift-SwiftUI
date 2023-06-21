@@ -140,7 +140,7 @@ struct RecordListView: View {
                         HStack{
                             Spacer()
                             VStack{
-                                Picker("Sorting", selection: $sortingSelectedItem){
+                                Picker("Сортировка", selection: $sortingSelectedItem){
                                     ForEach(SortingRecord.allCases){ sortingRecord in
                                         Text(sortingRecord.title).tag(sortingRecord)
                                     }

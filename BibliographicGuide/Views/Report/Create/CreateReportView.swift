@@ -8,6 +8,24 @@
 import SwiftUI
 import Combine
 
+enum TypeReport: String, CaseIterable, Identifiable {
+    case pdf
+    case txt
+    
+    var id: Self {
+        self
+    }
+    
+    var title: String {
+        switch self {
+        case .pdf:
+            return ".pdf"
+        case .txt:
+            return ".txt"
+        }
+    }
+}
+
 struct CreateReportView: View {
     
     @EnvironmentObject var reportViewModel: ReportViewModel
@@ -20,6 +38,8 @@ struct CreateReportView: View {
     
     @State private var yearFromInReport = ""
     @State private var yearBeforeInReport = ""
+    
+    @State private var typeReport: TypeReport = .pdf
     
     @State private var saveReport = false
     @State private var newTitleSaveReport = ""
@@ -61,7 +81,16 @@ struct CreateReportView: View {
                                     Text("Формат отчета:")
                                         .foregroundColor(Color.gray)
                                     Spacer()
-                                    Text(".pdf")
+                                    Picker("Формат отчета", selection: $typeReport){
+                                        ForEach(TypeReport.allCases){ typeReport in
+                                            Text(typeReport.title).tag(typeReport)
+                                        }
+                                    }
+                                    .pickerStyle(.segmented)
+                                    .tint(.black)
+                                    .onChange(of: typeReport){ value in
+                                        
+                                    }
                                 }
                                 VStack{
                                     ZStack{
