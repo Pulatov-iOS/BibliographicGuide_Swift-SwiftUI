@@ -61,9 +61,20 @@ struct IncomingMessageView: View {
                             }
                         }
                     }
-//                    .onChange(of: messageViewModel.usersInformation.){ Value in
-//                        
-//                    }
+                    .onChange(of: messageListViewModel.usersInformation.first(where: { value -> Bool in
+                        value.id == messageViewModel.message.idUser
+                    })?.updatingImage){ Value in
+                        messageListViewModel.getImageUrl(pathImage: "ImageAccount", idImage: messageViewModel.message.idUser){ (verified, status) in
+                            if !verified  {
+                                defaultImageAccount = true
+                                imageUrl = status
+                            }
+                            else{
+                                defaultImageAccount = false
+                                imageUrl = status
+                            }
+                        }
+                    }
                 }
                 .onAppear(){
                     imageAccount = UIImage(named: "default") ?? UIImage()

@@ -47,9 +47,9 @@ final class ReportViewModel: ObservableObject {
         }
     }
     
-    func addReport(titleSaveReport: String, nameCreatedReport: String, authorCreatedReport: String){
+    func addReport(titleSaveReport: String, typeReport: String, nameCreatedReport: String, authorCreatedReport: String){
         let idRecords = recordsToIdRecords()
-        let newReport = Report(idUser: userId, titleSaveReport: titleSaveReport, idRecords: idRecords, date: nil, nameCreatedReport: nameCreatedReport, authorCreatedReport: authorCreatedReport)
+        let newReport = Report(idUser: userId, titleSaveReport: titleSaveReport, typeReport: typeReport, idRecords: idRecords, date: nil, nameCreatedReport: nameCreatedReport, authorCreatedReport: authorCreatedReport)
         globalReportRepository.addReport(newReport)
     }
     

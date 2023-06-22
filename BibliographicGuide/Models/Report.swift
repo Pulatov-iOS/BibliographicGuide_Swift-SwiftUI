@@ -12,6 +12,7 @@ struct Report: Identifiable, Codable, Equatable {
     @DocumentID var id: String?
     var idUser: String
     var titleSaveReport: String
+    var typeReport: String
     var idRecords: [String]
     @ServerTimestamp
     var date: Date?

@@ -81,16 +81,16 @@ struct CreateReportView: View {
                                     Text("Формат отчета:")
                                         .foregroundColor(Color.gray)
                                     Spacer()
-                                    Picker("Формат отчета", selection: $typeReport){
-                                        ForEach(TypeReport.allCases){ typeReport in
-                                            Text(typeReport.title).tag(typeReport)
+                                    HStack{
+                                        Picker("Формат отчета", selection: $typeReport){
+                                            ForEach(TypeReport.allCases){ typeReport in
+                                                Text(typeReport.title).tag(typeReport)
+                                            }
                                         }
+                                        .pickerStyle(.segmented)
+                                        .tint(.black)
                                     }
-                                    .pickerStyle(.segmented)
-                                    .tint(.black)
-                                    .onChange(of: typeReport){ value in
-                                        
-                                    }
+                                    .frame(width: 130)
                                 }
                                 VStack{
                                     ZStack{
@@ -238,9 +238,14 @@ struct CreateReportView: View {
                                     if(!saveReport || newTitleSaveReport != ""){
                                         if(reportViewModel.checkingYear(yearFromInReport: yearFromInReport, yearBeforeInReport: yearBeforeInReport)){
                                             reportViewModel.getRecordsIncludedInReport(titleReport: newTitleReport, creatorReport: newCreatorReport, selectedRecordInReport: selectedRecordInReport, universityRecord: universityRecord, addSelectedRecord: addSelectedRecord, yearFromInReport: Int(yearFromInReport) ?? 0, yearBeforeInReport: Int(yearBeforeInReport) ?? 0)
-                                            showPdfReportWindow.toggle()
+                                            if(typeReport.id.rawValue == "pdf"){
+                                                showPdfReportWindow.toggle()
+                                            }
+                                            else{
+                                                
+                                            }
                                             if(saveReport){
-                                                reportViewModel.addReport(titleSaveReport: newTitleSaveReport, nameCreatedReport: newTitleReport, authorCreatedReport: newCreatorReport)
+                                                reportViewModel.addReport(titleSaveReport: newTitleSaveReport, typeReport: typeReport.id.rawValue, nameCreatedReport: newTitleReport, authorCreatedReport: newCreatorReport)
                                             }
                                         }
                                         else{
