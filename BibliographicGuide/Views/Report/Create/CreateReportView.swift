@@ -242,7 +242,7 @@ struct CreateReportView: View {
                                                 showPdfReportWindow.toggle()
                                             }
                                             else{
-                                                
+                                                reportViewModel.createTxtReport(fileNamed: "s")
                                             }
                                             if(saveReport){
                                                 reportViewModel.addReport(titleSaveReport: newTitleSaveReport, typeReport: typeReport.id.rawValue, nameCreatedReport: newTitleReport, authorCreatedReport: newCreatorReport)
