@@ -59,24 +59,7 @@ final class ReportViewModel: ObservableObject {
     }
     
     func createTxtReport(fileNamed: String, folder: String = "/Documents/"){
-        let text = "Первый такой текст текст такой текст текст такой текст текст\n Второй такой текст текст такой текст текст такой текст текст\n Третий такой текст текст такой текст текст такой текст текст"
-
-        let lines = split(text) { $0 == "\n" }
-
-        var counter = 0
-
-        for line in lines {
-            if let dirs : [String] = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true) as? [String] {
-                let dir = dirs[0] //documents directory
-                let path = dir.stringByAppendingPathComponent("\(counter++).txt");
-
-                //writing
-                line.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding, error: nil);
-
-                //reading
-                let text2 = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)
-            }
-        }
+//
     }
     
     func countRecordsInReport() -> String {

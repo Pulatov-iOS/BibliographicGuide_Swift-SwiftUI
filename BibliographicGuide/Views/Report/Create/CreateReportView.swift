@@ -49,6 +49,7 @@ struct CreateReportView: View {
     @State var alertTextCreateMessageError: String = ""
     
     @State private var showPdfReportWindow = false
+    @State private var showTxtReportWindow = false
     
     @State private var heightWindow = 0.0
     
@@ -242,7 +243,7 @@ struct CreateReportView: View {
                                                 showPdfReportWindow.toggle()
                                             }
                                             else{
-                                                reportViewModel.createTxtReport(fileNamed: "s")
+                                                showTxtReportWindow.toggle()
                                             }
                                             if(saveReport){
                                                 reportViewModel.addReport(titleSaveReport: newTitleSaveReport, typeReport: typeReport.id.rawValue, nameCreatedReport: newTitleReport, authorCreatedReport: newCreatorReport)
@@ -279,6 +280,9 @@ struct CreateReportView: View {
                         .sheet(isPresented: self.$showPdfReportWindow) {
                             PdfPreviewView(recordsIncludedReport: reportViewModel.recordsInReport, newTitleReport: reportViewModel.titleReport, newCreatorReport: reportViewModel.creatorReport)
                                 .environmentObject(reportViewModel)
+                        }
+                        .sheet(isPresented: self.$showTxtReportWindow) {
+                            TxtPreviewView(recordsIncludedReport: reportViewModel.recordsInReport)
                         }
                     }
                 }
