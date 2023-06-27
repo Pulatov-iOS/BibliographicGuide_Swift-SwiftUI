@@ -24,11 +24,10 @@ struct PdfPreviewView: View {
                 
                 VStack{
                     Spacer()
-                    
                     Button(action: {
                         self.showShareSheet.toggle()
                     }) {
-                        HStack {
+                        HStack{
                             Text("Поделиться").foregroundColor(.black).padding().frame(width: 160)
                         }
                         .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))

@@ -60,23 +60,25 @@ struct CreateReportView: View {
                     ScrollView(.vertical, showsIndicators: false) {
                         List{
                             Section(header: Spacer(minLength: 0)) {
-                                HStack {
-                                    VStack{
-                                        HStack{
-                                            Text("Название отчета:")
-                                                .foregroundColor(Color.gray)
-                                            Spacer()
+                                if(typeReport.id.rawValue == "pdf"){
+                                    HStack {
+                                        VStack{
+                                            HStack{
+                                                Text("Название отчета:")
+                                                    .foregroundColor(Color.gray)
+                                                Spacer()
+                                            }
+                                            TextField("Название", text: $newTitleReport, prompt: Text("Название..."), axis: .vertical)
+                                                .foregroundColor(.black)
+                                                .lineLimit(2...2)
                                         }
-                                        TextField("Название", text: $newTitleReport, prompt: Text("Название..."), axis: .vertical)
-                                            .foregroundColor(.black)
-                                            .lineLimit(2...2)
                                     }
-                                }
-                                HStack {
-                                    Text("Создатель:")
-                                        .foregroundColor(Color.gray)
-                                    Spacer()
-                                    TextField("Иванов А. А.", text: $newCreatorReport)
+                                    HStack {
+                                        Text("Создатель:")
+                                            .foregroundColor(Color.gray)
+                                        Spacer()
+                                        TextField("Иванов А. А.", text: $newCreatorReport)
+                                    }
                                 }
                                 HStack {
                                     Text("Формат отчета:")
@@ -90,6 +92,14 @@ struct CreateReportView: View {
                                         }
                                         .pickerStyle(.segmented)
                                         .tint(.black)
+                                        .onChange(of: typeReport){ Value in
+                                            if(Value.id.rawValue == "pdf"){
+                                                heightWindow += 3.2
+                                            }
+                                            else{
+                                                heightWindow -= 3.2
+                                            }
+                                        }
                                     }
                                     .frame(width: 130)
                                 }
@@ -283,6 +293,7 @@ struct CreateReportView: View {
                         }
                         .sheet(isPresented: self.$showTxtReportWindow) {
                             TxtPreviewView(recordsIncludedReport: reportViewModel.recordsInReport)
+                                .environmentObject(reportViewModel)
                         }
                     }
                 }

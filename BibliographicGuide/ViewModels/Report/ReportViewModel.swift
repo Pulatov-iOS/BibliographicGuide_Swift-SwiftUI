@@ -58,7 +58,21 @@ final class ReportViewModel: ObservableObject {
         globalReportRepository.removeReport(report)
     }
     
-    func createTxtReport(fileNamed: String, folder: String = "/Documents/"){
+    func createTxtReport(_ recordsIncludedReport: [Record]) -> String {
+        var newRecordsIncludedReport: [Record] = recordsIncludedReport
+        var pointer = ""
+        var item = 1
+        newRecordsIncludedReport.sort(by: { $0.authors < $1.authors })
+        for record in newRecordsIncludedReport{
+            if(record.id != nil){
+                pointer = pointer + "\t" + String(item) + ". " + record.authors + ". " + record.title + " // " + record.journalName + " - " + String(record.year) + ", " + record.journalNumber + ", c. " + record.pageNumbers + ". \n"
+                item += 1
+            }
+        }
+        return pointer
+    }
+    
+    func saveTxtReport(fileNamed: String, folder: String = "/Documents/"){
 //
     }
     

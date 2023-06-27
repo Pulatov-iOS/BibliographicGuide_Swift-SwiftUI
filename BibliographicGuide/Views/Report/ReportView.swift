@@ -62,19 +62,18 @@ struct ReportView: View {
                 Spacer()
                 HStack{
                     Spacer()
-                    VStack{
+                    Button{
+                        showCreateReportWindow = true
+                    } label: {
                         Image(systemName: "plus")
                             .resizable()
                             .frame(width: 20, height: 20)
                             .foregroundColor(Color.white)
+                            .frame(width: 50, height: 50)
+                            .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
+                            .cornerRadius(50)
+                            .padding(30)
                     }
-                    .onTapGesture {
-                        showCreateReportWindow = true
-                    }
-                    .frame(width: 50, height: 50)
-                    .background(Color(red: 0.8745098039215686, green: 0.807843137254902, blue: 0.7058823529411765))
-                    .cornerRadius(50)
-                    .padding(30)
                 }
             }
             .alert(isPresented: $showAlertDelete) {
