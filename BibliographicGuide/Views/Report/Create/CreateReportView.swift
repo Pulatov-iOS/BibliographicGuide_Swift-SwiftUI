@@ -32,6 +32,7 @@ struct CreateReportView: View {
     
     @State private var newTitleReport = ""
     @State private var newCreatorReport = ""
+    @State private var listJournal = false
     @State private var selectedRecordInReport = true
     @State private var universityRecord = false
     @State private var addSelectedRecord = false
@@ -80,6 +81,21 @@ struct CreateReportView: View {
                                         TextField("Иванов А. А.", text: $newCreatorReport)
                                     }
                                 }
+                                else{
+                                    VStack{
+                                        ZStack{
+                                            HStack{
+                                                Text("Добавить список журналов:")
+                                                    .foregroundColor(Color.gray)
+                                                Spacer()
+                                            }
+                                            HStack{
+                                                Spacer()
+                                                Toggle("", isOn: $listJournal)
+                                            }
+                                        }
+                                    }
+                                }
                                 HStack {
                                     Text("Формат отчета:")
                                         .foregroundColor(Color.gray)
@@ -94,10 +110,10 @@ struct CreateReportView: View {
                                         .tint(.black)
                                         .onChange(of: typeReport){ Value in
                                             if(Value.id.rawValue == "pdf"){
-                                                heightWindow += 3.2
+                                                heightWindow += 2.2
                                             }
                                             else{
-                                                heightWindow -= 3.2
+                                                heightWindow -= 2.2
                                             }
                                         }
                                     }
@@ -292,7 +308,7 @@ struct CreateReportView: View {
                                 .environmentObject(reportViewModel)
                         }
                         .sheet(isPresented: self.$showTxtReportWindow) {
-                            TxtPreviewView(recordsIncludedReport: reportViewModel.recordsInReport)
+                            TxtPreviewView(recordsIncludedReport: reportViewModel.recordsInReport, listJournal: listJournal)
                                 .environmentObject(reportViewModel)
                         }
                     }

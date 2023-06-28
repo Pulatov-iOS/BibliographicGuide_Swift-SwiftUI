@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import UIKit
 
 final class ReportViewModel: ObservableObject {
     
@@ -18,6 +19,7 @@ final class ReportViewModel: ObservableObject {
     @Published var recordsInReport: [Record] = []
     @Published var titleReport = ""
     @Published var creatorReport = ""
+    var reportText = ""
     
     @Published var reportRepository = globalReportRepository
     @Published var reports: [Report] = []
@@ -58,10 +60,37 @@ final class ReportViewModel: ObservableObject {
         globalReportRepository.removeReport(report)
     }
     
-    func createTxtReport(_ recordsIncludedReport: [Record]) -> String {
-        var newRecordsIncludedReport: [Record] = recordsIncludedReport
+    func createTxtReport(_ listJournal: Bool) -> String {
+        var newRecordsIncludedReport: [Record] = self.recordsInReport
+        var journals = ""
         var pointer = ""
         var item = 1
+        
+        if(listJournal){
+            var newRecordsIncludedReportSort: [Record]
+            newRecordsIncludedReportSort = self.recordsInReport.sorted(by: { $0.journalName > $1.journalName })
+            
+            var newJournalRecordsIncludedReport = [Record]()
+            var journalName = ""
+            for record in newRecordsIncludedReportSort{
+                if(journalName == record.journalName){
+                    journalName = record.journalName
+                }
+                else{
+                    newJournalRecordsIncludedReport.append(record)
+                    journalName = record.journalName
+                }
+            }
+            
+            for record in newJournalRecordsIncludedReport{
+                if(record.id != nil){
+                    journals = journals + "\t" + String(item) + ". " + record.journalName + ". " + "\n"
+                    item += 1
+                }
+            }
+        }
+        
+        item = 1
         newRecordsIncludedReport.sort(by: { $0.authors < $1.authors })
         for record in newRecordsIncludedReport{
             if(record.id != nil){
@@ -69,7 +98,19 @@ final class ReportViewModel: ObservableObject {
                 item += 1
             }
         }
-        return pointer
+        
+        if(listJournal){
+            self.reportText = journals + "\n" + pointer
+            return journals + "\n" + pointer
+        }
+        else{
+            self.reportText = pointer
+            return pointer
+        }
+    }
+    
+    func copyTextClipboard(){
+        UIPasteboard.general.string = self.reportText
     }
     
     func saveTxtReport(fileNamed: String, folder: String = "/Documents/"){
