@@ -269,6 +269,7 @@ struct CreateReportView: View {
                                                 showPdfReportWindow.toggle()
                                             }
                                             else{
+                                                reportViewModel.saveTxtReport()
                                                 showTxtReportWindow.toggle()
                                             }
                                             if(saveReport){

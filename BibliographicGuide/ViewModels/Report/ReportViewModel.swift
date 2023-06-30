@@ -113,8 +113,23 @@ final class ReportViewModel: ObservableObject {
         UIPasteboard.general.string = self.reportText
     }
     
-    func saveTxtReport(fileNamed: String, folder: String = "/Documents/"){
-//
+    func saveTxtReport(){
+        let file = "fileName" + ".txt"
+                if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                    
+                    print(dir)
+                    
+                    let fileURL = dir.appendingPathComponent(file)
+                    print(fileURL)
+                    //writing
+                    do {
+                        if (true){
+                            //clearTextFile(fileName: "fileName")
+                        }
+                        try "textToWrite".write(to: fileURL, atomically: false, encoding: .utf8)
+                    }
+                    catch {/* error handling here */}
+                }
     }
     
     func countRecordsInReport() -> String {
