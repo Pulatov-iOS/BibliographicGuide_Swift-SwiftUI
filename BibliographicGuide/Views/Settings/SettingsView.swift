@@ -8,12 +8,32 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
+enum language: String, CaseIterable, Identifiable {
+    case russian
+    case english
+    
+    var id: Self {
+        self
+    }
+    
+    var title: String {
+        switch self {
+        case .russian:
+            return "Русский"
+        case .english:
+            return "Английский"
+        }
+    }
+}
+
 struct SettingsView: View {
     
     let appName: String = Bundle.main.infoDictionary?["CFBundleName"] as! String
     let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
     
     @EnvironmentObject var userInformationListViewModel: UserInformationListViewModel
+    
+    @State private var languageSelectedItem: language = .english
     
     @State private var userName = ""
     @State private var imageAccount = UIImage()
@@ -60,6 +80,21 @@ struct SettingsView: View {
                                 .foregroundColor(Color.gray)
                             Spacer()
                             Text("V\(appVersion)")
+                        }
+                        HStack {
+                            Text("Язык:")
+                                .foregroundColor(Color.gray)
+                            Spacer()
+                            VStack{
+                                Picker("", selection: $languageSelectedItem){
+                                    ForEach(language.allCases){ language in
+                                        Text(language.title)
+                                            .tag(language)
+                                    }
+                                }
+                                .pickerStyle(.automatic)
+                                .tint(.black)
+                            }
                         }
                         HStack {
                             Text("Имя пользователя:")
