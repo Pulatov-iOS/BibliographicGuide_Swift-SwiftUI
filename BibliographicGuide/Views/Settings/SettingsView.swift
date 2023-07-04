@@ -166,7 +166,7 @@ struct SettingsView: View {
                     }
                 }
                 .scrollDisabled(true)
-                .frame(height: 260)
+                .frame(height: 310)
                 .padding(.top, -12)
                 
                 VStack{
@@ -233,7 +233,7 @@ struct SettingsView: View {
                     }
                     .padding(.bottom, 30)
                 }
-                .padding(.top, UIScreen.screenHeight * 0.09)
+                .padding(.top, UIScreen.screenHeight * 0.04)
             }
         }
         .onTapGesture {
