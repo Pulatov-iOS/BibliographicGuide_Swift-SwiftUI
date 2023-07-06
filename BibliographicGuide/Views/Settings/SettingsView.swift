@@ -9,8 +9,8 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 enum language: String, CaseIterable, Identifiable {
-    case russian
     case english
+    case russian
     
     var id: Self {
         self
@@ -18,10 +18,10 @@ enum language: String, CaseIterable, Identifiable {
     
     var title: String {
         switch self {
-        case .russian:
-            return "Русский"
         case .english:
             return "Английский"
+        case .russian:
+            return "Русский"
         }
     }
 }
@@ -46,6 +46,7 @@ struct SettingsView: View {
     @State private var alertTitle = ""
     @State private var alertMessage = ""
     @State private var showAlertCreate = false
+    @State private var showLanguageWindow = false
     @State private var showKeywordsWindow = false
     @State private var showUserEditingWindow = false
     
@@ -85,24 +86,31 @@ struct SettingsView: View {
                             Text("Язык:")
                                 .foregroundColor(Color.gray)
                             Spacer()
-                            VStack{
-                                Picker("", selection: $languageSelectedItem){
-                                    ForEach(language.allCases){ language in
-                                        Text(language.title)
-                                            .tag(language)
-                                    }
+                            HStack{
+                                Text(languageSelectedItem.title)
+                                VStack(spacing: 2){
+                                    Image(systemName: "chevron.up")
+                                        .resizable()
+                                        .frame(width: 10, height: 5)
+                                    Image(systemName: "chevron.down")
+                                        .resizable()
+                                        .frame(width: 10, height: 5)
                                 }
-                                .pickerStyle(.automatic)
-                                .tint(.black)
+                            }
+                            .onTapGesture {
+                                showLanguageWindow = true
                             }
                         }
                         HStack {
                             Text("Имя пользователя:")
                                 .foregroundColor(Color.gray)
                             Spacer()
-                            TextField(userInformationListViewModel.getСurrentUserInformation().userName, text: $userName)
+                            TextField("", text: $userName)
                                 .multilineTextAlignment(TextAlignment.trailing)
                                 .focused($keyboardIsFocused)
+                        }
+                        .onAppear(){
+                            userName = userInformationListViewModel.getСurrentUserInformation().userName
                         }
                         HStack {
                             Text("Изображение учетной \nзаписи:")
@@ -240,6 +248,9 @@ struct SettingsView: View {
             keyboardIsFocused = false // закрытие клавиатуры при нажатии на экран
         }
         .background(Color(red: 0.949, green: 0.949, blue: 0.971))
+        .sheet(isPresented: self.$showLanguageWindow) {
+            LanguageView(languageSelectedItem: $languageSelectedItem)
+        }
         .sheet(isPresented: self.$showKeywordsWindow) {
             KeywordsView()
                 .environmentObject(userInformationListViewModel)
