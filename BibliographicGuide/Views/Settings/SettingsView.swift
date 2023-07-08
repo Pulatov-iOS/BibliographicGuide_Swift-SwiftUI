@@ -10,6 +10,7 @@ import SDWebImageSwiftUI
 
 enum language: String, CaseIterable, Identifiable {
     case english
+    case spanish
     case russian
     
     var id: Self {
@@ -20,6 +21,8 @@ enum language: String, CaseIterable, Identifiable {
         switch self {
         case .english:
             return "Английский"
+        case .spanish:
+            return "Испанский"
         case .russian:
             return "Русский"
         }
