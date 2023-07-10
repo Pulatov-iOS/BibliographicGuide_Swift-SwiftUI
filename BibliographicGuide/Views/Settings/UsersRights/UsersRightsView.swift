@@ -12,7 +12,7 @@ struct UsersRightsView: View {
     @EnvironmentObject var userInformationListViewModel: UserInformationListViewModel
     
     @State private var showUserRightsWindow: Bool = false
-    @State var selectedUser = UserInformation(role: "", userName: "", updatingImage: 0, blockingChat: true, blockingAccount: true, reasonBlockingAccount: "")
+    @State var selectedUser = UserInformation(role: "", userName: "", updatingImage: 0, blockingChat: true, blockingAccount: true, reasonBlockingAccount: "", language: "")
     
     @State var isSearching = false
     

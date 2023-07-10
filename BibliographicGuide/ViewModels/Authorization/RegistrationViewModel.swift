@@ -39,7 +39,7 @@ final class RegistrationViewModel: ObservableObject {
                 else{
                     let randomInt = Int.random(in: 10000000..<99999999)
                     let userName = "nick" + String(randomInt)
-                    let newUserInformation = UserInformation(role: "user", userName: userName, updatingImage: 0, blockingChat: false, blockingAccount: false, reasonBlockingAccount: "")
+                    let newUserInformation = UserInformation(role: "user", userName: userName, updatingImage: 0, blockingChat: false, blockingAccount: false, reasonBlockingAccount: "", language: "english")
                     self.userInformationRepository.addUserInformation(userInformation: newUserInformation, userId: status){
                         (verified, status) in
                         if !verified {

@@ -16,5 +16,6 @@ struct UserInformation: Identifiable, Codable, Equatable {
     var blockingChat: Bool
     var blockingAccount: Bool
     var reasonBlockingAccount: String
+    var language: String
     
 }

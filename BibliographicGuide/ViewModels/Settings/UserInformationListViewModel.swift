@@ -58,7 +58,7 @@ final class UserInformationListViewModel: ObservableObject {
         let userName = usersInformationViewModel.filter { (item) -> Bool in
             item.id == userId
         }
-        return userName.first?.userInformation ?? UserInformation(role: "", userName: "", updatingImage: 0, blockingChat: true, blockingAccount: true, reasonBlockingAccount: "")
+        return userName.first?.userInformation ?? UserInformation(role: "", userName: "", updatingImage: 0, blockingChat: true, blockingAccount: true, reasonBlockingAccount: "", language: "")
     }
     
     func getСurrentIdUser() -> String {
