@@ -184,6 +184,18 @@ final class UserInformationRepository: ObservableObject {
         }
     }
     
+    func updateLanguage(idUser: String, language: String, completion: @escaping (Bool, String)->Void) {
+        db.collection(pathUserInformation).document(idUser).updateData([
+            "language": language,
+        ]) { err in
+            if err != nil {
+                completion(false, "Ошибка при обновлении")
+            } else {
+                completion(true, "Обновлено успешно")
+            }
+        }
+    }
+    
     func addImageAccount(idImageAccount: String, imageAccount: Data, completion: @escaping (Bool, String)->Void) {
         let referenceSorage = storage.reference() // Создаем ссылку на хранилище
         let pathRef = referenceSorage.child(pathImageAccount) // Создаем дочернюю ссылку
