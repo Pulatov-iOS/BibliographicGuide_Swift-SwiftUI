@@ -100,6 +100,12 @@ struct SettingsView: View {
                                         .frame(width: 10, height: 5)
                                 }
                             }
+                            .onAppear(){
+                                currentLanguage(userInformationListViewModel.getСurrentUserInformation().language)
+                            }
+                            .onChange(of: userInformationListViewModel.getСurrentUserInformation().language){ Value in
+                                currentLanguage(Value)
+                            }
                             .onTapGesture {
                                 showLanguageWindow = true
                             }
@@ -261,6 +267,19 @@ struct SettingsView: View {
         .sheet(isPresented: self.$showUserEditingWindow) {
             UsersRightsView()
                 .environmentObject(userInformationListViewModel)
+        }
+    }
+    
+    func currentLanguage(_ language: String){
+        switch language {
+        case "english":
+            languageSelectedItem = .english
+        case "spanish":
+            languageSelectedItem = .spanish
+        case "russian":
+            languageSelectedItem = .russian
+        default:
+            languageSelectedItem = .english
         }
     }
 }
