@@ -106,6 +106,9 @@ struct SettingsView: View {
                             .onChange(of: userInformationListViewModel.getСurrentUserInformation().language){ Value in
                                 currentLanguage(Value)
                             }
+                            .onChange(of: languageSelectedItem){ Value in
+                                userInformationListViewModel.updateLanguage(Value.rawValue)
+                            }
                             .onTapGesture {
                                 showLanguageWindow = true
                             }

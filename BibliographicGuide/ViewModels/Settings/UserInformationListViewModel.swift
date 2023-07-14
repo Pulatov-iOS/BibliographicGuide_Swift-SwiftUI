@@ -170,6 +170,14 @@ final class UserInformationListViewModel: ObservableObject {
         }
     }
     
+    func updateLanguage(_ language: String){
+        userInformationRepository.updateLanguage(idUser: userId, language: language){ (verified, status) in
+            if !verified {
+                print("Error")
+            }
+        }
+    }
+    
     func getImageUrl(pathImage: String, completion: @escaping (Bool, URL)->Void) {
         userInformationRepository.getImageUrl(pathImage: pathImage, idImage: self.userId){ (verified, status) in
             if !verified  {
