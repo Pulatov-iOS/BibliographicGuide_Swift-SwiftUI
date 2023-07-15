@@ -101,12 +101,13 @@ struct SettingsView: View {
                                 }
                             }
                             .onAppear(){
-                                currentLanguage(userInformationListViewModel.getСurrentUserInformation().language)
+                                currentLanguage(userInformationListViewModel.language)
                             }
                             .onChange(of: userInformationListViewModel.getСurrentUserInformation().language){ Value in
-                                currentLanguage(Value)
+                                userInformationListViewModel.saveCurrentLanguage(Value)
                             }
                             .onChange(of: languageSelectedItem){ Value in
+                                userInformationListViewModel.saveCurrentLanguage(Value.rawValue)
                                 userInformationListViewModel.updateLanguage(Value.rawValue)
                             }
                             .onTapGesture {

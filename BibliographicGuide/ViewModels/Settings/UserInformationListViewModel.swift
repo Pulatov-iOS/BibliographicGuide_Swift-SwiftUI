@@ -11,6 +11,7 @@ import Combine
 final class UserInformationListViewModel: ObservableObject {
     
     var userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
+    var language = UserDefaults.standard.value(forKey: "language") as? String ?? ""
     
     @Published var userInformationRepository = globalUserInformationRepository
     @Published var usersInformationViewModel: [UserInformationViewModel] = []
@@ -39,7 +40,9 @@ final class UserInformationListViewModel: ObservableObject {
         NotificationCenter.default.addObserver(forName: NSNotification.Name("statusChange"), object: nil, queue: .main){
             (_) in
             let userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
+            let language = UserDefaults.standard.value(forKey: "language") as? String ?? ""
             self.userId = userId
+            self.language = language
         }
     }
     
@@ -176,6 +179,10 @@ final class UserInformationListViewModel: ObservableObject {
                 print("Error")
             }
         }
+    }
+    
+    func saveCurrentLanguage(_ language: String){
+        UserDefaults.standard.set(language, forKey: "language")
     }
     
     func getImageUrl(pathImage: String, completion: @escaping (Bool, URL)->Void) {
