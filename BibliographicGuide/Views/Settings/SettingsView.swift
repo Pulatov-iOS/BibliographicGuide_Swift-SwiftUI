@@ -36,7 +36,7 @@ struct SettingsView: View {
     
     @EnvironmentObject var userInformationListViewModel: UserInformationListViewModel
     
-    @State private var languageSelectedItem: language = .english
+    @State private var languageSelectedItem: language = currentLanguage(UserDefaults.standard.value(forKey: "language") as? String ?? "english")
     
     @State private var userName = ""
     @State private var imageAccount = UIImage()
@@ -100,11 +100,9 @@ struct SettingsView: View {
                                         .frame(width: 10, height: 5)
                                 }
                             }
-                            .onAppear(){
-                                currentLanguage(userInformationListViewModel.language)
-                            }
                             .onChange(of: userInformationListViewModel.getСurrentUserInformation().language){ Value in
                                 userInformationListViewModel.saveCurrentLanguage(Value)
+                                languageSelectedItem = currentLanguage(Value)
                             }
                             .onChange(of: languageSelectedItem){ Value in
                                 userInformationListViewModel.saveCurrentLanguage(Value.rawValue)
@@ -273,18 +271,18 @@ struct SettingsView: View {
                 .environmentObject(userInformationListViewModel)
         }
     }
-    
-    func currentLanguage(_ language: String){
-        switch language {
-        case "english":
-            languageSelectedItem = .english
-        case "spanish":
-            languageSelectedItem = .spanish
-        case "russian":
-            languageSelectedItem = .russian
-        default:
-            languageSelectedItem = .english
-        }
+}
+
+func currentLanguage(_ language: String) -> language {
+    switch language {
+    case "english":
+        return .english
+    case "spanish":
+        return .spanish
+    case "russian":
+        return .russian
+    default:
+        return .english
     }
 }
 

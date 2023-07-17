@@ -11,7 +11,7 @@ import Combine
 final class UserInformationListViewModel: ObservableObject {
     
     var userId = UserDefaults.standard.value(forKey: "userId") as? String ?? ""
-    var language = UserDefaults.standard.value(forKey: "language") as? String ?? ""
+    var language = UserDefaults.standard.value(forKey: "language") as? String ?? "english"
     
     @Published var userInformationRepository = globalUserInformationRepository
     @Published var usersInformationViewModel: [UserInformationViewModel] = []
