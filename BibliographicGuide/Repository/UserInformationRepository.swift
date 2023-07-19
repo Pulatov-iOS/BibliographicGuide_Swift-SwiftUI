@@ -22,7 +22,8 @@ final class UserInformationRepository: ObservableObject {
     @Published var usersInformation: [UserInformation] = []
     @Published var currentUserInformation: UserInformation?
     
-    private var linkCurrentUserInformation: ListenerRegistration!
+    private var linkFetchUsersInformation: ListenerRegistration!
+    private var linkFetchCurrentUserInformation: ListenerRegistration!
     
     init(){
         fetchUsersInformation()
@@ -30,10 +31,11 @@ final class UserInformationRepository: ObservableObject {
     
     deinit{
         removeLinkCurrentUserInformation()
+        removeLinkFetchUsersInformation()
     }
     
     func fetchUsersInformation(){
-        db.collection(pathUserInformation).addSnapshotListener { (snapshot, error) in
+        linkFetchUsersInformation = db.collection(pathUserInformation).addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print(error)
                 return
@@ -44,8 +46,14 @@ final class UserInformationRepository: ObservableObject {
         }
     }
     
+    func removeLinkFetchUsersInformation(){
+        if(linkFetchUsersInformation != nil){
+            linkFetchUsersInformation.remove()
+        }
+    }
+    
     func fetchCurrentUserInformation(_ idUser: String){
-        linkCurrentUserInformation = db.collection(pathUserInformation).document(idUser).addSnapshotListener { (snapshot, error) in
+        linkFetchCurrentUserInformation = db.collection(pathUserInformation).document(idUser).addSnapshotListener { (snapshot, error) in
             guard let document = snapshot else {
                 return
             }
@@ -64,8 +72,8 @@ final class UserInformationRepository: ObservableObject {
     }
     
     func removeLinkCurrentUserInformation(){
-        if(linkCurrentUserInformation != nil){
-            linkCurrentUserInformation.remove()
+        if(linkFetchCurrentUserInformation != nil){
+            linkFetchCurrentUserInformation.remove()
         }
     }
     

@@ -22,13 +22,21 @@ final class RecordRepository: ObservableObject {
     @Published var topFiveRecords: [Record] = []
     private var selectedSortingRecords = "title"
     
+    private var linkFetchRecords: ListenerRegistration!
+    private var linkFetchTopFiveRecords: ListenerRegistration!
+    
     init(){
         fetchRecords()
         fetchTopFiveRecords()
     }
     
+    deinit{
+        removeLinkFetchRecords()
+        removeLinkFetchTopFiveRecords()
+    }
+    
     func fetchRecords(){
-        db.collection(pathRecords).addSnapshotListener { (snapshot, error) in
+        linkFetchRecords = db.collection(pathRecords).addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print(error)
                 return
@@ -40,8 +48,14 @@ final class RecordRepository: ObservableObject {
         }
     }
     
+    func removeLinkFetchRecords(){
+        if(linkFetchRecords != nil){
+            linkFetchRecords.remove()
+        }
+    }
+    
     func fetchTopFiveRecords(){
-        db.collection(pathRecords).order(by: "dateChange",descending: true).limit(to: 5).addSnapshotListener { (snapshot, error) in
+        linkFetchTopFiveRecords = db.collection(pathRecords).order(by: "dateChange",descending: true).limit(to: 5).addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print(error)
                 return
@@ -49,6 +63,12 @@ final class RecordRepository: ObservableObject {
             self.topFiveRecords = snapshot?.documents.compactMap {
                 try? $0.data(as: Record.self)
             } ?? []
+        }
+    }
+    
+    func removeLinkFetchTopFiveRecords(){
+        if(linkFetchTopFiveRecords != nil){
+            linkFetchTopFiveRecords.remove()
         }
     }
     

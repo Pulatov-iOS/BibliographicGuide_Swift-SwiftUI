@@ -18,12 +18,18 @@ final class KeywordRepository: ObservableObject {
     @Published var keywords: [Keyword] = []
     var selectedKeywordsSearch = [""]
     
+    private var linkFetchKeywords: ListenerRegistration!
+    
     init(){
         fetchKeywords()
     }
     
+    deinit{
+        removeLinkFetchKeywords()
+    }
+    
     func fetchKeywords(){
-        db.collection(pathKeywords).order(by: "name").addSnapshotListener { (snapshot, error) in
+        linkFetchKeywords = db.collection(pathKeywords).order(by: "name").addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print(error)
                 return
@@ -33,6 +39,12 @@ final class KeywordRepository: ObservableObject {
             } ?? []
         }
         sortingKeywords()
+    }
+    
+    func removeLinkFetchKeywords(){
+        if(linkFetchKeywords != nil){
+            linkFetchKeywords.remove()
+        }
     }
     
     func addKeyword(_ keyword: Keyword, completion: @escaping (Bool, String)->Void) {

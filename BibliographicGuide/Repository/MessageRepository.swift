@@ -20,12 +20,18 @@ final class MessageRepository: ObservableObject {
     private let storage = Storage.storage() // Получаем ссылку на службу хранения, используя приложение Firebase по умолчанию
     @Published var messages: [Message] = []
     
+    private var linkFetchMessages: ListenerRegistration!
+    
     init(){
         fetchMessages()
     }
     
+    deinit{
+        removeLinkFetchMessages()
+    }
+    
     func fetchMessages(){
-        db.collection(pathMessages).order(by: "date", descending: true).addSnapshotListener { (snapshot, error) in
+        linkFetchMessages = db.collection(pathMessages).order(by: "date", descending: true).addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print(error)
                 return
@@ -33,6 +39,12 @@ final class MessageRepository: ObservableObject {
             self.messages = snapshot?.documents.compactMap {
                 try? $0.data(as: Message.self)
             } ?? []
+        }
+    }
+    
+    func removeLinkFetchMessages(){
+        if(linkFetchMessages != nil){
+            linkFetchMessages.remove()
         }
     }
     

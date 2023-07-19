@@ -17,12 +17,18 @@ final class ReportRepository: ObservableObject {
     private let db = Firestore.firestore()
     @Published var reports: [Report] = []
     
+    private var linkFetchReports: ListenerRegistration!
+    
     init(){
         fetchReports()
     }
     
+    deinit{
+        removeLinkFetchReports()
+    }
+    
     func fetchReports(){
-        db.collection(pathReport).order(by: "titleSaveReport").addSnapshotListener { (snapshot, error) in
+        linkFetchReports = db.collection(pathReport).order(by: "titleSaveReport").addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print(error)
                 return
@@ -30,6 +36,12 @@ final class ReportRepository: ObservableObject {
             self.reports = snapshot?.documents.compactMap {
                 try? $0.data(as: Report.self)
             } ?? []
+        }
+    }
+    
+    func removeLinkFetchReports(){
+        if(linkFetchReports != nil){
+            linkFetchReports.remove()
         }
     }
     
