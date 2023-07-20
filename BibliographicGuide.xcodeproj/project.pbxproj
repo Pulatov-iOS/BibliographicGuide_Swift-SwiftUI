@@ -115,6 +115,7 @@
 		116A632129FE8AFD0024C357 /* KeywordRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116A632029FE8AFD0024C357 /* KeywordRepository.swift */; };
 		116A632329FFED450024C357 /* KeywordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116A632229FFED450024C357 /* KeywordView.swift */; };
 		116A63262A02B9140024C357 /* ColorHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116A63252A02B9140024C357 /* ColorHex.swift */; };
+		119097A32A694B8900B1CB58 /* SearchBarReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119097A22A694B8900B1CB58 /* SearchBarReportView.swift */; };
 		11D0597C2A57046A00E13BBA /* LanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0597B2A57046A00E13BBA /* LanguageView.swift */; };
 		11D0597F2A57114F00E13BBA /* SearchBarLanguageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D0597E2A57114F00E13BBA /* SearchBarLanguageView.swift */; };
 		8E2EDA666BF49964DFE1B02E /* Pods_BibliographicGuide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A17856A9ED342D36391D4E7 /* Pods_BibliographicGuide.framework */; };
@@ -231,6 +232,7 @@
 		116A632029FE8AFD0024C357 /* KeywordRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordRepository.swift; sourceTree = "<group>"; };
 		116A632229FFED450024C357 /* KeywordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordView.swift; sourceTree = "<group>"; };
 		116A63252A02B9140024C357 /* ColorHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHex.swift; sourceTree = "<group>"; };
+		119097A22A694B8900B1CB58 /* SearchBarReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarReportView.swift; sourceTree = "<group>"; };
 		11D0597B2A57046A00E13BBA /* LanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageView.swift; sourceTree = "<group>"; };
 		11D0597E2A57114F00E13BBA /* SearchBarLanguageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarLanguageView.swift; sourceTree = "<group>"; };
 		241C83635DC8BC995E701B01 /* Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig"; path = "Target Support Files/Pods-BibliographicGuide-BibliographicGuideUITests/Pods-BibliographicGuide-BibliographicGuideUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -687,6 +689,7 @@
 			isa = PBXGroup;
 			children = (
 				1148683129F0A79200C698D6 /* ReportView.swift */,
+				119097A22A694B8900B1CB58 /* SearchBarReportView.swift */,
 				11274DC72A124A17008B9EF0 /* Description */,
 				11274DCA2A12A7DE008B9EF0 /* Create */,
 			);
@@ -1092,6 +1095,7 @@
 				1132A05E29D891A80007B181 /* Record.swift in Sources */,
 				1132A07529DB00CD0007B181 /* AuthorizationRepository.swift in Sources */,
 				1132A02329D3219C0007B181 /* AppView.swift in Sources */,
+				119097A32A694B8900B1CB58 /* SearchBarReportView.swift in Sources */,
 				1148683A29F0AA9200C698D6 /* PdfViewUI.swift in Sources */,
 				11639A442A0575DE00933103 /* RecordDescriptionView.swift in Sources */,
 				11274DF02A188F2A008B9EF0 /* SecondPageEditingRecordView.swift in Sources */,

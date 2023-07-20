@@ -15,6 +15,8 @@ struct ReportView: View {
     @State private var showPdfReportWindow = false
     @State private var showAlertDelete = false
     
+    @State var isSearching = false
+    
     var body: some View {
         ZStack{
             VStack{
@@ -42,7 +44,7 @@ struct ReportView: View {
                                 }
                             }
                         }
-                        .padding(.top, 40)
+                        .padding(.top, 90)
                     }
                     VStack{
                         HStack{
@@ -53,6 +55,10 @@ struct ReportView: View {
                                 .frame(width: UIScreen.screenWidth)
                         }
                         .background(Color(red: 0.949, green: 0.949, blue: 0.971))
+                        
+                        SearchBarReportView(isSearching: $isSearching)
+                            .padding(.bottom, 5)
+                            .background(Color(red: 0.949, green: 0.949, blue: 0.971))
                         Spacer()
                     }
                 }
