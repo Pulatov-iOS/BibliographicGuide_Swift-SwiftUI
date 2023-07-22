@@ -108,7 +108,7 @@
 		1148683E29F0AF9700C698D6 /* PdfCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1148683D29F0AF9700C698D6 /* PdfCreator.swift */; };
 		115DEC3A2A1E187D00DD669A /* IndexSubstringString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115DEC392A1E187D00DD669A /* IndexSubstringString.swift */; };
 		11639A442A0575DE00933103 /* RecordDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1132A07B29DB506C0007B181 /* RecordDescriptionView.swift */; };
-		11660B142A4A286C00B513F5 /* TxtPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11660B132A4A286C00B513F5 /* TxtPreviewView.swift */; };
+		11660B142A4A286C00B513F5 /* TextPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11660B132A4A286C00B513F5 /* TextPreviewView.swift */; };
 		116A631729F868400024C357 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116A631629F868400024C357 /* Report.swift */; };
 		116A631D29FE8A380024C357 /* KeywordSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116A631C29FE8A380024C357 /* KeywordSearchBarView.swift */; };
 		116A631F29FE8A880024C357 /* Keyword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116A631E29FE8A880024C357 /* Keyword.swift */; };
@@ -225,7 +225,7 @@
 		1148683B29F0AAC700C698D6 /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		1148683D29F0AF9700C698D6 /* PdfCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PdfCreator.swift; sourceTree = "<group>"; };
 		115DEC392A1E187D00DD669A /* IndexSubstringString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexSubstringString.swift; sourceTree = "<group>"; };
-		11660B132A4A286C00B513F5 /* TxtPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxtPreviewView.swift; sourceTree = "<group>"; };
+		11660B132A4A286C00B513F5 /* TextPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextPreviewView.swift; sourceTree = "<group>"; };
 		116A631629F868400024C357 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		116A631C29FE8A380024C357 /* KeywordSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordSearchBarView.swift; sourceTree = "<group>"; };
 		116A631E29FE8A880024C357 /* Keyword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyword.swift; sourceTree = "<group>"; };
@@ -708,7 +708,7 @@
 			isa = PBXGroup;
 			children = (
 				1148683629F0A9FA00C698D6 /* PdfPreviewView.swift */,
-				11660B132A4A286C00B513F5 /* TxtPreviewView.swift */,
+				11660B132A4A286C00B513F5 /* TextPreviewView.swift */,
 			);
 			path = CreateDetail;
 			sourceTree = "<group>";
@@ -1085,7 +1085,7 @@
 				11274D982A07AFA1008B9EF0 /* MessageReplyView.swift in Sources */,
 				11274DAC2A0D4EB0008B9EF0 /* AppViewModel.swift in Sources */,
 				1148682029EE03B300C698D6 /* CreateRecordViewModel.swift in Sources */,
-				11660B142A4A286C00B513F5 /* TxtPreviewView.swift in Sources */,
+				11660B142A4A286C00B513F5 /* TextPreviewView.swift in Sources */,
 				11274DC42A0FA86C008B9EF0 /* CreateReportView.swift in Sources */,
 				11274DEE2A188F0B008B9EF0 /* FirstPageEditingRecordView.swift in Sources */,
 				11274DB02A0D9614008B9EF0 /* FirstPageCreateRecordView.swift in Sources */,

@@ -9,8 +9,8 @@ import SwiftUI
 import Combine
 
 enum TypeReport: String, CaseIterable, Identifiable {
+    case text
     case pdf
-    case txt
     
     var id: Self {
         self
@@ -18,10 +18,10 @@ enum TypeReport: String, CaseIterable, Identifiable {
     
     var title: String {
         switch self {
+        case .text:
+            return ".text"
         case .pdf:
             return ".pdf"
-        case .txt:
-            return ".txt"
         }
     }
 }
@@ -50,7 +50,7 @@ struct CreateReportView: View {
     @State var alertTextCreateMessageError: String = ""
     
     @State private var showPdfReportWindow = false
-    @State private var showTxtReportWindow = false
+    @State private var showTextReportWindow = false
     
     @State private var heightWindow = 0.0
     
@@ -269,8 +269,7 @@ struct CreateReportView: View {
                                                 showPdfReportWindow.toggle()
                                             }
                                             else{
-                                                reportViewModel.saveTxtReport()
-                                                showTxtReportWindow.toggle()
+                                                showTextReportWindow.toggle()
                                             }
                                             if(saveReport){
                                                 reportViewModel.addReport(titleSaveReport: newTitleSaveReport, typeReport: typeReport.id.rawValue, nameCreatedReport: newTitleReport, authorCreatedReport: newCreatorReport)
@@ -308,8 +307,8 @@ struct CreateReportView: View {
                             PdfPreviewView(recordsIncludedReport: reportViewModel.recordsInReport, newTitleReport: reportViewModel.titleReport, newCreatorReport: reportViewModel.creatorReport)
                                 .environmentObject(reportViewModel)
                         }
-                        .sheet(isPresented: self.$showTxtReportWindow) {
-                            TxtPreviewView(recordsIncludedReport: reportViewModel.recordsInReport, listJournal: listJournal)
+                        .sheet(isPresented: self.$showTextReportWindow) {
+                            TextPreviewView(recordsIncludedReport: reportViewModel.recordsInReport, listJournal: listJournal)
                                 .environmentObject(reportViewModel)
                         }
                     }

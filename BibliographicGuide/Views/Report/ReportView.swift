@@ -81,7 +81,7 @@ struct ReportView: View {
                         .background(Color(red: 0.949, green: 0.949, blue: 0.971))
                         
                         SearchBarReportView(isSearching: $isSearching)
-                            .padding(.bottom, 5)
+                            .padding(.bottom, 7)
                             .background(Color(red: 0.949, green: 0.949, blue: 0.971))
                         Spacer()
                     }

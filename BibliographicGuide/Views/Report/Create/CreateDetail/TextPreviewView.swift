@@ -1,5 +1,5 @@
 //
-//  TxtPreviewView.swift
+//  TextPreviewView.swift
 //  BibliographicGuide
 //
 //  Created by Alexander on 26.06.23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TxtPreviewView: View {
+struct TextPreviewView: View {
     
     @EnvironmentObject var reportViewModel: ReportViewModel
     
@@ -29,7 +29,7 @@ struct TxtPreviewView: View {
                     .foregroundColor(.black)
                     .padding([.leading, .trailing, .top], 10)
                     .onAppear(){
-                        stringRecordsIncludedReport = reportViewModel.createTxtReport(listJournal)
+                        stringRecordsIncludedReport = reportViewModel.createTextReport(listJournal)
                     }
                 Spacer()
             }
@@ -62,8 +62,8 @@ struct TxtPreviewView: View {
     }
 }
 
-//struct TxtPreviewView_Previews: PreviewProvider {
+//struct TextPreviewView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        TxtPreviewView()
+//        TextPreviewView()
 //    }
 //}

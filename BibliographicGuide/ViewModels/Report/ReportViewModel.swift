@@ -72,7 +72,7 @@ final class ReportViewModel: ObservableObject {
         }
     }
     
-    func createTxtReport(_ listJournal: Bool) -> String {
+    func createTextReport(_ listJournal: Bool) -> String {
         var newRecordsIncludedReport: [Record] = self.recordsInReport
         var journals = ""
         var pointer = ""
@@ -123,25 +123,6 @@ final class ReportViewModel: ObservableObject {
     
     func copyTextClipboard(){
         UIPasteboard.general.string = self.reportText
-    }
-    
-    func saveTxtReport(){
-        let file = "fileName" + ".txt"
-                if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                    
-                    print(dir)
-                    
-                    let fileURL = dir.appendingPathComponent(file)
-                    print(fileURL)
-                    //writing
-                    do {
-                        if (true){
-                            //clearTextFile(fileName: "fileName")
-                        }
-                        try "textToWrite".write(to: fileURL, atomically: false, encoding: .utf8)
-                    }
-                    catch {/* error handling here */}
-                }
     }
     
     func countRecordsInReport() -> String {
