@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchBarReportView: View {
     
-   // @EnvironmentObject var userInformationListViewModel: UserInformationListViewModel
+    @EnvironmentObject var reportViewModel: ReportViewModel
 
     @State private var textSearch = ""
     @Binding var isSearching: Bool
@@ -58,11 +58,11 @@ struct SearchBarReportView: View {
             }
         }
         .onChange(of: textSearch){ newValue in
-          //  userInformationListViewModel.fetchKeywordsSearch(SearchString: textSearch)
+            reportViewModel.fetchReportSearch(textSearch)
         }
         .onChange(of: isSearching){ newValue in
             if(newValue){
-            //    userInformationListViewModel.searchKeywords = userInformationListViewModel.keywords
+                reportViewModel.fetchReportSearch(textSearch)
             }
         }
         .padding(.leading, 20)

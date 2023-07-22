@@ -60,10 +60,10 @@ struct SearchBarHomeView: View {
             }
         }
         .onChange(of: textSearch){ newValue in
-            recordListViewModel.fetchRecordsSearch(SearchString: textSearch)
+            recordListViewModel.fetchRecordsSearch(searchString: textSearch)
         }
         .onChange(of: recordListViewModel.searchRecords){ newValue in
-            recordListViewModel.fetchRecordsSearch(SearchString: textSearch)
+            recordListViewModel.fetchRecordsSearch(searchString: textSearch)
         }
     }
 }

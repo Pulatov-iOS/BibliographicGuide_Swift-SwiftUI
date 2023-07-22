@@ -23,6 +23,7 @@ final class ReportViewModel: ObservableObject {
     
     @Published var reportRepository = globalReportRepository
     @Published var reports: [Report] = []
+    @Published var searchReports: [Report] = []
     
     @Published var userInformationRepository = globalUserInformationRepository
     @Published var usersInformation: [UserInformation] = []
@@ -58,6 +59,17 @@ final class ReportViewModel: ObservableObject {
     func removeReport(_ reportIndex: Int){
         let report = reports[reportIndex]
         globalReportRepository.removeReport(report)
+    }
+    
+    func fetchReportSearch(_ searchString: String){
+        if(searchString != ""){
+            searchReports = reports.filter{
+                $0.titleSaveReport.lowercased().contains(searchString.lowercased())
+            }
+        }
+        else{
+            searchReports = reports
+        }
     }
     
     func createTxtReport(_ listJournal: Bool) -> String {

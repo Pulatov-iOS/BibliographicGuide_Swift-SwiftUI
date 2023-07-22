@@ -66,7 +66,7 @@ struct RecordListView: View {
                     }
                 }
                 .onChange(of: keywordsSearch){ newValue in
-                    recordListViewModel.fetchRecordsSearch(SearchString: textSearch)
+                    recordListViewModel.fetchRecordsSearch(searchString: textSearch)
                 }
             }
            
@@ -103,10 +103,6 @@ struct RecordListView: View {
                                     }
                                 }
                                 .padding(.leading, 15)
-//                                Text("По дате изменения:")
-//                                    .font(.headline)
-//                                    .padding(.leading, 15)
-//                                    .padding(.top, 5)
                                 Spacer()
                                 HStack(spacing: 0){
                                     Button{

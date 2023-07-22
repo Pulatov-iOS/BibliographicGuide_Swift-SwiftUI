@@ -67,12 +67,12 @@ final class RecordListViewModel: ObservableObject {
         }
     }
     
-    func fetchRecordsSearch(SearchString: String){
-        if(SearchString != ""){
-            searchRecordViewModels = recordViewModels.filter{ $0.record.title.lowercased().contains(SearchString.lowercased()) ||
-                $0.record.authors.lowercased().contains(SearchString.lowercased()) ||
-                $0.record.journalName.lowercased().contains(SearchString.lowercased()) ||
-                String($0.record.year).lowercased().contains(SearchString.lowercased())
+    func fetchRecordsSearch(searchString: String){
+        if(searchString != ""){
+            searchRecordViewModels = recordViewModels.filter{ $0.record.title.lowercased().contains(searchString.lowercased()) ||
+                $0.record.authors.lowercased().contains(searchString.lowercased()) ||
+                $0.record.journalName.lowercased().contains(searchString.lowercased()) ||
+                String($0.record.year).lowercased().contains(searchString.lowercased())
             }
         }
         else{

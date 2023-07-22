@@ -21,25 +21,49 @@ struct ReportView: View {
         ZStack{
             VStack{
                 ZStack{
-                    if(reportViewModel.reports.count > 0){
+                    if(reportViewModel.reports.count > 0 && ((isSearching && reportViewModel.searchReports.count > 0) || !isSearching)){
                         List{
-                            ForEach(reportViewModel.reports) { report in
-                                ReportDescriptionView(report: report, userNameReport: reportViewModel.getUserNameReport(report))
-                                    .environmentObject(reportViewModel)
-                                    .contentShape(Rectangle())
-                                    .onTapGesture {
-                                        reportViewModel.idRecordsToRecords(report.idRecords, titleReport: report.nameCreatedReport, creatorReport: report.authorCreatedReport)
-                                        showPdfReportWindow = true
+                            if(isSearching == false){
+                                ForEach(reportViewModel.reports) { report in
+                                    ReportDescriptionView(report: report, userNameReport: reportViewModel.getUserNameReport(report))
+                                        .environmentObject(reportViewModel)
+                                        .contentShape(Rectangle())
+                                        .onTapGesture {
+                                            reportViewModel.idRecordsToRecords(report.idRecords, titleReport: report.nameCreatedReport, creatorReport: report.authorCreatedReport)
+                                            showPdfReportWindow = true
+                                        }
+                                }
+                                .onDelete{ indexSet in
+                                    let role = reportViewModel.getСurrentUserInformation().role
+                                    for index in indexSet{
+                                        if(role == "admin" || role == "editor"){
+                                            reportViewModel.removeReport(index)
+                                        }
+                                        else{
+                                            showAlertDelete.toggle()
+                                        }
                                     }
+                                }
                             }
-                            .onDelete{ indexSet in
-                                let role = reportViewModel.getСurrentUserInformation().role
-                                for index in indexSet{
-                                    if(role == "admin" || role == "editor"){
-                                        reportViewModel.removeReport(index)
-                                    }
-                                    else{
-                                        showAlertDelete.toggle()
+                            else{
+                                ForEach(reportViewModel.searchReports) { report in
+                                    ReportDescriptionView(report: report, userNameReport: reportViewModel.getUserNameReport(report))
+                                        .environmentObject(reportViewModel)
+                                        .contentShape(Rectangle())
+                                        .onTapGesture {
+                                            reportViewModel.idRecordsToRecords(report.idRecords, titleReport: report.nameCreatedReport, creatorReport: report.authorCreatedReport)
+                                            showPdfReportWindow = true
+                                        }
+                                }
+                                .onDelete{ indexSet in
+                                    let role = reportViewModel.getСurrentUserInformation().role
+                                    for index in indexSet{
+                                        if(role == "admin" || role == "editor"){
+                                            reportViewModel.removeReport(index)
+                                        }
+                                        else{
+                                            showAlertDelete.toggle()
+                                        }
                                     }
                                 }
                             }
