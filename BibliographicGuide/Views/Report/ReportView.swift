@@ -13,6 +13,7 @@ struct ReportView: View {
     
     @State private var showCreateReportWindow = false
     @State private var showPdfReportWindow = false
+    @State private var showTextReportWindow = false
     @State private var showAlertDelete = false
     
     @State var isSearching = false
@@ -30,7 +31,12 @@ struct ReportView: View {
                                         .contentShape(Rectangle())
                                         .onTapGesture {
                                             reportViewModel.idRecordsToRecords(report.idRecords, titleReport: report.nameCreatedReport, creatorReport: report.authorCreatedReport)
-                                            showPdfReportWindow = true
+                                            if(report.typeReport == "pdf"){
+                                                showPdfReportWindow = true
+                                            }
+                                            else{
+                                                showTextReportWindow = true
+                                            }
                                         }
                                 }
                                 .onDelete{ indexSet in
@@ -52,7 +58,12 @@ struct ReportView: View {
                                         .contentShape(Rectangle())
                                         .onTapGesture {
                                             reportViewModel.idRecordsToRecords(report.idRecords, titleReport: report.nameCreatedReport, creatorReport: report.authorCreatedReport)
-                                            showPdfReportWindow = true
+                                            if(report.typeReport == "pdf"){
+                                                showPdfReportWindow = true
+                                            }
+                                            else{
+                                                showTextReportWindow = true
+                                            }
                                         }
                                 }
                                 .onDelete{ indexSet in
@@ -120,6 +131,10 @@ struct ReportView: View {
         }
         .sheet(isPresented: self.$showPdfReportWindow) {
             PdfPreviewView(recordsIncludedReport: reportViewModel.recordsInReport, newTitleReport: reportViewModel.titleReport, newCreatorReport: reportViewModel.creatorReport)
+                .environmentObject(reportViewModel)
+        }
+        .sheet(isPresented: self.$showTextReportWindow) {
+            TextPreviewView(recordsIncludedReport: reportViewModel.recordsInReport, listJournal: true)
                 .environmentObject(reportViewModel)
         }
         .background(Color(red: 0.949, green: 0.949, blue: 0.971))
