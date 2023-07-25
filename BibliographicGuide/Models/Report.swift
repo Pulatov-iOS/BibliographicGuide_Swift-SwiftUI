@@ -16,6 +16,7 @@ struct Report: Identifiable, Codable, Equatable {
     var idRecords: [String]
     @ServerTimestamp
     var date: Date?
+    var listJournal: Bool
     var nameCreatedReport: String
     var authorCreatedReport: String
     

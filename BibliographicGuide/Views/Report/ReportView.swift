@@ -35,6 +35,7 @@ struct ReportView: View {
                                                 showPdfReportWindow = true
                                             }
                                             else{
+                                                reportViewModel.listJournal = report.listJournal
                                                 showTextReportWindow = true
                                             }
                                         }
@@ -62,6 +63,7 @@ struct ReportView: View {
                                                 showPdfReportWindow = true
                                             }
                                             else{
+                                                reportViewModel.listJournal = report.listJournal
                                                 showTextReportWindow = true
                                             }
                                         }
@@ -134,7 +136,7 @@ struct ReportView: View {
                 .environmentObject(reportViewModel)
         }
         .sheet(isPresented: self.$showTextReportWindow) {
-            TextPreviewView(recordsIncludedReport: reportViewModel.recordsInReport, listJournal: true)
+            TextPreviewView(recordsIncludedReport: reportViewModel.recordsInReport, listJournal: reportViewModel.listJournal)
                 .environmentObject(reportViewModel)
         }
         .background(Color(red: 0.949, green: 0.949, blue: 0.971))

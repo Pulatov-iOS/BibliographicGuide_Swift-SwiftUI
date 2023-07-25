@@ -272,7 +272,7 @@ struct CreateReportView: View {
                                                 showTextReportWindow.toggle()
                                             }
                                             if(saveReport){
-                                                reportViewModel.addReport(titleSaveReport: newTitleSaveReport, typeReport: typeReport.id.rawValue, nameCreatedReport: newTitleReport, authorCreatedReport: newCreatorReport)
+                                                reportViewModel.addReport(titleSaveReport: newTitleSaveReport, typeReport: typeReport.id.rawValue, listJournal: listJournal, nameCreatedReport: newTitleReport, authorCreatedReport: newCreatorReport)
                                             }
                                         }
                                         else{

@@ -19,6 +19,7 @@ final class ReportViewModel: ObservableObject {
     @Published var recordsInReport: [Record] = []
     @Published var titleReport = ""
     @Published var creatorReport = ""
+    @Published var listJournal = false
     var reportText = ""
     
     @Published var reportRepository = globalReportRepository
@@ -50,9 +51,9 @@ final class ReportViewModel: ObservableObject {
         }
     }
     
-    func addReport(titleSaveReport: String, typeReport: String, nameCreatedReport: String, authorCreatedReport: String){
+    func addReport(titleSaveReport: String, typeReport: String, listJournal: Bool, nameCreatedReport: String, authorCreatedReport: String){
         let idRecords = recordsToIdRecords()
-        let newReport = Report(idUser: userId, titleSaveReport: titleSaveReport, typeReport: typeReport, idRecords: idRecords, date: nil, nameCreatedReport: nameCreatedReport, authorCreatedReport: authorCreatedReport)
+        let newReport = Report(idUser: userId, titleSaveReport: titleSaveReport, typeReport: typeReport, idRecords: idRecords, date: nil, listJournal: listJournal, nameCreatedReport: nameCreatedReport, authorCreatedReport: authorCreatedReport)
         globalReportRepository.addReport(newReport)
     }
     
