@@ -31,6 +31,7 @@ struct SecondPageEditingRecordView: View {
     @State private var defaultImageRecord = false
     @State private var imageUrl = URL(string: "")
     @State private var selectedNewImageRecord = false
+    @State private var loadingImage = false
     
     @State private var showImagePicker = false
     @State private var showKeywordsWindow = false
@@ -83,28 +84,34 @@ struct SecondPageEditingRecordView: View {
                                                         }
                                                 }
                                                 else{
-                                                    WebImage(url: imageUrl)
-                                                        .resizable()
-                                                        .cornerRadius(50)
-                                                        .frame(width: 60, height: 60)
-                                                        .background(Color.white)
-                                                        .aspectRatio(contentMode: .fill)
-                                                        .clipShape(Circle())
-                                                        .onTapGesture {
-                                                            showImagePicker = true
-                                                        }
+                                                    ZStack{
+                                                        WebImage(url: imageUrl)
+                                                            .resizable()
+                                                            .cornerRadius(50)
+                                                            .frame(width: 60, height: 60)
+                                                            .background(Color.white)
+                                                            .aspectRatio(contentMode: .fill)
+                                                            .clipShape(Circle())
+                                                            .onTapGesture {
+                                                                showImagePicker = true
+                                                            }
+                                                        LoaderView(tintColor: .gray, scaleSize: 1.0).hidden(loadingImage)
+                                                    }
                                                 }
                                             }
                                             .onAppear{
-                                                recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
-                                                    if !verified  {
-                                                        defaultImageRecord = true
-                                                        imageUrl = status
+                                                if(recordViewModel.record.updatingImage != 0){
+                                                    recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
+                                                        if verified  {
+                                                            defaultImageRecord = false
+                                                            imageUrl = status
+                                                            loadingImage = true
+                                                        }
                                                     }
-                                                    else{
-                                                        defaultImageRecord = false
-                                                        imageUrl = status
-                                                    }
+                                                }
+                                                else{
+                                                    defaultImageRecord = true
+                                                    loadingImage = true
                                                 }
                                             }
                                             .onChange(of: imageRecord){ Value in

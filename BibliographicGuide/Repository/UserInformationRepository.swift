@@ -181,7 +181,7 @@ final class UserInformationRepository: ObservableObject {
             updateImage = userInformation.updatingImage + 1
         }
         else{
-            updateImage = 0
+            updateImage = 1
         }
         db.collection(pathUserInformation).document(userInformation.id ?? "").updateData([
             "updatingImage": updateImage
@@ -204,7 +204,7 @@ final class UserInformationRepository: ObservableObject {
         }
     }
     
-    func addImageAccount(idImageAccount: String, imageAccount: Data, completion: @escaping (Bool, String)->Void) {
+    func addImageAccount(userInformation: UserInformation, idImageAccount: String, imageAccount: Data, completion: @escaping (Bool, String)->Void) {
         let referenceSorage = storage.reference() // Создаем ссылку на хранилище
         let pathRef = referenceSorage.child(pathImageAccount) // Создаем дочернюю ссылку
     
@@ -217,6 +217,7 @@ final class UserInformationRepository: ObservableObject {
                 completion(false, "Ошибка")
                 return
             }
+            self.updateImageAccount(userInformation)
             completion(true, "Успешно")
         }
     }

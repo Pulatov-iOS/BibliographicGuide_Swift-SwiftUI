@@ -74,7 +74,7 @@ final class UserInformationListViewModel: ObservableObject {
         }
         else{
             if(newUserName == "" && newImageAccount == true){
-                self.userInformationRepository.addImageAccount(idImageAccount: self.userId, imageAccount: imageAccount){ (verified, status) in
+                self.userInformationRepository.addImageAccount(userInformation: getСurrentUserInformation(), idImageAccount: self.userId, imageAccount: imageAccount){ (verified, status) in
                     if !verified {
                         completion(false, "Ошибка при запросе обновления изображения пользователя.")
                     }
@@ -96,7 +96,7 @@ final class UserInformationListViewModel: ObservableObject {
                         }
                         else{
                             if(newImageAccount){
-                                self.userInformationRepository.addImageAccount(idImageAccount: self.userId, imageAccount: imageAccount){ (verified, status) in
+                                self.userInformationRepository.addImageAccount(userInformation: self.getСurrentUserInformation(), idImageAccount: self.userId, imageAccount: imageAccount){ (verified, status) in
                                     if !verified {
                                         completion(false, "Ошибка при запросе обновления изображения пользователя.")
                                     }

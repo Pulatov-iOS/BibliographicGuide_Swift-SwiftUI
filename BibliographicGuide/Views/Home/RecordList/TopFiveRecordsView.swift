@@ -17,6 +17,7 @@ struct TopFiveRecordsView: View {
     @State private var imageUrl = URL(string: "")
     
     @State var isImageTitle = true
+    @State var loadingImage = false
     @State var imageDefaultTitle = UIImage(named: "default-square")
     
     var body: some View {
@@ -24,13 +25,16 @@ struct TopFiveRecordsView: View {
             VStack(alignment: .leading){
                 ZStack(alignment: .bottom) {
                     VStack{
-                        if(isImageTitle){
-                            WebImage(url: imageUrl)
-                                .resizable()
-                        }
-                        else{
-                            Image(uiImage: self.imageDefaultTitle ?? UIImage())
-                                .resizable()
+                        ZStack{
+                            if(isImageTitle){
+                                WebImage(url: imageUrl)
+                                    .resizable()
+                            }
+                            else{
+                                Image(uiImage: self.imageDefaultTitle ?? UIImage())
+                                    .resizable()
+                            }
+                            LoaderView(tintColor: .gray, scaleSize: 1.5).hidden(loadingImage)
                         }
                     }
                     .frame(width: 190, height:  150)
@@ -38,12 +42,16 @@ struct TopFiveRecordsView: View {
                     .onAppear{
                         recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
                             if !verified  {
-                                isImageTitle = false
-                                imageUrl = status
+                                if(!(recordViewModel.record.updatingImage > 0)){
+                                    isImageTitle = false
+                                    imageUrl = status
+                                    loadingImage = true
+                                }
                             }
                             else{
                                 isImageTitle = true
                                 imageUrl = status
+                                loadingImage = true
                             }
                         }
                     }

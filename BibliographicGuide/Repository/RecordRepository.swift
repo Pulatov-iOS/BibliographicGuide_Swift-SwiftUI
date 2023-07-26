@@ -169,7 +169,7 @@ final class RecordRepository: ObservableObject {
             updateImage = record.updatingImage + 1
         }
         else{
-            updateImage = 0
+            updateImage = 1
         }
         db.collection(pathRecords).document(idRecord).updateData([
             "updatingImage": updateImage

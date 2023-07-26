@@ -23,19 +23,23 @@ struct RecordView: View {
     @State private var imageUrl = URL(string: "")
     
     @State var isImageTitle = true
+    @State var loadingImage = false
     @State var imageDefaultTitle = UIImage(named: "default")
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             ZStack(alignment: .bottom) {
                 VStack{
-                    if(isImageTitle){
-                        WebImage(url: imageUrl)
-                            .resizable()
-                    }
-                    else{
-                        Image(uiImage: self.imageDefaultTitle ?? UIImage())
-                            .resizable()
+                    ZStack{
+                        if(isImageTitle){
+                            WebImage(url: imageUrl)
+                                .resizable()
+                        }
+                        else{
+                            Image(uiImage: self.imageDefaultTitle ?? UIImage())
+                                .resizable()
+                        }
+                        LoaderView(tintColor: .gray, scaleSize: 2.0).hidden(loadingImage)
                     }
                 }
                 .frame(height: UIScreen.screenWidth * 0.53)
@@ -43,11 +47,15 @@ struct RecordView: View {
                 .onAppear{
                     recordListViewModel.getImageUrl(pathImage: "ImageTitle", idImage: recordViewModel.record.id ?? ""){ (verified, status) in
                         if !verified  {
-                            isImageTitle = false
+                            if(!(recordViewModel.record.updatingImage > 0)){
+                                isImageTitle = false
+                                loadingImage = true
+                            }
                         }
                         else{
                             isImageTitle = true
                             imageUrl = status
+                            loadingImage = true
                         }
                     }
                 }

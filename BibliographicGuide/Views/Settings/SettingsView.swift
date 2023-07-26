@@ -45,6 +45,7 @@ struct SettingsView: View {
     @State private var defaultImageAccount = false
     @State private var imageUrl = URL(string: "")
     @State private var showImagePicker = false
+    @State private var loadingImage = false
     
     @State private var alertTitle = ""
     @State private var alertMessage = ""
@@ -142,28 +143,34 @@ struct SettingsView: View {
                                             }
                                     }
                                     else{
-                                        WebImage(url: imageUrl)
-                                            .resizable()
-                                            .cornerRadius(50)
-                                            .frame(width: 60, height: 60)
-                                            .background(Color.white)
-                                            .aspectRatio(contentMode: .fill)
-                                            .clipShape(Circle())
-                                            .onTapGesture {
-                                                showImagePicker = true
-                                            }
+                                        ZStack{
+                                            WebImage(url: imageUrl)
+                                                .resizable()
+                                                .cornerRadius(50)
+                                                .frame(width: 60, height: 60)
+                                                .background(Color.white)
+                                                .aspectRatio(contentMode: .fill)
+                                                .clipShape(Circle())
+                                                .onTapGesture {
+                                                    showImagePicker = true
+                                                }
+                                            LoaderView(tintColor: .gray, scaleSize: 1.0).hidden(loadingImage)
+                                        }
                                     }
                                 }
                                 .onAppear{
-                                    userInformationListViewModel.getImageUrl(pathImage: "ImageAccount"){ (verified, status) in
-                                        if !verified  {
-                                            defaultImageAccount = true
-                                            imageUrl = status
+                                    if(userInformationListViewModel.getСurrentUserInformation().updatingImage != 0){
+                                        userInformationListViewModel.getImageUrl(pathImage: "ImageAccount"){ (verified, status) in
+                                            if verified  {
+                                                defaultImageAccount = false
+                                                imageUrl = status
+                                                loadingImage = true
+                                            }
                                         }
-                                        else{
-                                            defaultImageAccount = false
-                                            imageUrl = status
-                                        }
+                                    }
+                                    else{
+                                        defaultImageAccount = true
+                                        loadingImage = true
                                     }
                                 }
                                 .onChange(of: imageAccount){ Value in

@@ -61,6 +61,9 @@ final class CreateRecordViewModel: ObservableObject {
     func addRecord(_ record: Record, imageTitle: Data, isImageTitle: Bool, completion: @escaping (Bool, String)->Void){
         var newRecord = record
         newRecord.idUser = userId
+        if(isImageTitle){
+            newRecord.updatingImage = 1
+        }
         recordRepository.addRecord(record: newRecord, imageTitle: imageTitle, isImageTitle: isImageTitle){ (verified, status) in
             if !verified {
                 completion(false, "Ошибка при запросе создания записи.")
