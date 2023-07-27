@@ -181,12 +181,34 @@ struct IncomingMessageView: View {
                             HStack{
                                 ZStack{
                                     HStack{
-                                        Text(messageViewModel.message.text)
-                                            .foregroundColor(.black)
-                                            .font(.system(size: 16))
-                                            .padding([.leading, .trailing], 8)
-                                            .padding(.bottom, 6)
-                                            .lineLimit(nil)
+                                        if(messageViewModel.message.countImages > 0 || messageViewModel.message.replyIdMessage != ""){
+                                            if(messageViewModel.message.replyIdMessage != ""){
+                                                Text(messageViewModel.message.text)
+                                                    .foregroundColor(.black)
+                                                    .font(.system(size: 16))
+                                                    .padding([.leading, .trailing], 8)
+                                                    .padding(.top, 5)
+                                                    .padding(.bottom, 6)
+                                                    .lineLimit(nil)
+                                            }
+                                            else{
+                                                Text(messageViewModel.message.text)
+                                                    .foregroundColor(.black)
+                                                    .font(.system(size: 16))
+                                                    .padding([.top, .leading, .trailing], 8)
+                                                    .padding(.bottom, 6)
+                                                    .lineLimit(nil)
+                                            }
+                                        }
+                                        else{
+                                            Text(messageViewModel.message.text)
+                                                .foregroundColor(.black)
+                                                .font(.system(size: 16))
+                                                .padding([.leading, .trailing], 8)
+                                                .padding(.top, 2)
+                                                .padding(.bottom, 6)
+                                                .lineLimit(nil)
+                                        }
                                         Spacer()
                                     }
                                     HStack{
@@ -207,12 +229,34 @@ struct IncomingMessageView: View {
                             }
                         }
                         else{
-                            Text(messageViewModel.message.text)
-                                .foregroundColor(.black)
-                                .font(.system(size: 16))
-                                .padding([.leading, .trailing], 8)
-                                .padding(.bottom, 1)
-                                .lineLimit(nil)
+                            if(messageViewModel.message.countImages > 0 || messageViewModel.message.replyIdMessage != ""){
+                                if(messageViewModel.message.replyIdMessage != ""){
+                                    Text(messageViewModel.message.text)
+                                        .foregroundColor(.black)
+                                        .font(.system(size: 16))
+                                        .padding([.leading, .trailing], 8)
+                                        .padding(.top, 5)
+                                        .padding(.bottom, 1)
+                                        .lineLimit(nil)
+                                }
+                                else{
+                                    Text(messageViewModel.message.text)
+                                        .foregroundColor(.black)
+                                        .font(.system(size: 16))
+                                        .padding([.top, .leading, .trailing], 8)
+                                        .padding(.bottom, 1)
+                                        .lineLimit(nil)
+                                }
+                            }
+                            else{
+                                Text(messageViewModel.message.text)
+                                    .foregroundColor(.black)
+                                    .font(.system(size: 16))
+                                    .padding([.leading, .trailing], 8)
+                                    .padding(.top, 2)
+                                    .padding(.bottom, 1)
+                                    .lineLimit(nil)
+                            }
                             HStack{
                                 if(messageViewModel.message.editing == true){
                                     Text("ред.")
