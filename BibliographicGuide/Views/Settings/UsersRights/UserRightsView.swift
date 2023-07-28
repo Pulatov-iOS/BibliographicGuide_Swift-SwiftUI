@@ -146,6 +146,18 @@ struct UserRightsView: View {
                             HStack{
                                 VStack(spacing: 8){
                                     HStack{
+                                        Text("Изображение профиля:")
+                                        Spacer()
+                                        Button("Удалить"){
+                                            
+                                        }
+                                        .foregroundColor(.red)
+                                    }
+                                }
+                            }
+                            HStack{
+                                VStack(spacing: 8){
+                                    HStack{
                                         Text("Новое имя пользователя:")
                                         Spacer()
                                     }
@@ -154,7 +166,7 @@ struct UserRightsView: View {
                             }
                         }
                         .scrollDisabled(true)
-                        .frame(height: 375)
+                        .frame(height: 420)
                         .padding(.top, 40)
                         
                         VStack{

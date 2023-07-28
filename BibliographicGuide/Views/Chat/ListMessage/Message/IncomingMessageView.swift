@@ -182,7 +182,7 @@ struct IncomingMessageView: View {
                                 ZStack{
                                     HStack{
                                         if(messageViewModel.message.countImages > 0 || messageViewModel.message.replyIdMessage != ""){
-                                            if(messageViewModel.message.replyIdMessage != ""){
+                                            if(messageViewModel.message.replyIdMessage != "" && messageViewModel.message.countImages == 0){
                                                 Text(messageViewModel.message.text)
                                                     .foregroundColor(.black)
                                                     .font(.system(size: 16))
@@ -230,7 +230,7 @@ struct IncomingMessageView: View {
                         }
                         else{
                             if(messageViewModel.message.countImages > 0 || messageViewModel.message.replyIdMessage != ""){
-                                if(messageViewModel.message.replyIdMessage != ""){
+                                if(messageViewModel.message.replyIdMessage != "" && messageViewModel.message.countImages == 0){
                                     Text(messageViewModel.message.text)
                                         .foregroundColor(.black)
                                         .font(.system(size: 16))
