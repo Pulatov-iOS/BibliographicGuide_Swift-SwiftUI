@@ -196,6 +196,17 @@ final class UserInformationListViewModel: ObservableObject {
         }
     }
     
+    func getImageUrlIdUser(idUser: String, pathImage: String, completion: @escaping (Bool, URL)->Void) {
+        userInformationRepository.getImageUrl(pathImage: pathImage, idImage: idUser){ (verified, status) in
+            if !verified  {
+                completion(false, URL(string: "https://firebase.google.com/")!)
+            }
+            else{
+                completion(true, status)
+            }
+        }
+    }
+    
     func fetchKeywordsSearch(SearchString: String){
         if(SearchString != ""){
             searchKeywords = keywords.filter{

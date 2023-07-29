@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 enum userRole: String, CaseIterable, Identifiable {
     case reader
@@ -41,6 +42,11 @@ struct UserRightsView: View {
     @State private var newReasonBlockingAccount = ""
     @State private var userName = ""
     @State private var newUserName = ""
+    
+    @State private var imageAccount = UIImage()
+    @State private var defaultImageAccount = false
+    @State private var imageUrl = URL(string: "")
+    @State private var loadingImage = false
     
     @State private var showAlertUpdateUserInformation = false
     @State private var alertTextUpdateUserInformationTitle = ""
@@ -146,12 +152,64 @@ struct UserRightsView: View {
                             HStack{
                                 VStack(spacing: 8){
                                     HStack{
-                                        Text("Изображение профиля:")
-                                        Spacer()
-                                        Button("Удалить"){
-                                            
+                                        VStack{
+                                            Text("Изображение профиля:")
+                                                .padding(.bottom, 10)
+                                            Button("Удалить"){
+                                                
+                                            }
+                                            .foregroundColor(.red)
                                         }
-                                        .foregroundColor(.red)
+                                        Spacer()
+                                        HStack{
+                                            if(defaultImageAccount == true){
+                                                Image(uiImage: self.imageAccount)
+                                                    .resizable()
+                                                    .cornerRadius(50)
+                                                    .frame(width: 60, height: 60)
+                                                    .background(Color.black.opacity(0.2))
+                                                    .aspectRatio(contentMode: .fill)
+                                                    .clipShape(Circle())
+                                            }
+                                            else{
+                                                ZStack{
+                                                    WebImage(url: imageUrl)
+                                                        .resizable()
+                                                        .cornerRadius(50)
+                                                        .frame(width: 60, height: 60)
+                                                        .background(Color.white)
+                                                        .aspectRatio(contentMode: .fill)
+                                                        .clipShape(Circle())
+                                                    LoaderView(tintColor: .gray, scaleSize: 1.0).hidden(loadingImage)
+                                                }
+                                            }
+                                        }
+                                        .onAppear{
+                                            if(selectedUser.updatingImage != 0){
+                                                userInformationListViewModel.getImageUrlIdUser(idUser: selectedUser.id ?? "", pathImage: "ImageAccount"){ (verified, status) in
+                                                    if verified  {
+                                                        defaultImageAccount = false
+                                                        imageUrl = status
+                                                        loadingImage = true
+                                                    }
+                                                }
+                                            }
+                                            else{
+                                                defaultImageAccount = true
+                                                loadingImage = true
+                                            }
+                                        }
+                                        .onChange(of: selectedUser.updatingImage){ Value in
+                                            userInformationListViewModel.getImageUrlIdUser(idUser: selectedUser.id ?? "", pathImage: "ImageAccount"){ (verified, status) in
+                                                if verified  {
+                                                    defaultImageAccount = false
+                                                    imageUrl = status
+                                                }
+                                            }
+                                        }
+                                    }
+                                    .onAppear(){
+                                        imageAccount = UIImage(named: "default-square") ?? UIImage()
                                     }
                                 }
                             }
@@ -166,7 +224,7 @@ struct UserRightsView: View {
                             }
                         }
                         .scrollDisabled(true)
-                        .frame(height: 420)
+                        .frame(height: 460)
                         .padding(.top, 40)
                         
                         VStack{
