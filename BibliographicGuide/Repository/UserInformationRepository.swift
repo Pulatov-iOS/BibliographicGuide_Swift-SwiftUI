@@ -192,6 +192,16 @@ final class UserInformationRepository: ObservableObject {
         }
     }
     
+    func updateRemoveImageAccount(_ idUser: String){
+        db.collection(pathUserInformation).document(idUser).updateData([
+            "updatingImage": 0
+        ]) { error in
+            if error != nil {
+                print("Error")
+            }
+        }
+    }
+    
     func updateLanguage(idUser: String, language: String, completion: @escaping (Bool, String)->Void) {
         db.collection(pathUserInformation).document(idUser).updateData([
             "language": language,
@@ -219,6 +229,21 @@ final class UserInformationRepository: ObservableObject {
             }
             self.updateImageAccount(userInformation)
             completion(true, "Успешно")
+        }
+    }
+    
+    func removeImageAccount(_ idImageAccount: String, completion: @escaping (Bool)->Void) {
+        let referenceStorage = storage.reference()
+        let pathRef = referenceStorage.child(pathImageAccount + "/\(idImageAccount)")
+
+        pathRef.delete { error in
+            if error != nil {
+                completion(false)
+            }
+            else{
+                self.updateRemoveImageAccount(idImageAccount)
+                completion(true)
+            }
         }
     }
     

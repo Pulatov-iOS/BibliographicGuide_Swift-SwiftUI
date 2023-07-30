@@ -47,6 +47,7 @@ struct UserRightsView: View {
     @State private var defaultImageAccount = false
     @State private var imageUrl = URL(string: "")
     @State private var loadingImage = false
+    @State private var showAlertRemoveImage = false
     
     @State private var showAlertUpdateUserInformation = false
     @State private var alertTextUpdateUserInformationTitle = ""
@@ -154,11 +155,37 @@ struct UserRightsView: View {
                                     HStack{
                                         VStack{
                                             Text("Изображение профиля:")
-                                                .padding(.bottom, 10)
-                                            Button("Удалить"){
-                                                
-                                            }
+                                                .padding(.bottom, 6)
+                                            Text("Удалить")
+                                                .onTapGesture {
+                                                    showAlertRemoveImage.toggle()
+                                                }
                                             .foregroundColor(.red)
+                                            .alert(isPresented: $showAlertRemoveImage){
+                                                Alert(title: Text("Подтверждение!"), message: Text("Вы точно желаете удалить текущее изображение профиля пользователя?"), primaryButton: .default(Text("Отмена"), action: {
+                                                    // Ничего не делаем
+                                                }), secondaryButton: .default(Text("Удалить"), action: {
+                                                    if(selectedUser.updatingImage != 0){
+                                                        userInformationListViewModel.removeImageAccount(idImageAccount: selectedUser.id ?? ""){ status in
+                                                            if !status{
+                                                                alertTextUpdateUserInformationTitle = "Ошибка!"
+                                                                alertTextUpdateUserInformationMessage = "Проверьте подключение к сети и повторите попытку"
+                                                                showAlertUpdateUserInformation.toggle()
+                                                            }
+                                                            else{
+                                                                alertTextUpdateUserInformationTitle = "Успешно!"
+                                                                alertTextUpdateUserInformationMessage = "Изображение профиля пользователя успешно удалено."
+                                                                showAlertUpdateUserInformation.toggle()
+                                                            }
+                                                        }
+                                                    }
+                                                    else{
+                                                        alertTextUpdateUserInformationTitle = "Отсутствует!"
+                                                        alertTextUpdateUserInformationMessage = "У данного пользователя отсутствует изображение профиля."
+                                                        showAlertUpdateUserInformation.toggle()
+                                                    }
+                                                }))
+                                            }
                                         }
                                         Spacer()
                                         HStack{
@@ -200,11 +227,16 @@ struct UserRightsView: View {
                                             }
                                         }
                                         .onChange(of: selectedUser.updatingImage){ Value in
-                                            userInformationListViewModel.getImageUrlIdUser(idUser: selectedUser.id ?? "", pathImage: "ImageAccount"){ (verified, status) in
-                                                if verified  {
-                                                    defaultImageAccount = false
-                                                    imageUrl = status
+                                            if(Value != 0){
+                                                userInformationListViewModel.getImageUrlIdUser(idUser: selectedUser.id ?? "", pathImage: "ImageAccount"){ (verified, status) in
+                                                    if verified  {
+                                                        defaultImageAccount = false
+                                                        imageUrl = status
+                                                    }
                                                 }
+                                            }
+                                            else{
+                                                defaultImageAccount = true
                                             }
                                         }
                                     }

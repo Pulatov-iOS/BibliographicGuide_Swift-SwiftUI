@@ -185,6 +185,17 @@ final class UserInformationListViewModel: ObservableObject {
         UserDefaults.standard.set(language, forKey: "language")
     }
     
+    func removeImageAccount(idImageAccount: String, completion: @escaping (Bool)->Void){
+        userInformationRepository.removeImageAccount(idImageAccount){ (status) in
+            if !status {
+                completion(false)
+            }
+            else{
+                completion(true)
+            }
+        }
+    }
+    
     func getImageUrl(pathImage: String, completion: @escaping (Bool, URL)->Void) {
         userInformationRepository.getImageUrl(pathImage: pathImage, idImage: self.userId){ (verified, status) in
             if !verified  {
