@@ -223,15 +223,15 @@ struct SettingsView: View {
                     Button("Сохранить"){
                         let imageData = newImageAccount.jpegData(compressionQuality: 0.1)
                         
-                        userInformationListViewModel.updateUserInformation(newUserName: userName, imageAccount: imageData ?? Data(), newImageAccount: selectedNewImageAccount){
+                        userInformationListViewModel.updateUserInformation(userName: userName, imageAccount: imageData ?? Data(), newImageAccount: selectedNewImageAccount){
                             (verified, status) in
                             if !verified {
-                                alertTitle = "Ошибка"
+                                alertTitle = "Ошибка!"
                                 alertMessage = status
                                 showAlertCreate.toggle()
                             }
                             else{
-                                alertTitle = "Успешно"
+                                alertTitle = "Успешно!"
                                 alertMessage = status
                                 showAlertCreate.toggle()
                             }

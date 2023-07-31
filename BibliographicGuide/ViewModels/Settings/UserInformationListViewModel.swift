@@ -68,7 +68,11 @@ final class UserInformationListViewModel: ObservableObject {
         return userId
     }
     
-    func updateUserInformation(newUserName: String, imageAccount: Data, newImageAccount: Bool, completion: @escaping (Bool, String)->Void) {
+    func updateUserInformation(userName: String, imageAccount: Data, newImageAccount: Bool, completion: @escaping (Bool, String)->Void) {
+        var newUserName = userName
+        if(getСurrentUserInformation().userName == newUserName){
+            newUserName = ""
+        }
         if(newUserName == "" && newImageAccount == false){
             completion(false, "Введите новое имя пользователя.")
         }
