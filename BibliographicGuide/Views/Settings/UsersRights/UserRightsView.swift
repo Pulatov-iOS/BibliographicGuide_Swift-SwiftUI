@@ -162,7 +162,7 @@ struct UserRightsView: View {
                                                 }
                                             .foregroundColor(.red)
                                             .alert(isPresented: $showAlertRemoveImage){
-                                                Alert(title: Text("Подтверждение!"), message: Text("Вы точно желаете удалить текущее изображение профиля пользователя?"), primaryButton: .default(Text("Отмена"), action: {
+                                                Alert(title: Text("Подтверждение!"), message: Text("Вы действительно желаете удалить текущее изображение профиля пользователя?"), primaryButton: .default(Text("Отмена"), action: {
                                                     // Ничего не делаем
                                                 }), secondaryButton: .default(Text("Удалить"), action: {
                                                     if(selectedUser.updatingImage != 0){
