@@ -19,11 +19,11 @@ struct RecordPageView: View {
     
     @State private var inclusionReportButton = false
     @State private var showAlertInclusionReport = false
-    @State private var alertTextEditingTitle: String = "Успешно"
+    @State private var alertTextEditingTitle: String = "Успешно!"
     @State private var alertTextEditingMessage: String = "Запись успешно добавлена в список отчета."
     
     @State private var showAlertDelete: Bool = false
-    @State private var showAlertDeleteTitle: String = "Удаление записи"
+    @State private var showAlertDeleteTitle: String = "Удаление записи!"
     @State private var showAlertDeleteMessage: String = "Вы действительно хотите удалить данную запись?"
     @State private var showAlertDeleteButton: String = "Да"
     
@@ -122,11 +122,11 @@ struct RecordPageView: View {
                             Button(action: {
                                 recordListViewModel.updateIncludedRecordInReport(record: recordViewModel.record, inclusionReport: !inclusionReportButton){ (verified, status) in
                                     if !verified  {
-                                        alertTextEditingTitle = "Ошибка"
+                                        alertTextEditingTitle = "Ошибка!"
                                         alertTextEditingMessage = "Запись не была добавлена в список отчета."
                                     }
                                     else{
-                                        alertTextEditingTitle = "Успешно"
+                                        alertTextEditingTitle = "Успешно!"
                                         alertTextEditingMessage = "Запись успешно добавлена в список отчета."
                                         if(inclusionReportButton == true){
                                             showAlertInclusionReport.toggle()
@@ -171,7 +171,7 @@ struct RecordPageView: View {
                         Button(action: {
                             let role = recordListViewModel.getСurrentUserInformation().role
                             if(role == "admin" || role == "editor"){
-                                showAlertDeleteTitle = "Удаление записи"
+                                showAlertDeleteTitle = "Удаление записи!"
                                 showAlertDeleteMessage = "Вы действительно хотите удалить данную запись?"
                                 showAlertDeleteButton = "Да"
                                 showAlertDelete.toggle()

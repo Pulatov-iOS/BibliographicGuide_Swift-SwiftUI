@@ -15,7 +15,7 @@ struct RecordView: View {
     
     @State private var inclusionReportButton = false
     @State private var showAlertInclusionReport = false
-    @State private var alertTextEditingTitle: String = "Успешно"
+    @State private var alertTextEditingTitle: String = "Успешно!"
     @State private var alertTextEditingMessage: String = "Запись успешно добавлена в список отчета."
     
     @State private var showRecordPage = false
@@ -107,11 +107,11 @@ struct RecordView: View {
                         Button(action: {
                             recordListViewModel.updateIncludedRecordInReport(record: recordViewModel.record, inclusionReport: !inclusionReportButton){ (verified, status) in
                                 if !verified  {
-                                    alertTextEditingTitle = "Ошибка"
+                                    alertTextEditingTitle = "Ошибка!"
                                     alertTextEditingMessage = "Запись не была добавлена в список отчета."
                                 }
                                 else{
-                                    alertTextEditingTitle = "Успешно"
+                                    alertTextEditingTitle = "Успешно!"
                                     alertTextEditingMessage = "Запись успешно добавлена в список отчета."
                                     if(inclusionReportButton == true){
                                         showAlertInclusionReport.toggle()
