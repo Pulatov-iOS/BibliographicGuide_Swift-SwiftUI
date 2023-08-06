@@ -224,11 +224,11 @@ final class UserInformationRepository: ObservableObject {
         pathRef.child(idImageAccount).putData(imageAccount, metadata: metadata){
             metadata, error in
             guard let metadata = metadata else{
-                completion(false, "Ошибка")
+                completion(false, "Ошибка!")
                 return
             }
             self.updateImageAccount(userInformation)
-            completion(true, "Успешно")
+            completion(true, "Успешно!")
         }
     }
     
