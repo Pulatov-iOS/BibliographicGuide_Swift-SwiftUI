@@ -57,7 +57,7 @@ final class AuthorizationViewModel: ObservableObject {
                                 completion(true, [status])
                             }
                             else{
-                                completion(false, ["Заблокирован", "Ваша учетная запись заблокирована.\nПричина: \(idMessage.reasonBlockingAccount)", ""])
+                                completion(false, ["Заблокирован!", "Ваша учетная запись заблокирована.\nПричина: \(idMessage.reasonBlockingAccount)", ""])
                             }
                         }
                     }

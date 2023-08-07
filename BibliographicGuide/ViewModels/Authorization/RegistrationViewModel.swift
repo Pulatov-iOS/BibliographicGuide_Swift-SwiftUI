@@ -46,7 +46,7 @@ final class RegistrationViewModel: ObservableObject {
                             // удалить пользователя если ошибка
                         }
                         else{
-                            completion(true, ["Успешно", ""])
+                            completion(true, ["Успешно!", ""])
                         }
                     }
                 }
