@@ -305,10 +305,10 @@ final class RecordListViewModel: ObservableObject {
         
         recordRepository.updateInclusionReport(idRecord: record.id ?? "", idUsersReporting: newRecord.idUsersReporting){ (verified, status) in
             if !verified  {
-                completion(false, "Ошибка при обновлении")
+                completion(false, "Ошибка при обновлении.")
             }
             else{
-                completion(true, "Обновлено успешно")
+                completion(true, "Обновлено успешно.")
             }
         }
     }
