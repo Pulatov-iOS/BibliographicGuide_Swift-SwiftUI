@@ -211,11 +211,6 @@ struct RecordListView: View {
         }
         .background(Color(red: 0.949, green: 0.949, blue: 0.971))
     }
-//    // свайп влево, удаление
-//    private func delete(at offsets: IndexSet) {
-//        offsets.map { recordListViewModel.recordViewModels[$0].record
-//        }.forEach(recordListViewModel.removeRecord)
-//    }
 }
 
 //struct RecordListView_Previews: PreviewProvider {
