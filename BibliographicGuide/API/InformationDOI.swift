@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class InformationDOI{
+final class InformationDOI {
     
     var title = ""
     var year = ""
