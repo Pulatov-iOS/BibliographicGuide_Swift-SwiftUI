@@ -7,7 +7,7 @@
 
 import PDFKit
 
-class PdfCreator : NSObject {
+final class PdfCreator : NSObject {
     
     var page = 0
     var recordsIncludedReport: [Record] = []
