@@ -213,8 +213,3 @@ struct RecordListView: View {
     }
 }
 
-//struct RecordListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RecordListView(recordListViewModel: RecordListViewModel())
-//    }
-//}
