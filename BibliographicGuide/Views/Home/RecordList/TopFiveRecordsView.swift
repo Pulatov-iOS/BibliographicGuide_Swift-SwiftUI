@@ -114,8 +114,3 @@ struct TopFiveRecordsView: View {
     }
 }
 
-//struct TopFiveRecordView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TopFiveRecordView()
-//    }
-//}
