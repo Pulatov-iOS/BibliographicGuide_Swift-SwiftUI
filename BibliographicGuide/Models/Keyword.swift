@@ -9,6 +9,7 @@ import FirebaseFirestoreSwift
 
 struct Keyword: Identifiable, Codable, Equatable {
     
+    // MARK: - Public properties
     @DocumentID var id: String?
     var name: String
     
