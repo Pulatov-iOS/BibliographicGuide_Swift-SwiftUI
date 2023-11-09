@@ -9,6 +9,7 @@ import FirebaseFirestoreSwift
 
 struct Report: Identifiable, Codable, Equatable {
     
+    // MARK: - Public properties
     @DocumentID var id: String?
     var idUser: String
     var titleSaveReport: String
