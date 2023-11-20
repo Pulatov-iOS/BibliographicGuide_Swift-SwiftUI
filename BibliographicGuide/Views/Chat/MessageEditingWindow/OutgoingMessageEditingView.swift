@@ -92,8 +92,3 @@ struct OutgoingMessageEditingView: View {
     }
 }
 
-//struct OutgoingMessageEditingWindow_Previews: PreviewProvider {
-//    static var previews: some View {
-//        OutgoingMessageEditingWindow()
-//    }
-//}
