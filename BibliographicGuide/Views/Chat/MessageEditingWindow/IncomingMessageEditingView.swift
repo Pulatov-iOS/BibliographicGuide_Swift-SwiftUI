@@ -110,9 +110,3 @@ struct IncomingMessageEditingView: View {
         }
     }
 }
-
-//struct IncomingMessageEditingWindow_Previews: PreviewProvider {
-//    static var previews: some View {
-//        IncomingMessageEditingWindow()
-//    }
-//}
