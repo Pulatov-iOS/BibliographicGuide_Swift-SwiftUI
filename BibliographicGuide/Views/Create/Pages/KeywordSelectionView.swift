@@ -53,9 +53,3 @@ struct KeywordSelectionView: View {
         .padding(.bottom, 2)
     }
 }
-
-//struct KeywordSelectionView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        KeywordSelectionView()
-//    }
-//}
