@@ -75,9 +75,3 @@ struct MessageReplyView: View {
         }
     }
 }
-
-//struct MessageReplyView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MessageReplyView()
-//    }
-//}
