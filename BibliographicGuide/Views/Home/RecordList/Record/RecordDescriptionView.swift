@@ -58,8 +58,3 @@ struct RecordDescriptionView: View {
     }
 }
 
-//struct RecordDescriptionView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RecordDescriptionView(recordDescriptionViewModel: RecordDescriptionViewModel(), record: Record(idUsers: [""], dateCreation: Date(),datesChange: [Date()], title: "", year: 1, keywords: "", authors: "", linkDoi: "", linkWebsite: "", journalName: "", journalNumber: "", pageNumbers: "", description: "", idPhotoTitle: "", idPhotoRecord: "", idPdfRecord: ""))
-//    }
-//}
