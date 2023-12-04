@@ -269,8 +269,3 @@ struct ImageModel: Identifiable, Hashable {
     let image: Image
 }
 
-//struct MessageListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MessageListView(messageListViewModel: MessageListViewModel())
-//    }
-//}
