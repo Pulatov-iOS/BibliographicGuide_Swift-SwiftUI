@@ -48,9 +48,3 @@ struct MessageChangeView: View {
         }.background(Color(white: 0.97))
     }
 }
-
-//struct MessageChangeView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MessageChangeView()
-//    }
-//}
