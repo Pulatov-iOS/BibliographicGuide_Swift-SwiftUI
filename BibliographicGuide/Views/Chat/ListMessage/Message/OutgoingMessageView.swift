@@ -261,12 +261,3 @@ func labelSizeTimeOutgoing(textWithTime: String) -> CGFloat { // CGSize
     let rect = attributedText.boundingRect(with: constraintBox, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil).integral
     return rect.size.width
 }
-
-
-
-
-//struct OutgoingMessageView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        OutgoingMessageView()
-//    }
-//}
