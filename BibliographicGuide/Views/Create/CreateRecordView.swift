@@ -48,8 +48,3 @@ struct CreateRecordView: View {
     }
 }
 
-//struct CreateRecordView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CreateRecordView()
-//    }
-//}
