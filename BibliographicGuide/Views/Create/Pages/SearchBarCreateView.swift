@@ -60,8 +60,3 @@ struct SearchBarCreateView: View {
     }
 }
 
-//struct SearchBarCreateView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SearchBarCreateView()
-//    }
-//}
