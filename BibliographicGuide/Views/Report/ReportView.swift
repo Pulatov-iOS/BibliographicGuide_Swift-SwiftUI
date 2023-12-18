@@ -142,9 +142,3 @@ struct ReportView: View {
         .background(Color(red: 0.949, green: 0.949, blue: 0.971))
     }
 }
-
-//struct ReportView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ReportView()
-//    }
-//}
