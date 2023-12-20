@@ -40,8 +40,3 @@ struct ReportDescriptionView: View {
     }
 }
 
-//struct ReportDescriptionView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ReportDescriptionView()
-//    }
-//}
