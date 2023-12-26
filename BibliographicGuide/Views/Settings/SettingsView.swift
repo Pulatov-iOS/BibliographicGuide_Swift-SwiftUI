@@ -293,8 +293,4 @@ func currentLanguage(_ language: String) -> language {
     }
 }
 
-//struct SettingsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SettingsView()
-//    }
-//}
+
