@@ -68,9 +68,3 @@ struct SearchBarUserRightsView: View {
         .padding(.trailing, 20)
     }
 }
-
-//struct SearchBarUserRightsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SearchBarUserRightsView()
-//    }
-//}
