@@ -112,9 +112,3 @@ struct UsersRightsView: View {
         }
     }
 }
-
-//struct UsersRightsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        UsersRightsView()
-//    }
-//}
