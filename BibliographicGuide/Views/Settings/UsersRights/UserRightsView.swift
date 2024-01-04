@@ -350,8 +350,3 @@ struct UserRightsView: View {
     }
 }
 
-//struct UserRightsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        UserRightsView()
-//    }
-//}
