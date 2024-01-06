@@ -69,9 +69,3 @@ struct SearchBarKeywordView: View {
         .padding(.trailing, 20)
     }
 }
-
-//struct SearchBarKeywordView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SearchBarKeywordView()
-//    }
-//}
