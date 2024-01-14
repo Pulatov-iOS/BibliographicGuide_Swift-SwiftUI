@@ -67,9 +67,3 @@ struct SearchBarLanguageView: View {
         .padding(.trailing, 20)
     }
 }
-
-//struct SearchBarLanguageView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SearchBarLanguageView()
-//    }
-//}
