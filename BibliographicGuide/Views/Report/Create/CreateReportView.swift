@@ -347,8 +347,4 @@ struct CreateReportView: View {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
-//struct CreateReportView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CreateReportView()
-//    }
-//}
+
