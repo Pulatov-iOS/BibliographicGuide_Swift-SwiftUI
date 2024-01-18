@@ -47,9 +47,3 @@ struct PdfPreviewView: View {
         }
     }
 }
-
-//struct PdfPreviewView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PdfPreviewView()
-//    }
-//}
