@@ -62,8 +62,3 @@ struct TextPreviewView: View {
     }
 }
 
-//struct TextPreviewView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TextPreviewView()
-//    }
-//}
