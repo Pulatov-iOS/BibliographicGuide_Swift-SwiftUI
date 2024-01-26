@@ -160,9 +160,3 @@ struct KeywordsView: View {
         .background(Color(red: 0.949, green: 0.949, blue: 0.971))
     }
 }
-
-//struct KeywordsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        KeywordsView()
-//    }
-//}
