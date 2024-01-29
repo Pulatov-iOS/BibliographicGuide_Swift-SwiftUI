@@ -93,9 +93,3 @@ func getArrayHorizontalKeywords(_ keywords: [Keyword],_ marginsWidth: CGFloat,_ 
     }
     return verticalHorizontalKeywords
 }
-
-//struct KeywordsSelectionSearchView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        KeywordsSelectionSearchView()
-//    }
-//}
