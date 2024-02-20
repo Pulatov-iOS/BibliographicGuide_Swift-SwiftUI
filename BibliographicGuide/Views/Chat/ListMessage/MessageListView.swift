@@ -74,7 +74,7 @@ struct MessageListView: View {
 //                                .padding(.bottom, 10)
 //                                .padding(.top, 35)
 //                            }
-                            ForEach(messageListViewModel.messageViewModels.reversed()) { messages in //.prefix(quantityMessages).reversed()
+                            ForEach(messageListViewModel.messageViewModels.reversed()) { messages in
                                 MessageView(messageListViewModel: messageListViewModel, messageViewModel: messages, userName: messageListViewModel.getUserName(messages.message), userNameResponseMessage: messageListViewModel.getUserNameResponseMessage(messages.message.replyIdMessage), textResponseMessage: messageListViewModel.getTextResponseMessage(messages.message.replyIdMessage), outgoingOrIncomingMessage: messageListViewModel.OutgoingOrIncomingMessage(messages.message), newMessageId: $newMessageId, selectedMessage: $selectedMessage, selectedImage: $selectedImage, openFullSizeImage: $openFullSizeImage, editingWindowShow: $editingWindowShow)
                             }
                         }
