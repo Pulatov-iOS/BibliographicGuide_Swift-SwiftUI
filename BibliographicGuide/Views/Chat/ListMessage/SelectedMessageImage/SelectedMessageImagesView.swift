@@ -32,10 +32,5 @@ struct SelectedMessageImagesView: View {
     }
 }
 
-//struct SelectedMessageImagesView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SelectedMessageImagesView()
-//    }
-//}
 
 
