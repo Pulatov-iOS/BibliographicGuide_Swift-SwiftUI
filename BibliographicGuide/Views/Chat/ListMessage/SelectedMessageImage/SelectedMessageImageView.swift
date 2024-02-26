@@ -46,10 +46,3 @@ struct SelectedMessageImageView: View {
         }
     }
 }
-
-//struct SelectedMessageImageView_Previews: PreviewProvider {
-//    static var previews: some View {
-//      SelectedMessageImageView()
-//    }
-//}
-
