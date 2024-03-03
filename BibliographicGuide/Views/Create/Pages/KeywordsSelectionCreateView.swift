@@ -36,9 +36,3 @@ struct KeywordsSelectionCreateView: View {
         }
     }
 }
-
-//struct KeywordsSelectionCreateView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        KeywordsSelectionCreateView()
-//    }
-//}
