@@ -256,8 +256,3 @@ struct SecondPageCreateRecordView: View {
     }
 }
 
-//struct SecondPageCreateRecord_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SecondPageCreateRecord()
-//    }
-//}
