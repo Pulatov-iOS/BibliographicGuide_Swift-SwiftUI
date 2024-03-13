@@ -17,7 +17,7 @@ final class RecordRepository: ObservableObject {
     private let pathRecords = "Records"
     private let pathImageTitle = "ImageTitle"
     private let db = Firestore.firestore()
-    private let storage = Storage.storage() // Получаем ссылку на службу хранения, используя приложение Firebase по умолчанию
+    private let storage = Storage.storage()
     @Published var records: [Record] = []
     @Published var topFiveRecords: [Record] = []
     private var selectedSortingRecords = "title"
