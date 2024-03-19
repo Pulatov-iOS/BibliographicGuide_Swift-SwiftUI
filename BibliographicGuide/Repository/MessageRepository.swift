@@ -17,7 +17,7 @@ final class MessageRepository: ObservableObject {
     private let pathMessages = "Messages"
     private let pathImageMessage = "ImageMessage"
     private let db = Firestore.firestore()
-    private let storage = Storage.storage() // Получаем ссылку на службу хранения, используя приложение Firebase по умолчанию
+    private let storage = Storage.storage()
     @Published var messages: [Message] = []
     
     private var linkFetchMessages: ListenerRegistration!
